@@ -7,6 +7,8 @@ title: 1er essai ...
 
 Ceci est un essai ...
 
+~~~ javascript
     function toto() {
         console.log('toto');
     }
+~~~
