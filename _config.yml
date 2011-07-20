@@ -1,5 +1,4 @@
 auto : true
-base-url : /
 url: "http://k33g.github.com/"
+markdown : rdiscount
 pygments: true
-markdown : kramdown
