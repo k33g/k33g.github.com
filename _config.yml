@@ -1,9 +1,6 @@
 url: "http://k33g.github.com/"
 pygments: true
 exclude: [/bin, Gemfile, Gemfile.lock]
-markdown: kramdown
 permalink: pretty
 paginate: 10
 
-kramdown:
-  entity_output: symbolic
