@@ -177,7 +177,7 @@ ul.posts {
   /* standard */
 
   #post pre {
-    font: Monaco;
+    /*font: Monaco;*/
     border: 1px solid #ddd;
     background-color: #eef;
     padding: 0 .4em;
@@ -189,10 +189,10 @@ ul.posts {
   }
 
   #post code {
-    font: Monaco;
+    /*font: Monaco;*/
     border: 1px solid #ddd;
     background-color: #eef;
-    font-size: 85%;
+    font-size: 100%;
     padding: 0 .2em;
   }
 
