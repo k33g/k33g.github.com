@@ -178,8 +178,9 @@ ul.posts {
 
   #post pre {
     /*font: Monaco;*/
-    border: 1px solid #ddd;
-    background-color: #eef;
+    /*border: 1px solid #ddd;
+    background-color: #eef;*/
+    border-left: 4px solid #BBB;
     padding: 0 .4em;
   }
 
@@ -190,8 +191,9 @@ ul.posts {
 
   #post code {
     font-family: Monaco, "Courier New", monospace;
-    border: 1px solid #ddd;
-    background-color: #eef;
+    /*border: 1px solid #ddd;
+    background-color: #eef;*/
+    border-left: 4px solid #BBB;
     font-size: 90%;
     padding: 0 .2em;
   }
