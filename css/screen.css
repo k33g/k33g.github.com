@@ -90,7 +90,7 @@ ul.posts {
 
   ul.posts span {
     color: #aaa;
-    font-family: Monaco, "Courier New", monospace;
+    font-family: Monaco, Consolas, "Lucida Console", monospace;
     font-size: 80%;
   }
 
