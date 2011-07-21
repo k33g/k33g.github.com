@@ -48,7 +48,7 @@ h6 {
 
 
 h1, h2, h3, h4, h5, h6 {
-  margin-top: 1em;
+  margin-bottom: 1em;
   margin-bottom: 1em;
 }
 
@@ -90,7 +90,7 @@ ul.posts {
 
   ul.posts span {
     color: #aaa;
-    font-family: Monaco, Consolas, "Lucida Console", monospace;
+    font-family: Monaco, "Courier New", monospace;
     font-size: 80%;
   }
 
