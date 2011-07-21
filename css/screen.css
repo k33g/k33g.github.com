@@ -189,10 +189,10 @@ ul.posts {
   }
 
   #post code {
-    /*font: Monaco;*/
+    font-family: Monaco, "Courier New", monospace;
     border: 1px solid #ddd;
     background-color: #eef;
-    font-size: 100%;
+    font-size: 95%;
     padding: 0 .2em;
   }
 
