@@ -184,6 +184,7 @@ ul.posts {
     background-color: #F8F8F8;
     /*border-left: 3px solid #BBB;*/
     padding: 0 .4em;
+      margin: 5px;
   }
 
   #post ul,
