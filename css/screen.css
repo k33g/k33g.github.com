@@ -191,6 +191,7 @@ ul.posts {
 
   #post code {
     font-family: Monaco, "Courier New", monospace;
+    color: #555;
     /*border: 1px solid #ddd;
     background-color: #eef;*/
     border-left: 4px solid #BBB;
