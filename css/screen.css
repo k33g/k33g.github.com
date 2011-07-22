@@ -189,6 +189,7 @@ ul.posts {
 
   #post ul,
   #post ol {
+    margin: 10px;
     margin-left: 1.35em;
   }
 
