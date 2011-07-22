@@ -16,10 +16,11 @@ html, body {
 }
 
 body {
-  background-color: white;
-  font: 13.34px verdana, arial, clean, sans-serif;
-  font-size: small;
-  text-align: center;
+    background-color: white;
+    font: 13.34px verdana, arial, clean, sans-serif;
+    color: #555;
+    font-size: small;
+    text-align: center;
 }
 
 h1 {
@@ -177,10 +178,10 @@ ul.posts {
   /* standard */
 
   #post pre {
-    /*font: Monaco;*/
-    /*border: 1px solid #ddd;
-    background-color: #eef;*/
-    border-left: 4px solid #BBB;
+    font-family: Monaco, "Courier New", monospace;
+    border: 1px solid #ddd;
+    background-color: #eef;
+
     padding: 0 .4em;
   }
 
@@ -191,7 +192,6 @@ ul.posts {
 
   #post code {
     font-family: Monaco, "Courier New", monospace;
-    color: #555;
     /*border: 1px solid #ddd;
     background-color: #eef;*/
     border-left: 4px solid #BBB;
