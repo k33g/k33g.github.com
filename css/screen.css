@@ -59,15 +59,17 @@ p {
 }
 
 a {
-  color: #00a;
+  color: black;
+  font-weight: bold;
 }
 
 a:hover {
-  color: black;
+  color: #f5f5f5;
+  background-color: #000000;
 }
 
 a:visited {
-  color: #a0a;
+  color: #666666;
 }
 
 table {
