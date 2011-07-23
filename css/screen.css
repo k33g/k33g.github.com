@@ -18,7 +18,8 @@ html, body {
 body {
     background-color: white;
     /*font: 13.34px verdana, arial, clean, sans-serif;*/
-    font: 13.34px arial, clean, sans-serif;
+    /*font: 13.34px arial, clean, sans-serif;*/
+    font: 13.34px 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
     color: #555;
     font-size: small;
     text-align: center;
