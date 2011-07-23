@@ -60,7 +60,7 @@ p {
 }
 
 a {
-  color: #a00;
+  color: #ff6600;
   font-weight: bold;
 }
 
@@ -71,7 +71,7 @@ a:hover {
 }*/
 
 a:visited {
-  color: #a00;
+  color: #ff6600;
   font-weight: normal;
 }
 
