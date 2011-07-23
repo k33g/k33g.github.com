@@ -116,7 +116,7 @@ ul.posts {
 }
 
 .title {
-    color: #a00;
+    color: #ff6600;
     font-weight: bold;
     font-size: 36px;
     font-family: "Arial black",Arial, Helvetica, Sans-Serif;
@@ -124,7 +124,7 @@ ul.posts {
 }
 
   .site .title a {
-    color: #a00;
+    color: #ff6600;
     text-decoration: none;
   }
 
