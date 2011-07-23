@@ -10,9 +10,9 @@ title: K33G_ORG
         <br>
         <a href="{{ post.url }}">comments</a>
     {% endfor %}
-    <div class="footer">
+    <div>
         <br>
-        <h1>Blog Posts (last 10)</h1>
+        <h2>Blog Posts (last 10)</h2>
         <ul class="posts">
             {% for post in site.posts limit:10 %}
               <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a> <br>
