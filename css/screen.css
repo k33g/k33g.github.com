@@ -16,7 +16,7 @@ html, body {
 }
 
 body {
-    background-color: #ffffcc;
+    background-color: #ffffff;
     /*font: 13.34px verdana, arial, clean, sans-serif;*/
     /*font: 13.34px arial, clean, sans-serif;*/
     font: 20px 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
@@ -149,7 +149,7 @@ ul.posts {
   .site .footer {
     font-size: 80%;
     color: #666;
-    border-top: 4px solid #999999;
+    border-top: 4px solid #cccccc;
     margin-top: 2em;
     overflow: hidden;
   }
