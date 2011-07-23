@@ -3,13 +3,15 @@ layout: default
 title: K33G_ORG
 ---
 
-<div id="home">
     {% for post in site.posts limit:1 %}
         <h3>{{ post.date | date_to_string }}</h3><br>
         {{ post.content }}
         <br>
         <a href="{{ post.url }}">comments &raquo;</a>
     {% endfor %}
+
+<div id="home">
+
     <div>
         <br>
         <h2>Blog Posts (last 10)</h2>
