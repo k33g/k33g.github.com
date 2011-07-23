@@ -149,7 +149,7 @@ ul.posts {
   .site .footer {
     font-size: 80%;
     color: #666;
-    border-top: 4px solid #666666;
+    border-top: 4px solid #999999;
     margin-top: 2em;
     overflow: hidden;
   }
@@ -160,7 +160,7 @@ ul.posts {
     }
 
       .site .footer .contact a {
-        color: #cc6600;
+        color: #ff6600;
       }
 
     .site .footer .rss {
