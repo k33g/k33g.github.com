@@ -59,17 +59,19 @@ p {
 }
 
 a {
-  color: black;
+  color: #a00;
   font-weight: bold;
 }
 
+/*
 a:hover {
   color: #cccccc;
 
-}
+}*/
 
 a:visited {
   color: #a00;
+  font-weight: normal;
 }
 
 table {

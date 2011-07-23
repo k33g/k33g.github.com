@@ -1,0 +1,18 @@
+---
+layout: none
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+	<channel>
+		<title>K33G_ORG's blog</title>
+		<description>programming, javascript, java, iOS, WebOS, Android, ...</description>
+		<link>http://k33g.github.com/</link>
+		{% for post in site.post %}
+			<item>
+				<title>{{ post.title }}</title>
+				<description>{{ post.content | xml_escape}}</description>
+				<link>http://k33g.github.com{{ post.url }}</link>
+			</item>
+		{% endfor %}
+	</channel>
+</rss>
