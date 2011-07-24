@@ -6,12 +6,11 @@ title: K33G_ORG
 <div id="home">
     <div id="post">
         {% for post in site.posts limit:3 %}
-            <br>
             <h3>{{ post.date | date_to_string }}</h3>
             {{ post.content }}
             <br>
             <a href="{{ post.url }}">comments &raquo;</a>
-            <hr style="border: 1px; border-color: gray; border-style: dotted; ">
+            <hr style="border: 1px; border-color: gray; border-style: dashed; ">
         {% endfor %}
     </div>
 
