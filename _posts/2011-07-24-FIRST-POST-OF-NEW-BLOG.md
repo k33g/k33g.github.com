@@ -61,4 +61,4 @@ Voilà, j'espère que cette nouvelle version vous plaira. Un grand merci à [@mk
 
 Stay tuned ...
 
-*L'ancien Blog est toujours consultable pour le moment : [www.k33g.org](http://www.k33g.org)*
+*L'ancien Blog est toujours consultable pour le moment : [www.k33g.org](http://www.k33g.org), k33g.org restera, mais sous une autre forme.*
