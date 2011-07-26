@@ -14,4 +14,4 @@ info : Créer son blog chez GitHub avec Jekill
 
 **Remarque :** je vous présente "ma méthode", le plus simple est probablement de forker un blog Jekill, mais au moins mon cheminement vous fera comprendre 2,3 trucs, pour le reste, lisez la doc. Au départ, suivez les instructions à la lettre pour avoir un 1er site qui fonctionne, après, bidouillez !
 
-**La suite de l'article complet est ici :* [https://github.com/k33g/articles/blob/master/2011-07-26-JEKILL-ON-GITHUB.md](https://github.com/k33g/articles/blob/master/2011-07-26-JEKILL-ON-GITHUB.md)
+**La suite de l'article complet est ici :** [https://github.com/k33g/articles/blob/master/2011-07-26-JEKILL-ON-GITHUB.md](https://github.com/k33g/articles/blob/master/2011-07-26-JEKILL-ON-GITHUB.md)
