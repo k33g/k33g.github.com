@@ -36,7 +36,6 @@ Ensuite vous vous créez une page html avec le code suivant :
 Et pour insérer du code CoffeeScript, vous utilisez la balise `<script type="text/coffeescript">`, par exemple :
 
     {% highlight html %}
-
     <!DOCTYPE HTML>
     <html>
         <head>
@@ -60,10 +59,9 @@ Et Hop! c'est fini
 
 Si vous êtes dans un "contexte http", donc si votre page est accessible via `http://mondomaine/mapage.html` plutôt que via `file:///mapage.html`, vous pouvez très bien faire ceci :
 
-    {% highlight html %}
-
+{% highlight html %}
     <script src="test.coffee" type="text/coffeescript"></script>
-    {% endhighlight %}
+{% endhighlight %}
 
 en mode local vous obtiendrez un joli `XMLHttpRequest cannot load file://localhost/test.coffee. Cross origin requests are only supported for HTTP.`.
 
