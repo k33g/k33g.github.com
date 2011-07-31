@@ -1,8 +1,8 @@
 ---
 
 layout: post
-title: Un bijou : Opal, un runtime ruby en javascript
-info : Du Ruby en mode runtime (pas compilé)
+title: Opal, du Ruby dans votre navigateur
+info : Ruby en js en mode runtime (pas compilé)
 
 ---
 
@@ -10,7 +10,7 @@ info : Du Ruby en mode runtime (pas compilé)
 
 Sur le même principe que CoffeeScript, [Opal](http://adambeynon.github.com/opal/) est un runtime ruby écrit en JS. Vous pouvez compiler le code ruby en JS, ou l'utiliser directement dans votre navigateur avec le runtime et le parser (ça va être un peu lent mais ça reste utilisable). C'est ce 2ème mode que nous allons tester.
 
-##Mise en oeuvre, Classes & héritage
+##Mise en oeuvre, Classes et héritage
 
 Récupérez [http://adambeynon.github.com/opal/js/opal.js](http://adambeynon.github.com/opal/js/opal.js) et [http://adambeynon.github.com/opal/js/opal-parser.js](http://adambeynon.github.com/opal/js/opal-parser.js).
 
