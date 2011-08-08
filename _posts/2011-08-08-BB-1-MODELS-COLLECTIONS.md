@@ -1,7 +1,7 @@
 ---
 
 layout: post
-title: BackBone par le bon bout : Partie I
+title: BackBone par le bon bout - Partie I
 info : Les modèles et les collections plus en détails
 
 ---
