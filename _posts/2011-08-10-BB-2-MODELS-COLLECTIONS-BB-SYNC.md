@@ -6,7 +6,7 @@ info : Modèles, Collections et Backbone.sync
 
 ---
 
-#BackBone par le bon bout : Partie II : (Backbone.sync+Models+Collections)
+#BackBone par le bon bout : Partie II (Backbone.sync+Models+Collections)
 
 On continue avec **"BB"**, avant de passer à quelque chose de plus "graphique" avec la partie III, je vais aborder le sujet **"Backbone.sync"**. C'est la fonctionalité de Backbone qui permet de faire de la "persistence" des modèles "avec" le serveur (mais aussi de la persistence de type "local storage")
 
