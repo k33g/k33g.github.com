@@ -1,16 +1,18 @@
 ---
 
 layout: post
-title: Jo + CoffeeScript : the ultimate weapon for mobile development
+title: Jo + CoffeeScript : the ultimate weapon for mobile development ?
 info : Jo + CoffeeScript
 
 ---
 
-#Jo + CoffeeScript : the ultimate weapon for mobile development
+#Jo + CoffeeScript : the ultimate weapon for mobile development ?
+
+This weekend, i started reading **["CoffeeScript: Accelerated Development JavaScript (by Trevor Burnham)"](http://pragprog.com/book/tbcoffee/coffeescript)**. I use javascript to development mainly mobile, my favorite framework is **[Jo](http://joapp.com/)**, so my question is: can I use **Jo** with **CoffeeScript** ?
+Looks like it works (i'll dig the topic) :
 
 
-
-    {% highlight python %}
+    {% highlight coffeescript %}
 
     <!DOCTYPE HTML PUBLIC>
     <html>
@@ -21,7 +23,6 @@ info : Jo + CoffeeScript
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <title>Jo App</title>
-
         <link rel="stylesheet" href="jo2.css" type="text/css">
 
     </head>
@@ -61,6 +62,3 @@ info : Jo + CoffeeScript
     </html>
 
     {% endhighlight %}
-
-
-
