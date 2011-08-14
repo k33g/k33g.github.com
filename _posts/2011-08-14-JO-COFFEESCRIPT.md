@@ -1,14 +1,14 @@
 ---
 
 layout: post
-title: Jo and CoffeeScript : the ultimate weapon for mobile development ?
+title: Jo and CoffeeScript : the ultimate weapon for mobile development
 info : Jo and CoffeeScript
 
 ---
 
-#Jo and CoffeeScript : the ultimate weapon for mobile development ?
+#Jo and CoffeeScript : the ultimate weapon for mobile development
 
-This weekend, i started reading **["CoffeeScript: Accelerated Development JavaScript (by Trevor Burnham)"](http://pragprog.com/book/tbcoffee/coffeescript)**. I use javascript to development mainly mobile, my favorite framework is **[Jo](http://joapp.com/)**, so my question is: can I use **Jo** with **CoffeeScript** ?
+This weekend, i started reading **["CoffeeScript: Accelerated Development JavaScript (by Trevor Burnham)"](http://pragprog.com/book/tbcoffee/coffeescript)**. I use javascript to development mainly mobile, my favorite mobile framework is **[Jo](http://joapp.com/)**, so my question is: can I use **Jo** with **CoffeeScript** ?
 Looks like it works (i'll dig the topic) :
 
 
