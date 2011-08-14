@@ -10,7 +10,7 @@ info : Jo + CoffeeScript
 
 
 
-    {% highlight coffeescript %}
+    {% highlight python %}
 
     <!DOCTYPE HTML PUBLIC>
     <html>
