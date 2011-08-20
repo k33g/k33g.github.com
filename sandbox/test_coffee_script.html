@@ -4,13 +4,13 @@
     <title>CoffeeScript Training</title>
     <style>
 
-        .code {
+        /*.code {
             font-family: Monaco, "Courier New", monospace;
             border: 1px solid #ddd;
             background-color: #F8F8F8;
             font-size: 85%;
             padding: 0 .2em;
-        }
+        }*/
         hr {
             border: 1px;
             border-color: #cccccc;
@@ -46,11 +46,15 @@
         }
 
     </style>
+    <link href="https://raw.github.com/pickhardt/coffeescript-codemirror-mode/master/lib/codemirror/codemirror.css" rel="stylesheet">
+    <link href="https://raw.github.com/pickhardt/coffeescript-codemirror-mode/master/lib/codemirror/mode/coffeescript/coffeescript.css" rel="stylesheet">
+
 </head>
 <body>
+    <button class="btn">Run CoffeeScript ...</button><hr>
+    <!--<div style="padding-left: 5px; padding-right: 40px">-->
 
-    <div style="padding-left: 10px; padding-right: 20px">
-        <textarea class="code" rows="15" style="width:100%">
+        <textarea class="code">
 #Making class
 
 class Human
@@ -68,18 +72,32 @@ bob.sayHello()
 console.log bob
 console.log Human.count
         </textarea>
-    </div>
-    <hr><button class="btn">Run CoffeeScript ...</button><hr>
+
+    <hr>
 
 </body>
-<script src="http://fbug.googlecode.com/svn/lite/branches/firebug1.4/content/firebug-lite-dev.js"></script>
+
+
+<script src="https://raw.github.com/pickhardt/coffeescript-codemirror-mode/master/lib/codemirror/codemirror.js"></script>
+<script src="https://raw.github.com/pickhardt/coffeescript-codemirror-mode/master/lib/codemirror/mode/coffeescript/coffeescript.js"></script>
+
 <script src="http://jashkenas.github.com/coffee-script/extras/coffee-script.js" charset="utf-8"></script>
+<script src="http://fbug.googlecode.com/svn/lite/branches/firebug1.4/content/firebug-lite-dev.js"></script>
+
+
 <script>
+
+    var editor = CodeMirror.fromTextArea(document.querySelector('.code'), {
+      lineNumbers: true,
+      mode: "coffeescript"
+    });
+
     document.querySelector('.btn').addEventListener(
             'click',
             function(){
-                CoffeeScript.run(document.querySelector('.code').value);
+                CoffeeScript.run(editor.getValue());
             },
             false);
+
 </script>
 </html>
