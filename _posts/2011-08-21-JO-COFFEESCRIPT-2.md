@@ -16,7 +16,8 @@ I continue my investigations with Jo and Coffeescript. Here's another little exa
     <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+        <meta name="viewport" content="initial-scale=1.0,
+              maximum-scale=1.0, user-scalable=no, width=device-width">
         <meta name="format-detection" content="false">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -59,7 +60,7 @@ I continue my investigations with Jo and Coffeescript. Here's another little exa
         page1 = new joCard [
                 (new joLabel "HTML Control" ),
                 (new joGroup new joHTML "<b>Hello world !!!</b><br>This is nice !"),
-                (new joCaption "Note that the HTML control above is using another stylesheet without impacting our controls." ),
+                (new joCaption "Hi, i'm a joCaption." ),
                 (new joFooter [ new joDivider, backbutton ])
             ]
 
