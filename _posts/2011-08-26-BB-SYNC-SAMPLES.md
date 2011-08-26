@@ -19,7 +19,7 @@ Ce qui "m'ennuyait" dans l'exemple fourni sur le site de Backbone.js [backbone-l
 Je suis parti sur un système différent : un modèle correpond à une clé et une valeur (après on aime ou pas, c'est juste une question de point de vue), c'est à dire que l'on ne sauvegarde plus la collection (contenant les modèles) mais uniquement les modèles (avec une clé composée du nom de la "base" et de l'id du modèle). Vous pouvez donc charger un/des modèle(s) à partir du localStorage sans être obligé de charger toute la collection :
 
 
-~~~ javascript
+{% highlight javascript %}
 
     window.Doc = Backbone.Model.extend({
         storeName : "docsDB"
@@ -44,7 +44,7 @@ Je suis parti sur un système différent : un modèle correpond à une clé et u
 
     docs.fetch(); //charge la collection à partie des modèles "persistés" dont la clé commence par "docsDB"
 
-~~~
+{% endhighlight %}
 
 Le code source est ici : [https://github.com/k33g/ossicle/blob/master/js/backbone.sync/backbone-sync-localstorage.js](https://github.com/k33g/ossicle/blob/master/js/backbone.sync/backbone-sync-localstorage.js).
 
