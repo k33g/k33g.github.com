@@ -1,8 +1,8 @@
 ---
 
 layout: post
-title: Backbone.sync : Quelques exemples
-info : Backbone.sync : Quelques exemples
+title: Backbone.sync - Quelques exemples
+info : Backbone.sync - Quelques exemples
 
 ---
 
