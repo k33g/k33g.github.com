@@ -10,7 +10,7 @@ info : Backbone.sync - Quelques exemples
 
 J'ai créé un nouveau repo GitHub : ["Ossicle"](https://github.com/k33g/ossicle) pour répertorier les différentes expériences que je pourrais faire sur Backbone.js.
 
-J'ai bossé sur 2 versions de `Backbone.sync`, une pour faire du localStorage et une autre pour aller lire des fichiers markdown d'un repo GitHub (celle ci est "un peu" expérimentale.
+J'ai bossé sur 2 versions de `Backbone.sync`, une pour faire du localStorage et une autre pour aller lire des fichiers markdown d'un repo GitHub (cette dernière est "un peu" expérimentale).
 
 ##LocalStorage
 
