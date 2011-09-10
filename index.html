@@ -6,10 +6,8 @@ title: K33G_ORG
     <div id="khead" style="top: 10px; ">
         <div id="infos" style="float: left; width: 30%; left: 0px">
              here : some infos
-            <div>
-               <ul class="post" id="from_k33g_org">
+            <div id="from_k33g_org">
 
-               </ul>
             </div>
             <div>
                <ul id="about_k33g_org">
@@ -20,13 +18,10 @@ title: K33G_ORG
             <script>
 
             tw.search('from:k33g_org',function(data){
-                //console.log(data);
-                for(var i = 0; i < data.length; i+=1){
-                    var p = document.createElement('li');
-                    p.innerHTML = '<span>'+ data[i].img + ' (' + data[i].user + ') ' + data[i].msg +'</span> ';
-                    document.querySelector('#from_k33g_org').appendChild(p);
-                }
 
+                var p = document.createElement('p');
+                p.innerHTML = data[0].img + ' (' + data[0].user + ') ' + data[0].msg;
+                document.querySelector('#from_k33g_org').appendChild(p);
 
             });
 
