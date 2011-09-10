@@ -11,7 +11,7 @@ title: K33G_ORG
         tw.search('from:k33g_org',function(data){
             for(var i = 0; i <3; i+=1){
                 var p = document.createElement('li');
-                p.innerHTML = '<span> (' + data[i].user + ')<span> &raquo; ' + data[i].msg ;
+                p.innerHTML = '<span> (' + data[i].user + ')</span> &raquo; ' + data[i].msg ;
                 document.querySelector('#from_k33g_org').appendChild(p);
             }
         });
