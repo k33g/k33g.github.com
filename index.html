@@ -7,7 +7,7 @@ title: K33G_ORG
         <div id="infos" style="float: left; width: 30%; left: 0px">
              here : some infos
             <div>
-               <ul id="from_k33g_org">
+               <ul class="post" id="from_k33g_org">
 
                </ul>
             </div>
@@ -23,7 +23,7 @@ title: K33G_ORG
                 //console.log(data);
                 for(var i = 0; i < data.length; i+=1){
                     var p = document.createElement('li');
-                    p.innerHTML = data[i].img + ' (' + data[i].user + ') ' + data[i].msg ;
+                    p.innerHTML = '<span>'+ data[i].img + ' (' + data[i].user + ') ' + data[i].msg +'</span> ';
                     document.querySelector('#from_k33g_org').appendChild(p);
                 }
 
