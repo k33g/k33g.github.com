@@ -8,7 +8,7 @@ info : "Lutte des classes"
 
 #Java Classes versus Coffeescript Classes
 
-![Alt "java_vs_coffeescript.jpg"](../images/java_vs_coffeescript.jpg)
+![Alt "java_vs_coffeescript.jpg"](https://github.com/k33g/k33g.github.com/raw/master/images/java_vs_coffeescript.jpg)
 
 Coffeescript provides classes in Javascript, which is useful for structuring the code in a more traditional object-oriented programming. To understand how this works, I tried to write Java classes and then write the equivalent in Coffeescript. I give you today the results of my work.
 
