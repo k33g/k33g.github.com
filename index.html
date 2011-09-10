@@ -4,31 +4,29 @@ title: K33G_ORG
 ---
     <script type="text/javascript" src="/js/twitter.js"></script>
     <div id="khead" style="top: 10px; ">
-        <div id="infos" style="float: left; width: 30%; left: 0px">
+        <div id="infos" style="float: left; width: 40%; left: 0px">
              here : some infos
-            <div id="from_k33g_org">
-
-            </div>
-            <div>
-               <ul id="about_k33g_org">
-
-               </ul>
-            </div>
+            <div id="from_k33g_org"></div>
+            <div id="at_k33g_org"></div>
 
             <script>
+                tw.search('from:k33g_org',function(data){
+                    var p = document.createElement('p');
+                    p.innerHTML = data[0].img + ' (' + data[0].user + ') ' + data[0].msg;
+                    document.querySelector('#from_k33g_org').appendChild(p);
+                });
+            </script>
 
-            tw.search('from:k33g_org',function(data){
-
-                var p = document.createElement('p');
-                p.innerHTML = data[0].img + ' (' + data[0].user + ') ' + data[0].msg;
-                document.querySelector('#from_k33g_org').appendChild(p);
-
-            });
-
+            <script>
+                tw.search('@k33g_org',function(data){
+                    var p = document.createElement('p');
+                    p.innerHTML = data[0].img + ' (' + data[0].user + ') ' + data[0].msg;
+                    document.querySelector('#at_k33g_org').appendChild(p);
+                });
             </script>
 
         </div>
-        <div id="last3" style="float: right; width: 70%; left: 30%">
+        <div id="last3" style="float: right; width: 60%; left: 40%">
             <h3>Blog Posts (last 3)</h3>
             <ul class="posts">
                 {% for post in site.posts limit:3 %}
