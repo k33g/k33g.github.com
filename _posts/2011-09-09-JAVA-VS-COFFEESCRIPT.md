@@ -555,7 +555,6 @@ There is another way to do (with a different behavior from a heritage point of v
 
 {% endhighlight %}
 
----
 
 **Warning :**
 
@@ -620,9 +619,8 @@ To understand this behavior, you have just to read the javascript compiled versi
       return Animal;
     })();
 
----
 
-##Private members
+##Private members ?
 
 LOL ;)
 
