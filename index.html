@@ -8,12 +8,12 @@ title: K33G_ORG
         tw.search('from:k33g_org',function(data){
             for(var i = 0; i <3; i+=1){
                 var p = document.createElement('p');
-                p.innerHTML = data[i].img + ' (' + data[i].user + ') ' + data[i].msg + '<hr>';
+                p.innerHTML = data[i].img + ' (' + data[i].user + ') ' + data[i].msg ;
                 document.querySelector('#from_k33g_org').appendChild(p);
             }
         });
     </script>
-    <div id="last3" style="float: right; width: 60%; left: 40%">
+    <div id="last3">
         <h3>Blog Posts (last 3)</h3>
         <ul class="posts">
             {% for post in site.posts limit:3 %}
