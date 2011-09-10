@@ -3,13 +3,14 @@ layout: default
 title: K33G_ORG
 ---
     <script type="text/javascript" src="/js/twitter.js"></script>
-    <div id="from_k33g_org">
+    <div>
         <h3>Last Tweets</h3>
+        <ul class="posts" id="from_k33g_org"></ul>
     </div>
     <script>
         tw.search('from:k33g_org',function(data){
             for(var i = 0; i <3; i+=1){
-                var p = document.createElement('p');
+                var p = document.createElement('li');
                 p.innerHTML = ' (' + data[i].user + ') ' + data[i].msg ;
                 document.querySelector('#from_k33g_org').appendChild(p);
             }
