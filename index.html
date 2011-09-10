@@ -2,8 +2,10 @@
 layout: default
 title: K33G_ORG
 ---
+<div id="infos" style="position: fixed; float: left; width: 30%; left: 0px">
 
-<div id="last3">
+</div>
+<div id="last3" style="position: fixed; float: right; width: 70%; left: 30%">
     <h3>Blog Posts (last 3)</h3>
     <ul class="posts">
         {% for post in site.posts limit:3 %}
@@ -11,27 +13,7 @@ title: K33G_ORG
         {% endfor %}
     </ul>
 </div>
-<script type="text/javascript" src="js/fox.js"></script>
-<script type="text/javascript">
 
-document.body.appendChild(
-    Fox.makeTable([
-        "+---+---+",
-        "|a  |b  |",
-        "+---+---+",
-        "|c  |d  |",
-        "+---+---+"
-    ], {
-        map: {
-            a: "...",
-            b: document.querySelector('last3'),
-            c: ""
-        }
-    })
-);
-
-
-</script>
 
 <div id="home">
     <div id="post">
