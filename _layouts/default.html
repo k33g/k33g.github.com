@@ -18,6 +18,19 @@
     <div class="title">
         <a href="/">K33G_ORG's blog</a>
         <!--<a class="extra" href="/">home</a>-->
+        <div id="khead">
+            <div id="infos" style="position: inherit; float: left; width: 30%; left: 0px">
+                 here : some infos
+            </div>
+            <div id="last3" style="position: inherit; float: right; width: 70%; left: 30%">
+                <h3>Blog Posts (last 3)</h3>
+                <ul class="posts">
+                    {% for post in site.posts limit:3 %}
+                      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 
     {{ content }}
