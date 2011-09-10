@@ -2,16 +2,36 @@
 layout: default
 title: K33G_ORG
 ---
-
+    <script type="text/javascript" src="/js/twitter.js"></script>
     <div id="khead" style="top: 10px; ">
         <div id="infos" style="float: left; width: 30%; left: 0px">
              here : some infos
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+            <div>
+               <ul id="from_k33g_org">
+
+               </ul>
+            </div>
+            <div>
+               <ul id="about_k33g_org">
+
+               </ul>
+            </div>
+
+            <script>
+
+            tw.search('from:k33g_org',function(data){
+                //console.log(data);
+                for(var i = 0; i < data.length; i+=1){
+                    var p = document.createElement('li');
+                    p.innerHTML = data[i].img + ' (' + data[i].user + ') ' + data[i].msg ;
+                    document.querySelector('#from_k33g_org').appendChild(p);
+                }
+
+
+            });
+
+            </script>
+
         </div>
         <div id="last3" style="float: right; width: 70%; left: 30%">
             <h3>Blog Posts (last 3)</h3>
