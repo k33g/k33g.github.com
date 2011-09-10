@@ -11,6 +11,27 @@ title: K33G_ORG
         {% endfor %}
     </ul>
 </div>
+<script type="text/javascript" src="js/fox.js"></script>
+<script type="text/javascript">
+
+document.body.appendChild(
+    Fox.makeTable([
+        "+---+---+",
+        "|a  |b  |",
+        "+---+---+",
+        "|c  |d  |",
+        "+---+---+"
+    ], {
+        map: {
+            a: "...",
+            b: document.querySelector('last3'),
+            c: ""
+        }
+    })
+);
+
+
+</script>
 
 <div id="home">
     <div id="post">
