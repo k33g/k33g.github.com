@@ -5,7 +5,11 @@ title: K33G_ORG
 
 <div id="home">
     <div id="post">
-        {% for post in site.posts limit:3 %}
+        {% for post in site.posts limit:1 %}
+        <g:plusone size="medium"></g:plusone>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        <a href="{{ post.url }}">comments &raquo;</a>
+
             <h3>{{ post.date | date_to_string }}</h3>
             {{ post.content }}
             <br>
