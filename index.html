@@ -2,28 +2,6 @@
 layout: default
 title: K33G_ORG
 ---
-    <script type="text/javascript" src="/js/twitter.js"></script>
-    <div>
-        <h3>Last Tweets</h3>
-        <ul class="posts" id="from_k33g_org"></ul>
-    </div>
-    <script>
-        tw.search('from:k33g_org',function(data){
-            for(var i = 0; i <3; i+=1){
-                var p = document.createElement('li');
-                p.innerHTML = '<span> (' + data[i].user + ')</span> &raquo; ' + data[i].msg ;
-                document.querySelector('#from_k33g_org').appendChild(p);
-            }
-        });
-    </script>
-    <div id="last3">
-        <h3>Blog Posts (last 3)</h3>
-        <ul class="posts">
-            {% for post in site.posts limit:3 %}
-              <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
 
 
 <div id="home">
