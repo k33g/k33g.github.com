@@ -22,7 +22,6 @@
 
 <div class="container-fluid">
 
-
     <div class="sidebar">
         <div>
             <h3>Last Tweets</h3>
@@ -37,7 +36,22 @@
                 }
             });
         </script>
+
+        <div id="last3">
+            <h3>Blog Posts (last 3)</h3>
+            <ul class="posts">
+                {% for post in site.posts limit:3 %}
+                  <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+
+
     </div>
+
+    
     <div class="content">
       {{ content }}
     </div>
