@@ -3,6 +3,9 @@ layout: default
 ---
 <div class="content">
     <div id="post">
+        {{ post.date | date_to_string }}
+        <g:plusone size="medium"></g:plusone>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
         {{ content }}
         <g:plusone size="medium"></g:plusone>
         <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
