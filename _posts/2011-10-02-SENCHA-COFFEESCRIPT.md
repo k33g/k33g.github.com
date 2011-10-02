@@ -216,4 +216,4 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 
 That's all. Launch it ! 
 
-If you don't know Senchatouch, try to do in javascript ... ;)
+If you don't know SenchaTouch, try to do it in javascript ... ;)
