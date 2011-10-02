@@ -1,7 +1,7 @@
 ---
 
 layout: post
-title: JOSI : SenchaTouch becomes more readable and easier with Coffeescript
+title: SenchaTouch becomes more readable and easier with Coffeescript
 info : SenchaTouch and Coffeescript
 
 ---
