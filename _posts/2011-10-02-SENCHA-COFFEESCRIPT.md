@@ -59,6 +59,10 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				fields : fields
 			@name = name
 
+{% endhighlight %}
+
+{% highlight coffeescript %}
+
 	class Models extends Ext.data.JsonStore
 		constructor:(model, sorters, data)->
 			super
@@ -95,6 +99,10 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 			super
 				title : title
 				dock : 'top'
+				
+{% endhighlight %}
+
+{% highlight coffeescript %}
 			
 	class Footer extends Ext.Toolbar
 		constructor:(title)->
