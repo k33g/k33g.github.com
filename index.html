@@ -4,12 +4,13 @@ title: K33G_ORG
 ---
 
 <div id="home">
+	<g:plusone size="medium"></g:plusone>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
     <div id="post">
-        {% for post in site.posts limit:2 %}
+        {% for post in site.posts limit:3 %}
 
             <h3>{{ post.date | date_to_string }}</h3>
-            <g:plusone size="medium"></g:plusone>
-            <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+
             <a href="{{ post.url }}">comments &raquo;</a>
             {{ post.content }}
             <br>
