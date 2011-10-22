@@ -1,8 +1,8 @@
 ---
 
 layout: post
-title: Play.Rules!► eBook : le site
-info : Play.Rules!► eBook
+title: Play.Rules eBook : le site
+info : Play.Rules eBook
 
 ---
 

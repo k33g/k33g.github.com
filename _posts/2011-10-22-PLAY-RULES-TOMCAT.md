@@ -1,8 +1,8 @@
 ---
 
 layout: post
-title: Play.Rules!► Mini Tuto : Déploiement Tomcat
-info : Play.Rules!► Déploiement Tomcat
+title: Play.Rules Mini Tuto : Déploiement Tomcat
+info : Play.Rules Déploiement Tomcat
 
 ---
 
