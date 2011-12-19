@@ -35,6 +35,7 @@ So, we are going create a class model step by step.
             configurable: true
 {% endhighlight %}
 
+
 ###What's going on?
 
 - The class constructor parses each field of itself (`Object.keys @`)
@@ -42,6 +43,30 @@ So, we are going create a class model step by step.
 - Create (instead of each field) a property (with the same name)
 
 Then, when you write `bob.name` it's `bob._name` wich is returned, when you write `bob.name="Bob"` it's `bob._name` wich equals `"Bob"`.
+
+**Remark** :
+
+You shoul have noticed that i use : `that = @`, it's a javascript habit. In fact, it's better using "fat arrow", see [http://jashkenas.github.com/coffee-script/#fat_arrow](http://jashkenas.github.com/coffee-script/#fat_arrow), and then, there is no need to use the artificial `that = @` :
+
+{% highlight coffeescript %}
+    class Model
+      constructor:(args)->
+        fields = Object.keys @
+
+        fields.forEach (item) =>
+          propertyName = item.toString()
+          @["_"+propertyName] = @[propertyName]
+          Object.defineProperty @, propertyName,
+            get: =>
+              console.log "Get : ", propertyName, @["_"+propertyName]
+              @["_"+propertyName]
+            set: (value)=>
+              console.log "Set : ", propertyName, value
+              @["_"+propertyName] = value
+            enumerable: true
+            configurable: true
+{% endhighlight %}
+
 
 ###Use it
 
@@ -98,19 +123,19 @@ This approach is more "javascript/coffescript" than "playframework" but it's int
     class Model
       constructor:(args)->
         fields = Object.keys @
-        that = @
-        fields.forEach (item) ->
+
+        fields.forEach (item) =>
           propertyName = item.toString()
-          that["_"+propertyName] = that[propertyName]
-          Object.defineProperty that, propertyName,
-            get: ->
-              console.log "Get : ", propertyName, that["_"+propertyName]
-              that["_"+propertyName]
-            set: (value)->
+          @["_"+propertyName] = @[propertyName]
+          Object.defineProperty @, propertyName,
+            get: =>
+              console.log "Get : ", propertyName, @["_"+propertyName]
+              @["_"+propertyName]
+            set: (value)=>
               #save old value
-              old = that["_"+propertyName]
+              old = @["_"+propertyName]
               console.log "Set : ", propertyName, value
-              that["_"+propertyName] = value
+              @["_"+propertyName] = value
 
               #fire change event
               Event.send "Change",
@@ -166,19 +191,19 @@ Therefore, modify our Model class : (see last two lines of the class)
     class Model
       constructor:(args)->
         fields = Object.keys @
-        that = @
-        fields.forEach (item) ->
+
+        fields.forEach (item) =>
           propertyName = item.toString()
-          that["_"+propertyName] = that[propertyName]
-          Object.defineProperty that, propertyName,
-            get: ->
-              console.log "Get : ", propertyName, that["_"+propertyName]
-              that["_"+propertyName]
-            set: (value)->
+          @["_"+propertyName] = @[propertyName]
+          Object.defineProperty @, propertyName,
+            get: =>
+              console.log "Get : ", propertyName, @["_"+propertyName]
+              @["_"+propertyName]
+            set: (value)=>
               #save old value
-              old = that["_"+propertyName]
+              old = @["_"+propertyName]
               console.log "Set : ", propertyName, value
-              that["_"+propertyName] = value
+              @["_"+propertyName] = value
 
               #fire change event
               Event.send "Change",
@@ -212,9 +237,8 @@ Then, i add a save method and a static guid method (to generate GUID) to the Mod
           @id = Model.guid()
           list.push @
         else
-          that = @
-          tmp = list.filter((record) ->
-            record.id is that.id
+          tmp = list.filter((record) =>
+            record.id is @.id
           )[0]
           (if not tmp then list.push(@))
         @
