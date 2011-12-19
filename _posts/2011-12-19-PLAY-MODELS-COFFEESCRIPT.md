@@ -8,8 +8,9 @@ info : CoffeeScript Model Classes like Playframework's Models
 
 #Write CoffeeScript Model Classes like Playframework's Models
 
-http://www.playframework.org/documentation/1.2.4/model
-Only recent navigators
+I love how models operate in Playframewok [http://www.playframework.org/documentation/1.2.4/model](http://www.playframework.org/documentation/1.2.4/model). In this article I will try to do the same with Coffeescript.
+
+**Warning** : My "POC" works only with recent browsers
 
 So, we are going create a class model step by step.
 
@@ -36,7 +37,11 @@ So, we are going create a class model step by step.
 
 ###What's going on?
 
-    //TODO
+- The class constructor parses each field of itself (`Object.keys @`)
+- Create (for each field) a new field prefixed with "_"
+- Create (instead of each field) a property (with the same name)
+
+Then, when you write `bob.name` it's `bob._name` wich is returned, when you write `bob.name="Bob"` it's `bob._name` wich equals `"Bob"`.
 
 ###Use it
 
