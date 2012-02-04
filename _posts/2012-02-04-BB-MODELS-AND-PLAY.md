@@ -413,3 +413,73 @@ Arrêtez & relancez l'application (ça ne peut pas faire de mal).
 
 Rechargez tout d'abord la page de votre navigateur pour remettre "à zéro" les variables/objets/modèles javascript (Backbone) et relancer la compilation des classes côté Play!>.
 
+
+###save()
+
+Dans la console du navigateur tapez les commandes suivantes :
+
+    b1 = new Bookmark({label:"K33g'sBlog",website:"www.k33g.org"});
+    b1.save();
+
+Attendez un petit peu (je n'ai pas mis de callback pour attendre la réponse du serveur). Vous voyerz une ligne `Objet` dans la console, en fait c'est la réponse de Play!> qui a renvoyé un objet de type JSON.
+
+Si vous tapez la commande : `b1.get("id")` vous obtenez `1`. C'est Play!> qui lors de la sauvegarde a affecté un id automatiquement à l'objet JSON renvoyé, et Backbone qui a mappé le résultat sur son modèle b1.
+
+![Alt "bbplay007.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay007.png)
+
+On vérifie ?
+
+###save again()
+
+Dans un 1er temps, on change une valeur d'une propriété de notre modèle et on sauve à nouveau :
+
+	b1.set({label:"Le blog de K33G"})
+	b1.save();
+
+![Alt "bbplay008.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay008.png)
+
+On voit bien que cette fois ci, c'est un update, si vous surveillez votre terminal vous pouvez vérifier que c'est bien la méthode `putBookmark` qui a été appelée avec le changement de `label` qui est pris en compte.
+
+Oui mais est-ce que ça a bien enregistré mes données en base ? Allons vérifier ...
+
+###fetch()
+
+Rechargez une nouvelle fois la page de votre navigateur pour remettre "à zéro" les variables/objets/modèles javascript (Backbone). Puis tapez les commandes suivantes :
+
+	b1 = new Bookmark({id:1})
+	b1.fetch()
+
+Une fois que le serveur a répondu, vous pouvez vérifier que vous avez bien récupéré vos données :
+
+	b1.get("label")
+
+![Alt "bbplay009.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay009.png)
+
+Donc, nos données ont bien été enregistrées en base.
+
+###On ajoute quelques modèles avant de passer aux collections :
+
+	b2 = new Bookmark({label:"Coffee Bean",website:"http://coffeebean.loicdescotte.com/"});
+	b3 = new Bookmark({label:"blog.mklog",website:"http://blog.mklog.fr/"});
+	b4 = new Bookmark({label:"LyonJS",website:"http://lyonjs.org/"});
+	
+	b2.save();
+	b3.save();
+	b4.save();
+
+##Passons donc aux collections
+
+Rechargez une nouvelle fois la page de votre navigateur pour remettre "à zéro" les variables/objets/modèles javascript (Backbone). Puis tapez les commandes suivantes :
+
+	bookmarksCollection = new Bookmarks()
+	bookmarksCollection.fetch()
+
+Une fois que le serveur a répondu :
+
+	bookmarksCollection.models
+	bookmarksCollection.models.forEach(function(model){ console.log(model.get("label")); })
+
+![Alt "bbplay010.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay010.png)
+
+On a bien retrouvé nos données :) et finalement ce n'est pas si compliqué que ça.
+
