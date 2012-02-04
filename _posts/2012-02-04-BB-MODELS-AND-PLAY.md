@@ -6,7 +6,7 @@ info : How to connect Backbone Models to PlayFramework Models
 
 ---
 
-#BackBone Models & Play!> Models jouent ensemble
+#BackBone Models et Play Models jouent ensemble
 
 ##Objectifs :
 
