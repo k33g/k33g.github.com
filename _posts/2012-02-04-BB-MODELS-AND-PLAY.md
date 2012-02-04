@@ -202,3 +202,79 @@ Ensuite, aller dans `app/views/main.html` et inclure le nouveau fichier js à la
 
 	<script src="@{'/public/javascripts/backbone.sync.js'}" type="text/javascript" charset="${_response_encoding}"></sc
 
+##Prêts pour un 2ème essai ? "Playing with BB Models"
+
+Rechargez tout d'abord la page de votre navigateur pour prendre les modifications en compte. Puis passez aux étapes suivantes ci-dessous :
+
+###save()
+
+Dans la console du navigateur tapez les commandes suivantes :
+
+    b1 = new Bookmark({label:"K33g'sBlog",website:"www.k33g.org"});
+    b1.save();
+
+Dans la console Play!>, on obtient :
+
+    postBookmark : {"id":null,"label":"K33g'sBlog","website":"www.k33g.org"}
+
+Donc lorsque l'on sauvegarde un modèle BB c'est une requête `POST` qui est envoyée et la méthode `postBookmark` qui est appelée.
+
+**Console du navigateur :**
+
+![Alt "bbplay003.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay003.png)
+
+*Au passage on peut voir dans la console que la méthode est de type `create`*
+
+**Console du terminal (côté Play) :**
+
+![Alt "bbplay004.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay004.png)
+
+###save() again
+
+Dans la console du navigateur tapez les commandes suivantes : 
+
+    b1.set({id:1});
+    b1.save();
+
+Dans la console Play!>, on obtient :
+
+    putBookmark : {"id":1,"label":"K33g'sBlog","website":"www.k33g.org"}
+
+Donc lorsque l'on sauvegarde un modèle BB c'est une requête `PUT` qui est envoyée et la méthode `putBookmark` qui est appelée.
+On a affecté un `id` au modèle, donc BB "estime" que le modèle existe, et donc que c'est une mise à jour.
+
+**Console du navigateur :**
+
+![Alt "bbplay005.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay005.png)
+
+*Au passage on peut voir dans la console que la méthode est de type `update`*
+
+**Console du terminal (côté Play) :**
+
+![Alt "bbplay006.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay006.png)
+
+###destroy()
+
+Dans la console du navigateur tapez les commandes suivantes : 
+
+    b1.destroy(); // b1.id = 1 sinon faire b1.set({id:1});
+
+Dans la console Play!>, on obtient :
+
+    deleteBookmark : {"id":1,"label":"K33g'sBlog","website":"www.k33g.org"}
+
+Donc lorsque l'on détruit un modèle BB c'est une requête `DELETE` qui est envoyée et la méthode `deleteBookmark` qui est appelée.
+
+###fetch()
+
+Dans la console du navigateur tapez les commandes suivantes : 
+
+    b1.fetch(); // b1.id = 1 sinon faire b1.set({id:1});
+
+Dans la console Play!>, on obtient :
+
+    getBookmark : {"id":1,"label":"K33g'sBlog","website":"www.k33g.org"}
+
+Donc lorsque l'on utilise la méthode fetch() d'un modèle BB c'est une requête `GET` qui est envoyée et la méthode `getBookmark` qui est appelée.
+
+
