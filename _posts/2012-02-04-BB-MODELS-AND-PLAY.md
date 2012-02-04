@@ -87,4 +87,118 @@ Lorsque ces méthodes sont appelées, c'est l'objet `Backbone.sync` qui est appe
 - `DELETE` pour `destroy()`
 - `GET` pour `fetch()`
 
+##Un petit tour côté Play!>
+
+Nous allons donc créer les méthodes qui répondrons aux requêtes de `Backbone.sync`.
+
+Aller dans le fichier `conf/routes` et ajouter les routes suivantes :
+
+    GET     /bb/bookmark		Application.getBookmark
+    POST	/bb/bookmark 		Application.postBookmark
+    PUT 	/bb/bookmark 		Application.putBookmark
+    DELETE 	/bb/bookmark 		Application.deleteBookmark
+    GET     /bb/bookmarks		Application.allBookmarks
+
+Aller ensuite dans `controllers/Application.java` et ajouter les méthodes suivantes :
+
+{% highlight java %}
+	public class Application extends Controller {
+
+	    public static void index() {
+	        render();
+	    }
+	    /* GET */
+	    public static void getBookmark(String model) {
+	        System.out.println("getBookmark : "+model);
+	    }
+
+	    /* POST */
+	    public static void postBookmark(String model) {
+	        System.out.println("postBookmark : "+model);
+	    }
+
+	    /* PUT */
+	    public static void putBookmark(String model) {
+	       System.out.println("putBookmark : "+model);
+	    }
+	    /* DELETE */
+	    public static void deleteBookmark(String model) {
+	        System.out.println("deleteBookmark : "+model);
+	    }
+
+		/* GET */
+	    public static void allBookmarks() {
+	        System.out.println("allBookmarks");	
+	    }
+
+	}
+{% endhighlight %}
+
+##1er essai :
+
+- Lancez l'application Bookmarks : `play run bookmarks`
+- se connecter à l'application : [http://localhost:9000/](http://localhost:9000/)
+- ouvrir la console du navigateur
+- tapez les commandes suivantes : 
+
+		b1 = new Bookmark({label:"K33g'sBlog",website:"www.k33g.org"});
+	    b1.save(); //pas mis de callback pour le moment
+
+**Console du navigateur :**
+
+![Alt "bbplay001.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay001.png)
+
+**Console du terminal (côté Play) :**
+
+![Alt "bbplay002.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay002.png)
+
+Et là c'est le drame !
+
+on s'aperçoit que c'est la méthode postBookmark qui est appelée, mais par contre rien (`null` en fait) n'est retourné dans la console serveur. En fait Backbone n'envoie pas ce que l'on souhaite à la méthode Play!>.
+
+Même pas mal !. Nous allons donc re-écrire/surcharger `Backbone.sync`. ... Et on va faire simple.
+
+##Surcharge de Backbone.sync :
+
+Dans public/javascripts, créer un nouveau fichier : `backbone.sync.js` :
+
+{% highlight javascript %}
+	(function() {
+	    Backbone.sync = function(method, model, options) {
+
+	        // sympa pour comprendre ce qu'il se passe 
+	        console.log(method, model, options);
+
+	        var methodMap = {
+	            'create': 'POST',
+	            'update': 'PUT',
+	            'delete': 'DELETE',
+	            'read':   'GET'
+	        }, dataForServer = null;
+
+	        if(model.models) {//c'est une collection
+	            dataForTheServer:null
+	        } else {//c'est un modèle
+	            dataForServer = { model : JSON.stringify(model.toJSON()) };
+	        }
+
+	        return $.ajax({ 
+	            type: methodMap[method],
+	            url: model.url,
+	            data: dataForServer,
+	            dataType: 'json',
+	            error: function (dataFromServer) { //vérifier que cela retourne une erreur
+	                options.error(dataFromServer);
+	            },
+	            success: function (dataFromServer) {
+	                options.success(dataFromServer);
+	            }
+	        });
+	    };
+	})();
+{% endhighlight %}
+
+Ensuite, aller dans `app/views/main.html` et inclure le nouveau fichier js à la suite des autres :
+
+	<script src="@{'/public/javascripts/backbone.sync.js'}" type="text/javascript" charset="${_response_encoding}"></sc
 
