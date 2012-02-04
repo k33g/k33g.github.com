@@ -278,3 +278,138 @@ Dans la console Play!>, on obtient :
 Donc lorsque l'on utilise la méthode fetch() d'un modèle BB c'est une requête `GET` qui est envoyée et la méthode `getBookmark` qui est appelée.
 
 
+###Bilan des courses :
+
+Nous avons tout ce qu'il faut côté Backbone pour passer les bonnes informations à Play!>. Nous passerons aux `Backbone.Collection(s)` plus tard. Pour le moment nous allons coder le "pendant" Java de notre modèle Backbone, afin de pouvoir effectuer des actions en base de données.
+
+##Créer un modèle Bookmark.java
+
+Allez dans `app/models` et créez une classe `Bookmark.java` :
+
+{% highlight java %}
+	package models;
+
+	import play.*;
+	import play.db.jpa.*;
+	import play.data.validation.*;
+	import javax.persistence.*;
+	import java.util.*;
+
+	@Entity
+	public class Bookmark extends Model {
+	    @Required public String label;
+	    @Required public String website;
+
+	    public Bookmark(String label, String website) {
+	        this.label = label;
+	        this.website = website;
+	    }
+
+	    public Bookmark() {
+
+	    }	
+
+	    public String toString() {
+	        return label;
+	    }	
+	}
+{% endhighlight %}
+
+Puis allons modifier les méthodes du contrôleur `Application.java` :
+
+{% highlight java %}
+	package controllers;
+
+	import play.*;
+	import play.mvc.*;
+
+	import java.util.*;
+
+	import models.*;
+
+	import com.google.gson.JsonObject;
+	import com.google.gson.Gson;
+
+	public class Application extends Controller {
+
+	    public static void index() {
+	        render();
+	    }
+	
+	    /* GET */
+	    public static void getBookmark(String model) {
+	        System.out.println("getBookmark : "+model);
+	        Gson gson = new Gson();
+	        Bookmark bookmark = new Bookmark();
+	        Bookmark forFetchBookmark = new Bookmark();
+	        bookmark = gson.fromJson(model,Bookmark.class);
+
+	        forFetchBookmark = Bookmark.findById(bookmark.id);
+	        //tester if found ...
+	        renderJSON(forFetchBookmark);
+	    }
+
+	    /* POST (CREATE) */
+	    public static void postBookmark(String model) {
+	        System.out.println("postBookmark : "+model);
+
+	        Gson gson = new Gson();
+	        Bookmark bookmark = new Bookmark();
+	        bookmark = gson.fromJson(model,Bookmark.class);
+	        bookmark.save();
+	        renderJSON(bookmark);
+	    }
+
+	    /* PUT (UPDATE) */
+	    public static void putBookmark(String model) {
+	       System.out.println("putBookmark : "+model);
+
+	        Gson gson = new Gson();
+	        Bookmark bookmark = new Bookmark();
+
+	        Bookmark updatedBookmark = new Bookmark();
+
+	        bookmark = gson.fromJson(model,Bookmark.class);
+
+	        updatedBookmark = Bookmark.findById(bookmark.id);
+	        updatedBookmark.label	= bookmark.label;
+
+	        updatedBookmark.save();
+
+	        renderJSON(updatedBookmark);
+	    }
+	
+	    /* DELETE */
+	    public static void deleteBookmark(String model) {
+	        System.out.println("deleteBookmark : "+model);
+	        Gson gson = new Gson();
+	        Bookmark bookmark = new Bookmark();
+	        Bookmark bookmarkToBeDeleted = new Bookmark();
+	        bookmark = gson.fromJson(model,Bookmark.class);
+
+	        bookmarkToBeDeleted = Bookmark.findById(bookmark.id);
+	        //tester if found ...
+	        bookmarkToBeDeleted.delete();
+
+	        renderJSON(bookmarkToBeDeleted);
+	    }
+	
+	    /* GET */
+	    public static void allBookmarks() {
+	        System.out.println("allBookmarks");
+
+	        List<Bookmark> bookmarks = Bookmark.findAll();
+	        renderJSON(new Gson().toJson(bookmarks));	
+	    }
+
+	}
+{% endhighlight %}
+
+**Notez bien :** les imports `com.google.gson.*` qui nous permettent de "traduire" le JSON.
+
+**Ne pas oublier :** allez dans le fichier `conf/application.conf` et dans la rubrique `Database configuration` ajouter la ligne `db=fs`. (normal, on va utiliser la base de données)
+
+Arrêtez & relancez l'application (ça ne peut pas faire de mal).
+
+Rechargez tout d'abord la page de votre navigateur pour remettre "à zéro" les variables/objets/modèles javascript (Backbone) et relancer la compilation des classes côté Play!>.
+
