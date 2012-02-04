@@ -483,3 +483,35 @@ Une fois que le serveur a répondu :
 
 On a bien retrouvé nos données :) et finalement ce n'est pas si compliqué que ça.
 
+##Derniers coups de tournevis pour la route
+
+c'est mieux d'utilise des callbacks lorsque l'on fait des appels aux serveurs (ben oui on bosse en mode asynchrone) :
+
+###Par exemple pour un save()
+
+{% highlight javascript %}
+	b = new Bookmark({label:"Google", website:"www.google.fr"})
+	b.save({},
+		{
+			success:function(data){ console.log("Gagné : ", data); }, 
+			error : function() { console.log("Oups! y'a un blem"); } 
+		})
+{% endhighlight %}
+
+###Ou pour un fetch()
+
+{% highlight javascript %}
+	bookmarksCollection.fetch({
+		success:function(data){ 
+			console.log("Gagné : "); 
+			bookmarksCollection.models.forEach(function(model){ console.log(model.get("label")); })
+		}, 
+		error : function() { console.log("Oups! y'a un blem"); }
+	})
+{% endhighlight %}
+
+##Voilà, c'est fini pour aujourd'hui.
+
+Bon je vous laisse déjà bricoler avec ça, et dans un prochain article, nous irons un peu plus loin : comment gère-t-on les relations ? (par exemple, on associe un thème ou une technologie à un bookmark). Et plus tard, je tenterais la même chose avec Play!> version 2.
+
+
