@@ -342,7 +342,6 @@ Puis allons modifier les méthodes du contrôleur `Application.java` :
 	        //tester if found ...
 	        renderJSON(forFetchBookmark);
 	    }
-
 	    /* POST (CREATE) */
 	    public static void postBookmark(String model) {
 	        System.out.println("postBookmark : "+model);
@@ -353,7 +352,6 @@ Puis allons modifier les méthodes du contrôleur `Application.java` :
 
 	        renderJSON(bookmark);
 	    }
-
 	    /* PUT (UPDATE) */
 	    public static void putBookmark(String model) {
 	        System.out.println("putBookmark : "+model);
