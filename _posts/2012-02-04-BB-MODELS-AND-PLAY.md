@@ -322,14 +322,9 @@ Puis allons modifier les méthodes du contrôleur `Application.java` :
 {% highlight java %}
 	package controllers;
 
-	import play.*;
 	import play.mvc.*;
-
 	import java.util.*;
-
 	import models.*;
-
-	import com.google.gson.JsonObject;
 	import com.google.gson.Gson;
 
 	public class Application extends Controller {
@@ -337,16 +332,13 @@ Puis allons modifier les méthodes du contrôleur `Application.java` :
 	    public static void index() {
 	        render();
 	    }
-	
 	    /* GET */
 	    public static void getBookmark(String model) {
 	        System.out.println("getBookmark : "+model);
-	        Gson gson = new Gson();
-	        Bookmark bookmark = new Bookmark();
-	        Bookmark forFetchBookmark = new Bookmark();
-	        bookmark = gson.fromJson(model,Bookmark.class);
 
-	        forFetchBookmark = Bookmark.findById(bookmark.id);
+	        Gson gson = new Gson();
+	        Bookmark bookmark = gson.fromJson(model,Bookmark.class);
+	        Bookmark forFetchBookmark = Bookmark.findById(bookmark.id);
 	        //tester if found ...
 	        renderJSON(forFetchBookmark);
 	    }
@@ -356,46 +348,36 @@ Puis allons modifier les méthodes du contrôleur `Application.java` :
 	        System.out.println("postBookmark : "+model);
 
 	        Gson gson = new Gson();
-	        Bookmark bookmark = new Bookmark();
-	        bookmark = gson.fromJson(model,Bookmark.class);
+	        Bookmark bookmark = gson.fromJson(model,Bookmark.class);
 	        bookmark.save();
+
 	        renderJSON(bookmark);
 	    }
 
 	    /* PUT (UPDATE) */
 	    public static void putBookmark(String model) {
-	       System.out.println("putBookmark : "+model);
+	        System.out.println("putBookmark : "+model);
 
 	        Gson gson = new Gson();
-	        Bookmark bookmark = new Bookmark();
-
-	        Bookmark updatedBookmark = new Bookmark();
-
-	        bookmark = gson.fromJson(model,Bookmark.class);
-
-	        updatedBookmark = Bookmark.findById(bookmark.id);
+	        Bookmark bookmark = gson.fromJson(model,Bookmark.class);
+	        Bookmark updatedBookmark = Bookmark.findById(bookmark.id);
 	        updatedBookmark.label	= bookmark.label;
-
 	        updatedBookmark.save();
 
 	        renderJSON(updatedBookmark);
 	    }
-	
 	    /* DELETE */
 	    public static void deleteBookmark(String model) {
 	        System.out.println("deleteBookmark : "+model);
-	        Gson gson = new Gson();
-	        Bookmark bookmark = new Bookmark();
-	        Bookmark bookmarkToBeDeleted = new Bookmark();
-	        bookmark = gson.fromJson(model,Bookmark.class);
 
-	        bookmarkToBeDeleted = Bookmark.findById(bookmark.id);
+	        Gson gson = new Gson();
+	        Bookmark bookmark = gson.fromJson(model,Bookmark.class);
+	        Bookmark bookmarkToBeDeleted = Bookmark.findById(bookmark.id);
 	        //tester if found ...
 	        bookmarkToBeDeleted.delete();
 
 	        renderJSON(bookmarkToBeDeleted);
 	    }
-	
 	    /* GET */
 	    public static void allBookmarks() {
 	        System.out.println("allBookmarks");
