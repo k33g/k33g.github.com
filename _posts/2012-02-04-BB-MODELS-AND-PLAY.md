@@ -154,7 +154,7 @@ Aller ensuite dans `controllers/Application.java` et ajouter les méthodes suiva
 
 Et là c'est le drame !
 
-on s'aperçoit que c'est la méthode postBookmark qui est appelée, mais par contre rien (`null` en fait) n'est retourné dans la console serveur. En fait Backbone n'envoie pas ce que l'on souhaite à la méthode Play!>.
+on s'aperçoit que c'est la méthode postBookmark qui est appelée, mais par contre rien (`null` en fait) n'est retourné dans la console serveur. En fait Backbone n'envoie pas ce que l'on souhaite à la méthode Play!> (en fait Play attend une chaîne JSON qui contienne une variable de même nom que le paramètre des méthodes du contrôleur).
 
 Même pas mal !. Nous allons donc re-écrire/surcharger `Backbone.sync`. ... Et on va faire simple.
 
@@ -179,7 +179,7 @@ Dans public/javascripts, créer un nouveau fichier : `backbone.sync.js` :
 	        if(model.models) {//c'est une collection
 	            dataForTheServer:null
 	        } else {//c'est un modèle
-	            dataForServer = { model : JSON.stringify(model.toJSON()) };
+	            dataForServer = { model : JSON.stringify(model.toJSON()) }; // Remarquez l'utilisation de "model"
 	        }
 
 	        return $.ajax({ 
@@ -197,6 +197,8 @@ Dans public/javascripts, créer un nouveau fichier : `backbone.sync.js` :
 	    };
 	})();
 {% endhighlight %}
+
+**!!! Vous remarquerez l'utilisation de "model" dans la chaîne JSON envoyée au serveur, comme le nom du paramètre des méthodes du contrôleur java.**
 
 Ensuite, aller dans `app/views/main.html` et inclure le nouveau fichier js à la suite des autres :
 
