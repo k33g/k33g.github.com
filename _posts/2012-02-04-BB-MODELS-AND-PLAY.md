@@ -290,12 +290,10 @@ Allez dans `app/models` et créez une classe `Bookmark.java` :
 
 {% highlight java %}
 	package models;
-
-	import play.*;
-	import play.db.jpa.*;
-	import play.data.validation.*;
-	import javax.persistence.*;
-	import java.util.*;
+	
+	import javax.persistence.Entity;
+	import play.data.validation.Required;
+	import play.db.jpa.Model;
 
 	@Entity
 	public class Bookmark extends Model {
@@ -311,6 +309,7 @@ Allez dans `app/models` et créez une classe `Bookmark.java` :
 
 	    }	
 
+	    @Override
 	    public String toString() {
 	        return label;
 	    }	
