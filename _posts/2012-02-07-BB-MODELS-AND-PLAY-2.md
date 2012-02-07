@@ -397,7 +397,7 @@ Vous obtenez un **"horrible"** `TypeError: Object #<Object> has no method 'get'`
 
 ![Alt "bbplay_2_004.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay_2_004.png)
 
-###Mais que c'est-il donc passé ?
+###Mais que s'est-il donc passé ?
 
 En fait, lorsque que vous avez fait un `fetch()` du bookmark, il a bien "récupéré" les infos du serveur, mais n'a pas "casté" la techno du bookmark en `Backbone.Model`, donc votre techno (du bookmark) existe bien, mais est un simple `Object`. Les données sont bien là, vous pouvez vérifier en faisant ceci : `LyonJS.get("techno").label;`
 
