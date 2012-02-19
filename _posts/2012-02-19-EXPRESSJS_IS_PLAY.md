@@ -170,6 +170,15 @@ Puis les feuilles de styles dans `views/layout.ejs` :
 			<link rel="stylesheet" href="stylesheets/bootstrap.css">
 			<link rel="stylesheet" href="stylesheets/bootstrap-responsive.css">
 	    	<link rel="stylesheet" href="stylesheets/default.min.css">
+            <style type="text/css">
+                body {
+                    padding-top: 60px;
+                    padding-bottom: 40px;
+                }
+                .sidebar-nav {
+                    padding: 9px 0;
+                }
+            </style>
 		</head>
 		 <%- body %>
 	</html>
