@@ -331,7 +331,7 @@ Entre `var app = module.exports = express.createServer();` et `app.configure(...
 
 Ajoutons un peu de code à notre vue juste après `<div class="container">` :
 
-	<!-- ma barre de titre -->
+{% highlight html %}
 	<div id="authentication">
         <% if(!everyauth.loggedIn) { %>
             <h2>Not Authenticated</h2>
@@ -343,6 +343,7 @@ Ajoutons un peu de code à notre vue juste après `<div class="container">` :
             </p>
         <% } %>
 	</div>
+{% endhighlight %}
 
 Donc si vous n'êtes pas authentifié dans twitter, cela vous affichera un lien pour aller vous connecter. Une fois authentifié cela affichera les infos twitter de votre compte. On teste :
 
