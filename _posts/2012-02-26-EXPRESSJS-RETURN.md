@@ -352,3 +352,59 @@ Vous êtes redirigé vers votre application :
 
 C'est cool ça fonctionne (en tous cas chez moi, c'est ok) mais ce n'est pas beau.
 
+###Derniers réglages
+
+Toujours dans `index.ejs` on modifie le code précédent :
+
+	<% if(!everyauth.loggedIn) { %>
+		<h2>Not Authenticated</h2>
+		<a href="/auth/twitter">Who am i with twitter</a>
+	<% } else {%>
+		<h3>Twitter User Data</h3>
+		<p>
+			<img src="<%= everyauth.twitter.user.profile_image_url %>"/>
+			<h2>Welcome <%= everyauth.twitter.user.name %></h2>
+		</p>
+	<% } %>
+
+Puis, vous modifiez le code html pour ne permettre de poster qu'une fois authentifié (le bouton n'apparaît que si vous êtes authentifié) :
+
+	<!-- mon formulaire de saisie -->
+	<div id="snippet-form">
+		<h2>Go ...</h2>
+	   <form action="/" class="well">
+			<label>Title : </label>
+			<input id="title" type="text" class="span3" style="width:100%" placeholder="title"/>
+			<label>Code Snippet : (with markdown) </label>
+			<textarea id="code" placeholder="code" style="width:100%" rows="5"></textarea>
+
+			<!-- on ajoute un compteur -->
+				<b><div id="counter">0/1455</div></b>
+			<!-- -->
+
+		   <% if(everyauth.loggedIn) { %>
+				<input id="user" readonly="readonly" type="text" placeholder="user" value="<%= everyauth.twitter.user.screen_name %>"/>
+				<button id="postsnippet" type="submit" class="btn">Ajouter un Snippet</button>
+		   <% } %>
+	   </form>
+	</div>
+
+Et pensez à déactiver le "vidage" des zones de texte (on veut conserver le pseudo utilisateur) :
+
+	//this.$('input[type="text"]').val('');
+
+et remplacez par :
+
+	this.$('#title').val('');
+
+(oui, je sais, les id cémal)
+
+Et enfin, vous pouvez testez : juste raffraîchir la page, ça devrait suffire : **Tada !!!**
+
+![Alt "express14.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express14.png)
+
+Voilà, vous avez de quoi vous amuser. Vous pouvez tester l'application en vrai ici : [http://stykkekode.cloudno.de/](http://stykkekode.cloudno.de/).
+
+Et pour la prochaine fois, nous verrons comment utiliser **CouchDB** pour sauvegarder et retrouver les messages.
+
+Bon dimanche à tous.
