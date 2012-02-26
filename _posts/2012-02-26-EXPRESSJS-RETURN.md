@@ -191,3 +191,52 @@ Et donc cela va vous permettre de tester le callback de twitter en local
 ... ça c'est fait.
 
 Retournons maintenant dans le code.
+
+
+###Déclaration et paramétrage de everyauth
+
+Nous allons tout d'abord créer un fichier `config.js` à la racine de l'application. Et nous allons renseigner dans ce fichier les informations nécessaires à la connexion avex Twitter :
+
+	module.exports = {
+		twit: {
+			consumerKey: 'ICI VOTRE CONSUMER KEY'
+		  , consumerSecret: 'ICI VOTRE CONSUMER SECRET'
+		}
+	};
+
+Ensuite allons dans `server.js` :
+
+Ajoutons les références à everyauth et config.js :
+
+	var express = require('express')
+	  , routes = require('./routes')
+	  ,	everyauth = require('everyauth')    /* AUTHENTICATION */
+	  , conf = require('./config');         /* AUTHENTICATION */
+
+	everyauth.debug = true;
+
+Dans la partie "Configuration", modifier de la manière suivante : (on utilise le mécanisme de gestion de session d'everyauth)
+
+	app.configure(function(){
+		/* === start of authentication === */
+		app.use(express.cookieParser());
+		app.use(express.session({
+			secret:'bobmorane',
+			"store":  new express.session.MemoryStore({ reapInterval: 60000 * 10 })
+		}));
+		app.use(everyauth.middleware());
+		/* === end of authentication === */
+
+		app.set('views', __dirname + '/views');
+		app.set('view engine', 'jade');
+		app.use(express.bodyParser());
+		app.use(express.methodOverride());
+		app.use(app.router);
+		app.use(express.static(__dirname + '/public'));
+	});
+
+En fin de fichier juste avant `app.listen(3000);` ajouter `everyauth.helpExpress(app);`
+
+	everyauth.helpExpress(app);
+	app.listen(3000);
+
