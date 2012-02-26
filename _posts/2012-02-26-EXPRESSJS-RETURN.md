@@ -10,6 +10,8 @@ info : stykkekode la suite
 
 Aujourd'hui, ce sera l'authentification twitter, mais tout d'abord un peu de cosmétique.
 
+... **Faites vous un café avant, il faut être concentré ;)**
+
 ##Codemirror
 
 Etant donné que nous saisissons du markdown, allons jusqu'au bout et proposons un éditeur de code avec un peu de couleur. Pour cela nous allons utiliser CodeMirror, un éditeur de code en js assez sympa à utiliser (et surtout facile à utiliser) : [http://codemirror.net/](http://codemirror.net/)
@@ -31,6 +33,7 @@ puis dans `public/stylesheets` :
 
 Dans `/views/layout.ejs`, ajouter les références aux feuilles de style :
 
+{% highlight html %}
 	<html>
 		<head>
 			<title>styKKeKode</title>
@@ -55,6 +58,7 @@ Dans `/views/layout.ejs`, ajouter les références aux feuilles de style :
 		</head>
 		 <%- body %>
 	</html>
+{% endhighlight %}
 
 **Remarque :** j'ai modifié(surcharché) `.CodeMirror` (vous n'êtes pas obligé) et changé l'attribut `color` de `pre` (il y avait un "conflit de couleurs" avec bootstrap)
 
@@ -64,6 +68,7 @@ On retourne dans `/views/index.ejs`,
 
 Dans notre formulaire html, il n'y a pas grand chose qui change, nous allons juste ajouter un "compteur" pour le nombre de caractères à saisir :
 
+{% highlight html %}
 	<!-- mon formulaire de saisie -->
 	<div id="snippet-form">
 		<h2>Go ...</h2>
@@ -83,6 +88,7 @@ Dans notre formulaire html, il n'y a pas grand chose qui change, nous allons jus
 			<!--<input type="submit" value="Ajouter un Snippet" />-->
 	   </form>
 	</div>
+{% endhighlight %}
 
 ####Javascript :
 
@@ -90,14 +96,17 @@ Là on on a un peu plus de boulot :
 
 Premièrement, pensez à ajouter les références au librairies codemirror :
 
+{% highlight html %}
 	<script src="javascripts/codemirror.js"></script>
 	<script src="javascripts/xml.js"></script>
 	<script src="javascripts/markdown.js"></script>
+{% endhighlight %}
 
 Ensuite, on ajoute le code nécessaire :
 
 Juste après `$(document).ready(function() { ` ajouter ceci :
 
+{% highlight javascript %}
 	//le compteur
 	var counter = $("#counter");
 
@@ -129,6 +138,7 @@ Juste après `$(document).ready(function() { ` ajouter ceci :
 	});
 	editor.getScrollerElement().style.height = "170px";
 	editor.getGutterElement().style.height = "170px";
+{% endhighlight %}
 
 Une dernière petite modification : dans notre vue `window.SnippetFormView`, nous allons modifier le code qui permet de récupérer la saisie faites dans la textarea, puis de vider celle-ci. Remplacez donc :
 
@@ -197,26 +207,31 @@ Retournons maintenant dans le code.
 
 Nous allons tout d'abord créer un fichier `config.js` à la racine de l'application. Et nous allons renseigner dans ce fichier les informations nécessaires à la connexion avex Twitter :
 
+{% highlight javascript %}
 	module.exports = {
 		twit: {
 			consumerKey: 'ICI VOTRE CONSUMER KEY'
 		  , consumerSecret: 'ICI VOTRE CONSUMER SECRET'
 		}
 	};
+{% endhighlight %}
 
 Ensuite allons dans `server.js` :
 
 Ajoutons les références à everyauth et config.js :
 
+{% highlight javascript %}
 	var express = require('express')
 	  , routes = require('./routes')
 	  ,	everyauth = require('everyauth')    /* AUTHENTICATION */
 	  , conf = require('./config');         /* AUTHENTICATION */
 
 	everyauth.debug = true;
+{% endhighlight %}
 
 Dans la partie "Configuration", modifier de la manière suivante : (on utilise le mécanisme de gestion de session d'everyauth)
 
+{% highlight javascript %}
 	app.configure(function(){
 		/* === start of authentication === */
 		app.use(express.cookieParser());
@@ -234,12 +249,14 @@ Dans la partie "Configuration", modifier de la manière suivante : (on utilise l
 		app.use(app.router);
 		app.use(express.static(__dirname + '/public'));
 	});
+{% endhighlight %}
 
 En fin de fichier juste avant `app.listen(3000);` ajouter `everyauth.helpExpress(app);`
 
+{% highlight javascript %}
 	everyauth.helpExpress(app);
 	app.listen(3000);
-
+{% endhighlight %}
 
 ###Utilisation d'everyauth
 
@@ -247,6 +264,7 @@ En fin de fichier juste avant `app.listen(3000);` ajouter `everyauth.helpExpress
 
 Premièrement, allez créer un "model" `user.js` dans le répertoire `models` avec le code suivant
 
+{% highlight javascript %}
 	/* USER MODEL */
 
 	var user = function(id, source, sourceUser) {
@@ -288,12 +306,13 @@ Premièrement, allez créer un "model" `user.js` dans le répertoire `models` av
 	};
 
 	exports.user = user;
-
+{% endhighlight %}
 
 ####Utilisation dans server.js
 
 Entre `var app = module.exports = express.createServer();` et `app.configure(...)` ajoutez :
 
+{% highlight javascript %}
 	/* === start of authentication === */
 
 	var user = require('./models/user').user;
@@ -325,7 +344,7 @@ Entre `var app = module.exports = express.createServer();` et `app.configure(...
 
 
 	/* === end of authentication === */
-
+{% endhighlight %}
 
 ####Utilisation dans la vue index.ejs
 
