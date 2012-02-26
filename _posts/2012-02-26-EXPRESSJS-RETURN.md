@@ -332,18 +332,16 @@ Entre `var app = module.exports = express.createServer();` et `app.configure(...
 Ajoutons un peu de code à notre vue juste après `<div class="container">` :
 
 	<!-- ma barre de titre -->
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-
-				<a class="brand" href="#">styKKeKode
-					<% if (message) { %>
-						<%= message %>
-					<% } %>
-				</a>
-
-	        </div>
-		</div>
+	<div id="authentication">
+        <% if(!everyauth.loggedIn) { %>
+            <h2>Not Authenticated</h2>
+            <a href="/auth/twitter">Who am i with twitter</a>
+        <% } else {%>
+            <h3>Twitter User Data</h3>
+            <p>
+                <%= JSON.stringify(everyauth.twitter.user) %>
+            </p>
+        <% } %>
 	</div>
 
 Donc si vous n'êtes pas authentifié dans twitter, cela vous affichera un lien pour aller vous connecter. Une fois authentifié cela affichera les infos twitter de votre compte. On teste :
