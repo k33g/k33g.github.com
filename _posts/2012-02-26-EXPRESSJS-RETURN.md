@@ -326,3 +326,37 @@ Entre `var app = module.exports = express.createServer();` et `app.configure(...
 
 	/* === end of authentication === */
 
+
+####Utilisation dans la vue index.ejs
+
+Ajoutons un peu de code à notre vue juste après `<div class="container">` :
+
+	<% if(!everyauth.loggedIn) { %>
+		<h2>Not Authenticated</h2>
+		<a href="/auth/twitter">Who am i with twitter</a>
+	<% } else {%>
+		<h3>Twitter User Data</h3>
+		<p>
+			<%= JSON.stringify(everyauth.twitter.user) %>
+		</p>
+	<% } %>
+
+Donc si vous n'êtes pas authentifié dans twitter, cela vous affichera un lien pour aller vous connecter. Une fois authentifié cela affichera les infos twitter de votre compte. On teste :
+
+- relancez votre application : `nodemon server.js`
+- si vous êtes connecté à twitter dans votre navigateur, déconnectez vous (c'est mieux pour le test)
+
+Vous devriez obtenir ceci :
+
+![Alt "express11.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express11.png)
+
+Authentifiez vous :
+
+![Alt "express12.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express12.png)
+
+Vous êtes redirigé vers votre application :
+
+![Alt "express13.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express13.png)
+
+C'est cool ça fonctionne (en tous cas chez moi, c'est ok) mais ce n'est pas beau.
+
