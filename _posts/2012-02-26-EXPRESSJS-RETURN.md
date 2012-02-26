@@ -139,3 +139,55 @@ Et voilà pour la partie cosmétique, si tout va bien vous devriez obtenir ceci 
 
 ![Alt "express10.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express10.png)
 
+
+##Authentification Twitter
+
+Pour cette partie, je dois reconnaître que cela m'a pris un peu plus de temps. Alors je ne fais pas le tour complet de l'authentification via Twitter, mais ça devrait vous donner assez de billes pour creuser plus loin.
+L'objectif de cette partie est le suivant :
+
+- pouvoir s'authentifier via Twitter
+- ne pouvoir poster qu'une fois autentifié
+
+###Pré-requis
+
+Nous n'allons pas ré-inventer la roue (je ne suis même pas sûr d'y arriver), pour gérer les sessions et s'authentifier avec un compte de rseau social, il existe l'excellente librairie **everyauth** : [https://github.com/bnoguchi/everyauth](https://github.com/bnoguchi/everyauth). Je n'ai rien fait de génial, je me suis juste inspirré des codes d'exemples [https://github.com/bnoguchi/everyauth/blob/master/example/server.js](https://github.com/bnoguchi/everyauth/blob/master/example/server.js) (j'ai juste customisé à ma sauce).
+
+- aller dans le répertoire de votre application : `cd stykkekode`
+- tapez la commande `npm install everyauth`
+
+####Aller enregistrer son application chez Twitter
+
+- aller sur le site des développeurs : [https://dev.twitter.com/](https://dev.twitter.com/)
+- "signer" vous
+- sélectionnez "Create an App" : [https://dev.twitter.com/apps/new](https://dev.twitter.com/apps/new)
+
+Voici comment j'ai rempli les informations :
+
+- Name : `stykkekode_dev`
+- Description : `tutorial about authentication with express.js`
+- Website : `http://dev.k33g.org` (pour le moment vous n'avez pas à mettre un véritable nom de domaine)
+- Callback URL : `http://dev.k33g.org:3000/auth/twitter/callback` (il est important de garder le même nom de domaine)
+- Acceptez les conditions d'utilisation
+- Clickez sur "Create your twitter application"
+- Votre application vient d'être créée
+- Notez quelque part dans un fichier votre **Consumer key** et votre **Consumer secret**
+
+Ensuite :
+
+- Clickez sur "Create my access token"
+
+####Paramétrer son poste : "fake http://dev.k33g.org"
+
+En mode commande, tapez : `sudo pico /etc/hosts` et ajoutez la ligne suivante :
+
+	127.0.0.1       dev.k33g.org
+
+Et sauvegardez, puis quittez.
+
+Donc à partir de maintenant, si vous lancez votre application : `nodemon server.js `
+et que vous tapez l'url [http://dev.k33g.org:3000/](http://dev.k33g.org:3000/) vous serez dirigés sur votre application locale.
+Et donc cela va vous permettre de tester le callback de twitter en local
+
+... ça c'est fait.
+
+Retournons maintenant dans le code.
