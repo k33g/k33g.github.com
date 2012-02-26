@@ -331,19 +331,7 @@ Entre `var app = module.exports = express.createServer();` et `app.configure(...
 
 Ajoutons un peu de code à notre vue juste après `<div class="container">` :
 
-{% highlight html %}
-	<div id="authentication">
-        <% if(!everyauth.loggedIn) { %>
-            <h2>Not Authenticated</h2>
-            <a href="/auth/twitter">Who am i with twitter</a>
-        <% } else {%>
-            <h3>Twitter User Data</h3>
-            <p>
-                <%= JSON.stringify(everyauth.twitter.user) %>
-            </p>
-        <% } %>
-	</div>
-{% endhighlight %}
+<script src="https://gist.github.com/1914862.js"> </script>
 
 Donc si vous n'êtes pas authentifié dans twitter, cela vous affichera un lien pour aller vous connecter. Une fois authentifié cela affichera les infos twitter de votre compte. On teste :
 
