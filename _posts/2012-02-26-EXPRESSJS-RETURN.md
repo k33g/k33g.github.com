@@ -288,3 +288,41 @@ Premièrement, allez créer un "model" `user.js` dans le répertoire `models` av
 	};
 
 	exports.user = user;
+
+
+####Utilisation dans server.js
+
+Entre `var app = module.exports = express.createServer();` et `app.configure(...)` ajoutez :
+
+	/* === start of authentication === */
+
+	var user = require('./models/user').user;
+
+	//toujours surcharger ceci :
+	everyauth.everymodule
+		.findUserById( function (id, callback) {
+			callback(null, user.findById(id));
+		});
+
+	//s'authentifier chez twitter
+	everyauth
+		.twitter
+		.consumerKey(conf.twit.consumerKey)
+		.consumerSecret(conf.twit.consumerSecret)
+		.findOrCreateUser( function (sess, accessToken, accessSecret, twitUser) {
+
+			var tmp = user.findByTwitterId(twitUser.id);
+			if(tmp) {
+				// ne rien faire
+			} else {
+				tmp = user.add('twitter', twitUser);
+				user.twitterListById[twitUser.id] = tmp;
+			}
+
+			return tmp;
+		})
+		.redirectPath('/'); //une fois authentifié rediriger vers "/"
+
+
+	/* === end of authentication === */
+
