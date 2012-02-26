@@ -240,3 +240,51 @@ En fin de fichier juste avant `app.listen(3000);` ajouter `everyauth.helpExpress
 	everyauth.helpExpress(app);
 	app.listen(3000);
 
+
+###Utilisation d'everyauth
+
+####Modèle "user"
+
+Premièrement, allez créer un "model" `user.js` dans le répertoire `models` avec le code suivant
+
+	/* USER MODEL */
+
+	var user = function(id, source, sourceUser) {
+		console.log("New User : ", id, source);
+		this.id;
+		this.source = source;
+		this.sourceUser = sourceUser;
+	}
+
+	//static members
+
+	user.listById = {};
+	user.twitterListById = {};
+	/*
+		user.list : tous les users quel que soit le mode d'authentification
+		user.twitterList : les users authentifiés via twitter
+		everyauth permet de nombreux modes d'authentification (google par exemple)
+		cela permettra d'ajouter d'autres modes si on le souhaite
+	 */
+	user.nextUserId = 0;
+
+	//static methods
+	user.add = function(source, sourceUser) {
+		user.nextUserId+=1;
+		var authenticatedUser = new user(user.nextUserId, source, sourceUser);
+		console.log("#################################");
+		console.log(authenticatedUser);
+		console.log("#################################");
+		user.listById[authenticatedUser.id] = authenticatedUser;
+		return authenticatedUser;
+	};
+
+	user.findById = function(id) {
+		return user.listById[id];
+	};
+
+	user.findByTwitterId = function(id) {
+		return user.twitterListById[id];
+	};
+
+	exports.user = user;
