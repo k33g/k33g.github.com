@@ -112,7 +112,7 @@ Remplacer le code de `/routes/index.js` par :
 
 On peut considérer que c'est l'équivalent de nos contrôleurs Java.
 
-Donc à chaque appel de `http://localhost:3000/` vous serez redirigé ver la view/vue `index.ejs`. **Et on passe la variable message à la vue index.ejs**. Vous notez que je précise l'extension de la vue, cela signifie que l'on peut utiliser plusieurs moteurs de template dans la même application.
+Donc à chaque appel de `http://localhost:3000/` vous serez redirigé vers la view/vue `index.ejs`. **Et on passe la variable message à la vue index.ejs**. Vous notez que je précise l'extension de la vue, cela signifie que l'on peut utiliser plusieurs moteurs de template dans la même application.
 
 Pour essayer :
 
@@ -519,7 +519,7 @@ Vous devez donc créer un fichier `backbone.sync.js` au même endroit que `backb
 	        }, dataForServer = null;
 
 	        if(model.models) {//c'est une collection
-	            dataForTheServer:null
+	            dataForServer:null
 	        } else {//c'est un modèle
 
 	            dataForServer = { model : JSON.stringify(model.toJSON()) };
@@ -612,7 +612,7 @@ Nous allons donc modifier la vue `index.ejs` :
 {% endhighlight %}
 
 
-###Javascipt (Backbone & co)
+###Javascript (Backbone & co)
 
 Donc à la suite :
 
