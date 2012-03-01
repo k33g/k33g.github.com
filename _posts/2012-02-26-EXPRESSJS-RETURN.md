@@ -8,6 +8,8 @@ info : stykkekode la suite
 
 #Express.js, le Play!>Framework du Javascript ? La suite ...
 
+Hier, c'était : [cf. 1ère partie "Express is Play (?)"](http://k33g.github.com/2012/02/19/EXPRESSJS_IS_PLAY.html)
+
 Aujourd'hui, ce sera l'authentification twitter, mais tout d'abord un peu de cosmétique.
 
 ... **Faites vous un café avant, il faut être concentré ;)**
