@@ -121,7 +121,7 @@ On ajoute cette ligne `user.twitterListById[authenticatedUser.sourceUser.screen_
         return authenticatedUser;
     };
 
-##Modifions `routes/index.js`
+##Modifions routes/index.js
 
 En début de fichier, ajouter la référence à `user` :
 
@@ -156,7 +156,7 @@ puis modifions `createSnippet` :
 - saisissez quelques données dans votre application
 - puis allez voir dans la console d'administration de CouchDB
 
-[Alt "express18.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express18.png)
+![Alt "express18.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express18.png)
 
 - Vos données sont bien persistées
 - Vous remarquerez que nous n'avons rien eu pour le moment à changer dans le code concernant Backbone.
