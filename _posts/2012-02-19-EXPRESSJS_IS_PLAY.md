@@ -74,24 +74,23 @@ Aller dans le répertoire `views`, et créer 2 fichiers `index.ejs` et `layout.e
 
 Dans `layout.ejs` saisissez le code suivant :
 
-{% highlight html %}
+
 	<html>
 		<head>
 			<title>styKKeKode</title>
 		</head>
 	 	<%- body %>
 	</html>
-{% endhighlight %}
+
 
 Dans `index.ejs` saisissez le code suivant :
 
-{% highlight html %}
+
 	<H1>styKKeKode</H1>
 
 	<% if (message) { %>
 		<h2><%= message %></h2>
 	<% } %>
-{% endhighlight %}
 
 si vous allez dans `server.js` (ou `app.js`) vous trouverez la ligne suivante :
 
@@ -100,7 +99,7 @@ si vous allez dans `server.js` (ou `app.js`) vous trouverez la ligne suivante :
 Qu'est ce que ça fait ? Dès que vous appeler votre "domaine" dans l'url (la page principale) c'est la méthode `index` de `routes` qui est appelée. Et vous trouvez l'implémentation de cette méthode dans `/routes/index.js`, que nous allons tout de suite modifier.
 Remplacer le code de `/routes/index.js` par :
 
-{% highlight javascript %}
+
 	/*
 	 * GET home page.
 	 */
@@ -108,7 +107,7 @@ Remplacer le code de `/routes/index.js` par :
 	exports.index = function(req, res){
 	  res.render('index.ejs', { message : 'soon …' })
 	};
-{% endhighlight %}
+
 
 On peut considérer que c'est l'équivalent de nos contrôleurs Java.
 
@@ -145,7 +144,7 @@ Twitter Bootstrap nous permettra de donner une "bonne tête" à notre applicatio
 
 Allons ensuite déclarer les librairies javascript dans `views/index.ejs` :
 
-{% highlight html %}
+
 	<H1>styKKeKode</H1>
 
 	<% if (message) { %>
@@ -159,11 +158,11 @@ Allons ensuite déclarer les librairies javascript dans `views/index.ejs` :
 	<script src="javascripts/backbone.js"></script>
 	<script src="javascripts/tempo.js"></script>
 	<script src="javascripts/showdown.js"></script>
-{% endhighlight %}
+
 
 Puis les feuilles de styles dans `views/layout.ejs` :
 
-{% highlight html %}
+
 	<html>
 		<head>
 			<title>styKKeKode</title>
@@ -182,7 +181,7 @@ Puis les feuilles de styles dans `views/layout.ejs` :
 		</head>
 		 <%- body %>
 	</html>
-{% endhighlight %}
+
 
 ##Les modèles
 
@@ -190,7 +189,7 @@ On ne vas pas s'occuper tout de suite de la persistance, mais nous allons créer
 
 Créer dans votre répertoire applicatif un répertoire `models` sans lequel vous allez ajouter un fichier `snippet.js` qui sera donc notre modèle, avec le code suivant :
 
-{% highlight javascript %}
+
 	/* SNIPPET MODEL */
 	var snippetsCounter = 1;
 
@@ -264,7 +263,7 @@ Créer dans votre répertoire applicatif un répertoire `models` sans lequel vou
 	snippet_three.save(function(m){console.log(m);});
 
 	exports.snippet = snippet;
-{% endhighlight %}
+
 
 Dans `routes/index.js`, ajoutez la ligne suivante en tout début de fichier (on fait un include) :
 
@@ -284,20 +283,19 @@ Préparons le travail pour Backbone.
 
 Allez dans `server.js` (ou `app.js`) et copiez les routes suivantes (juste après `app.get('/', routes.index);`) :
 
-{% highlight javascript %}
+
 	app.post("/snippet", routes.createSnippet);
 	app.put("/snippet", routes.updateSnippet);
 	app.get("/snippet", routes.getSnippet);
 	app.del("/snippet", routes.deleteSnippet);
 
 	app.get("/snippets", routes.allSnippets);
-{% endhighlight %}
 
 ###Contrôleurs
 
 Allez dans `routes/index.js` et modifiez le code comme ceci :
 
-{% highlight javascript %}
+
 	var snippet = require('../models/snippet').snippet;
 
 	/*
@@ -378,7 +376,6 @@ Allez dans `routes/index.js` et modifiez le code comme ceci :
 			res.json(snippets);
 		});
 	};
-{% endhighlight %}
 
 ###Testons :
 
@@ -386,7 +383,7 @@ Allez dans votre navigateur, ouvrez la console, et essayez les commandes suivant
 
 ####createSnippet
 
-{% highlight javascript %}
+
 	$.ajax({
 		type: "POST",
 		url: "/snippet",
@@ -403,7 +400,7 @@ Allez dans votre navigateur, ouvrez la console, et essayez les commandes suivant
 			console.log(dataFromServer);
 		}
 	});
-{% endhighlight %}
+
 
 ![Alt "express02.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express02.png)
 
@@ -411,7 +408,7 @@ on peut voir que le serveur nous a affecté un id
 
 ####updateSnippet
 
-{% highlight javascript %}
+
 	$.ajax({
 		type: "PUT",
 		url: "/snippet",
@@ -429,7 +426,7 @@ on peut voir que le serveur nous a affecté un id
 			console.log(dataFromServer);
 		}
 	});
-{% endhighlight %}
+
 
 ![Alt "express03.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express03.png)
 
@@ -437,7 +434,7 @@ Le serveur nous a renvoyé notre modèle modifié
 
 ####getSnippet
 
-{% highlight javascript %}
+
 	$.ajax({
 		type: "GET",
 		url: "/snippet",
@@ -450,7 +447,7 @@ Le serveur nous a renvoyé notre modèle modifié
 			console.log(dataFromServer);
 		}
 	});
-{% endhighlight %}
+
 
 ![Alt "express04.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express04.png)
 
@@ -458,7 +455,7 @@ Le serveur nous a renvoyé le modèle ayant l'id 1
 
 ####deleteSnippet
 
-{% highlight javascript %}
+
 	$.ajax({
 		type: "DELETE",
 		url: "/snippet",
@@ -471,7 +468,7 @@ Le serveur nous a renvoyé le modèle ayant l'id 1
 			console.log(dataFromServer);
 		}
 	});
-{% endhighlight %}
+
 
 ![Alt "express05.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express05.png)
 
@@ -479,7 +476,7 @@ Et maintenant nous allons appeler la liste de l'ensemble de nos "snippets" pour 
 
 ####allSnippets
 
-{% highlight javascript %}
+
 	$.ajax({
 		type: "GET",
 		url: "/snippets",
@@ -494,7 +491,7 @@ Et maintenant nous allons appeler la liste de l'ensemble de nos "snippets" pour 
 			});
 		}
 	});
-{% endhighlight %}
+
 
 ![Alt "express06.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express06.png)
 
@@ -504,7 +501,7 @@ Et maintenant nous allons appeler la liste de l'ensemble de nos "snippets" pour 
 
 Vous devez donc créer un fichier `backbone.sync.js` au même endroit que `backbone.js` :
 
-{% highlight javascript %}
+
 	(function() {
 	    Backbone.sync = function(method, model, options) {
 
@@ -548,7 +545,7 @@ Vous devez donc créer un fichier `backbone.sync.js` au même endroit que `backb
 	        });
 	    };
 	})();
-{% endhighlight %}
+
 
 Il faudra penser à ajouter dans 'index.ejs' :
 
@@ -559,7 +556,7 @@ Nous allons donc modifier la vue `index.ejs` :
 
 ###HTML
 
-{% highlight html %}
+
 	<!-- ma barre de titre -->
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
@@ -609,14 +606,12 @@ Nous allons donc modifier la vue `index.ejs` :
 	<script src="javascripts/tempo.js"></script>
 	<script src="javascripts/showdown.js"></script>
 	<script src="javascripts/highlight.min.js"></script>
-{% endhighlight %}
 
 
 ###Javascript (Backbone & co)
 
 Donc à la suite :
 
-{% highlight html %}
 	<!-- Application BackBone -->
 
 	<script type="text/javascript">
@@ -729,7 +724,7 @@ Donc à la suite :
 
 	    });
 	</script>
-{% endhighlight %}
+
 
 **Remarques :**
 
@@ -764,13 +759,6 @@ Pour aujourd'hui, mais la prochaine fois, nous verrons comment "socialiser" notr
 Si vous voulez voir tourner l'application "en vrai", je l'ai hébergée ici : [http://stykkekode.cloudno.de/](http://stykkekode.cloudno.de/).
 
 @+ & Bon code.
-
-
-
-
-
-
-
 
 
 
