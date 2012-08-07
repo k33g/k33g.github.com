@@ -10,7 +10,6 @@ info : Jo and CoffeeScript, sample
 
 I continue my investigations with Jo and Coffeescript. Here's another little example :
 
-{% highlight coffeescript %}
 
     <!DOCTYPE HTML PUBLIC>
     <html>
@@ -89,5 +88,3 @@ I continue my investigations with Jo and Coffeescript. Here's another little exa
 
     </script>
     </html>
-
-{% endhighlight %}

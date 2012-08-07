@@ -18,7 +18,6 @@ Certes ce n'est pas Wordpress, Drupal ou autres plateformes de blog, mais c'est 
 
 Pour la gestion d'un blog technique c'est top, ne serait ce que l'affichage de codes source :
 
-    {% highlight javascript %}
        //à la zepto
         z = function(selector) {
             return {
@@ -42,7 +41,7 @@ Pour la gestion d'un blog technique c'est top, ne serait ce que l'affichage de c
         z("a").html("haked").attr("href","http://www.k33g.org");
 
         //ce bout de code donnera lieu à un article
-    {% endhighlight %}
+
 
 En ce qui concerne les commentaires, j'utilise la plateforme "sociale" [Disqus](http://disqus.com/welcome/).
 

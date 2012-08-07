@@ -16,7 +16,7 @@ So, we are going create a class model step by step.
 
 ##Automatically generate properties from public fields
 
-{% highlight coffeescript %}
+
     class Model
       constructor:(args)->
         fields = Object.keys @
@@ -33,7 +33,7 @@ So, we are going create a class model step by step.
               that["_"+propertyName] = value
             enumerable: true
             configurable: true
-{% endhighlight %}
+
 
 
 ###What's going on?
@@ -48,7 +48,7 @@ Then, when you write `bob.name` it's `bob._name` wich is returned, when you writ
 
 You shoul have noticed that i use : `that = @`, it's a javascript habit. In fact, it's better using "fat arrow", see [http://jashkenas.github.com/coffee-script/#fat_arrow](http://jashkenas.github.com/coffee-script/#fat_arrow), and then, there is no need to use the artificial `that = @` :
 
-{% highlight coffeescript %}
+
     class Model
       constructor:(args)->
         fields = Object.keys @
@@ -65,12 +65,11 @@ You shoul have noticed that i use : `that = @`, it's a javascript habit. In fact
               @["_"+propertyName] = value
             enumerable: true
             configurable: true
-{% endhighlight %}
 
 
 ###Use it
 
-{% highlight coffeescript %}
+
     #Human Model
     class Human  extends Model
       constructor:(name)->
@@ -96,7 +95,7 @@ You shoul have noticed that i use : `that = @`, it's a javascript habit. In fact
     console.log sam.name
 
     console.log task1, task2, bob, sam
-{% endhighlight %}
+
 
 I launch this code in a navigator (you can use node.js too if you want), and i get this :
 
@@ -108,18 +107,18 @@ This approach is more "javascript/coffescript" than "playframework" but it's int
 
 ###Create a Event class :
 
-{% highlight coffeescript %}
+
     class Event
       @send:(eventName, data)->
         evt = document.createEvent("Event")
         evt.initEvent eventName, false, false
         evt.data = data
         document.dispatchEvent evt
-{% endhighlight %}
+
 
 ###Update the Model class :
 
-{% highlight coffeescript %}
+
     class Model
       constructor:(args)->
         fields = Object.keys @
@@ -145,11 +144,9 @@ This approach is more "javascript/coffescript" than "playframework" but it's int
 
             enumerable: true
             configurable: true
-{% endhighlight %}
 
 ###Use it
 
-{% highlight coffeescript %}
     #Human Model
     class Human  extends Model
       constructor:(name)->
@@ -173,7 +170,7 @@ This approach is more "javascript/coffescript" than "playframework" but it's int
 
     task1.label = "Remember the milk"
     bob.name = "Bobby"
-{% endhighlight %}
+
 
 I launch this code in a navigator, and i get this :
 
@@ -187,7 +184,7 @@ I'll do it this way: in the constructor of the model, I will check if the field 
 
 Therefore, modify our Model class : (see last two lines of the class)
 
-{% highlight coffeescript %}
+
     class Model
       constructor:(args)->
         fields = Object.keys @
@@ -217,7 +214,7 @@ Therefore, modify our Model class : (see last two lines of the class)
         #create static list of models
         if not @.__proto__.constructor.list
           @.__proto__.constructor.list = []
-{% endhighlight %}
+
 
 ###Add a save method (in memory) to the class Model
 
@@ -225,7 +222,7 @@ What i want ? If i save a model, it adds itself to the list, if it's a new model
 
 Then, i add a save method and a static guid method (to generate GUID) to the Model class :
 
-{% highlight coffeescript %}
+
       @guid : ->
         S4 = ->
           (((1 + Math.random()) * 0x10000) | 0).toString(16).substring 1
@@ -242,13 +239,13 @@ Then, i add a save method and a static guid method (to generate GUID) to the Mod
           )[0]
           (if not tmp then list.push(@))
         @
-{% endhighlight %}
+
 
 (*) : Once the model was saved (and therefore added to the list), you do not have to call the save method at each change (because it is in memory). But it is good practice, especially if we add persistence capabilities in the local storage, for example.
 
 ###Use it
 
-{% highlight coffeescript %}
+
     task1 = new Task "Milk"
     task2 = new Task "Beer"
 
@@ -261,7 +258,7 @@ Then, i add a save method and a static guid method (to generate GUID) to the Mod
     sam.save()
 
     console.log Task.list, Human.list
-{% endhighlight %}
+
 
 I launch this code in a navigator, and i get this :
 
@@ -269,12 +266,12 @@ I launch this code in a navigator, and i get this :
 
 ###Add a delete method (in memory) to the class Model
 
-{% highlight coffeescript %}
+
       delete:->
         list = @.__proto__.constructor.list
         list.splice list.indexOf(@), 1
         @
-{% endhighlight %}
+
 
 ##I want to query my models !!!
 
@@ -282,30 +279,30 @@ I launch this code in a navigator, and i get this :
 
 I add those statics methods to the Model class :
 
-{% highlight coffeescript %}
+
       @all:->
         @result = @list
         @
 
       @fetch:->
         @result
-{% endhighlight %}
+
 
 ###Use it
 
-{% highlight coffeescript %}
+
     #get all tasks
     Task.all().fetch()
 
     #get all humans
     Human.all().fetch()
-{% endhighlight %}
+
 
 ###Add a find method
 
 I add this static method to the Model class :
 
-{% highlight coffeescript %}
+
       @find:(fieldOrFunction, value) ->
          if value
            @result = @list.filter((record) ->
@@ -314,23 +311,22 @@ I add this static method to the Model class :
          else
            @result = @list.filter(fieldOrFunction)
          @
-{% endhighlight %}
+
 
 ###Use it
 
-{% highlight coffeescript %}
+
     Human.find("name", "SAM").fetch()
 
     Human.find((record) ->
       record.name == "SAM" or record.name == "BOB"
     ).fetch()
-{% endhighlight %}
+
 
 ###Add first, last and from methods
 
 I add those statics methods to the Model class :
 
-{% highlight coffeescript %}
       @first:->
         @result[0]
 
@@ -345,11 +341,11 @@ I add those statics methods to the Model class :
         else
           @result = @result.slice(0, howmuch)  if howmuch >= 0
         @
-{% endhighlight %}
+
 
 ###Use it
 
-{% highlight coffeescript %}
+
     bob = new Human "BOB"
     sam = new Human "SAM"
     peter = new Human "PETER"
@@ -364,7 +360,7 @@ I add those statics methods to the Model class :
     console.log "Last Human : ", Human.all().last()
 
     console.log "First Two Humans from first : ", Human.from(0,2).fetch()
-{% endhighlight %}
+
 
 I launch this code in a navigator, and i get this :
 
@@ -374,7 +370,7 @@ I launch this code in a navigator, and i get this :
 
 I add this static method to the Model class :
 
-{% highlight coffeescript %}
+
       @orderBy:(what, order) ->
         if @list
           if @list.length > 0
@@ -396,13 +392,13 @@ I add this static method to the Model class :
                 @list.sort (a, b) ->
                   a[what] - b[what]
         @
-{% endhighlight %}
+
 
 ###Use it :
 
-{% highlight coffeescript %}
+
     Human.all().orderBy("name","DESC").fetch()
-{% endhighlight %}
+
 
 ##Next time ...
 

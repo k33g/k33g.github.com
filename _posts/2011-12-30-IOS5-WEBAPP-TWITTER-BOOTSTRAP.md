@@ -21,41 +21,42 @@ We have to :
 - include jQuery
 - include **tabs** javascript plugin of Twitter Bootstrap
 
-{% highlight html %}
-    <!DOCTYPE HTML>
-    <html>
-    <head>
-        <title>my webapp</title>
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    	<link rel="apple-touch-icon" href="icon.png"/>
 
-        <!-- twitter bootstrap stylesheet -->
-        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+        <!DOCTYPE HTML>
+        <html>
+        <head>
+            <title>my webapp</title>
+            <meta name="apple-mobile-web-app-capable" content="yes">
+            <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-        <!-- we need jQuery -->
-        <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        	<link rel="apple-touch-icon" href="icon.png"/>
 
-        <!-- we need tabs javascript plugin of twitter bootstrap -->
-        <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-tabs.js"></script>
+            <!-- twitter bootstrap stylesheet -->
+            <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
 
-    </head>
-    <body>
+            <!-- we need jQuery -->
+            <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 
-    </body>
-    <script>
+            <!-- we need tabs javascript plugin of twitter bootstrap -->
+            <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-tabs.js"></script>
 
-    </script>
-    </html>
-{% endhighlight %}
+        </head>
+        <body>
+
+        </body>
+        <script>
+
+        </script>
+        </html>
+
 
 ###Add a few new css styles
 
 To the end of the `<head>` tag :
 
-{% highlight html %}
+
     <style type="text/css">
 
         @media all {
@@ -111,7 +112,7 @@ To the end of the `<head>` tag :
         	}
         }
     </style>
-{% endhighlight %}
+
 
 What have we done ?
 
@@ -128,7 +129,7 @@ We need :
 
 ###Main skeleton :
 
-{% highlight html %}
+
     <body>
     <!-- MAIN PANEL -->
     <div class="panel">
@@ -148,11 +149,11 @@ We need :
 
     </div>
     </body>
-{% endhighlight %}
+
 
 ###ToolBar :
 
-{% highlight html %}
+
     <body>
     <!-- MAIN PANEL -->
     <div class="panel">
@@ -179,11 +180,11 @@ We need :
 
     </div>
     </body>
-{% endhighlight %}
+
 
 ###Scrollable panel with tabs :
 
-{% highlight html %}
+
     <body>
     <!-- MAIN PANEL -->
     <div class="panel">
@@ -230,13 +231,13 @@ We need :
 
     </div>
     </body>
-{% endhighlight %}
+
 
 ###Activate tabs management with javascript
 
 We are using `bootstrap-tabs.js` and `jquery-1.7.1.min.js`. Just after the `<body>` tag, add some javascript :
 
-{% highlight html %}
+
     <script>
         $('.tabs').tabs();
         $('.tabs').bind('change', function (e) {
@@ -244,11 +245,11 @@ We are using `bootstrap-tabs.js` and `jquery-1.7.1.min.js`. Just after the `<bod
           e.relatedTarget;  // previous tab
         });
     </script>
-{% endhighlight %}
+
 
 ###Last step : add content in tabs
 
-{% highlight html %}
+
         <!-- SCROLLABLE PANEL -->
         <div class="scrollable panel">
             <!-- CONTENT -->
@@ -310,7 +311,7 @@ We are using `bootstrap-tabs.js` and `jquery-1.7.1.min.js`. Just after the `<bod
                 </footer>
             </div>
         </div>
-{% endhighlight %}
+
 
 ###What it looks like ?
 
@@ -323,7 +324,7 @@ We are using `bootstrap-tabs.js` and `jquery-1.7.1.min.js`. Just after the `<bod
 
 Add this :
 
-{% highlight css %}
+
     @media (orientation: portrait) {
         .left {
             float                       : left;
@@ -352,7 +353,7 @@ Add this :
             border-left                 : 1px solid black;
         }
     }
-{% endhighlight %}
+
 
 ###Change our skeleton
 
@@ -362,49 +363,49 @@ We need :
  - a fixed toolbar (on top)
  - a scrollable panel (one with list and one with tabs inside)
 
-{% highlight html %}
-    <body>
 
-    <!-- LEFT PANEL -->
-    <div class="panel left">
+        <body>
 
-        <!-- TOP BAR -->
-        <div class="topbar">
-            <!-- ... -->
-        </div>
+        <!-- LEFT PANEL -->
+        <div class="panel left">
 
-        <!-- SCROLLABLE PANEL -->
-        <div class="scrollable panel">
-            <div class="sidebar insideScrollablePanel">
+            <!-- TOP BAR -->
+            <div class="topbar">
                 <!-- ... -->
             </div>
-        </div>
-    </div>
 
-    <!-- RIGHT PANEL -->
-    <div class="panel right">
-
-        <!-- TOP BAR -->
-        <div class="topbar right">
-        <!-- don't forget adding right style -->
-            <!-- ... -->
-        </div>
-
-        <!-- SCROLLABLE PANEL -->
-        <div class="scrollable panel">
-            <!-- CONTENT -->
-            <div class="content insideScrollablePanel">
-                <!-- ... -->
+            <!-- SCROLLABLE PANEL -->
+            <div class="scrollable panel">
+                <div class="sidebar insideScrollablePanel">
+                    <!-- ... -->
+                </div>
             </div>
         </div>
 
-    </div>
-    </body>
-{% endhighlight %}
+        <!-- RIGHT PANEL -->
+        <div class="panel right">
+
+            <!-- TOP BAR -->
+            <div class="topbar right">
+            <!-- don't forget adding right style -->
+                <!-- ... -->
+            </div>
+
+            <!-- SCROLLABLE PANEL -->
+            <div class="scrollable panel">
+                <!-- CONTENT -->
+                <div class="content insideScrollablePanel">
+                    <!-- ... -->
+                </div>
+            </div>
+
+        </div>
+        </body>
+
 
 ###Final code (add some content) :
 
-{% highlight html %}
+
     <body>
     <!-- LEFT PANEL -->
     <div class="panel left">
@@ -550,7 +551,7 @@ We need :
 
     </div>
     </body>
-{% endhighlight %}
+
 
 ###What it looks like ?
 

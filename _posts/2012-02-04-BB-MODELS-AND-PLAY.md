@@ -36,11 +36,11 @@ Aller dans `public/javascripts` et copier dans le répertoire :
 
 Ensuite, aller dans `app/views/main.html` et changer les includes javascript :
 
-{% highlight html %}
+
 	<script src="@{'/public/javascripts/jquery.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 	<script src="@{'/public/javascripts/underscore.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 	<script src="@{'/public/javascripts/backbone.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-{% endhighlight %}
+
 
 C'est bon, vous êtes prêts. On commence.
 
@@ -48,7 +48,7 @@ C'est bon, vous êtes prêts. On commence.
 
 Aller dans `app/views/Application`, et modifier `index.html` :
 
-{% highlight html %}
+
 	#{extends 'main.html' /}
     #{set title:'Home' /}
 
@@ -69,7 +69,7 @@ Aller dans `app/views/Application`, et modifier `index.html` :
         });
 
     </script>
-{% endhighlight %}
+
 
 Un modèle Backbone possède plusieurs méthodes. Nous allons nous concentrer sur celles-ci :
 
@@ -101,7 +101,7 @@ Aller dans le fichier `conf/routes` et ajouter les routes suivantes :
 
 Aller ensuite dans `controllers/Application.java` et ajouter les méthodes suivantes :
 
-{% highlight java %}
+
 	public class Application extends Controller {
 
 	    public static void index() {
@@ -132,7 +132,7 @@ Aller ensuite dans `controllers/Application.java` et ajouter les méthodes suiva
 	    }
 
 	}
-{% endhighlight %}
+
 
 ##1er essai :
 
@@ -162,7 +162,7 @@ Même pas mal !. Nous allons donc re-écrire/surcharger `Backbone.sync`. ... Et 
 
 Dans public/javascripts, créer un nouveau fichier : `backbone.sync.js` :
 
-{% highlight javascript %}
+
 	(function() {
 	    Backbone.sync = function(method, model, options) {
 
@@ -196,7 +196,7 @@ Dans public/javascripts, créer un nouveau fichier : `backbone.sync.js` :
 	        });
 	    };
 	})();
-{% endhighlight %}
+
 
 **!!! Vous remarquerez l'utilisation de "model" dans la chaîne JSON envoyée au serveur, comme le nom du paramètre des méthodes du contrôleur java.**
 
@@ -288,7 +288,7 @@ Nous avons tout ce qu'il faut côté Backbone pour passer les bonnes information
 
 Allez dans `app/models` et créez une classe `Bookmark.java` :
 
-{% highlight java %}
+
 	package models;
 	
 	import javax.persistence.Entity;
@@ -314,11 +314,11 @@ Allez dans `app/models` et créez une classe `Bookmark.java` :
 	        return label;
 	    }	
 	}
-{% endhighlight %}
+
 
 Puis allons modifier les méthodes du contrôleur `Application.java` :
 
-{% highlight java %}
+
 	package controllers;
 
 	import play.mvc.*;
@@ -384,7 +384,7 @@ Puis allons modifier les méthodes du contrôleur `Application.java` :
 	    }
 
 	}
-{% endhighlight %}
+
 
 **Notez bien :** les imports `com.google.gson.*` qui nous permettent de "traduire" le JSON.
 
@@ -470,18 +470,18 @@ c'est mieux d'utilise des callbacks lorsque l'on fait des appels aux serveurs (b
 
 ###Par exemple pour un save()
 
-{% highlight javascript %}
+
 	b = new Bookmark({label:"Google", website:"www.google.fr"})
 	b.save({},
 		{
 			success:function(data){ console.log("Gagné : ", data); }, 
 			error : function() { console.log("Oups! y'a un blem"); } 
 		})
-{% endhighlight %}
+
 
 ###Ou pour un fetch()
 
-{% highlight javascript %}
+
 	bookmarksCollection.fetch({
 		success:function(data){ 
 			console.log("Gagné : "); 
@@ -489,7 +489,7 @@ c'est mieux d'utilise des callbacks lorsque l'on fait des appels aux serveurs (b
 		}, 
 		error : function() { console.log("Oups! y'a un blem"); }
 	})
-{% endhighlight %}
+
 
 ##Voilà, c'est fini pour aujourd'hui.
 

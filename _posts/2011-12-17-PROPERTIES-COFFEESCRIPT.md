@@ -12,18 +12,18 @@ With the latest browsers, you can set properties for your objects. And as CoffeS
 
 ##First, create function "prop"
 
-{% highlight coffeescript %}
+
     prop = (who, propName, getset) ->
       Object.defineProperty who, propName,
         get: getset.get
         set: getset.set
         enumerable: true
         configurable: true
-{% endhighlight %}
+
 
 ##Now, you can write your classes like this :
 
-{% highlight coffeescript %}
+
     class Human
       constructor:(name)->
         _name = name
@@ -39,11 +39,11 @@ With the latest browsers, you can set properties for your objects. And as CoffeS
 
       hello:->
         console.log "Hi, i am #{@Name}"
-{% endhighlight %}
+
 
 ##And, use "super" when extending classes
 
-{% highlight coffeescript %}
+
     class SuperHeroe extends Human
       constructor:(name, power)->
         super name
@@ -54,11 +54,11 @@ With the latest browsers, you can set properties for your objects. And as CoffeS
             _power
           set:(value)->
             _power = value
-{% endhighlight %}
+
 
 ##Use it ...
 
-{% highlight coffeescript %}
+
     bob = new Human "Bob"
     bob.Name = "Bobby"
     bob.hello()
@@ -68,7 +68,7 @@ With the latest browsers, you can set properties for your objects. And as CoffeS
     get :  Bobby
     Hi, i am Bobby
     ###
-{% endhighlight %}
+
 
 Personally, i find it pretty, and remember that the properties do not exist in java ;) (big troll).
 

@@ -20,7 +20,7 @@ C'est à dire que côté Backbone, je vais avoir ceci :
 
 Dans `app/views/Application/index.html`, je vais avoir un nouveau modèle `Techno` : 
 
-{% highlight javascript %}
+
 	window.Techno = Backbone.Model.extend({
         url : 'bb/techno',
         defaults : {
@@ -33,11 +33,11 @@ Dans `app/views/Application/index.html`, je vais avoir un nouveau modèle `Techn
         model : Techno,
         url : 'bb/technos'
     });
-{% endhighlight %}
+
 
 Et je voudrais pouvoir faire des "choses" comme celles-ci :
 
-{% highlight javascript %}
+
 	var jstechno = technosCollection.find(function(techno){ return techno.get("label") == "Javascript";})
 
 	var LyonJS = new Bookmark({
@@ -51,7 +51,7 @@ Et je voudrais pouvoir faire des "choses" comme celles-ci :
 		website : "http://www.maison.fr",
 		techno : new Techno({ label : "NOTECHNO" })
 	});
-{% endhighlight %}
+
 
 Mais avant d'en arriver là, il va  falloir aller coder en conséquence côté Play!>.
 
@@ -61,7 +61,7 @@ Mais avant d'en arriver là, il va  falloir aller coder en conséquence côté P
 
 Donc dans `app/models`, créer une classe Java, `Techno.java` :
 
-{% highlight java %}
+
 	package models;
 
 	import javax.persistence.Entity;
@@ -85,13 +85,13 @@ Donc dans `app/models`, créer une classe Java, `Techno.java` :
 	        return label;
 	    }
 	}
-{% endhighlight %}
+
 
 ###Créer une relation entre Bookmark.java & Techno.java
 
 Donc dans `app/models`, modifier la classe Java, `Bookmark.java` en ajoutant un membre `techno` de type `Techno` et annoté avec `@ManyToOne` (pour la relation) :
 
-{% highlight java %}
+
 	package models;
 
 	import javax.persistence.Entity;
@@ -128,7 +128,7 @@ Donc dans `app/models`, modifier la classe Java, `Bookmark.java` en ajoutant un 
 	        return label;
 	    }	
 	}
-{% endhighlight %}
+
 
 ###Modification conf/routes :
 
@@ -146,7 +146,7 @@ Modifions le fichier `conf/routes` : (là même chose que pour le tuto précéde
 
 Dans la classe `app/controllers/Application.java`, ajoutons les méthodes nécessaires pour gérer les opérations de CRUD des technos lorsque Backbone "envoie" des informations : (c'est exactement le même principe que pour le tuto précédent) :
 
-{% highlight java %}
+
 	/*=== dans Application.java ===*/
 
 	/* TECHNOS */
@@ -203,7 +203,7 @@ Dans la classe `app/controllers/Application.java`, ajoutons les méthodes néces
         List<Techno> technos = Techno.findAll();
         renderJSON(new Gson().toJson(technos));	
     }
-{% endhighlight %}
+
 
 Maintenant, passons aux choses sérieuses :
 
@@ -228,56 +228,56 @@ Lorsque Play!> (en fait le contrôleur) reçoit un bookmark "JSONisé" de Backbo
 - si cet `id` n'est pas renseigné, on crée/persiste la techno en base : `bookmark.techno.save();`
 - dans le cas d'un `update`, avant de faire un `save`, on associe l'instance techno à l'instance bookmark (sinon Hibernate va g.....r au moment du `save()`) : `updatedBookmark.techno = techno;`
 
-{% highlight java %}
-	/*=== dans Application.java ===*/
 
-	/* BOOKMARKS */
+		/*=== dans Application.java ===*/
 
-    /* POST (CREATE) */
-    public static void postBookmark(String model) {
-        System.out.println("postBookmark : "+model);
+		/* BOOKMARKS */
 
-        Gson gson = new Gson();
-        Bookmark bookmark = gson.fromJson(model,Bookmark.class);
-        
-        if(bookmark.techno!=null){
-            Techno techno = bookmark.techno;
-            //si la techno n'existe pas on la crée
-            if(bookmark.techno.id == null) {
-                bookmark.techno.save();
-            }
-        }
-        
-        bookmark.save();
-        
-        renderJSON(bookmark);
-    }
+	    /* POST (CREATE) */
+	    public static void postBookmark(String model) {
+	        System.out.println("postBookmark : "+model);
 
-    /* PUT (UPDATE) */
-    public static void putBookmark(String model) {
-        System.out.println("putBookmark : "+model);
-       
-        Gson gson = new Gson();
-        Bookmark bookmark = gson.fromJson(model,Bookmark.class);
+	        Gson gson = new Gson();
+	        Bookmark bookmark = gson.fromJson(model,Bookmark.class);
+	        
+	        if(bookmark.techno!=null){
+	            Techno techno = bookmark.techno;
+	            //si la techno n'existe pas on la crée
+	            if(bookmark.techno.id == null) {
+	                bookmark.techno.save();
+	            }
+	        }
+	        
+	        bookmark.save();
+	        
+	        renderJSON(bookmark);
+	    }
 
-        Bookmark updatedBookmark = Bookmark.findById(bookmark.id);
-        
-        updatedBookmark.label	= bookmark.label;
-        
-        if(bookmark.techno!=null){
-            Techno techno = bookmark.techno;
-            //si la techno n'existe pas on la crée
-            if(bookmark.techno.id == null) {
-                bookmark.techno.save();
-            }
-            updatedBookmark.techno = techno;
-        }
+	    /* PUT (UPDATE) */
+	    public static void putBookmark(String model) {
+	        System.out.println("putBookmark : "+model);
+	       
+	        Gson gson = new Gson();
+	        Bookmark bookmark = gson.fromJson(model,Bookmark.class);
 
-        updatedBookmark.save();
+	        Bookmark updatedBookmark = Bookmark.findById(bookmark.id);
+	        
+	        updatedBookmark.label	= bookmark.label;
+	        
+	        if(bookmark.techno!=null){
+	            Techno techno = bookmark.techno;
+	            //si la techno n'existe pas on la crée
+	            if(bookmark.techno.id == null) {
+	                bookmark.techno.save();
+	            }
+	            updatedBookmark.techno = techno;
+	        }
 
-        renderJSON(updatedBookmark);
-    }
-{% endhighlight %}
+	        updatedBookmark.save();
+
+	        renderJSON(updatedBookmark);
+	    }
+
 
 ##Allons faire un tour chez Backbone
 
@@ -287,7 +287,7 @@ Maintenant que tout est prêt côté serveur, on peut aller s'amuser côté clie
 
 Dans la console de votre navigateur préféré :
 
-{% highlight javascript %}
+
 	t1 = new Techno({label:"Javascript"}).save();
 	t2 = new Techno({label:"Coffeescript"}).save();
 	t3 = new Techno({label:"Java"}).save();
@@ -298,16 +298,16 @@ Dans la console de votre navigateur préféré :
 	t8 = new Techno({label:"Kotlin"}).save();
 	t9 = new Techno({label:"Ceylon"}).save();
 	//Oui je sais, normalement il faut que j'utilise des callbacks, mais on s'en fout, c'est une démo
-{% endhighlight %}
+
 	
 Puis on vérifie que "tout s'est bien passé" :
 
-{% highlight javascript %}
+
 	technosCollection = new Technos();
 	technosCollection.fetch({success: function() {
 	        technosCollection.each(function(techno){ console.log(techno.get("id"),techno.get("label")); });
 	}});
-{% endhighlight %}
+
 
 ![Alt "bbplay_2_001.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay_2_001.png)
 
@@ -315,7 +315,7 @@ Puis on vérifie que "tout s'est bien passé" :
 
 Toujours dans la console :
 
-{% highlight javascript %}
+
 	var jstechno = technosCollection.find(function(techno){ return techno.get("label") == "Javascript";})
 
 	var LyonJS = new Bookmark({
@@ -325,13 +325,13 @@ Toujours dans la console :
 	});
 	
 	LyonJS.save();
-{% endhighlight %}
+
 
 ###Création d'un nouveau bookmark avec une nouvelle techno
 
 Toujours dans la console :
 
-{% highlight javascript %}
+
 	var ChezMoi = new Bookmark({
 		label : "ChezWouam",
 		website : "http://www.maison.fr",
@@ -339,20 +339,20 @@ Toujours dans la console :
 	});
 	
 	ChezMoi.save();
-{% endhighlight %}
+
 
 ###Vérifications :
 
 Encore dans la console :
 
-{% highlight javascript %}
+
 	bookmarks = new Bookmarks();
 	bookmarks.fetch({
 		success: function() {
 			bookmarks.each(function(bookmark) { console.log(bookmark.get("id"), bookmark.get("label")); });
 		}
 	});
-{% endhighlight %}
+
 
 On voit que nos bookmarks ont bien été ajoutés :
 
@@ -360,14 +360,14 @@ On voit que nos bookmarks ont bien été ajoutés :
 
 Vérifions aussi les technos :
 
-{% highlight javascript %}
+
 	technosCollection = new Technos();
 	technosCollection.fetch({
 		success: function() {
 	        technosCollection.each(function(techno){ console.log(techno.get("id"),techno.get("label")); });
 		}
 	});
-{% endhighlight %}
+
 
 ![Alt "bbplay_2_003.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay_2_003.png)
 
@@ -375,21 +375,21 @@ Vérifions aussi les technos :
 
 On reste dans la console :
 
-{% highlight javascript %}
+
 	var LyonJS = bookmarks.find(function(bookmark){ return bookmark.get("label") == "LyonJS";});
-{% endhighlight %}
+
 
 Puis faites :
 
-{% highlight javascript %}
+
 	LyonJS.get("techno");
-{% endhighlight %}
+
 
 ça c'est bon, donc on continue :
 
-{% highlight javascript %}
+
 	LyonJS.get("techno").get("label");
-{% endhighlight %}
+
 
 Arghhhh ! Et là, c'est le drame (encore) :
 
@@ -406,7 +406,7 @@ En fait, lorsque que vous avez fait un `fetch()` du bookmark, il a bien "récup�
 Je vais vous présenter une méthode "à l'arrache", pas forcément la plus éléguante, mais qui a le mérite d'être simple et donc de vous éviter beaucoup de soucis (d'effets de bord) pour finalement pas beaucoup d'effort.
 Nous allons ajouter une méthode `fetchWithTechno` à notre modèle `Bookmark` (nous sommes toujours côté Backbone pour mémoire) :
 
-{% highlight javascript %}
+
 	window.Bookmark = Backbone.Model.extend({
 	    url : 'bb/bookmark',
 	    defaults : {
@@ -436,7 +436,7 @@ Nous allons ajouter une méthode `fetchWithTechno` à notre modèle `Bookmark` (
 	        }});
 	    }
 	});
-{% endhighlight %}
+
 
 ####Que fait donc `fetchWithTechno()` ?
 
@@ -444,7 +444,7 @@ Cette méthode, fait un fetch du bookmark, vérifie s'il a une techno, et si c'e
 
 ####On vérifie ? (penser à raffraîchir la page de votre navigateur)
 
-{% highlight javascript %}
+
 	//on récupère la liste des bookmarks
 	
 	var bookmarks = new Bookmarks();
@@ -465,13 +465,13 @@ Cette méthode, fait un fetch du bookmark, vérifie s'il a une techno, et si c'e
 	LyonJS.fetchWithTechno(function(model){ console.log(model.get("techno").get("label"));})
 	//ou
 	LyonJS.fetchWithTechno(function(){ console.log(LyonJS.get("techno").get("label"));})
-{% endhighlight %}
+
 
 Et là la techno de notre bookmark est bien un `Backbone.Model`. :)
 	
 ###Allez, un dernier pour la route, on fait la même chose pour la collection :
 
-{% highlight javascript %}
+
 	window.Bookmarks = Backbone.Collection.extend({
 	    model : Bookmark,
 	    url : 'bb/bookmarks',
@@ -497,14 +497,14 @@ Et là la techno de notre bookmark est bien un `Backbone.Model`. :)
 
 	    }
 	});
-{% endhighlight %}
+
 
 ####Et on se fait une dernière vérification :
 
-{% highlight javascript %}
+
 	var bookmarks = new Bookmarks();
 	bookmarks.fetchWithTechnos(function(){ console.log("Rahhhh ! Lovely ! ça fonctionne ...");})
-{% endhighlight %}
+
 
 Et ça marche !
 
@@ -517,18 +517,6 @@ Bon, c'est terminé. Maintenant à vous de bosser ! Il reste plein de choses à 
 ##@+
 
 *... tiens avec Play!> v°2, ça donnerait quoi ? ... ;)*
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

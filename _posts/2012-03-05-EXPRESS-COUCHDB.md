@@ -31,7 +31,7 @@ info : stykkekode la suite
 
 Il suffit de créer un nouveau document dans la base "snippets" avec l'interface d'administration de CouchDB, avec le code suivant :
 
-{% highlight javascript %}
+
     {
        "_id": "_design/snippets",
        "language": "javascript",
@@ -41,7 +41,7 @@ Il suffit de créer un nouveau document dans la base "snippets" avec l'interface
            }
        }
     }
-{% endhighlight %}
+
 
 ![Alt "express17.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express17.png)
 
@@ -49,7 +49,7 @@ Il suffit de créer un nouveau document dans la base "snippets" avec l'interface
 
 Remplacez le code existant par celui ci :
 
-{% highlight javascript %}
+
     /* SNIPPET MODEL */
 
     //utilisation de cradle
@@ -105,13 +105,13 @@ Remplacez le code existant par celui ci :
 
 
     exports.snippet = snippet;
-{% endhighlight %}
+
 
 ##Modifions notre modèle "user.js"
 
 On ajoute cette ligne `user.twitterListById[authenticatedUser.sourceUser.screen_name] = authenticatedUser;` dans la méthode `add`
 
-{% highlight javascript %}
+
     user.add = function(source, sourceUser) {
         user.nextUserId+=1;
         var authenticatedUser = new user(user.nextUserId, source, sourceUser);
@@ -125,7 +125,7 @@ On ajoute cette ligne `user.twitterListById[authenticatedUser.sourceUser.screen_
 
         return authenticatedUser;
     };
-{% endhighlight %}
+
 
 ##Modifions routes/index.js
 
@@ -135,7 +135,7 @@ En début de fichier, ajouter la référence à `user` :
 
 puis modifions `createSnippet` :
 
-{% highlight javascript %}
+
     exports.createSnippet = function(req, res) {
     	console.log("CREATE SNIPPET");
 
@@ -156,8 +156,7 @@ puis modifions `createSnippet` :
     		});
     	}
 
-    };
-{% endhighlight %}
+
 
 ##Vous pouvez tester !
 

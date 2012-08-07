@@ -28,7 +28,6 @@ Before, you need (of course) :
 
 Then, create an html page :
 
-{% highlight html %}
 
 	<!DOCTYPE html>
 	<html>
@@ -43,7 +42,6 @@ Then, create an html page :
 
 	</html>
 
-{% endhighlight %}
 
 And, now, create a `sencha.demo.coffee` file in which we will enter the code that follows.
 
@@ -51,7 +49,6 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 
 ###Define them
 
-{% highlight coffeescript %}
 
 	class Model extends Ext.regModel
 		constructor:(name, fields)->
@@ -59,9 +56,7 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				fields : fields
 			@name = name
 
-{% endhighlight %}
 
-{% highlight coffeescript %}
 
 	class Models extends Ext.data.JsonStore
 		constructor:(model, sorters, data)->
@@ -70,11 +65,9 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				sorters : sorters
 				data : data
 
-{% endhighlight %}
 
 ###Initialize "Model & Models"
 
-{% highlight coffeescript %}
 
 	menuChoice = new Model 'menuChoice', ['code', 'label', 'item']
 
@@ -86,13 +79,11 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 			(code : '03', label : 'Card Three', item : 2)
 		]
 
-{% endhighlight %}
 
 ##Next, UI Components
 
 ###Header and Footer
 
-{% highlight coffeescript %}
 
 	class Header extends Ext.Toolbar
 		constructor:(title)->
@@ -100,9 +91,7 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				title : title
 				dock : 'top'
 
-{% endhighlight %}
 
-{% highlight coffeescript %}
 
 	class Footer extends Ext.Toolbar
 		constructor:(title)->
@@ -110,11 +99,9 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				title : title
 				dock : 'bottom'
 
-{% endhighlight %}
 
 ###Card (the screen that appears on the right side)
 
-{% highlight coffeescript %}
 
 	class Card extends Ext.Panel
 		constructor:(html)->
@@ -125,11 +112,9 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				style  : 'background-color:white;'
 				html   : html
 
-{% endhighlight %}
 
 ###Right split view (a Card container)
 
-{% highlight coffeescript %}
 
 	class RightView extends Ext.Carousel
 		constructor:(cards)->
@@ -140,11 +125,9 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				style : 'background-color:white;'
 				items : cards # this is an array of cards
 
-{% endhighlight %}
 
 ###Left split view  (a kind of menu or list)
 
-{% highlight coffeescript %}
 
 	class LeftView extends Ext.List
 		constructor:(template, models, linkedView, fieldItemIndex)->
@@ -161,12 +144,10 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 						record = store.getAt subIdx
 						#When i "tap" a item menu, i activate the corresponding card
 						linkedView.setActiveItem record.get fieldItemIndex
-
-{% endhighlight %}
+ 
 
 ###The main screen (it will encapsulate all the elements of the UI)
 
-{% highlight coffeescript %}
 
 	class MainScreen extends Ext.Panel
 		constructor:(items)->
@@ -175,11 +156,9 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				dockedItems: [items.header,items.footer,items.leftSidePanel]
 				items : [items.rightSidePanel]
 
-{% endhighlight %}
 
 ##Last step : initialize the application
 
-{% highlight coffeescript %}
 
 	Ext.setup 
 		onReady: ->
@@ -212,7 +191,6 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				leftSidePanel : leftView
 				rightSidePanel : rightView
 
-{% endhighlight %}
 
 That's all. Launch it ! 
 

@@ -18,7 +18,6 @@ Coffeescript provides classes in Javascript, which is useful for structuring the
 
 ####Definition :
 
-{% highlight java %}
 
     package java_versus_coffeescript;
 
@@ -36,11 +35,9 @@ Coffeescript provides classes in Javascript, which is useful for structuring the
         }
     }
 
-{% endhighlight %}
 
 ####Use :
 
-{% highlight java %}
 
     package java_versus_coffeescript;
 
@@ -52,7 +49,6 @@ Coffeescript provides classes in Javascript, which is useful for structuring the
         }
     }
 
-{% endhighlight %}
 
 ####Results :
 
@@ -64,7 +60,6 @@ Coffeescript provides classes in Javascript, which is useful for structuring the
 
 ####Definition :
 
-{% highlight coffeescript %}
 
     #Animal
     class Animal
@@ -74,17 +69,13 @@ Coffeescript provides classes in Javascript, which is useful for structuring the
         toString:()->
             "My name is #{@name}"
 
-{% endhighlight %}
 
 ####Use :
 
-{% highlight coffeescript %}
 
     #Use
     animal = new Animal "First Animal"
     console.log animal.toString()
-
-{% endhighlight %}
 
 ####Results :
 
@@ -94,7 +85,6 @@ Coffeescript provides classes in Javascript, which is useful for structuring the
 
 You can define members as parameters of the constructor and even set default values :
 
-{% highlight coffeescript %}
 
     #Animal
     class Animal
@@ -110,7 +100,6 @@ You can define members as parameters of the constructor and even set default val
     console.log animal.toString()
     console.log anOtherAnimal.toString()
 
-{% endhighlight %}
 
 *Output :*
 
@@ -123,7 +112,6 @@ You can define members as parameters of the constructor and even set default val
 
 ####Definition :
 
-{% highlight java %}
 
     package java_versus_coffeescript;
 
@@ -146,11 +134,9 @@ You can define members as parameters of the constructor and even set default val
         }
     }
 
-{% endhighlight %}
 
 ####Use :
 
-{% highlight java %}
 
     package java_versus_coffeescript;
 
@@ -163,7 +149,6 @@ You can define members as parameters of the constructor and even set default val
         }
     }
 
-{% endhighlight %}
 
 ####Results :
 
@@ -174,7 +159,6 @@ You can define members as parameters of the constructor and even set default val
 
 ####Definition :
 
-{% highlight coffeescript %}
 
     #Dog
     class Dog extends Animal
@@ -190,18 +174,15 @@ You can define members as parameters of the constructor and even set default val
             #call parent method
             "#{super}, i'm a Dog"
 
-{% endhighlight %}
 
 ####Use :
 
-{% highlight coffeescript %}
 
     #Use
     wolf = new Dog "Wolf"
     console.log wolf.toString()
     console.log wolf.wouaf()
 
-{% endhighlight %}
 
 ####Results :
 
@@ -216,7 +197,6 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
 
 ####Definition :
 
-{% highlight java %}
 
     public class Animal {
         public String name;
@@ -256,11 +236,9 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
         }
     }
 
-{% endhighlight %}
 
 ####Use :
 
-{% highlight java %}
 
     public class Java_versus_coffeescript {
 
@@ -277,7 +255,6 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
         }
     }
 
-{% endhighlight %}
 
 ####Results :
 
@@ -289,7 +266,6 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
 
 ####Definition :
 
-{% highlight coffeescript %}
 
     #Animal
     class Animal
@@ -321,11 +297,9 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
             #call parent method
             "#{super}, i'm a Dog"
 
-{% endhighlight %}
 
 ####Use :
 
-{% highlight coffeescript %}
 
     #Use
     animal = new Animal "First Animal"
@@ -336,7 +310,6 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
     console.log "Total of animals (from Dog Class) : #{Dog::animalCounter}"
     console.log "Total of dogs : #{Dog::dogCounter}"
 
-{% endhighlight %}
 
 ####Results :
 
@@ -350,7 +323,6 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
 
 ####Definition :
 
-{% highlight java %}
 
     public class Animal {
         public String name;
@@ -398,11 +370,8 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
         }
     }
 
-{% endhighlight %}
-
 ####Use :
 
-{% highlight java %}
 
     public class Java_versus_coffeescript {
 
@@ -420,7 +389,6 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
         }
     }
 
-{% endhighlight %}
 
 ####Results :
 
@@ -433,7 +401,6 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
 
 ####Definition :
 
-{% highlight coffeescript %}
 
     #Animal
     class Animal
@@ -471,11 +438,9 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
         @getDogsCount:->
             Dog::dogCounter
 
-{% endhighlight %}
 
 ####Use :
 
-{% highlight coffeescript %}
 
     #Use
     animal = new Animal "First Animal"
@@ -487,7 +452,6 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
     console.log "getDogsCount : #{Dog.getDogsCount()}"
     console.log "getDogsCount from instance : #{cookie.getDogsCount()}"
 
-{% endhighlight %}
 
 ####Results :
 
@@ -506,7 +470,6 @@ There is another way to do (with a different behavior from a heritage point of v
 - You can access the property like this : `Animal.animalCounter` instead of `Animal::animalCounter`
 
 
-{% highlight coffeescript %}
 
     #Animal
     class Animal
@@ -553,7 +516,6 @@ There is another way to do (with a different behavior from a heritage point of v
     console.log "getAnimalsCount (from Dog Class) : #{Dog.getAnimalsCount()}"
     console.log "getDogsCount : #{Dog.getDogsCount()}"
 
-{% endhighlight %}
 
 
 **Warning :**

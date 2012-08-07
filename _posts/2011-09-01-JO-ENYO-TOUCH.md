@@ -12,7 +12,6 @@ info : Enyo touch for Jo
 
 This is just a little piece of code wich overrides `push()` method of `joContainer` (but keep previous mode) and so, allows you to describe GUI in an other way :
 
-{% highlight javascript %}
 
     joContainer.prototype.push =  function(data) {
 
@@ -49,11 +48,9 @@ This is just a little piece of code wich overrides `push()` method of `joContain
         }
 
     }
-{% endhighlight %}
 
 ##Use it
 
-{% highlight javascript %}
 
     var row = new joFlexrow({ components : [
     	{ name : "btn1", kind : new JoButton("btn1") },
@@ -67,11 +64,9 @@ This is just a little piece of code wich overrides `push()` method of `joContain
     //so, now you can do that
 
     row.btn3.setData("<b>Hello i'm a button</b>");
-{% endhighlight %}
 
 ##Bigger sample
 
-{% highlight javascript %}
 
     (function(){
 
@@ -130,11 +125,10 @@ This is just a little piece of code wich overrides `push()` method of `joContain
         MyApp.scene.mainContainer.flexCol.stack.push(MyApp.mainScreen);
 
     }).call(this);
-{% endhighlight %}
+
 
 ##Use it with CoffeeScript
 
-{% highlight ruby %}
 
     jo.load()
 
@@ -177,6 +171,5 @@ This is just a little piece of code wich overrides `push()` method of `joContain
         MyApp.mainScreen.myGroup.txt1.setData("cmd2_OnClick").focus()
 
     MyApp.scene.mainContainer.flexCol.stack.push MyApp.mainScreen
-{% endhighlight %}
 
 *Have fun! :) @+ K33G_org*

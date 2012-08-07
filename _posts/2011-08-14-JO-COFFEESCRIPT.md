@@ -11,7 +11,6 @@ info : Jo and CoffeeScript
 This weekend, i started reading **["CoffeeScript: Accelerated Development JavaScript (by Trevor Burnham)"](http://pragprog.com/book/tbcoffee/coffeescript)**. I use javascript to development mainly mobile, my favorite mobile framework is **[Jo](http://joapp.com/)**, so my question is: can I use **Jo** with **CoffeeScript** ?
 Looks like it works (i'll dig the topic) :
 
-{% highlight coffeescript %}
 
         jo.load()
 
@@ -35,5 +34,3 @@ Looks like it works (i'll dig the topic) :
         mainForm = new Form "Hello", "Hello World !!!"
 
         mainForm.show()
-
-{% endhighlight %}

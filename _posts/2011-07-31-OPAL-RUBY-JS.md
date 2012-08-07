@@ -16,7 +16,6 @@ Récupérez [http://adambeynon.github.com/opal/js/opal.js](http://adambeynon.git
 
 Puis créez une page comme ci-dessous :
 
-{% highlight html %}
 
     <!DOCTYPE HTML>
     <html>
@@ -83,7 +82,6 @@ Puis créez une page comme ci-dessous :
     </script>
     </html>
 
-{% endhighlight %}
 
 Lancez dans le navigateur, avec la console ouverte, vous devriez voir apparaître ceci :
 
@@ -99,7 +97,6 @@ Funny !, non ?
 
 Modifiez ou créez une nouvelle page, comme celle ci :
 
-{% highlight html %}
 
     <!DOCTYPE HTML>
     <html>
@@ -132,7 +129,6 @@ Modifiez ou créez une nouvelle page, comme celle ci :
     </script>
     </html>
 
-{% endhighlight %}
 
 Lancez dans le navigateur, avec la console ouverte, vous devriez voir apparaître ceci :
 
@@ -151,7 +147,6 @@ Si, c'est possible aussi!
 
 Modifiez ou créez une nouvelle page, comme celle ci :
 
-{% highlight html %}
 
     <!DOCTYPE HTML>
     <html>
@@ -181,7 +176,6 @@ Modifiez ou créez une nouvelle page, comme celle ci :
     </script>
     </html>
 
-{% endhighlight %}
 
 Lancez dans le navigateur, une fois le runtime chargé, le contenu de la balise `<h1></h1>` devrait changer.
 

@@ -13,7 +13,6 @@ info : Jo and Coffeescript does not share the same model of Class
 Unfortunately for me, Jo and Coffeescript does not share the same model of Class.
 I wish to do something like this (to add some behaviors to my joButton , for example)
 
-{% highlight ruby %}
 
     class Button extends joButton
         constructor:(args)->
@@ -21,13 +20,12 @@ I wish to do something like this (to add some behaviors to my joButton , for exa
 
         changeBackGroundColor:(color)->
 		    @setStyle({background : color})
-{% endhighlight %}
+
 
 ... But ... Coffeescript disagrees. Indeed, the [Jo Class pattern](http://joapp.com/docs/#Class%20Patterns) is different from the Coffeescript model :
 
 A "pure" implementation of joButton in coffeescript would probably look like this (after JS comilation):
 
-{% highlight javascript %}
 
       joButton = (function() {
         function joButton(data, classname) {
@@ -41,11 +39,9 @@ A "pure" implementation of joButton in coffeescript would probably look like thi
         //etc. ...
         return joButton;
       })();
-{% endhighlight %}
 
 and a "daughter" class of joButton :
 
-{% highlight javascript %}
 
       Button = (function() {
         __extends(Button, joButton);
@@ -59,14 +55,12 @@ and a "daughter" class of joButton :
         };
         return Button;
       })();
-{% endhighlight %}
 
 
 But in reality :
 
 **joButton implementation :**
 
-{% highlight javascript %}
 
     joButton = function(data, classname) {
         // call super
@@ -83,11 +77,9 @@ But in reality :
             //...
         },
         //etc. ...
-{% endhighlight %}
 
 **SubClass of joButton :**
 
-{% highlight javascript %}
 
     Button = function(args) {
     	joButton.apply(this, args);
@@ -97,7 +89,6 @@ But in reality :
           return this.setStyle({background: color});
         }
     });
-{% endhighlight %}
 
 And it works fine, but my problem now, is that it is not really compatible with Coffeescript :(
 or Coffeescript isn't compatible with that ;)
@@ -117,18 +108,17 @@ I don't know if this is the best solution, but it works for me.
 - I create a "base Widget Class" that copies all members of a "Jo Widget"
 - I add a property `isCoffeeWidget` setted to `true` (we will see later why)
 
-{% highlight ruby %}
 
     class Widget
         constructor:(args)->
             for item of @joWidget
                 @[item] = @joWidget[item]
             @isCoffeeWidget = true
-{% endhighlight %}
+
 
 - Now we can write Classes that inherit `Widget` and that retrieve the properties and methods of Jo widgets :
 
-{% highlight ruby %}
+
 
     #fake joButton
     class JOButton extends Widget
@@ -143,14 +133,13 @@ I don't know if this is the best solution, but it works for me.
             super args
 
     #and so on ...
-{% endhighlight %}
+
 
 ###In the second place
 
 If you want to do something like that : `myJoGroup.push myNewFakedButton`, it will not work.
 Indeed, the `joContainer.push()` method is waiting for an `Object` or an `Array` (of `Objects`). So, we have to override `joContainer.push()` method. Write this code (duplicate the code and patch it) :
 
-{% highlight javascript %}
 
 	joContainer.prototype.push = function(data) {
 
@@ -184,11 +173,10 @@ Indeed, the `joContainer.push()` method is waiting for an `Object` or an `Array`
 
 		return this;
 	}
-{% endhighlight %}
+
 
 **Remark :** the only update/patch is :
 
-{% highlight javascript %}
 
         /* START --- working with Coffeescript ---*/
     	if (data.isCoffeeWidget) {
@@ -196,14 +184,12 @@ Indeed, the `joContainer.push()` method is waiting for an `Object` or an `Array`
     	}
 	    /* END --- working with Coffeescript ---*/
 
-{% endhighlight %}
 
 
 ###And finally ...
 
 You can do that :
 
-{% highlight ruby %}
 
     class Button extends JOButton
 	    constructor:(args)->
@@ -220,7 +206,6 @@ You can do that :
 
 	myCuteButton.changeBackGroundColor "red"
 
-{% endhighlight %}
 
 ##To conclude
 
