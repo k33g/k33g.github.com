@@ -470,6 +470,7 @@ There is another way to do (with a different behavior from a heritage point of v
 - You can access the property like this : `Animal.animalCounter` instead of `Animal::animalCounter`
 
 
+*Code :*
 
     #Animal
     class Animal
