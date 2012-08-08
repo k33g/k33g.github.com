@@ -21,7 +21,7 @@ We have to :
 - include jQuery
 - include **tabs** javascript plugin of Twitter Bootstrap
 
-
+*Code :*
 
         <!DOCTYPE HTML>
         <html>
