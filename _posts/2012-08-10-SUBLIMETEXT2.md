@@ -179,7 +179,8 @@ Sous OSX vous pouvez faire comme ceci :
 	cd ~/"Library/Application Support/Sublime Text 2/Packages/STProjectMaker/Templates/"
 	curl -L https://github.com/k33g/bb-total/tarball/master | tar xf -
 
-*Pour une raison que j'ignore pour le moment, a*
+**PS :** ça marche très bien avec **PlayFramework** :)
+
 
 Voilà. Vous avez vu une infime partie de ce qui est possible avec SublimeText. Mais j'espère vous avoir donné envie de l'essayer.
 
