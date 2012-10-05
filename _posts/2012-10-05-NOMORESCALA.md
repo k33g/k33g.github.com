@@ -72,7 +72,7 @@ Et là, Guillaume Bort, si je t'avais eu sous la main (désolé, on ne se conna�
 
 Je crois même me souvenir d'avoir vu passer un tweet de [@juliendubois](https://twitter.com/juliendubois) pendant la prez, qui ricannait (gentiment) sur le sujet.
 
-Je ne suis plus sûr de ce que nous avons répondu, mais notre crédibilité sur le sujet en a pris un petit coup. Je comprend mieux pourquoi, nous n'arrivons pas à faire un ["Cast-it"](http://www.cast-it.fr/) sur le sujet, au bout de presqu'un an, Guillaume, tu dois être super embêté de nous avoir mis dans cette situation :)
+Je ne suis plus sûr de ce que nous avons répondu, mais notre crédibilité sur le sujet en a pris un petit coup. Je comprend mieux pourquoi, nous n'arrivons pas à faire un ["Cast-it"](http://www.cast-it.fr/) avec toi sur le sujet, au bout de presqu'un an, Guillaume, tu dois être super embêté de nous avoir mis dans cette situation :)))
 
 ###Tristesse et renaissance
 
