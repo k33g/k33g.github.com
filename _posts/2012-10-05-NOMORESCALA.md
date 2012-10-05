@@ -72,11 +72,11 @@ Et là, Guillaume Bort, si je t'avais eu sous la main (désolé, on ne se conna�
 
 Je crois même me souvenir d'avoir vu passer un tweet de [@juliendubois](https://twitter.com/juliendubois) pendant la prez, qui ricannait (gentiment) sur le sujet.
 
-Je ne suis plus sûr de ce que nous avons répondu, mais notre crédibilité sur le sujet en a pris un petit coup. Je comprend mieux pourquoi, nous n'arrivons pas à faire un ["Cast-it"](http://www.cast-it.fr/) avec toi sur le sujet, au bout de presqu'un an, Guillaume, tu dois être super embêté de nous avoir mis dans cette situation :)))
+Je ne suis plus sûr de ce que nous avons répondu, mais sur le coup : "Solitude !" *(Ah! [@loic_d](https://twitter.com/loic_d) me dit dans l'oreillette qu'il avait parlé du module de template Groovy en préparation à l'époque)*. Je comprend mieux pourquoi, nous n'arrivons pas à faire un ["Cast-it"](http://www.cast-it.fr/) avec toi sur le sujet, au bout de presqu'un an, Guillaume, tu dois être super embêté de nous avoir mis dans cette situation :)))
 
 ###Tristesse et renaissance
 
-Ce soir là, j'étais prêt à abandonner Play!>. Après quelques semaines (mois ?) d'errements et d'égarements, j'ai quand même appris à utiliser node.js et express.js !!! *(soit-dit en passant, c'est pas mal du tout)*, j'ai décidé que je n'allais pas m'avouer vaincu aussi facilement, **moi aussi je veux faire partie de l'élite !**, et je me suis "collé" dans Play!> **2** (j'ai un peu gratté sur ce que j'arrivais à apprendre : [http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html](http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html)).*([@loic_d](https://twitter.com/loic_d) devrait vous concocter quelques trucs supplémentaires dans un futur proche)*.
+Ce soir là, j'étais prêt à abandonner Play!>. Après quelques semaines (mois ?) d'errements et d'égarements, j'ai quand même appris à utiliser node.js et express.js !!! *(soit-dit en passant, c'est pas mal du tout)*, j'ai décidé que je n'allais pas m'avouer vaincu aussi facilement, **moi aussi je veux faire partie de l'élite !**, et je me suis "collé" dans Play!> **2** (j'ai un peu gratté sur ce que j'arrivais à apprendre : [http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html](http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html)).*([@loic_d](https://twitter.com/loic_d) devrait vous concocter quelques trucs supplémentaires dans un futur proche ... sur du Scala justement)*.
 
 ####Résultats ???
 
