@@ -17,6 +17,8 @@ info : Comment se passer des templates Scala dans Play
 
 *... Il y aura même un peu de **YepNope**.*
 
+*Code source : [https://github.com/k33g/samples/tree/master/spa](https://github.com/k33g/samples/tree/master/spa)*
+
 ##Avertissement
 
 L'introduction (§ Prélude) est longue, c'est un "petit" coup de gueule, mais vous pouvez franchement passer directement à la partie ***§ "Faites du Play!>, pas du Scala, ou comment je me passe des templates ?"*** si vous voulez mettre les mains dedans tout de suite.
