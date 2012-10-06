@@ -890,12 +890,6 @@ Finalement, nous savons que nous n'échangeons que du JSON entre le client et le
 	        List<Human> list = Human.find.where().eq(fieldName, value).findList();
 	        return ok(toJson(list));
 	    }    
-	/*
-	    public static Result query(String fieldName, Long value) { // GET
-	        List<Human> list = Human.find.where().eq(fieldName, value).findList();
-	        return ok(toJson(list));
-	    }
-	*/    
 	  
 	}
 
