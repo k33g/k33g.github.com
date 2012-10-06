@@ -19,6 +19,13 @@ info : Comment se passer des templates Scala dans Play
 
 *Code source : [https://github.com/k33g/samples/tree/master/spa](https://github.com/k33g/samples/tree/master/spa)*
 
+
+>*Corrections & Ajouts du 06.10.2012*
+
+>	- *Modifications du contrôleur `Humans` : suppression de `save()`, ajout de `create()` & `update()`*
+>	- *Mise en conformité de `routes`*
+>	- *Ajout d'un § : "Optimisation du code du contrôleur"*
+
 ##Avertissement
 
 L'introduction (§ Prélude) est longue, c'est un "petit" coup de gueule, mais vous pouvez franchement passer directement à la partie ***§ "Faites du Play!>, pas du Scala, ou comment je me passe des templates ?"*** si vous voulez mettre les mains dedans tout de suite.
@@ -288,18 +295,23 @@ Là aussi, nous allons coder notre seul et unique contrôleur `Humans.java` dans
 	        - si l'id du modèle n'est pas null c'est une mise à jour (PUT)
 	        - sinon c'est une création (POST)
 	    */
-	    public static Result save() { //POST or PUT
+	    public static Result create() { //POST
 
 	        Form<Human> form = form(Human.class).bindFromRequest();
 	        Human model = form.get();
-
-	        if(model.id!=null) { //sauvegarde : PUT
-	            model.update();
-	        } else { //création : POST
-	        	model.save();
-	        }
+			model.save();
 	        return ok(toJson(model));
 	    }
+
+	    public static Result update(Long id) { //PUT
+
+	        Form<Human> form = form(Human.class).bindFromRequest();
+	        Human model = form.get();
+	        model.id = id;
+	        model.update();
+	        return ok(toJson(model));
+	    }	    
+
 
 	    /*
 	        Retrouver un "Human" (au format JSON) par son id
@@ -336,10 +348,10 @@ Là aussi, nous allons coder notre seul et unique contrôleur `Humans.java` dans
 On ajoute ceci dans le fichier `routes` :
 
 	#Création
-	POST /human  controllers.Humans.save()
+	POST /human  controllers.Humans.create()
 
 	#Mise à jour
-	PUT /human  controllers.Humans.save()
+	PUT /human/:id  controllers.Humans.update(id: Long)		
 
 	#Rechercher par Id
 	GET  /human/:id  controllers.Humans.getById(id: Long)
@@ -415,10 +427,12 @@ J'ai oublié de renseigner l'âge :
 
 	$.ajax({
 	    type:"PUT", 
-	    url:"/human", data:{id:1, age: 43, firstName : "John", lastName : "DOE"}, 
+	    url:"/human/1", data:{age: 43, firstName : "John", lastName : "DOE"}, 
 	    error : function(err){console.log("Erreur", err);}, 
 	    success : function(data){ console.log(data);}
 	});
+
+**Remarque :** l'id est passé dans l'url.
 
 **Remarque :** je suis allé au plus simple dans mon exemple (code côté java), donc vous devez penser à bien renseigner l'ensemble des champs lors de la mise à jour.
 
@@ -779,6 +793,116 @@ Vous l'instanciez comme la précédente : `window.humansListAgainView = new App.
 Sauvegardez, testez :
 
 ![Alt "img"](https://github.com/k33g/k33g.github.com/raw/master/images/006-ajax.png)
+
+####Optimisation du code du contrôleur
+
+Finalement, nous savons que nous n'échangeons que du JSON entre le client et le serveur, donc nous allons faire la même chose que `Form<Human> form = form(Human.class).bindFromRequest();` et `Human model = form.get();` mais en plus simple. Vous pouvez remplacer ces 2 lignes par `Human model = fromJson(request().body().asJson(), Human.class);` et nous aurons finalement le code suivant :
+
+	package controllers;
+
+	import models.*;
+	import play.data.*;
+	import play.mvc.*;
+
+	import java.util.List;
+
+	import static play.libs.Json.toJson;
+
+	//Ajout de 2 imports
+	import static play.libs.Json.fromJson;
+	import org.codehaus.jackson.JsonNode;
+
+
+	public class Humans extends Controller {
+
+	    /*
+	        Retourner une liste (au format JSON) de Humans
+	        cela correspond à un appel http de type GET
+	    */
+	    public static Result getAll() { // GET
+
+	        List<Human> list = Human.find.orderBy("lastName").findList();
+	        return ok(toJson(list));
+	    }
+
+	    /*
+	        Retrouver un "Human" (au format JSON) par son id
+	        Cela correspond à un appel http de type GET
+	        Si il n'existe pas on génère une erreur
+	    */
+	    public static Result getById(Long id) { // GET
+
+	        Human modelToFind = Human.find.byId(id);
+
+	        if(modelToFind!=null) {
+	            return ok(toJson(modelToFind));
+	        } else {
+	            return badRequest("not found");
+	        }
+	        
+	    }
+
+	    /*
+	        Créer ou sauvegarder un "Human", c'est une requête de type POST ou PUT.
+	        - On récupère les paramètres grâce à bindFromRequest
+	        - si l'id du modèle n'est pas null c'est une mise à jour (PUT)
+	        - sinon c'est une création (POST)
+
+	    */
+	    public static Result create() { //POST
+
+	        Human model = fromJson(request().body().asJson(), Human.class);        
+	        model.save();
+	        return ok(toJson(model));	        
+	    }
+
+	    public static Result update(Long id) { //PUT
+	        
+	        Human model = fromJson(request().body().asJson(), Human.class);
+	        model.id = id;
+	        model.update();
+	        return ok(toJson(model));
+	    }
+
+	    /*
+	        Retrouver un "Human" (au format JSON) par son id
+	        Puis le supprimer
+	        Cela correspond à un appel http de type DELETE
+	        Si il n'existe pas on génère une erreur
+	    */
+	    public static Result delete(Long id) { // DELETE
+
+	        Human modelToFind = Human.find.byId(id);
+	        if(modelToFind!=null) {
+	            modelToFind.delete();
+	            return ok(toJson(true));
+	        } else {
+	            return badRequest("not found");
+	        }
+
+	    }
+
+	    /*
+	        Requêtes de type GET pour ne ramener qu'un certain nombre d'enregistrements
+	    */
+	    public static Result query(String fieldName, String value) { // GET
+	        //humans/lastName/equals/morane
+	        List<Human> list = Human.find.where().eq(fieldName, value).findList();
+	        return ok(toJson(list));
+	    }    
+	/*
+	    public static Result query(String fieldName, Long value) { // GET
+	        List<Human> list = Human.find.where().eq(fieldName, value).findList();
+	        return ok(toJson(list));
+	    }
+	*/    
+	  
+	}
+
+**Remarque :** N'oubliez pas d'ajouter :
+
+	import static play.libs.Json.fromJson;
+	import org.codehaus.jackson.JsonNode;
 
 Voilà, c'est tout pour aujourd'hui.
 
