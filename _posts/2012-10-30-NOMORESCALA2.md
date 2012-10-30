@@ -174,7 +174,7 @@ Il va falloir modifier `main.js` & `app.js` :
 	    initialize : function () {
 	        //this.template = $("#humans_list_template").html();
 
-	        this.template = App.Templates.humans_list_template;
+	        this.template = App.Templates.humans_list_template; /* <--- la modif est ici */
 
 	        //dès que la collection "change" j'actualise le rendu de la vue
 	        _.bindAll(this, 'render');
@@ -197,7 +197,7 @@ et :
 		initialize : function (blog) {
 	        //this.template = _.template($("#humans_list_again_template").html());
 
-			this.template = _.template(App.Templates.humans_list_again_template);
+			this.template = _.template(App.Templates.humans_list_again_template); /* <--- la modif est ici */
 
 	        _.bindAll(this, 'render');
 	        this.collection.bind('reset', this.render);
