@@ -48,9 +48,9 @@ pour Mustache :
         <!-- définition du template -->
         <script type="text/template" id="humans_list_template">
 
-            <ul>{{#humans}}
-                <li>{{id}} {{firstName}} {{lastName}} {{age}}</li>
-            {{/humans}}</ul>
+            <ul>{ {#humans} }
+                <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
+            { {/humans} }</ul>
             
         </script>
         <!-- les résultats viendront ici -->
@@ -97,13 +97,13 @@ Vous allez créer dans `app/assets` deux fichiers `.coffee` :
 avec les contenus suivants (on prend les définitions de template de la page `index.html`):
 
 **<u>humans_list_template.coffee</u>**
-{% highlight javascript %}
+
 	App.Templates.humans_list_template = """
-	    <ul>{ { #humans } }
-	        <li>&#123;&#123;id}} {{firstName}} {{lastName}} {{age}} / {{address.town}}</li>
-	    {{/humans}}</ul>
+	    <ul>{ {#humans} }
+	        <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
+	    { {/humans} }</ul>
 	"""
-{% endhighlight %}
+
 
 **<u>humans_list_again_template.coffee</u>**
 
