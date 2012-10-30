@@ -58,6 +58,8 @@ pour Mustache :
 
         <hr>
 
+**PS : supprimez les espaces entre les { et les }, j'ai un problème d'affichage avec Jekyll**
+
 et pour Underscore :
 
         <!-- définition du template -->
@@ -104,6 +106,7 @@ avec les contenus suivants (on prend les définitions de template de la page `in
 	    { {/humans} }</ul>
 	"""
 
+**PS : supprimez les espaces entre les { et les }, j'ai un problème d'affichage avec Jekyll**
 
 **<u>humans_list_again_template.coffee</u>**
 
