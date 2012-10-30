@@ -45,8 +45,6 @@ Ensuite, allez faire un tour dans votre page html, vous devez (si vous avez fait
 
 pour Mustache :
 
-{% raw %}
-
         <!-- définition du template -->
         <script type="text/template" id="humans_list_template">
 
@@ -59,8 +57,6 @@ pour Mustache :
         <div id="humans_list"></div>
 
         <hr>
-
-{% endraw %}
 
 et pour Underscore :
 
@@ -102,15 +98,11 @@ avec les contenus suivants (on prend les définitions de template de la page `in
 
 **<u>humans_list_template.coffee</u>**
 
-{% raw %}
-
 	App.Templates.humans_list_template = """
 	    <ul>{{#humans}}
 	        <li>{{id}} {{firstName}} {{lastName}} {{age}} / {{address.town}}</li>
 	    {{/humans}}</ul>
 	"""
-
-{% endraw %}
 
 **<u>humans_list_again_template.coffee</u>**
 
