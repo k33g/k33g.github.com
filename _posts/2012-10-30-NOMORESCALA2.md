@@ -48,7 +48,7 @@ pour Mustache :
         <!-- définition du template -->
         <script type="text/template" id="humans_list_template">
 
-            <ul>{{#humans}}
+            <ul>{{{#humans}}}
                 <li>{{id}} {{firstName}} {{lastName}} {{age}}</li>
             {{/humans}}</ul>
             
