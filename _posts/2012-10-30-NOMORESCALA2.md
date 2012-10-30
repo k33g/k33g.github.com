@@ -1,8 +1,8 @@
 ---
 
 layout: post
-title: Comment se passer des templates Scala dans Play
-info : Comment se passer des templates Scala dans Play
+title: templates Coffeescript dans Play
+info : templates Coffeescript dans Play
 
 ---
 
