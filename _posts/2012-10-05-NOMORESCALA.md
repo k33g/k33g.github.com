@@ -348,16 +348,16 @@ Là aussi, nous allons coder notre seul et unique contrôleur `Humans.java` dans
 On ajoute ceci dans le fichier `routes` :
 
 	#Création
-	POST /human  controllers.Humans.create()
+	POST /humans  controllers.Humans.create()
 
 	#Mise à jour
-	PUT /human/:id  controllers.Humans.update(id: Long)		
+	PUT /humans/:id  controllers.Humans.update(id: Long)		
 
 	#Rechercher par Id
-	GET  /human/:id  controllers.Humans.getById(id: Long)
+	GET  /humans/:id  controllers.Humans.getById(id: Long)
 
 	#Supprimer par Id
-	DELETE /human/:id  controllers.Humans.delete(id: Long)
+	DELETE /humans/:id  controllers.Humans.delete(id: Long)
 
 	#Retrouver tous les éléments
 	GET /humans controllers.Humans.getAll()
@@ -377,7 +377,7 @@ Une 1ère création :
 
 	$.ajax({
 	    type:"POST", 
-	    url:"/human", data:{firstName:"John", lastName:"Doe"}, 
+	    url:"/humans", data:{firstName:"John", lastName:"Doe"}, 
 	    error : function(err){console.log("Erreur", err);}, 
 	    success : function(data){ console.log(data);}
 	});
@@ -390,7 +390,7 @@ Une 2ème création :
 
 	$.ajax({
 	    type:"POST", 
-	    url:"/human", data:{firstName:"Bob", lastName:"Morane"}, 
+	    url:"/humans", data:{firstName:"Bob", lastName:"Morane"}, 
 	    error : function(err){console.log("Erreur", err);}, 
 	    success : function(data){ console.log(data);}
 	});
@@ -399,7 +399,7 @@ Et enfin une 3ème :
 
 	$.ajax({
 	    type:"POST", 
-	    url:"/human", data:{firstName:"Tom", lastName:"Jones"}, 
+	    url:"/humans", data:{firstName:"Tom", lastName:"Jones"}, 
 	    error : function(err){console.log("Erreur", err);}, 
 	    success : function(data){ console.log(data);}
 	});
@@ -427,7 +427,7 @@ J'ai oublié de renseigner l'âge :
 
 	$.ajax({
 	    type:"PUT", 
-	    url:"/human/1", data:{age: 43, firstName : "John", lastName : "DOE"}, 
+	    url:"/humans/1", data:{age: 43, firstName : "John", lastName : "DOE"}, 
 	    error : function(err){console.log("Erreur", err);}, 
 	    success : function(data){ console.log(data);}
 	});
@@ -442,7 +442,7 @@ Tout d'abord, ajouter un modèle avec un lastName égal à "DOE"
 
 	$.ajax({
 	    type:"POST", 
-	    url:"/human", data:{age: 22, firstName : "Jane", lastName : "DOE"}, 
+	    url:"/humans", data:{age: 22, firstName : "Jane", lastName : "DOE"}, 
 	    error : function(err){console.log("Erreur", err);}, 
 	    success : function(data){ console.log(data);}
 	});
@@ -466,7 +466,7 @@ Par exemple, je souhaite supprimer le modèle d'Id 4 (Jane) :
 
 	$.ajax({
 	    type:"DELETE", 
-	    url:"/human/4", 
+	    url:"/humans/4", 
 	    error : function(err){console.log("Erreur", err);}, 
 	    success : function(data){ console.log(data);}
 	});
@@ -512,7 +512,7 @@ puis créez un fichier `app.js` qui contiendra notre application Backbone dans l
 	}
 
 	App.Models.Human = Backbone.Model.extend({
-		urlRoot : "/human"
+		urlRoot : "/humans"
 	});
 
 	App.Collections.Humans = Backbone.Collection.extend({
@@ -668,7 +668,7 @@ que nous allons utiliser dans la fonction `start()` qui est appelée une fois la
 	}
 
 	App.Models.Human = Backbone.Model.extend({
-		urlRoot  : "/human"
+		urlRoot  : "/humans"
 	});
 
 	App.Collections.Humans = Backbone.Collection.extend({
