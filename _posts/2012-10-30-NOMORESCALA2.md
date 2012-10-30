@@ -99,7 +99,7 @@ avec les contenus suivants (on prend les définitions de template de la page `in
 **<u>humans_list_template.coffee</u>**
 {% highlight javascript %}
 	App.Templates.humans_list_template = """
-	    <ul>{{#humans}}
+	    <ul>{ { #humans } }
 	        <li>{{id}} {{firstName}} {{lastName}} {{age}} / {{address.town}}</li>
 	    {{/humans}}</ul>
 	"""
