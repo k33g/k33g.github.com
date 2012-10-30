@@ -48,15 +48,17 @@ pour Mustache :
         <!-- définition du template -->
         <script type="text/template" id="humans_list_template">
 
-            <ul>{% raw %}{{#humans}}{% endraw %}
-                <li>{{id}} {{firstName}} {{lastName}} {{age}}</li>
-            {{/humans}}</ul>
+            <ul>{ {#humans} }
+                <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
+            { {/humans} }</ul>
             
         </script>
         <!-- les résultats viendront ici -->
         <div id="humans_list"></div>
 
         <hr>
+
+**PS: Supprimez les espace entre { et { ou } } : j'ai un problème d'affichage avec Jekyll, et l'option raw semble ne pas fonctionner.**
 
 et pour Underscore :
 
@@ -99,10 +101,12 @@ avec les contenus suivants (on prend les définitions de template de la page `in
 **<u>humans_list_template.coffee</u>**
 
 	App.Templates.humans_list_template = """
-	    <ul>{{#humans}}
-	        <li>{{id}} {{firstName}} {{lastName}} {{age}} / {{address.town}}</li>
-	    {{/humans}}</ul>
+	    <ul>{ {#humans} }
+	        <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
+	    { {/humans} }</ul>
 	"""
+
+**PS: Supprimez les espace entre { et { ou } } : j'ai un problème d'affichage avec Jekyll, et l'option raw semble ne pas fonctionner.**
 
 **<u>humans_list_again_template.coffee</u>**
 

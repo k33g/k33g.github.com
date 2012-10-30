@@ -577,13 +577,15 @@ Nous allons décrire notre template d'affichage dans la page `index.html` :
 	        <!-- définition du template -->
 	        <script type="text/template" id="humans_list_template">
 
-	            <ul>{{#humans}}
-	                <li>{{id}} {{firstName}} {{lastName}} {{age}}</li>
-	            {{/humans}}</ul>
+	            <ul>{ {#humans} }
+	                <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
+	            { {/humans} }</ul>
 	            
 	        </script>
 	        <!-- les résultats viendront ici -->
 	        <div id="humans_list"></div>
+
+**PS: Supprimez les espace entre { et { ou } } : j'ai un problème d'affichage avec Jekyll, et l'option raw semble ne pas fonctionner.**
 
 Donc au final, notre page html aura le code suivant :
 
@@ -601,9 +603,9 @@ Donc au final, notre page html aura le code suivant :
 	        <!-- définition du template -->
 	        <script type="text/template" id="humans_list_template">
 
-	            <ul>{{#humans}}
-	                <li>{{id}} {{firstName}} {{lastName}} {{age}}</li>
-	            {{/humans}}</ul>
+	            <ul>{ {#humans} }
+	                <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
+	            { {/humans} }</ul>
 	            
 	        </script>
 	        <!-- les résultats viendront ici -->
