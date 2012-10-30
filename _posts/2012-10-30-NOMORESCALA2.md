@@ -100,7 +100,7 @@ avec les contenus suivants (on prend les définitions de template de la page `in
 {% highlight javascript %}
 	App.Templates.humans_list_template = """
 	    <ul>{ { #humans } }
-	        <li>{{id}} {{firstName}} {{lastName}} {{age}} / {{address.town}}</li>
+	        <li>&#123;&#123;id}} {{firstName}} {{lastName}} {{age}} / {{address.town}}</li>
 	    {{/humans}}</ul>
 	"""
 {% endhighlight %}
