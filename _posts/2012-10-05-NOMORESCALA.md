@@ -573,22 +573,20 @@ Nous pouvons donc passer à la partie affichage.
 Pour cela nous utiliserons **Mustache.js**. 
 
 Nous allons décrire notre template d'affichage dans la page `index.html` :
-
+{% raw %}
 	        <!-- définition du template -->
 	        <script type="text/template" id="humans_list_template">
 
-	            <ul>{ {#humans} }
-	                <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
-	            { {/humans} }</ul>
+	            <ul>{{#humans}}
+	                <li>{{id}} {{firstName}} {{lastName}} {{age}}</li>
+	            {{/humans}}</ul>
 	            
 	        </script>
 	        <!-- les résultats viendront ici -->
 	        <div id="humans_list"></div>
-
-**PS : supprimez les espaces entre les { et les }, j'ai un problème d'affichage avec Jekyll**
-
+{% endraw %}
 Donc au final, notre page html aura le code suivant :
-
+{% raw %}
 	<!DOCTYPE html>
 
 	<html>
@@ -603,9 +601,9 @@ Donc au final, notre page html aura le code suivant :
 	        <!-- définition du template -->
 	        <script type="text/template" id="humans_list_template">
 
-	            <ul>{ {#humans} }
-	                <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
-	            { {/humans} }</ul>
+	            <ul>{{#humans}}
+	                <li>{{id}} {{firstName}} {{lastName}} {{age}}</li>
+	            {{/humans}}</ul>
 	            
 	        </script>
 	        <!-- les résultats viendront ici -->
@@ -617,9 +615,7 @@ Donc au final, notre page html aura le code suivant :
 	    <script src="assets/main.js"></script>
 
 	</html>
-
-**PS : supprimez les espaces entre les { et les }, j'ai un problème d'affichage avec Jekyll**
-
+{% endraw %}
 Ensuite, allons coller notre code Backbone dans `app.js` :
 
 Nous allons ajouter une vue `HumansListView` :
