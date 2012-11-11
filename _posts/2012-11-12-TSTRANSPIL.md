@@ -69,7 +69,7 @@ If you launch grunt in `ts` directory (from a terminal), typescript files will b
 
 - Open a terminal
 - Go to `myapp/ts`
-- run command `grunt`
+- run (type) command `grunt` *(under Windows, type `grunt.cmd`)*
 - create a new typescript file `human.ts` in `ts` directory with this content :
 
 		class Human {
