@@ -29,7 +29,7 @@ Create your main directory project with sub-directories like that :
  		  |-app-\ <-- javascript files here
 
 
-- Now, go to `ts` directory : `cd myapp/ts` and install typs-script grunt task locally : `npm install grunt-typescript` *(https://github.com/k-maru/grunt-typescript)[https://github.com/k-maru/grunt-typescript]*
+- Now, go to `ts` directory : `cd myapp/ts` and install typs-script grunt task locally : `npm install grunt-typescript` *[https://github.com/k-maru/grunt-typescript](https://github.com/k-maru/grunt-typescript)*
 - Then, install "watch" grunt task : `npm install grunt-contrib-watch --save-dev` *([https://github.com/gruntjs/grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch))*
 
 ##grunt.js
