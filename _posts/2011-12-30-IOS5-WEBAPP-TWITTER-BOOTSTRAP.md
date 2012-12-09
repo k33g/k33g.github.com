@@ -116,7 +116,7 @@ To the end of the `<head>` tag :
 
 What have we done ?
 
-- we are playing with new css property `-webkit-overflow-scrolling : touch;` of iOS5 Safari Mobile, that allows [http://johanbrook.com/browsers/native-momentum-scrolling-ios-5/]("native momentul scrolling")
+- we are playing with new css property `-webkit-overflow-scrolling : touch;` of iOS5 Safari Mobile, that allows ["native momentul scrolling"](http://johanbrook.com/browsers/native-momentum-scrolling-ios-5/)
 - we are using `@media queries` to change size of the webapp sides when rotating.
 
 ##Now, adding some html content
