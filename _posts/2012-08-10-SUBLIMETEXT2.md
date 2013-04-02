@@ -121,7 +121,7 @@ Le format markdown devient incontournable (pour rédiger la doc de vos projets p
 
 - `Ctrl + Shift + P` (ou Tools + Command Palette ...)
 - Sélectionner :  "Package Control: Install Package"
-- Chercher : markdowndpreview
+- Chercher : markdownpreview
 - Installer
 
 ####Utiliser
@@ -134,7 +134,7 @@ Lorsque vous êtes en édition d'un fichier markdown : `Ctrl + Shift + P` puis t
 
 - `Ctrl + Shift + P` (ou Tools + Command Palette ...)
 - Sélectionner :  "Package Control: Install Package"
-- Chercher : markdowndbuils
+- Chercher : markdownbuild
 - Installer
 
 ####Utiliser
