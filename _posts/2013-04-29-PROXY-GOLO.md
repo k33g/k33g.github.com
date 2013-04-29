@@ -75,13 +75,72 @@ function main = |args| {
 }
 {% endhighlight %}
 
-Nous obtiendrons la sortie suivante :
+Nous obtiendrons à l'exécution la sortie suivante :
 
 	HELLO I'M Babs : HI !!!
 	BLABLA BY Babs : IT'S SO CUTE
 
-**Maintenant, nous allons créer notre proxy de `TinyToon` :*
+**Maintenant, nous allons créer notre proxy de `TinyToon` :**
 
+Nous allons maintenant utiliser `Proxy.newProxyInstance()` :
+
+{% highlight coffeescript %}
+import java.lang.reflect.InvocationHandler
+import java.lang.reflect.Proxy
+
+import org.k33g.TinyToon
+
+function main = |args| {
+
+	let toon = TinyToon("Babs")
+
+	let toonProxy = Proxy.newProxyInstance(
+        toon:getClass():getClassLoader(),
+        toon:getClass():getInterfaces(),
+        (|proxy, method, args...| {
+	
+        	println("You've called : " + method:getName())
+        	
+        	let result = null
+
+        	if method:getName() is "hello" {
+                println("hello from proxy")
+        		result = toon:hello(args:get(0))
+        	}
+
+        	if method:getName() is "speak" {
+                println("speak from proxy")
+        		result = toon:speak(args:get(0))
+        	}
+
+        	return result
+
+        }):to(InvocationHandler.class))
+
+	println(toonProxy:hello("HI !!!"))
+	println(toonProxy:speak("IT'S SO CUTE"))
+
+}
+{% endhighlight %}
+
+**Remarquez** que nous "castons" notre closure `|proxy, method, args...| { ... }` en `InvocationHandler`, en utilisant `():to(InvocationHandler.class)`.
+
+Nous obtiendrons à l'exécution la sortie suivante :
+
+	You've called : hello
+	hello from proxy
+	HELLO I'M Babs : HI !!!
+	You've called : speak
+	speak from proxy
+	BLABLA BY Babs : IT'S SO CUTE
+
+Et voilà, vous venez de faire de l'AOP avec Golo. Ce qui vous démontre une fois de plus la puissance de ce langage.
+
+Vous trouverez ici une version "générique" réutilisable d'un proxy dynamique : [https://github.com/k33g/DynoGolo](https://github.com/k33g/DynoGolo).
+
+42. ;)
+
+*à venir : comment modifier directement Golo. Stay tuned*
 
 
 
