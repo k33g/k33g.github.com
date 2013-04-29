@@ -10,7 +10,7 @@ info : gologolo
 
 Golo est fait pour utiliser des classes Java. Si vous manipulez des classes qui implémentent des interfaces, il est tout à fait possible de "greffer" des comportements à vos méthodes de classes (celles déclarées dans une interface) grâce à `import java.lang.reflect.Proxy`. Voyons donc comment faire :
 
-##Imaginez une interface java :
+**Imaginez une interface java :**
 
 {% highlight java %}
 package org.k33g;
@@ -21,7 +21,7 @@ public interface Toon {
 }
 {% endhighlight %}
 
-##Imaginez une classe java qui implémente `Toon`
+**Imaginez une classe java qui implémente `Toon` :**
 
 {% highlight java %}
 package org.k33g;
@@ -54,10 +54,37 @@ public class TinyToon implements Toon {
 }
 {% endhighlight %}
 
-##Il est possible de créer un proxy de `TinyToon`, implémentant donc `Toon` et ce dynamiquement
+##Proxy dynamique
 
+**Il est possible de créer un proxy de `TinyToon`, implémentant donc `Toon` et ce dynamiquement :**
+
+Ce peut être très pratique, si vous avez des traitements (méthodes) qui "attendent" des objets de type `Toon`, et que vous souhaitez ajouter des comportements aux méthodes (ce n'est possible que pour les méthodes déclarées dans l'interface implémentée par la classe) :
+
+Dans un 1er temps, si nous utilisons tout simplement `TinyToon` :
 
 {% highlight coffeescript %}
+import org.k33g.TinyToon
 
+function main = |args| {
 
+	let toon = TinyToon("Babs")
+
+    println(toon:hello("HI !!!"))
+    println(toon:speak("IT'S SO CUTE"))
+
+}
 {% endhighlight %}
+
+Nous obtiendrons la sortie suivante :
+
+	HELLO I'M Babs : HI !!!
+	BLABLA BY Babs : IT'S SO CUTE
+
+**Maintenant, nous allons créer notre proxy de `TinyToon` :*
+
+
+
+
+
+
+
