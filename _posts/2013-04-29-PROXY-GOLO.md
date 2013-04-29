@@ -1,7 +1,7 @@
 ---
 
 layout: post
-title: golo est encore un bébé
+title: Proxy Dynamique en Golo
 info : gologolo
 
 ---
