@@ -12,18 +12,18 @@ Golo est fait pour utiliser des classes Java. Si vous manipulez des classes qui 
 
 Imaginez une interface java :
 
-```java
+{% highlight java %}
 package org.k33g;
 
 public interface Toon {
     public String hello(String message);
     public String speak(String message);
 }
-```
+{% endhighlight %}
 
 Imaginez une classe java qui implémente `Toon`
 
-```java
+{% highlight java %}
 package org.k33g;
 
 public class TinyToon implements Toon {
@@ -52,9 +52,9 @@ public class TinyToon implements Toon {
         return "BLABLA BY "+this.name+" : "+ message;
     }
 }
-```
+{% endhighlight %}
 
-```coffeescript
+{% highlight coffeescript %}
 
 
-``
+{% endhighlight %}
