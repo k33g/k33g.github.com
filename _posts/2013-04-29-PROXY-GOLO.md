@@ -138,7 +138,7 @@ Et voilà, vous venez de faire de l'AOP avec Golo. Ce qui vous démontre une foi
 
 Vous trouverez ici une version "générique" réutilisable d'un proxy dynamique : [https://github.com/k33g/DynoGolo](https://github.com/k33g/DynoGolo).
 
-42. ;)
+ 42. ;)
 
 *à venir : comment modifier directement Golo. Stay tuned*
 
