@@ -64,7 +64,7 @@
             <!--<img src="/images/k33g.png">-->
         </div>
         <div>
-            <h3>Last Tweets</h3>
+            <h3><strong style="font-size: 140%;"></strong>Last Tweets</h3>
             <ul class="posts" id="from_k33g_org"></ul>
         </div>
         <hr>
@@ -79,7 +79,7 @@
         </script>
 
         <div id="last5">
-            <h3>Blog Posts (last 5)</h3>
+            <h3><strong style="font-size: 140%;">✪</strong>Blog Posts (last 5)</h3>
             <ul class="posts">
                 {% for post in site.posts limit:5 %}
                   <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
@@ -88,6 +88,20 @@
             <b><a href="http://k33g.github.com/all.html">... all posts &raquo;</a></b>
         </div>
         <hr>
+        <div>
+            <h3><strong style="font-size: 140%;">❤</strong>(My) Golo Projects</h3>
+            <ul>
+                <li><a href="http://k33g.github.io/nano.golo/">N'Golo : liste des projets en Golo</a></li>
+                <li><a href="https://github.com/k33g/gogolo">GoGolo : script de lancement facile</a></li>
+                <li><a href="https://github.com/k33g/jgolo">JGolo : Lazy Golo Class Loader</a></li>
+                <li><a href="https://github.com/k33g/fastforward">Fast!►►forward : tiny web application server in Golo</a></li>
+                <li><a href="https://github.com/k33g/Fast20">Fast <b>2</b> : Spark Java Golo powered</a></li>
+                <li><a href=""></a>...</li>                
+                
+            </ul>            
+        </div>
+        <hr>        
+        <!--
         <div>
             <h3>Articles, books, ...</h3>
             <ul class="posts">
@@ -106,8 +120,9 @@
                 </ul>            
         </div>
         <hr>
+        -->
         <div>
-            <h3><3 www</h3>
+            <h3>I <strong style="font-size: 140%;">♥</strong></h3>
             <ul class="posts">
                 <li><a href="http://coffeebean.loicdescotte.com/">CoffeeBean</a>&nbsp;&raquo;&nbsp;Blog Java, Play!, Scala ... de Loïc</li>
                 <li><a href="http://blog.mklog.fr/">MkLog</a>&nbsp;&raquo;&nbsp;Blog JS, Node, Git, Play! ... de Mickaël</li>
