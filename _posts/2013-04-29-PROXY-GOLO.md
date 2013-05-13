@@ -10,7 +10,7 @@ info : gologolo
 
 Golo est fait pour utiliser des classes Java. Si vous manipulez des classes qui implémentent des interfaces, il est tout à fait possible de "greffer" des comportements à vos méthodes de classes (celles déclarées dans une interface) grâce à `import java.lang.reflect.Proxy`. Voyons donc comment faire:
 
-**Imaginez une interface java :**
+**Imaginez une interface java "Toon":**
 
 {% highlight java %}
 package org.k33g;
