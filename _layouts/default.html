@@ -63,20 +63,7 @@
         <div>
             <!--<img src="/images/k33g.png">-->
         </div>
-        <div>
-            <h3><strong style="font-size: 140%;">•</strong>Last Tweets</h3>
-            <ul class="posts" id="from_k33g_org"></ul>
-        </div>
-        <hr>
-        <script>
-            tw.search('from:k33g_org',function(data){
-                for(var i = 0; i <3; i+=1){
-                    var p = document.createElement('li');
-                    p.innerHTML = '<span> (' + data[i].user + ')</span> &raquo; ' + data[i].msg ;
-                    document.querySelector('#from_k33g_org').appendChild(p);
-                }
-            });
-        </script>
+
 
         <div id="last5">
             <h3><strong style="font-size: 140%;">•</strong>Blog Posts (last 5)</h3>
