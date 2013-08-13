@@ -8,11 +8,13 @@ info : Think Simple
 
 #Think Simple, Yeoman, Bower, i <3 you but sometimes you're too heavy!
 
+*(sorry for my english ;))*
+
 Last week, I had to prepare a draft web application for a demonstration. I decided to play with Yeoman and Backbone Generator. After the `yo backbone` command, i'd get a big project of almost **150 MB**. ... I do not need all this. So, i'd try withn only Bower : **25 MB** ... I do not need all this.
 
 So I decided to make lighter, i've created an other (again!) Backbone Boilerplate "manually" and i use the beautifully simple **Pulldown** [https://github.com/jackfranklin/pulldown](https://github.com/jackfranklin/pulldown) to load and update my javascript libraries.
 
-I've called it **M33** and you can find it here : [https://github.com/k33g/m33](https://github.com/k33g/m33). And it's very easy to use.
+I've called it **M33** and you can find it here : **[https://github.com/k33g/m33](https://github.com/k33g/m33)**. And it's very easy to use.
 
 ##How to use M33 ?
 
