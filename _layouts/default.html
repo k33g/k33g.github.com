@@ -6,201 +6,85 @@
     <meta name="author" content="k33g" />
 
     <!-- Homepage CSS -->
+    <!--
     <link rel="stylesheet" href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css">
     <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
-	
-	
-    
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-	  code { color : black;}
+	-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link href="bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="bootstrap3/js/bootstrap.min.js"></script>
+
+    <style>
+        .jumbotron {
+            background-color: #eeeccd;
+            border-radius: 0px;
+        }
     </style>
-    
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- syntax highlighting CSS -->
-    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="css/syntax.css" type="text/css" />
 	<link rel="stylesheet" href="css/default.min.css">
 
-    <script type="text/javascript" src="/js/twitter.js"></script>
+
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 
 </head>
 
 <body >
 
-<div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          
-          <ul class="nav">
-            <li><b><a class="brand" href="/">K33G_ORG's Blog</a></b></li>
-            <!--<li class="active"><a href="#masthead">Overview</a></li>
-            <li><a href="#about">About</a></li>-->
-            <li><a href="http://twitter.com/k33g_org/">@k33g_org</a></li>
-            <li><a href="http://feeds.feedburner.com/K33g_orgsBlog">RSS</a></li>
-            <!--<li><a href="http://github.com/k33g/">github.com/k33g</a></li>
-            <li><a href="https://github.com/k33g/CV/blob/master/CV-2011.md">geek cv</a></li>
-            <li><a href="https://github.com/k33g/k33g.github.com">Fork Me! (on GitHub)</a></li>-->
-            <li><a href="http://k33g.github.com/all.html">... all posts &raquo;</a></li>
-            <!--<li><a href="/">A venir : version mobile ...</a></li>-->
-          </ul>
-        </div>
-      </div>
+<div class="jumbotron">
+    <h1>K33G_ORG's Blog</h1>
+    <p></p>
+    <a class="label label-info" href="/">home</a>
+    <a class="label label-info" href="http://twitter.com/k33g_org/">@k33g_org</a>
+    <a class="label label-warning" href="http://feeds.feedburner.com/K33g_orgsBlog">rss</a>
+    <a class="label label-info" href="http://k33g.github.com/all.html">all posts</a>
+</div>
+<div class="container">
+    <div class="row">
+        <h3>Blog Posts (last 5) :</h3>
+        <ul>
+            {% for post in site.posts limit:5 %}
+            <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <hr>
+    <div class="row">
+        {{ content }}
+    </div>
+    <hr>
+    <div class="row">
+        <h3>A voir : Les GROS tutos Play!> 1 & 2 !, Backbone</h3>
+        <ul>
+            <li>
+                <a href="http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html">
+                    Play!► 2 en douceur •
+                </a>
+                <a href="http://3monkeys.github.com/play.rules/livre.play.un.web/play.rules.one.html">
+                    Apprendre Play!► 1 •
+                </a>
+                <a href="http://3monkeys.github.com/play.rules/">
+                    Versions epub & pdf
+                </a>
+            </li>
+            <li>
+                <a href="http://k33g.github.io/backbone.en.douceur/">
+                    Backbone.js "en douceur" •
+                </a>
+                <a href="http://k33g.github.io/backbone.en.douceur/backbone.en.douceur.20121220.pdf"><b>LE</b> pdf</a>
+            </li>
+            <li>
+                A venir : Golo "dans tous les sens" ♥
+            </li>
+        </ul>
     </div>
 
-<div class="container-fluid">
-  <div class="row-fluid">
-   <div class="span3">
-  
-    <div class="sidebar">
-        <div>
-            <!--<img src="/images/k33g.png">-->
-        </div>
-
-
-        <div id="last5">
-            <h3><strong style="font-size: 140%;">•</strong>Blog Posts (last 5)</h3>
-            <ul class="posts">
-                {% for post in site.posts limit:5 %}
-                  <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-                {% endfor %}
-            </ul>
-            <b><a href="http://k33g.github.com/all.html">... all posts &raquo;</a></b>
-        </div>
-        <hr>
-        <div>
-            <h3>(My) <strong style="font-size: 140%;">♥</strong> Golo Projects</h3>
-            <ul>
-                <li><a href="http://k33g.github.io/nano.golo/">N'Golo : liste des projets en Golo</a></li>
-                <li><a href="https://github.com/k33g/gogolo">GoGolo : script de lancement facile</a></li>
-                <li><a href="https://github.com/k33g/jgolo">JGolo : Lazy Golo Class Loader</a></li>
-                <li><a href="https://github.com/k33g/fastforward">Fast!►►forward : tiny web application server in Golo</a></li>
-                <li><a href="https://github.com/k33g/Fast20">Fast <b>2</b> : Spark Java Golo powered</a></li>
-                <li><a href=""></a>...</li>                
-                
-            </ul>            
-        </div>
-        <hr>        
-        <!--
-        <div>
-            <h3>Articles, books, ...</h3>
-            <ul class="posts">
-                <li><a href="https://github.com/3monkeys/play.rules">Play.Rules</a>&nbsp;&raquo;&nbsp;Un e-book sur Play!Framework / an e-book about Play!Framework, by <a href="http://twitter.com/k33g_org/">@k33g_org</a>, <a href="http://twitter.com/loic_d/">@loic_d</a> and <a href="http://twitter.com/mklabs/">@mklabs</a> </li>
-                <li><a href="https://github.com/k33g/articles">Mes articles</a>&nbsp;&raquo;&nbsp;Un repo github avec mes articles (vous pouvez faire des <b>pullrequests</b> pour commenter, améliorer, ...)</li>
-            </ul>
-        </div>
-        <hr>
-        <div>
-                <h3><strong style="font-size: 140%;">✪</strong> A voir : Les tutos BackBone</h3>
-                <ul>
-                    <li><a href="https://github.com/k33g/articles/blob/master/2011-08-08-BB-MODELS-COLLECTIONS.md">Backbone : "Dans l'ordre" - Part I : "Modèles & Collections"</a></li>
-                    <li><a href="https://github.com/k33g/articles/blob/master/2011-08-10-BB-SYNC.md">Backbone : "Dans l'ordre" - Part II : "Modèles & Collections + Backbone.sync"</a></li>
-                    <li><a href="https://github.com/k33g/articles/blob/master/2011-08-14-BB-VIEWS.md">Backbone : "Dans l'ordre" - Part III : "Les Vues ... (Contrôleurs ?)"</a></li>
-                    <li><a href="https://github.com/k33g/articles/blob/master/2011-08-18-BB-ROUTER.md">Backbone : "Dans l'ordre" - Part IV : "Le Routeur / Router"</a></li>
-                </ul>            
-        </div>
-        <hr>
-        -->
-        <div>
-            <h3><strong style="font-size: 140%;">♥ ♥ ♥</strong></h3>
-            <ul class="posts">
-                <li><a href="http://coffeebean.loicdescotte.com/">CoffeeBean</a>&nbsp;&raquo;&nbsp;Blog Java, Play!, Scala ... de Loïc</li>
-                <li><a href="http://blog.mklog.fr/">MkLog</a>&nbsp;&raquo;&nbsp;Blog JS, Node, Git, Play! ... de Mickaël</li>
-                <li><a href="http://lyonjs.github.com/">LyonJS</a></li>
-                <li><a href="http://www.cast-it.fr/">Cast-IT</a>&nbsp;&raquo;&nbsp;Le podcast Lyonnais sur l'écosystème Java</li>
-                <li><a href="http://www.touilleur-express.fr/">Le Touilleur Express</a>&nbsp;&raquo;&nbsp;Blog de notre évangéliste français Play!</li>
-                <li><a href="http://blog.androgames.net/">Androgames</a>&nbsp;&raquo;&nbsp;Blog d'Antoine : Android Development & Game</li>
-                <li><a href="http://chamerling.org/">C.Hamerling</a>&nbsp;&raquo;&nbsp;Blog de Christophe : SOA, Java, JUG Montpellier, ...</li>
-                <li><a href="http://hypedrivendev.wordpress.com/">Hype Driven Development</a>&nbsp;&raquo;&nbsp;1 Java man ... en train de passer à Node ?</li>
-                <li><a href="http://naholyr.fr/">Naholyr</a>&nbsp;&raquo;&nbsp;Node.js, Express, ...</li>
-                <li><a href="http://www.atinux.fr/">Atinux</a>&nbsp;&raquo;&nbsp;Fan de JS & de Node</li>
-
-
-                <li><a href="http://lescastcodeurs.com/">Les Cast Codeurs</a>&nbsp;&raquo;&nbsp;Le podcast Java en Français</li>
-            </ul>
-        </div>
-        <hr>
-        <div>
-            <h3><strong style="font-size: 140%;">•</strong>Little projects</h3>
-            <ul class="posts">
-                <li><a href="http://k33g.github.com/speculoos/">SpeculOOS</a>&nbsp;&raquo;&nbsp;Simple Javascript Class notation, CoffeeScript compliant !</li>
-                <li><a href="https://github.com/k33g/species">Species</a>&nbsp;&raquo;&nbsp;JS Class structure, Java style OOP, with AOP plugin (only for webkit, a little for FF)</li>
-                <li><a href="https://github.com/k33g/artemia">Artemia --=>>>|:<</a>&nbsp;&raquo;&nbsp;Artemia is a clientside JSON document store like Lawnchair (in the way of CouchDb). It's very very (and very) inspired by Lawnchair (it copies many aspects, normal, i love Lawnchair) but has some specific features.</li>
-            </ul>
-        </div>
-        <hr>
-    </div>
-   </div>
-   
-   <div class="span9">   
-   
-    
-      	<div class="hero-unit" style="padding-top:15px; padding-bottom:15px; ">
-
-                <h3><strong style="font-size: 140%;">✪</strong> A voir : Les GROS tutos Play!> 1 & 2 !</h3>
-                <ul>
-                    <li>
-                        <a href="http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html">
-                        Play!► 2 en douceur • 
-                        </a>  
-                        <a href="http://3monkeys.github.com/play.rules/livre.play.un.web/play.rules.one.html">
-                        Apprendre Play!► 1 •
-                        </a>
-                        <a href="http://3monkeys.github.com/play.rules/">
-                            Versions epub & pdf
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://k33g.github.io/backbone.en.douceur/">
-                        Backbone.js "en douceur" •
-                        </a>
-                        <a href="http://k33g.github.io/backbone.en.douceur/backbone.en.douceur.20121220.pdf"><b>LE</b> pdf</a>
-                    </li>
-                    <li>
-                        A venir : Golo "dans tous les sens" ♥
-                    </li>
-                </ul>
-
-                <!--
-                <h3><strong style="font-size: 140%;">✪</strong> A voir : Les tutos BackBone</h3>
-                <ul>
-                    <li><a href="https://github.com/k33g/articles/blob/master/2011-08-08-BB-MODELS-COLLECTIONS.md">Backbone : "Dans l'ordre" - Part I : "Modèles & Collections"</a></li>
-                    <li><a href="https://github.com/k33g/articles/blob/master/2011-08-10-BB-SYNC.md">Backbone : "Dans l'ordre" - Part II : "Modèles & Collections + Backbone.sync"</a></li>
-                    <li><a href="https://github.com/k33g/articles/blob/master/2011-08-14-BB-VIEWS.md">Backbone : "Dans l'ordre" - Part III : "Les Vues ... (Contrôleurs ?)"</a></li>
-                    <li><a href="https://github.com/k33g/articles/blob/master/2011-08-18-BB-ROUTER.md">Backbone : "Dans l'ordre" - Part IV : "Le Routeur / Router"</a></li>
-                </ul>
-                -->
-		<!--<p>by <a>@loic_d</a> & <a>@k33g_org</a></p>-->
-	</div>
-	<div class="row-fluid">
-         {{ content }}
-        </div>
-   </div>
-   
-  </div>
 </div>
 
 
-    <!--
-    <div class="footer">
-        <p>
-            <a href="http://lescastcodeurs.com"><img border="0" alt="J'ecoute les Cast Codeurs" src="http://lescastcodeurs.com/img/jecoute_les_castcodeurs_200px.png" /></a>
-        </p>
-        <p>
-            <a href="http://www.viadeo.com/fr/profile/philippe.charriere1"><img src="http://static0.viadeo-static.com/v_img14/profile/promotion/black/button_profile_fr.png" border="0" /></a>
-        </p>
-    </div>
-    -->
-
-
-<!--<a href="https://github.com/k33g/k33g.github.com"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/30f550e0d38ceb6ef5b81500c64d970b7fb0f028/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub"></a>-->
 
 <!-- Google Analytics -->
 <script type="text/javascript">
