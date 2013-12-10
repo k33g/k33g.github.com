@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Modifier Golo</title>
+    <meta name="author" content="k33g" />
+
+    <!-- Homepage CSS -->
+    <!--
+    <link rel="stylesheet" href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+	-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link href="/bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="bootstrap3/js/bootstrap.min.js"></script>
+
+    <style>
+        .jumbotron {
+            background-color: #b8eee9;
+            border-radius: 0px;
+        }
+    </style>
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+	<link rel="stylesheet" href="/css/default.min.css">
+
+
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+</head>
+
+<body >
+
+<div class="jumbotron">
+    <h1>K33G_ORG's Blog</h1>
+    <p></p>
+    <a class="label label-info" href="/">home</a>
+    <a class="label label-info" href="http://twitter.com/k33g_org/">@k33g_org</a>
+    <a class="label label-warning" href="http://feeds.feedburner.com/K33g_orgsBlog">rss</a>
+    <a class="label label-info" href="http://k33g.github.com/all.html">all posts</a>
+</div>
+<div class="container">
+
+    <div class="row">
+        <div>
+    <div>
+        <g:plusone size="medium"></g:plusone>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        <h1>Créer un langage pour enfants à partir de Golo</h1>
+
+<h2>Introduction</h2>
+
+<p>Mes enfants (7 &amp; 8 ans) me voient collé à mon micro plus qu'il ne faudrait. Un jour, ils ont souhaité que je leur explique la "programmation". C'est ma fille qui a commencé à 5 ans avec du Ruby, mais les concepts ne sont pas forcément simples, qui plus est quand à l'école ils n'ont pas encore toutes les notions de math ou de logique, sans parler de l'anglais! Donc, même si ça les attire (imaginez un truc qui compte à votre place!), ils peinent un peu (il doit aussi y avoir la pédagogie de leur père en cause).</p>
+
+<p>En étudiant <strong>Golo</strong>, et au fur et à mesure de ma compréhension (merci <a href="@jponge">@jponge</a> pour ses patientes explications), je me suis dit <em>"et si je me servais de Golo pour apprendre le dév à mes rejetons ?"</em>. Du coup je leur ai demandé de commencer à me "spécifier" un langage sur papier (vu qu'ils sont punis de télé, de tablette, d'ordi pour 4 semaines, ça les occupe bien). A ma grande surprise, ils sont en train de le faire, et en plus ils avancent bien et ils ont choisi le thème du Zoo.</p>
+
+<p>Je me retrouve donc dans une situation, où il va falloir faire ce langage pour enfants! Donc ce matin, j'ai voulu qualifier la faisabilité de ce projet (et ma capacité à le faire).</p>
+
+<p><strong>Et bien, je vous l'affirme, Golo est un parfait "générateur" de langage!!!</strong> ... et je ne vais pas passer pour un incapable auprès de mes 2 dictateurs préférés :).</p>
+
+<p>Voci donc la recette du jour (et je m'amuse comme un petit fou) pour créer un langage, et se la jouer grave ensuite :)</p>
+
+<p>Pour ceux qui ne connaisse pas <strong>Golo</strong>, c'est par ici <a href="http://golo-lang.org/">http://golo-lang.org/</a>.</p>
+
+<p>Allez, c'est parti, nous allons voir :</p>
+
+<ul>
+<li>comment ajouter des "objets" utilisables dans Golo</li>
+<li>comment ajouter des fonctions prédéfinies</li>
+<li>et même comment changer certains verbes de base</li>
+</ul>
+
+
+<p><strong>Pas d'inquiétude, c'est ULTRA-FACILE.</strong></p>
+
+<h2>Préparation</h2>
+
+<p>Commencez donc par cloner le repository de golo :</p>
+
+<pre><code>git clone https://github.com/golo-lang/golo-lang.git
+</code></pre>
+
+<p>vous disposez maintenant de tout ce qu'il faut pour vous amuser :)</p>
+
+<h2>Ajouter des animaux</h2>
+
+<p>... je vous rappelle que le thème, c'est le <strong>Zoo</strong>.</p>
+
+<p>Nous allons donc déjà ajouter simplement de nouveaux "objets" à Golo, que nous allons implémenter dans le package <code>gololang.zoo</code>, pour cela dans le projet <strong>Golo</strong>, vous devez, au sein du package <code>gololang</code>, créer un package <code>zoo</code> :</p>
+
+<p><img src="https://raw.github.com/k33g/k33g.github.com/master/images/zoogolo.jpg" alt="" /></p>
+
+<p>Ensuite, nous développons quelques classes et interfaces qui seront la base de notre langage pour enfants :</p>
+
+<p><img src="https://raw.github.com/k33g/k33g.github.com/master/images/zoodiag.jpg" alt="" /></p>
+
+<p><strong>Animal.java :</strong></p>
+
+<div class="highlight"><pre><code class="java"><span class="kn">package</span> <span class="n">gololang</span><span class="o">.</span><span class="na">zoo</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sePositionne</span><span class="o">(</span><span class="n">Integer</span> <span class="n">x</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">y</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p><strong>Position.java</strong></p>
+
+<div class="highlight"><pre><code class="java"><span class="kn">package</span> <span class="n">gololang</span><span class="o">.</span><span class="na">zoo</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Position</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">_x</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">_y</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">x</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">_x</span><span class="o">;</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Position</span> <span class="nf">x</span><span class="o">(</span><span class="n">Integer</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span> <span class="n">_x</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> <span class="k">return</span> <span class="k">this</span><span class="o">;</span> <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">y</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">_y</span><span class="o">;</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Position</span> <span class="nf">y</span><span class="o">(</span><span class="n">Integer</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span> <span class="n">_y</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> <span class="k">return</span> <span class="k">this</span><span class="o">;</span> <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Position</span><span class="o">(</span><span class="n">Integer</span> <span class="n">_x</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">_y</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">_x</span> <span class="o">=</span> <span class="n">_x</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">_y</span> <span class="o">=</span> <span class="n">_y</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Position</span><span class="o">()</span> <span class="o">{}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p><strong>Mammifere.java</strong></p>
+
+<div class="highlight"><pre><code class="java"><span class="kn">package</span> <span class="n">gololang</span><span class="o">.</span><span class="na">zoo</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Mammifere</span> <span class="kd">implements</span> <span class="n">Animal</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Position</span> <span class="n">_position</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">_nom</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sePositionne</span><span class="o">(</span><span class="n">Integer</span> <span class="n">x</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">_position</span><span class="o">.</span><span class="na">x</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+        <span class="n">_position</span><span class="o">.</span><span class="na">y</span><span class="o">(</span><span class="n">y</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Mammifere</span><span class="o">(</span><span class="n">String</span> <span class="n">nom</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">_nom</span> <span class="o">=</span> <span class="n">nom</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Mammifere</span><span class="o">(</span><span class="n">String</span> <span class="n">nom</span><span class="o">,</span> <span class="n">Position</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">_position</span> <span class="o">=</span> <span class="n">position</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">_nom</span> <span class="o">=</span> <span class="n">nom</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">nom</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">_nom</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Animal</span> <span class="nf">nom</span><span class="o">(</span><span class="n">String</span> <span class="n">nom</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">_nom</span> <span class="o">=</span> <span class="n">nom</span><span class="o">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Position</span> <span class="nf">position</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">_position</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Animal</span> <span class="nf">position</span><span class="o">(</span><span class="n">Position</span> <span class="n">_position</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">_position</span> <span class="o">=</span> <span class="n">_position</span><span class="o">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p><strong>Lion.java</strong></p>
+
+<div class="highlight"><pre><code class="java"><span class="kn">package</span> <span class="n">gololang</span><span class="o">.</span><span class="na">zoo</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Lion</span> <span class="kd">extends</span> <span class="n">Mammifere</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Lion</span><span class="o">(</span><span class="n">String</span> <span class="n">nom</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">nom</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Lion</span><span class="o">(</span><span class="n">String</span> <span class="n">nom</span><span class="o">,</span> <span class="n">Position</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">nom</span><span class="o">,</span> <span class="n">position</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">rugir</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="s">&quot;Groooooaaaaaarrrrr!!!&quot;</span><span class="o">;}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">rugir</span><span class="o">(</span><span class="n">String</span> <span class="n">paroles</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">paroles</span> <span class="o">+</span> <span class="s">&quot;Groooooaaaaaarrrrr!!!&quot;</span><span class="o">;}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<h2>Compiler</h2>
+
+<p>Nous pouvons déjà recompiler Golo. Vous vous positionnez dans le répertore <code>/golo-lang</code> et "lancez" la commande suivante :</p>
+
+<pre><code>rake special:bootstrap
+</code></pre>
+
+<p>Au bout de quelques instants (quand c'est terminé donc) vous obtenez le répertoire <code>/&lt;chez_vous&gt;/golo-lang/target/golo-0-preview3-SNAPSHOT-distribution/golo-0-preview3-SNAPSHOT</code> (en fonction des version les noms peuvent changer) qui contient un Golo utilisable. Faites donc pointer vos variables d'environnement dessus :</p>
+
+<pre><code>GOLO_HOME=/&lt;chez_vous&gt;/golo-lang/target/golo-0-preview3-SNAPSHOT-distribution/golo-0-preview3-SNAPSHOT; export GOLO_HOME
+export PATH=$PATH:$GOLO_HOME/bin
+</code></pre>
+
+<h2>Utiliser</h2>
+
+<p>Nous allons maintenant créer un script <code>zoo.golo</code> :</p>
+
+<div class="highlight"><pre><code class="coffeescript"><span class="nx">module</span> <span class="nx">zoo</span>
+
+<span class="nx">import</span> <span class="nx">gololang</span><span class="p">.</span><span class="nx">zoo</span><span class="p">.</span><span class="nx">Lion</span>
+<span class="nx">import</span> <span class="nx">gololang</span><span class="p">.</span><span class="nx">zoo</span><span class="p">.</span><span class="nx">Position</span>
+
+<span class="nx">function</span> <span class="nv">main = </span><span class="o">|</span><span class="nx">args</span><span class="o">|</span> <span class="p">{</span>
+
+    <span class="nx">let</span> <span class="nv">leo = </span><span class="nx">Lion</span><span class="p">(</span><span class="s">&quot;Léo le lion&quot;</span><span class="p">)</span>
+
+    <span class="nx">println</span><span class="p">(</span><span class="nx">leo</span><span class="o">:</span><span class="nx">nom</span><span class="p">())</span>
+
+    <span class="nx">let</span> <span class="nv">pos = </span><span class="nx">Position</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+
+    <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">(</span><span class="nx">pos</span><span class="p">)</span>
+
+    <span class="nx">println</span><span class="p">(</span><span class="s">&quot;x: &quot;</span> <span class="o">+</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">x</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; y: &quot;</span> <span class="o">+</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">y</span><span class="p">())</span>
+
+    <span class="nx">println</span><span class="p">(</span><span class="nx">leo</span><span class="o">:</span><span class="nx">rugir</span><span class="p">())</span>
+    <span class="nx">println</span><span class="p">(</span><span class="nx">leo</span><span class="o">:</span><span class="nx">rugir</span><span class="p">(</span><span class="s">&quot;Je suis &quot;</span> <span class="o">+</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">nom</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;... &quot;</span><span class="p">))</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Lancez : <code>gologolo zoo.golo</code>, et ... :</p>
+
+<pre><code>Léo le lion
+x: 4 y: 7
+Groooooaaaaaarrrrr!!!
+Je suis Léo le lion... Groooooaaaaaarrrrr!!!
+</code></pre>
+
+<p>N'êtes vous pas déjà un peu fier, là ?</p>
+
+<h2>Ajouter une fonction prédéfinie</h2>
+
+<p>Le projet <strong>Golo</strong> a une classe très pratique <code>Predefined.java</code> dans le package <code>gololang</code>, qui permet d'ajouter des sortes de mots-clé. C'est là que vous avez l'implémentation de <code>println()</code> par exemple. Pour résumer, <code>Predefined.java</code> comporte un ensemble de méthodes statiques réutilisables en <strong>Golo</strong> comme mots-clé. Voyon donc comment ajouter des mots-clé :</p>
+
+<p>Je n'aime définitivement pas concaténer des chaînes de caractères, donc à la place de <code>"x: " + leo:position():x() + " y: " + leo:position():y()</code> j'aimerais pouvoir écrire <code>"x: %s y: %s", leo:position():x(), leo:position():y()</code> ou à la place de <code>"Je suis " + leo:nom() + "... "</code> avoir <code>"Je suis %s ... ",leo:nom()</code>. Allons-y!</p>
+
+<p>Ajoutez les 2 méthodes ci-dessous dans <code>Predefined.java</code> :</p>
+
+<p><strong>formater:</strong></p>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">formater</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p><strong>afficher:</strong></p>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">afficher</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">formater</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">args</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Maintenant, compilez à nouveau <strong>Golo</strong> (<code>rake special:bootstrap</code>) et modifiez votre script <code>zoo.golo</code> de la manière suivante :</p>
+
+<div class="highlight"><pre><code class="coffeescript"><span class="nx">module</span> <span class="nx">zoo</span>
+
+<span class="nx">import</span> <span class="nx">gololang</span><span class="p">.</span><span class="nx">zoo</span><span class="p">.</span><span class="nx">Lion</span>
+<span class="nx">import</span> <span class="nx">gololang</span><span class="p">.</span><span class="nx">zoo</span><span class="p">.</span><span class="nx">Position</span>
+
+<span class="nx">function</span> <span class="nv">main = </span><span class="o">|</span><span class="nx">args</span><span class="o">|</span> <span class="p">{</span>
+
+    <span class="nx">let</span> <span class="nv">leo = </span><span class="nx">Lion</span><span class="p">(</span><span class="s">&quot;Léo le lion&quot;</span><span class="p">)</span>
+
+    <span class="nx">afficher</span><span class="p">(</span><span class="s">&quot;Mon est %s&quot;</span><span class="p">,</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">nom</span><span class="p">())</span>
+
+    <span class="nx">let</span> <span class="nv">pos = </span><span class="nx">Position</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+
+    <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">(</span><span class="nx">pos</span><span class="p">)</span>
+
+    <span class="nx">afficher</span><span class="p">(</span><span class="s">&quot;x: %s y: %s&quot;</span><span class="p">,</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">x</span><span class="p">(),</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">y</span><span class="p">())</span>
+    <span class="nx">afficher</span><span class="p">(</span><span class="s">&quot;x: %03d y: %03d&quot;</span><span class="p">,</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">x</span><span class="p">(),</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">y</span><span class="p">())</span>
+
+    <span class="nx">afficher</span><span class="p">(</span><span class="s">&quot;Léo va rugir : %s&quot;</span>
+        <span class="p">,</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">rugir</span><span class="p">(</span>
+            <span class="nx">formater</span><span class="p">(</span><span class="s">&quot;Je suis %s ... &quot;</span><span class="p">,</span><span class="nx">leo</span><span class="o">:</span><span class="nx">nom</span><span class="p">())</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Lancez : <code>gologolo zoo.golo</code>, et ... :</p>
+
+<pre><code>Mon est Léo le lion
+x: 4 y: 7
+x: 004 y: 007
+Léo va rugir : Je suis Léo le lion ... Groooooaaaaaarrrrr!!!
+</code></pre>
+
+<p>Et là, au sentiment de fierté précédent, s'ajoute un début d'impression, voire d'intelligence "inhabituelle" ;) De là à dire que <strong>Golo</strong> rend intelligent, il n'y a qu'un pas ... que je franchis allègrement :)))</p>
+
+<h2>Encore un peu plus loin</h2>
+
+<p>Depuis un moment, vous devez vous dire que ma manie de mettre du français dans mon code est un peu bizarre, voire c'est mal, ça ne se fait pas, je suis un hérétique! Je vous rappelle que le besoin initial, c'est apprendre la programmation à de jeunes enfants, alors si en plus, ils doivent apprendre l'anglais, ils vont devenir chèvres.</p>
+
+<p>Avez-vous essayé d'expliquer le concept de variable et valeur de variable à des enfants de 8 ans et moins de 8 ans (5 ans!) ? En ce qui me concerne, la notion de <strong>boîte d'alumettes</strong>, marche pas mal (avec un nombre d'alumettes dans la boîte) ou la notion de <strong>case</strong> peut aussi faire l'affaire.</p>
+
+<p>Donc à la place de <code>let leo = Lion("Léo le lion")</code> je voudrais <code>la_case leo = Lion("Léo le lion")</code> et comme j'ai pris de l'assurance dans les paragraphes précédents, à la place de <code>if {} else {}</code>, je veux <code>si {} sinon {}</code>. Voui Monsieur!</p>
+
+<p>Eh bien, c'est extrêment facile :</p>
+
+<p>Allez faire un tour dans le projet <strong>Golo</strong> par ici : <code>/src/main/jjtree/Golo.jjt</code> :</p>
+
+<ul>
+<li>cherchez <code>&lt; LET: "let" &gt;</code> et remplacez par <code>&lt; LET: ("let" | "la_case") &gt;</code> (vous pourrez ainsi continuer à utiliser <code>let</code>)</li>
+<li>cherchez <code>&lt; IF: "if" &gt;</code> et remplacez par <code>&lt; IF: ("if" | "si") &gt;</code></li>
+<li>cherchez <code>&lt; ELSE: "else" &gt;</code> et remplacez par <code>&lt; ELSE: ("else" | "sinon") &gt;</code></li>
+</ul>
+
+
+<p>Compilez à nouveau <strong>Golo</strong> (<code>rake special:bootstrap</code>), et maintenant vous pouvez écrire des choses comme celle-ci :</p>
+
+<div class="highlight"><pre><code class="coffeescript"><span class="nx">module</span> <span class="nx">zoo</span>
+
+<span class="nx">import</span> <span class="nx">gololang</span><span class="p">.</span><span class="nx">zoo</span><span class="p">.</span><span class="nx">Lion</span>
+<span class="nx">import</span> <span class="nx">gololang</span><span class="p">.</span><span class="nx">zoo</span><span class="p">.</span><span class="nx">Position</span>
+
+<span class="nx">function</span> <span class="nv">main = </span><span class="o">|</span><span class="nx">args</span><span class="o">|</span> <span class="p">{</span>
+
+    <span class="nx">la_case</span> <span class="nv">leo = </span><span class="nx">Lion</span><span class="p">(</span><span class="s">&quot;Léo le lion&quot;</span><span class="p">)</span>
+
+    <span class="nx">la_case</span> <span class="nv">pos = </span><span class="nx">Position</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+
+    <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">(</span><span class="nx">pos</span><span class="p">)</span>
+
+    <span class="nx">si</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">x</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="p">{</span>
+        <span class="nx">afficher</span><span class="p">(</span><span class="s">&quot;x: %s (est supérieur à 3) y: %s&quot;</span><span class="p">,</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">x</span><span class="p">(),</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">y</span><span class="p">())</span>
+    <span class="p">}</span> <span class="nx">sinon</span> <span class="p">{</span>
+        <span class="nx">afficher</span><span class="p">(</span><span class="s">&quot;x: %s (est inférieur à 3) y: %s&quot;</span><span class="p">,</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">x</span><span class="p">(),</span> <span class="nx">leo</span><span class="o">:</span><span class="nx">position</span><span class="p">()</span><span class="o">:</span><span class="nx">y</span><span class="p">())</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Je n'ai maintenant plus qu'à tester avec mes petits bouts. Je vous en donnerais des nouvelles. De votre côté, plus d'excuses pour vous mettre à <strong>Golo</strong>, <em>augmenter Golo ...</em> ;)</p>
+
+<p> <em>42.</em> ;)</p>
+
+        <g:plusone size="medium"></g:plusone>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    </div>
+    <div class="whoring">
+        <hr>
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'k33gblog'; // required: replace example with your forum shortname
+
+                var disqus_identifier = 'Modifier Golo';
+
+                // The following are highly recommended additional parameters. Remove the slashes in front to use.
+                // var disqus_identifier = 'unique_dynamic_id_1234';
+                // var disqus_url = 'http://example.com/permalink-to-page.html';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
+
+
+    <div id="related">
+        <h2>Related Posts</h2>
+            <ul class="posts">
+            
+              <li><span>10 Dec 2013</span> &raquo; <a href="/2013/12/10/POLYMER-2.html">Polymer 1er contact le retour</a></li>
+            
+              <li><span>07 Dec 2013</span> &raquo; <a href="/2013/12/07/POLYMER-1.html">Polymer 1er contact</a></li>
+            
+              <li><span>29 Nov 2013</span> &raquo; <a href="/2013/11/29/BBOM.html">Le modèle objet de Backbone</a></li>
+            
+        </ul>
+    </div>
+</div>
+    </div>
+
+    <div class="row">
+        <h3>A voir : Les GROS tutos Play!> 1 & 2 !, Backbone</h3>
+        <ul>
+            <li>
+                <a href="http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html">
+                    Play!► 2 en douceur •
+                </a>
+                <a href="http://3monkeys.github.com/play.rules/livre.play.un.web/play.rules.one.html">
+                    Apprendre Play!► 1 •
+                </a>
+                <a href="http://3monkeys.github.com/play.rules/">
+                    Versions epub & pdf
+                </a>
+            </li>
+            <li>
+                <a href="http://k33g.github.io/backbone.en.douceur/">
+                    Backbone.js "en douceur" •
+                </a>
+                <a href="http://k33g.github.io/backbone.en.douceur/backbone.en.douceur.20121220.pdf"><b>LE</b> pdf</a>
+            </li>
+            <li>
+                A venir : Golo "dans tous les sens" ♥
+            </li>
+        </ul>
+    </div>
+    <hr>
+
+</div>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-11383603-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- Google Analytics end -->
+
+</body>
+</html>

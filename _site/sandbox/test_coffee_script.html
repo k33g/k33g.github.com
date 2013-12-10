@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC>
+<html>
+<head>
+    <title>CoffeeScript Training</title>
+    <style>
+
+        /*.code {
+            font-family: Monaco, "Courier New", monospace;
+            border: 1px solid #ddd;
+            background-color: #F8F8F8;
+            font-size: 85%;
+            padding: 0 .2em;
+        }*/
+        hr {
+            border: 1px;
+            border-color: #cccccc;
+            border-style: dashed;
+        }
+        .btn {
+
+            border                      : 1px solid #999999;
+            margin-right                : 1.5px;
+            margin-left                 : 1.5px;
+
+            margin-top                  : 10px;
+            margin-bottom               : 10px;
+
+            font-family: Helvetica;
+            font-size                   : 15px;
+            font-weight                 : bold;
+            line-height                 : 1.2em;
+            background                  : -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+            -webkit-appearance          : none;
+            -webkit-border-radius       : 4px;
+            display                     : block;
+            text-decoration             : none;
+            text-align                  : center;
+            color                       : #222;
+            padding                     : 0.5em;
+
+        }
+
+        .btn:hover{
+            opacity                     : 0.6;
+            outline                     : none;
+        }
+
+    </style>
+    <link href="https://raw.github.com/pickhardt/coffeescript-codemirror-mode/master/lib/codemirror/codemirror.css" rel="stylesheet">
+    <link href="https://raw.github.com/pickhardt/coffeescript-codemirror-mode/master/lib/codemirror/mode/coffeescript/coffeescript.css" rel="stylesheet">
+
+</head>
+<body>
+    <button class="btn">Run CoffeeScript ...</button><hr>
+    <!--<div style="padding-left: 5px; padding-right: 40px">-->
+
+        <textarea class="code">
+#Making class
+
+class Human
+    constructor: (@firstName = 'John', @lastName = 'Doe')->
+        Human.count++
+
+    sayHello:->
+        console.log @firstName + ' ' + @lastName
+
+    @count: 0
+
+bob = new Human 'Bob', 'Morane'
+bob.sayHello()
+
+console.log bob
+console.log Human.count
+        </textarea>
+
+    <hr>
+
+</body>
+
+
+<script src="https://raw.github.com/pickhardt/coffeescript-codemirror-mode/master/lib/codemirror/codemirror.js"></script>
+<script src="https://raw.github.com/pickhardt/coffeescript-codemirror-mode/master/lib/codemirror/mode/coffeescript/coffeescript.js"></script>
+
+<script src="http://jashkenas.github.com/coffee-script/extras/coffee-script.js" charset="utf-8"></script>
+<script src="http://fbug.googlecode.com/svn/lite/branches/firebug1.4/content/firebug-lite-dev.js"></script>
+
+
+<script>
+
+    var editor = CodeMirror.fromTextArea(document.querySelector('.code'), {
+      lineNumbers: true,
+      mode: "coffeescript"
+    });
+
+    document.querySelector('.CodeMirror').setAttribute('style','height:40%;');
+
+    document.querySelector('.btn').addEventListener(
+            'click',
+            function(){
+                CoffeeScript.run(editor.getValue());
+            },
+            false);
+
+</script>
+</html>

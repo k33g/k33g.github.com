@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Jouez avec CoffeeScript sans rien installer</title>
+    <meta name="author" content="k33g" />
+
+    <!-- Homepage CSS -->
+    <!--
+    <link rel="stylesheet" href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+	-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link href="/bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="bootstrap3/js/bootstrap.min.js"></script>
+
+    <style>
+        .jumbotron {
+            background-color: #b8eee9;
+            border-radius: 0px;
+        }
+    </style>
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+	<link rel="stylesheet" href="/css/default.min.css">
+
+
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+</head>
+
+<body >
+
+<div class="jumbotron">
+    <h1>K33G_ORG's Blog</h1>
+    <p></p>
+    <a class="label label-info" href="/">home</a>
+    <a class="label label-info" href="http://twitter.com/k33g_org/">@k33g_org</a>
+    <a class="label label-warning" href="http://feeds.feedburner.com/K33g_orgsBlog">rss</a>
+    <a class="label label-info" href="http://k33g.github.com/all.html">all posts</a>
+</div>
+<div class="container">
+
+    <div class="row">
+        <div>
+    <div>
+        <g:plusone size="medium"></g:plusone>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        <h1>Jouez avec CoffeeScript sans rien installer</h1>
+
+<p><a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a>, c'est le langage de script qui compile du JS et qui défraye la chronique en ce moment. On aime, on aime pas, mais il est un parfait exemple de ce qui est possible avec JS. Je n'accroche pas forcément avec la syntaxe (un peu trop python-like à mon goût), mais je peux encore changer d'avis. Néanmoins, c'est à suivre de très près : dernièrement le papa de JS (Brendan Eich) a expliqué qu'il allait s'inspirer de certaines partie du code pour <a href="http://code.google.com/p/traceur-compiler/">Traceur-Compiler</a> donc pour une future version de JS (vous pouvez lire un ancien article que j'avais écrit : <a href="https://github.com/k33g/articles/blob/master/2011-05-06-TRACEUR-COMPILER.md">Les Classes arrivent chez JavaScript</a>)</p>
+
+<p>Le but de ce post n'est pas de vous faire un tuto sur CoffeeScript, mais juste de vous expliquer comment le tester sans avoir à installer NodeJS. Normalement, vous codez en CoffeeScript, vous compilez en JS avec NodeJS et vous publiez votre code. Mais il existe aussi un mode runtime très pratique.</p>
+
+<p>PS : le repo CoffeeScript est ici : <a href="https://github.com/jashkenas/coffee-script">https://github.com/jashkenas/coffee-script</a></p>
+
+<h2>Comment on fait ?</h2>
+
+<p>Premièrement, vous récupérez le runtime CoffeeScript ici : <a href="https://raw.github.com/jashkenas/coffee-script/master/extras/coffee-script.js">https://raw.github.com/jashkenas/coffee-script/master/extras/coffee-script.js</a>.</p>
+
+<p>Ensuite vous vous créez une page html avec le code suivant :</p>
+
+<pre><code>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;script src="coffee-script.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Et pour insérer du code CoffeeScript, vous utilisez la balise <code>&lt;script type="text/coffeescript"&gt;</code>, par exemple :</p>
+
+<pre><code>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;script src="coffee-script.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+
+    &lt;/body&gt;
+    &lt;script type="text/coffeescript"&gt;
+        # Some CoffeeScript
+        Cars = ["Ford", "Dodge", "Chevy", "Toyota", "Honda"]
+        console.log Cars
+    &lt;/script&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Et Hop! c'est fini</p>
+
+<h2>Externaliser les scripts</h2>
+
+<p>Si vous êtes dans un "contexte http", donc si votre page est accessible via <code>http://mondomaine/mapage.html</code> plutôt que via <code>file:///mapage.html</code>, vous pouvez très bien faire ceci :</p>
+
+<pre><code>&lt;script src="test.coffee" type="text/coffeescript"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>en mode local vous obtiendrez un joli <code>XMLHttpRequest cannot load file://localhost/test.coffee. Cross origin requests are only supported for HTTP.</code>.</p>
+
+<h2>Externaliser les scripts et les faire fonctionner en mode local</h2>
+
+<p>Si, c'est possible. Je vous montre comment je fais sous Chrome et sous OSX, après vous adaptez. En fait il faut lancer Chrome en mode `allow-file-access-from-files :</p>
+
+<pre><code>open -b com.google.chrome --args --allow-file-access-from-files
+</code></pre>
+
+<p>Pour que cela fonctionne, il faut d'abord quitter complètement Chrome.</p>
+
+<p>Vous pouvez maintenant ouvrir votre page en mode <code>file:///</code>.</p>
+
+<p><strong>Et voilà, vous pouvez commencer à vous amusez avec CoffeeScript. :)</strong></p>
+
+<p>Au fait vous saviez que l'on peut faire aussi du Ruby dans le navigateur ? ... ;)</p>
+
+        <g:plusone size="medium"></g:plusone>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    </div>
+    <div class="whoring">
+        <hr>
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'k33gblog'; // required: replace example with your forum shortname
+
+                var disqus_identifier = 'Jouez avec CoffeeScript sans rien installer';
+
+                // The following are highly recommended additional parameters. Remove the slashes in front to use.
+                // var disqus_identifier = 'unique_dynamic_id_1234';
+                // var disqus_url = 'http://example.com/permalink-to-page.html';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
+
+
+    <div id="related">
+        <h2>Related Posts</h2>
+            <ul class="posts">
+            
+              <li><span>10 Dec 2013</span> &raquo; <a href="/2013/12/10/POLYMER-2.html">Polymer 1er contact le retour</a></li>
+            
+              <li><span>07 Dec 2013</span> &raquo; <a href="/2013/12/07/POLYMER-1.html">Polymer 1er contact</a></li>
+            
+              <li><span>29 Nov 2013</span> &raquo; <a href="/2013/11/29/BBOM.html">Le modèle objet de Backbone</a></li>
+            
+        </ul>
+    </div>
+</div>
+    </div>
+
+    <div class="row">
+        <h3>A voir : Les GROS tutos Play!> 1 & 2 !, Backbone</h3>
+        <ul>
+            <li>
+                <a href="http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html">
+                    Play!► 2 en douceur •
+                </a>
+                <a href="http://3monkeys.github.com/play.rules/livre.play.un.web/play.rules.one.html">
+                    Apprendre Play!► 1 •
+                </a>
+                <a href="http://3monkeys.github.com/play.rules/">
+                    Versions epub & pdf
+                </a>
+            </li>
+            <li>
+                <a href="http://k33g.github.io/backbone.en.douceur/">
+                    Backbone.js "en douceur" •
+                </a>
+                <a href="http://k33g.github.io/backbone.en.douceur/backbone.en.douceur.20121220.pdf"><b>LE</b> pdf</a>
+            </li>
+            <li>
+                A venir : Golo "dans tous les sens" ♥
+            </li>
+        </ul>
+    </div>
+    <hr>
+
+</div>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-11383603-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- Google Analytics end -->
+
+</body>
+</html>

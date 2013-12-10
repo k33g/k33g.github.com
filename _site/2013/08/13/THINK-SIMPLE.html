@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Think Simple</title>
+    <meta name="author" content="k33g" />
+
+    <!-- Homepage CSS -->
+    <!--
+    <link rel="stylesheet" href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+	-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link href="/bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="bootstrap3/js/bootstrap.min.js"></script>
+
+    <style>
+        .jumbotron {
+            background-color: #b8eee9;
+            border-radius: 0px;
+        }
+    </style>
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+	<link rel="stylesheet" href="/css/default.min.css">
+
+
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+</head>
+
+<body >
+
+<div class="jumbotron">
+    <h1>K33G_ORG's Blog</h1>
+    <p></p>
+    <a class="label label-info" href="/">home</a>
+    <a class="label label-info" href="http://twitter.com/k33g_org/">@k33g_org</a>
+    <a class="label label-warning" href="http://feeds.feedburner.com/K33g_orgsBlog">rss</a>
+    <a class="label label-info" href="http://k33g.github.com/all.html">all posts</a>
+</div>
+<div class="container">
+
+    <div class="row">
+        <div>
+    <div>
+        <g:plusone size="medium"></g:plusone>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        <h1>Think Simple, Yeoman, Bower, i &lt;3 you but sometimes you're too heavy!</h1>
+
+<p><em>(sorry for my english ;))</em></p>
+
+<p>Last week, I had to prepare a draft web application for a demonstration. I decided to play with Yeoman and Backbone Generator. After the <code>yo backbone</code> command, i'd get a big project of almost <strong>150 MB</strong>. ... I do not need all this. So, i'd try withn only Bower : <strong>25 MB</strong> ... I do not need all this.</p>
+
+<p>So I decided to make lighter, i've created an other (again!) Backbone Boilerplate "manually" and i use the beautifully simple <strong>Pulldown</strong> <a href="https://github.com/jackfranklin/pulldown">https://github.com/jackfranklin/pulldown</a> to load and update my javascript libraries.</p>
+
+<p>I've called it <strong>M33</strong> and you can find it here : <strong><a href="https://github.com/k33g/m33">https://github.com/k33g/m33</a></strong>. And it's very easy to use.</p>
+
+<h2>How to use M33 ?</h2>
+
+<h3>First you have to install it ... And it's simple</h3>
+
+<p>Type <code>git clone --q --depth 0 git@github.com:k33g/m33.git killerapp</code> where <code>killerapp</code> is the directory name of your web application (the directory is created).</p>
+
+<p>Then you've just get the skeleton of your webapp :</p>
+
+<p><img src="https://raw.github.com/k33g/k33g.github.com/master/images/m33-01.jpg" alt="" /></p>
+
+<h3>M33 structure</h3>
+
+<h4>index.html</h4>
+
+<p>Bootstrap css file an Requirejs are declared in the header :</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;bootstrap3/css/bootstrap.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">data-main=</span><span class="s">&quot;js/main&quot;</span> <span class="na">src=</span><span class="s">&quot;js/vendors/require.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div>
+
+
+<p><code>data-main="js/main"</code> explains that <code>main.js</code> is the main javascript file to load (with the configuration)</p>
+
+<h4>main.js</h4>
+
+<p>In <code>main.js</code>, we declare the vendors javascript libraries and call the <code>initialize</code> method of <code>application</code> module :</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">requirejs</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+    <span class="nx">baseUrl</span> <span class="o">:</span> <span class="s2">&quot;js/&quot;</span><span class="p">,</span>
+    <span class="nx">paths</span>   <span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;jquery&quot;</span>        <span class="o">:</span> <span class="s2">&quot;vendors/jquery.min&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;underscore&quot;</span>    <span class="o">:</span> <span class="s2">&quot;vendors/underscore-min&quot;</span><span class="p">,</span> <span class="cm">/*This is amd version of underscore */</span>
+        <span class="s2">&quot;backbone&quot;</span>      <span class="o">:</span> <span class="s2">&quot;vendors/backbone-min&quot;</span><span class="p">,</span>   <span class="cm">/*This is amd version of backbone   */</span>
+        <span class="s2">&quot;text&quot;</span>          <span class="o">:</span> <span class="s2">&quot;vendors/text&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bootstrap&quot;</span>     <span class="o">:</span> <span class="s2">&quot;../bootstrap3/js/bootstrap.min&quot;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">require</span><span class="p">([</span><span class="s1">&#39;application&#39;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">application</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">application</span><span class="p">.</span><span class="nx">initialize</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p>We explain that <code>application</code> module is in the <code>application.js</code> file : <code>require(['application']</code> and declare it as <code>application</code> with the parameter function : <code>function (application) {</code>.</p>
+
+<h4>application.js</h4>
+
+<p>The <code>initialize</code> method of <code>application</code> module allows us to define dependencies : <code>define(['jquery', ...</code>, load the <code>Router.js</code> module : <code>'routers/Router'</code> and the <code>ApplicationView.js</code> module : <code>'views/ApplicationView'</code>. And we instanciate the <code>Router</code> and the <code>ApplicationView</code>(as parameter of the router).</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">define</span><span class="p">([</span>
+    <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;underscore&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;backbone&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;routers/Router&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;views/ApplicationView&#39;</span>
+<span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">Router</span><span class="p">,</span> <span class="nx">ApplicationView</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+            <span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Router</span><span class="p">({</span>
+                <span class="nx">applicationView</span> <span class="o">:</span> <span class="k">new</span> <span class="nx">ApplicationView</span><span class="p">()</span>
+            <span class="p">});</span>
+
+            <span class="nx">router</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;route:defaultAction&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">actions</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// We have no matching route, lets refresh something ...</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">applicationView</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+            <span class="p">});</span>
+
+            <span class="nx">Backbone</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<h4>views/ApplicationView.js</h4>
+
+<p><code>ApplicationView</code> is a kind of pattern that allow to manage views, models and collections.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">define</span><span class="p">([</span>
+    <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;underscore&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;backbone&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;bootstrap&#39;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">bootstrap</span><span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">ApplicationView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">initialize</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">//initialize models, collections and views ...</span>
+
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">ApplicationView</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<h4>routers/Router.js</h4>
+
+<p><code>Router.js</code> aims to check if there is an applicationView, and to define the "routes" and there actions.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">define</span><span class="p">([</span>
+    <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;underscore&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;backbone&#39;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">){</span>
+
+    <span class="kd">var</span> <span class="nx">MainRouter</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">initialize</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">applicationView</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">applicationView</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">applicationView</span><span class="p">)</span> <span class="k">throw</span> <span class="s1">&#39;Requires an applicationView instance&#39;</span>
+        <span class="p">},</span>
+        <span class="nx">routes</span> <span class="o">:</span> <span class="p">{</span>
+            <span class="c1">// Define some URL routes</span>
+
+            <span class="c1">// Default</span>
+            <span class="s1">&#39;*actions&#39;</span><span class="o">:</span> <span class="s1">&#39;defaultAction&#39;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">MainRouter</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p>Now let's code!</p>
+
+<h3>A very quick little sample</h3>
+
+<p>We just want display a persons list.</p>
+
+<h4>Data</h4>
+
+<p>Create a <code>humans.data.js</code> file at the root of your webapp directory, with some records :</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="p">[{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;001&quot;</span><span class="p">,</span> <span class="s2">&quot;firstName&quot;</span><span class="o">:</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;lastName&quot;</span><span class="o">:</span><span class="s2">&quot;Morane&quot;</span><span class="p">},{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;002&quot;</span><span class="p">,</span> <span class="s2">&quot;firstName&quot;</span><span class="o">:</span><span class="s2">&quot;John&quot;</span><span class="p">,</span> <span class="s2">&quot;lastName&quot;</span><span class="o">:</span><span class="s2">&quot;Doe&quot;</span><span class="p">},{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;003&quot;</span><span class="p">,</span> <span class="s2">&quot;firstName&quot;</span><span class="o">:</span><span class="s2">&quot;Jane&quot;</span><span class="p">,</span> <span class="s2">&quot;lastName&quot;</span><span class="o">:</span><span class="s2">&quot;Doe&quot;</span><span class="p">}]</span>
+</code></pre></div>
+
+
+<h4>Models and Collections : Human and Humans</h4>
+
+<p>Create <code>Human.js</code> (model) and <code>Humans.js</code> (collection) in the <code>js/models</code> directory :</p>
+
+<p><em>Model : Human.js</em></p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">define</span><span class="p">([</span>
+    <span class="s1">&#39;backbone&#39;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Backbone</span><span class="p">){</span>
+
+    <span class="kd">var</span> <span class="nx">Human</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">defaults</span> <span class="o">:</span> <span class="p">{</span>
+            <span class="nx">firstName</span> <span class="o">:</span> <span class="s2">&quot;John&quot;</span><span class="p">,</span>
+            <span class="nx">lastName</span> <span class="o">:</span> <span class="s2">&quot;Doe&quot;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">Human</span><span class="p">;</span>
+
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p><em>Collection : Humans.js</em></p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">define</span><span class="p">([</span>
+    <span class="s1">&#39;backbone&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;models/Human&#39;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Backbone</span><span class="p">,</span> <span class="nx">Human</span><span class="p">){</span>
+
+    <span class="kd">var</span> <span class="nx">Humans</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">model</span> <span class="o">:</span> <span class="nx">Human</span><span class="p">,</span>
+        <span class="nx">url</span> <span class="o">:</span> <span class="s2">&quot;/humans.data.js&quot;</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">Humans</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p>You can note :</p>
+
+<ul>
+<li><code>url : "/humans.data.js"</code> allows load data when we'll fetch the collection</li>
+<li><code>'models/Human'</code> allows to declare the Humn model in the collection</li>
+</ul>
+
+
+<p>Now we want to create the view to display the humans.</p>
+
+<h4>Views, templates etc. ...</h4>
+
+<p>First, go to edit the <code>index.html</code> file, we want indicate where data will be displayed, inside the tag <code>&lt;div class="human-view"&gt;&lt;/div&gt;</code>:</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;jumbotron&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>M33<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Minimalistic Backbone BoilerPlate (with RequireJS)<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;label label-info&quot;</span> <span class="na">href=</span><span class="s">&quot;https://github.com/k33g/m33&quot;</span><span class="nt">&gt;</span> github.com/k33g/m33<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;label label-warning this-is-a-message&quot;</span><span class="nt">&gt;</span>Hello world! :)<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- humans will be displayed here --&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;human-view&quot;</span><span class="nt">&gt;&lt;/div&gt;</span> 
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+
+
+<p><em>Remark: <code>class="human-view"</code> will allow to identify the <code>&lt;div&gt;</code> tag</em></p>
+
+<p>Now, we can create the template <code>humans.tpl.html</code> in the <code>js/templates</code> : <em>(i'm using undrescore templating)</em></p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;h3&gt;</span>Humans<span class="nt">&lt;/h3&gt;</span>
+<span class="nt">&lt;ul&gt;</span><span class="err">&lt;</span>% _.each(humans, function(human){ %&gt;
+    <span class="nt">&lt;li&gt;</span>
+        <span class="err">&lt;</span>%= human.id %&gt; : <span class="err">&lt;</span>%= human.firstName %&gt; <span class="err">&lt;</span>%= human.lastName %&gt;
+    <span class="nt">&lt;/li&gt;</span>
+<span class="err">&lt;</span>%});%&gt;<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div>
+
+
+<p>And finally, we are going to create the <code>Backbone.View</code>. Create <code>HumansView.js</code> in the <code>js/views</code> directory :</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">define</span><span class="p">([</span>
+    <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;underscore&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;backbone&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;text!templates/humans.tpl.html&#39;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">humansTpl</span><span class="p">){</span>
+
+    <span class="kd">var</span> <span class="nx">HumansView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">el</span>  <span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.human-view&quot;</span><span class="p">),</span>
+        <span class="nx">initialize</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">template</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">humansTpl</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">)</span>
+        <span class="p">},</span>
+        <span class="nx">render</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">renderedContent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">({</span> <span class="nx">humans</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span> <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">renderedContent</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;humansAreRendered&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">HumansView</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p><strong>be careful:</strong></p>
+
+<ul>
+<li><code>'text!templates/humans.tpl.html'</code> loads the template, and we can access it through the <code>humansTpl</code> variable</li>
+<li><code>el  : $(".human-view")</code> allows to the view to "find" this : <code>&lt;div class="human-view"&gt;&lt;/div&gt;</code> in <code>index.html</code></li>
+<li><code>this.listenTo(this.collection, "sync", this.render)</code> : the view listen to sync events (http request) of the collection, so, when we'll call the <code>fetch</code> (the <code>sync</code> event is fired) method of the collection, the <code>render</code> method of the view will be called.</li>
+<li><code>this.trigger("humansAreRendered")</code> the view trigger a custom event when she has rendered the collection.</li>
+</ul>
+
+
+<h4>Load data, instanciate the view, display humans</h4>
+
+<p>We are going to instanciate <code>HumansView</code> and <code>Humans</code> collection in the <code>initialize</code> method of <code>ApplicationView</code>.</p>
+
+<p>In the first place, we have to declare the collection : <code>'models/Humans'</code>and the view : <code>'views/HumansView'</code>. Don't forget to add function parameters <code>Humans, HumansView</code> :</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">define</span><span class="p">([</span>
+    <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;underscore&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;backbone&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;bootstrap&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;models/Humans&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;views/HumansView&#39;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">bootstrap</span><span class="p">,</span> <span class="nx">Humans</span><span class="p">,</span> <span class="nx">HumansView</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">ApplicationView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">initialize</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">//initialize models, collections and views ...</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="nx">humans</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Humans</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">humansView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HumansView</span><span class="p">({</span> <span class="nx">collection</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">humans</span> <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">humansView</span><span class="p">,</span> <span class="s2">&quot;humansAreRendered&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">sendMessage</span><span class="p">)</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">humans</span><span class="p">.</span><span class="nx">fetch</span><span class="p">();</span>
+        <span class="p">},</span>
+        <span class="nx">sendMessage</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.this-is-a-message&quot;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s2">&quot;Humans are loaded, so, all is OK, have fun!&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">ApplicationView</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p><strong>be careful:</strong></p>
+
+<ul>
+<li><code>this.humans = new Humans();</code> : we create a new collection</li>
+<li><code>this.humansView = new HumansView({ collection : this.humans });</code> : we create a new view and set the collection property view whit <code>this.humans</code>.</li>
+<li><code>this.listenTo(this.humansView, "humansAreRendered", this.sendMessage)</code>: the <code>ApplicationView</code> listen to the custom event <code>humansAreRendered</code> of the <code>humansView</code> and call <code>sendMessage</code> method when the event is fired.</li>
+<li>the <code>sendMessage</code> method display a message in the html page.</li>
+</ul>
+
+
+<p>And, that'all!.</p>
+
+<h2>How to test the webapp?</h2>
+
+<p>If you're working with OSX or Linux, you can (inside the webapp directory) run <code>python -m SimpleHTTPServer 8080</code> and then open <a href="http://localhost:8080">http://localhost:8080</a>.</p>
+
+<p>Otherwise you can also install <strong>http-server</strong> : <code>npm install http-server -g</code>, then, run <code>http-server -p 8080</code>and, open <a href="http://localhost:8080">http://localhost:8080</a>.</p>
+
+<h2>How to update vendors libraries of your webapp</h2>
+
+<p>It's easy, just run <code>./loadjs.sh</code> (OSX or Linux) or <code>loadjs.cmd</code> in the webapp directory. The script only call <strong>pulldown</strong> to load libraries.</p>
+
+<p>Et voilà!</p>
+
+        <g:plusone size="medium"></g:plusone>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    </div>
+    <div class="whoring">
+        <hr>
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'k33gblog'; // required: replace example with your forum shortname
+
+                var disqus_identifier = 'Think Simple';
+
+                // The following are highly recommended additional parameters. Remove the slashes in front to use.
+                // var disqus_identifier = 'unique_dynamic_id_1234';
+                // var disqus_url = 'http://example.com/permalink-to-page.html';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
+
+
+    <div id="related">
+        <h2>Related Posts</h2>
+            <ul class="posts">
+            
+              <li><span>10 Dec 2013</span> &raquo; <a href="/2013/12/10/POLYMER-2.html">Polymer 1er contact le retour</a></li>
+            
+              <li><span>07 Dec 2013</span> &raquo; <a href="/2013/12/07/POLYMER-1.html">Polymer 1er contact</a></li>
+            
+              <li><span>29 Nov 2013</span> &raquo; <a href="/2013/11/29/BBOM.html">Le modèle objet de Backbone</a></li>
+            
+        </ul>
+    </div>
+</div>
+    </div>
+
+    <div class="row">
+        <h3>A voir : Les GROS tutos Play!> 1 & 2 !, Backbone</h3>
+        <ul>
+            <li>
+                <a href="http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html">
+                    Play!► 2 en douceur •
+                </a>
+                <a href="http://3monkeys.github.com/play.rules/livre.play.un.web/play.rules.one.html">
+                    Apprendre Play!► 1 •
+                </a>
+                <a href="http://3monkeys.github.com/play.rules/">
+                    Versions epub & pdf
+                </a>
+            </li>
+            <li>
+                <a href="http://k33g.github.io/backbone.en.douceur/">
+                    Backbone.js "en douceur" •
+                </a>
+                <a href="http://k33g.github.io/backbone.en.douceur/backbone.en.douceur.20121220.pdf"><b>LE</b> pdf</a>
+            </li>
+            <li>
+                A venir : Golo "dans tous les sens" ♥
+            </li>
+        </ul>
+    </div>
+    <hr>
+
+</div>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-11383603-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- Google Analytics end -->
+
+</body>
+</html>
