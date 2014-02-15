@@ -46,6 +46,7 @@ Dans un terminal, tapez `sudo npm install -g generator-react-app`
 - "allez" dans le répertoire : `cd humans-demo`
 - lancez "mon killer generator" *(2)* : `yo react-app` et donnez un nom à votre application et à votre base de données :
 
+
      _____             _       _____
     | __  |___ ___ ___| |_ ___|  _  |___ ___
     |    -| -_| .'|  _|  _|___|     | . | . |
@@ -55,7 +56,8 @@ Dans un terminal, tapez `sudo npm install -g generator-react-app`
     [?] Application name? HumansDemo
     [?] DataBase name? DemoDb
 
-- ... attendez : le générateur va créer la structure de votre projet et télécharger via **npm** et **bower** toutes les dépendances nécessaires à votre projet.
+
+attendez : le générateur va créer la structure de votre projet et télécharger via **npm** et **bower** toutes les dépendances nécessaires à votre projet.
 
 ##Lancez votre application (pour voir)
 
