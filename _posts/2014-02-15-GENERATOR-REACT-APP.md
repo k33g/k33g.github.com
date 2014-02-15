@@ -42,10 +42,7 @@ Dans un terminal, tapez `sudo npm install -g generator-react-app`
 
 ##Créer le squelette de votre projet
 
-- créez un répertoire : `mkdir humans-demo`
-- "allez" dans le répertoire : `cd humans-demo`
-- lancez "mon killer generator" *(2)* : `yo react-app` et donnez un nom à votre application et à votre base de données :
-
+Créez un répertoire : `mkdir humans-demo`, puis "allez" dans le répertoire : `cd humans-demo` et enfin lancez "mon killer generator" *(2)* : `yo react-app` et donnez un nom à votre application et à votre base de données :
 
      _____             _       _____
     | __  |___ ___ ___| |_ ___|  _  |___ ___
@@ -55,7 +52,6 @@ Dans un terminal, tapez `sudo npm install -g generator-react-app`
     Hi! This is a React-Express-Mongoose Generator :) Enjoy!
     [?] Application name? HumansDemo
     [?] DataBase name? DemoDb
-
 
 attendez : le générateur va créer la structure de votre projet et télécharger via **npm** et **bower** toutes les dépendances nécessaires à votre projet.
 
