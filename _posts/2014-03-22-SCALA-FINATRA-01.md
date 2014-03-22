@@ -225,7 +225,7 @@ Il suffit de lancer la commande `sbt run`. La console **sbt** "va compiler" votr
 
 ##Création d'un service json
 
->>DIRE CE QUE L'ON VA FAIRE, que fait le service
+Nous allons juste créer une classe `Human` (encore!) et nous la "publierons" au format json pour le navigateur.
 
 ###Création de la classe Human
 
