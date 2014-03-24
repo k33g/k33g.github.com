@@ -124,7 +124,7 @@ Voilà, vous savez tout ;), Scala c'est facile ... On peut maintenant aller fair
 
 ###Installer Finatra
 
-- Téléchargez [https://github.com/capotej/finatra-example/archive/master.zip](https://github.com/capotej/finatra-example/archive/master.zip)
+- Téléchargez [https://github.com/twitter/finatra/archive/1.5.2.zip](https://github.com/twitter/finatra/archive/1.5.2.zip)
 - Dé-zippez
 - Mettez à jour votre `PATH` avec le chemin vers Finatra
 
