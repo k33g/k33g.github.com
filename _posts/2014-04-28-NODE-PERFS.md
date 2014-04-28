@@ -80,6 +80,7 @@ puis
 | ------------------------- |:--------:|:---------:|:------------------:|:----------:|:------------:|
 | 01- Tous les films        | 6        |           |                    | 10000      | 1578         |
 
+
 Comme cela, même sans comparer avec une autre techno *(ce sera un autre exercice)*, ce n'est pas super puissant ...
 
 ####Optimisation du service
@@ -102,6 +103,7 @@ Après :
 | ------------------------- |:--------:|:---------:|:------------------:|:----------:|:------------:|
 | 02- Tous les films        | 99       | 10000     |                    |            | 100          |
 
+
 ####???
 
 Déjà allez lire l'introduction à node par **Cédric Exbrayat** [http://hypedrivendev.wordpress.com/2011/06/28/getting-started-with-node-js-part-1/](http://hypedrivendev.wordpress.com/2011/06/28/getting-started-with-node-js-part-1/).
@@ -119,6 +121,7 @@ J'ai ensuite upgradé la version de node, pas d'amélioration notable
 |                           | Nb Req/s | t < 800ms | 800ms < t < 1200ms | t > 1200ms | Durée (secs) |
 | ------------------------- |:--------:|:---------:|:------------------:|:----------:|:------------:|
 | 06- Tous les films        | 99       | 10000     |                    |            | 100          |
+
 
 Pas d'amélioration notable
 
@@ -158,6 +161,7 @@ On est à nouveau avec du Node 0.6
 | ------------------------ |:--------:|:---------:|:------------------:|:----------:|:------------:|
 | 03- 300 1ères comédies   | 99       | 10000     |                    |            | 100          |
 
+
 ####Optimisation 1 du service
 
 Alors on m'a conseillé plusieurs optimisations, comme "sortir" `new RegExp()` de `filter`
@@ -186,6 +190,7 @@ J'ai obtenu les mêmes résultats
 |                          | Nb Req/s | t < 800ms | 800ms < t < 1200ms | t > 1200ms | Durée (secs) |
 | ------------------------ |:--------:|:---------:|:------------------:|:----------:|:------------:|
 | 04- 300 1ères comédies   | 99       | 10000     |                    |            | 100          |
+
 
 Je serais tenté de dire que la condition de `filter` n'est exécuté qu'une seule fois, ce n'est pas un `forEach`
 
@@ -217,6 +222,7 @@ J'ai là aussi, obtenu les mêmes résultats
 |                          | Nb Req/s | t < 800ms | 800ms < t < 1200ms | t > 1200ms | Durée (secs) |
 | ------------------------ |:--------:|:---------:|:------------------:|:----------:|:------------:|
 | 05- 300 1ères comédies   | 99       | 10000     |                    |            | 100          |
+
 
 Je serais donc tenté de dire que la VM de Node est plutôt bien optimisée, ainsi que l'implémentation de `toLowerCase()`
 
@@ -322,6 +328,7 @@ On voit bien que cette fois-ci, on a "stressé" node :
 | 14- 300 1ères maxSockets=400     | 130      | 9173      | 6322               | 14505      | 230          |
 | 15- 300 1ères maxSockets=10      | 130      | 5957      | 7220               | 16823      | 230          |
 
+
 Ma première conclusion serait de garder la valeur par défaut de `http.globalAgent.maxSockets` et creuser sur les optimisations concernant les regexs (faire plus de tirs), mais je continue à penser que `toLowerCase()` fait très bien son boulot.
 
 Avant de passer à la suite, je vais aussi modifier mon code de test pour le chargement de tous les films, là aussi avec 300 utilisateurs avec un délai de 100 secondes.
@@ -386,10 +393,6 @@ Maintenant je vais essayer le module cluster de node avec nos 2 services : "Tous
       // your application ...
     }
 
-Référence au code : []()
-
->>Expliquer le module cluster de node
-
 ###Résultats
 
 On s'aperçoit que la mise en œuvre du module cluster est particulièrement payante :
@@ -407,6 +410,7 @@ si on passe les tests avec seulement 100 utilisateurs :
 | 19- Tous les films (disque) 100 users / cluster   | 99       | 10000     |                    |            | 100          |
 | 20- 300 1ères comédies 100 users / cluster        | 99       | 10000     |                    |            | 100          |
 
+
 Pas de changement par rapport à la version sans le module cluster pour le même scénario, donc le module cluster n'est intéressant qu'à partir d'un certain nombre d'utilisateurs.
 
 ##Utilisation d'Express 4
@@ -419,6 +423,7 @@ J'ai ensuite procédé à la mise à jour d'express et relancé les tests sur le
 | ------------------------------------------------- |:--------:|:---------:|:------------------:|:----------:|:------------:|
 | 21- Tous les films (disque) 300 users / cluster   | 196      | 25436     | 1777               | 2787       | 152          |
 | 22- 300 1ères comédies 300 users / cluster        | 232      | 29789     | 191                |            | 129          |
+
 
 On note que la mise à jour en version 4.1.x d'Express met un sérieux coup de boost à l'application. 
 
@@ -448,6 +453,7 @@ On note que la mise à jour en version 4.1.x d'Express met un sérieux coup de b
 | 20- 300 1ères comédies 100 users / cluster                | 99       | 10000     |                    |            | 100          |
 | 21- Tous les films (disque) 300 users / cluster exp. v4   | 196      | 25436     | 1777               | 2787       | 152          |
 | 22- 300 1ères comédies 300 users / cluster exp. v4        | 232      | 29789     | 191                |            | 129          |
+
 
 ##Conclusion n°1
 
