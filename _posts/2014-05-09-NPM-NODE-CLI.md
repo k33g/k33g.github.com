@@ -21,19 +21,21 @@ Nul doute, que vous avez énormément d'autres exemples en tête. L'outil du mom
 
 Je passe mon temps à écrire des modèles et des collections Backbone qui ressemblent à ceci :
 
-    /*--- Human Model ---*/
-    var HumanModel = Backbone.Model.extend({
-        defaults : function (){
-          return {}
-        },
-        urlRoot : "humans"
-    });
+{% highlight javascript %}
+/*--- Human Model ---*/
+var HumanModel = Backbone.Model.extend({
+    defaults : function (){
+      return {}
+    },
+    urlRoot : "humans"
+});
 
-    /*--- Humans Collection ---*/
-    var HumansCollection = Backbone.Collection.extend({
-      url : "humans",
-      model: HumanModel
-    });
+/*--- Humans Collection ---*/
+var HumansCollection = Backbone.Collection.extend({
+  url : "humans",
+  model: HumanModel
+});
+{% endhighlight %}
 
 Et j'aimerais aller plus vite, juste taper `bb Human` et obtenir mon fichier généré.
 
@@ -58,39 +60,42 @@ L'objectif étant de disposer d'une commande `bb` qui exécutera le fichier `bb.
 
 Créez (dans le même répertoire) un fichier `bb.tpl` avec le contenu suivant :
 
-    /*--- <%= modelName %> Model ---*/
-    var <%= modelName %>Model = Backbone.Model.extend({
-        defaults : function (){
-          return {}
-        },
-        urlRoot : "<%= modelName.toLowerCase() %>s"
-    });
+{% highlight javascript %}
+/*--- <%= modelName %> Model ---*/
+var <%= modelName %>Model = Backbone.Model.extend({
+    defaults : function (){
+      return {}
+    },
+    urlRoot : "<%= modelName.toLowerCase() %>s"
+});
 
-    /*--- <%= modelName %>s Collection ---*/
-    var <%= modelName %>sCollection = Backbone.Collection.extend({
-      url : "<%= modelName.toLowerCase() %>s",
-      model: <%= modelName %>Model
-    });
-
+/*--- <%= modelName %>s Collection ---*/
+var <%= modelName %>sCollection = Backbone.Collection.extend({
+  url : "<%= modelName.toLowerCase() %>s",
+  model: <%= modelName %>Model
+});
+{% endhighlight %}
 
 ###Le code applicatif
 
 Créez (dans le même répertoire) un fichier `bb.js` avec le contenu suivant :
 
-    var fs = require('fs');
-    var _ = require('underscore');
+{% highlight javascript %}
+var fs = require('fs');
+var _ = require('underscore');
 
-    require.extensions['.tpl'] = function (module, filename) {
-      module.exports = fs.readFileSync(filename, 'utf8');
-    };
+require.extensions['.tpl'] = function (module, filename) {
+  module.exports = fs.readFileSync(filename, 'utf8');
+};
 
-    var tpl  = _.template(require("./bb.tpl"));
-    var model_name = process.argv[2]
+var tpl  = _.template(require("./bb.tpl"));
+var model_name = process.argv[2]
 
-    fs.writeFileSync(
-        process.cwd() +"/" + model_name + ".js"
-      , tpl({modelName :model_name})
-    );
+fs.writeFileSync(
+    process.cwd() +"/" + model_name + ".js"
+  , tpl({modelName :model_name})
+);
+{% endhighlight %}
 
 ####Explications
 
