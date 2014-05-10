@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>optimisation de performances avec node et express</title>
+    <meta name="author" content="k33g" />
+
+    <!-- Homepage CSS -->
+    <!--
+    <link rel="stylesheet" href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+	-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link href="/bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="bootstrap3/js/bootstrap.min.js"></script>
+
+    <style>
+        .jumbotron {
+            background-color: #b8eee9;
+            border-radius: 0px;
+            padding: 10px 30px;
+        }
+    </style>
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+		<link rel="stylesheet" href="/css/default.min.css">
+
+
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+</head>
+
+<body >
+
+<div class="jumbotron">
+    <a class="label label-warning" href="/">K33G_ORG's Blog</a>
+    <a class="label label-info" href="http://twitter.com/k33g_org/">@k33g_org</a>
+    <a class="label label-warning" href="http://feeds.feedburner.com/K33g_orgsBlog">rss</a>
+    <a class="label label-info" href="http://k33g.github.com/all.html">all posts</a>
+    <a class="label label-warning" href="http://www.k33g.org/">me</a>
+</div>
+<div class="container">
+
+    <div class="row">
+        <div>
+    <div>
+        <g:plusone size="medium"></g:plusone>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        <h1>Optimisation de performances avec Node et Express</h1>
+
+<p>Suite à la présentation de <strong>Jeff Maury</strong> à laquelle j'ai eu le plaisir de participer à Devoxx France 2014 sur les performances web (<a href="http://cfp.devoxx.fr/devoxxfr2014/talk/TYU-863/Web%20performances,%20regardons%20les%20r%C3%A9sultats%20de%20pr%C3%A8s">Web performances, regardons les résultats de près</a>), j'ai eu quelques retours intéressants sur la partie Node, notamment par <a href="https://twitter.com/alexiskinsella">@alexiskinsella</a>. Du coup j'ai décidé de tenter de mettre en œuvre ses conseils.</p>
+
+<p>Alors, c'est un peu rébarbatif à mettre en œuvre, à lire aussi, mais les conclusions sont intéressantes.</p>
+
+<p>N'ayant pas ce week-end d'instance sur le cloud à ma disposition, j'ai testé de la manière suivante :</p>
+
+<ul>
+<li>mon serveur d'application (node + express) dans une VM Linux (2 procs + 1 Go de ram)</li>
+<li>les tests lancés à partir du host avec <a href="https://github.com/excilys/gatling">Gatling</a></li>
+</ul>
+
+
+<p>Pour commencer j'ai utilisé du node 0.6 puis du node 0.11, du express 3.5.1 puis du express 4.1.</p>
+
+<p>J'ai testé 2 services web qui retournent tous les 2 du json :</p>
+
+<ul>
+<li>un service qui ramène une liste de films (toujours la même, tous les films) issue d'un fichier json</li>
+<li>un service qui ramène les 300 1ers films d'une catégorie donnée</li>
+</ul>
+
+
+<p>J'ai lancé 22 tests, qui m'ont déjà permis de tirer quelques conclusions à propos de node/express mais aussi de mes jeux de tests.</p>
+
+<p><strong>Je sais que mon environnement de tests n'est pas le plus adapté à une situation réel, mais cela permet déjà de mettre en œuvre quelques optimisations et de vérifier certaines hypothèses.</strong></p>
+
+<p>Vous trouverez :</p>
+
+<ul>
+<li>les codes javascript par ici : <a href="https://github.com/k33g/movie.buddy.webperfs/tree/master/node.experiments">https://github.com/k33g/movie.buddy.webperfs/tree/master/node.experiments</a> <strong>Attention, tout n'est pas optimisé, c'est de l'expérimentation, donc à prendre avec des pincettes</strong></li>
+<li>les codes de test sont par là : <a href="https://github.com/k33g/movie.buddy.webperfs/tree/master/tests">https://github.com/k33g/movie.buddy.webperfs/tree/master/tests</a> <strong>Attention ... Même remarque ;)</strong></li>
+</ul>
+
+
+<h2>Code des services</h2>
+
+<p>Je vais donc tester 2 services :</p>
+
+<p><strong>Tous les films</strong></p>
+
+<pre><code>var movies = (JSON.parse(fs.readFileSync("./db/movies.json", "utf8")));
+
+app.get("/movies", function(req, res) {
+  res.send(movies);
+});  
+</code></pre>
+
+<p><strong>N 1ers films d'une catégorie</strong></p>
+
+<p>puis</p>
+
+<pre><code>app.get("/movies/search/genre/:genre/:limit", function(req, res) {
+  res.send(movies.filter(function(movie) {
+    return movie.Genre.toLowerCase().search(new RegExp(req.params.genre.toLowerCase()),"g") != -1;
+  }).slice(0,req.params.limit));
+});
+</code></pre>
+
+<h3>Test 1er service : Charger tous les films</h3>
+
+<h4>Code du test</h4>
+
+<pre><code>class AllMoviesLoadingScenario extends Simulation {
+  val title = System.getProperty("title", "localhost")
+  val server = System.getProperty("buddyserver", "http://192.168.128.142:3000");
+  val totalUsers = toInt(System.getProperty("gatling.users", "100"));
+  val loops = toInt(System.getProperty("gatling.loops", "100"));
+  val scn = scenario("Loading all movies (" + totalUsers + " users/" + loops + " loops)").repeat(loops) {
+    exec(
+      http("Loading all movies")
+        .get(server + "/movies")
+        .check(status.is(200)))
+  }
+  setUp(scn
+    .inject(ramp(totalUsers users) over (totalUsers seconds)))
+}
+</code></pre>
+
+<h4>Résultats</h4>
+
+<table>
+<thead>
+<tr>
+<th>                           </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 01- Tous les films        </td>
+<td style="text-align:center;"> 6        </td>
+<td style="text-align:center;">           </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;"> 10000      </td>
+<td style="text-align:center;"> 1578         </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Comme cela, même sans comparer avec une autre techno <em>(ce sera un autre exercice)</em>, ce n'est pas super puissant ...</p>
+
+<h4>Optimisation du service</h4>
+
+<p>Avant:</p>
+
+<pre><code>app.get("/movies", function(req, res) {
+  res.send(movies);
+}); 
+</code></pre>
+
+<p>Après :</p>
+
+<pre><code>app.get("/movies", function(req, res) {
+  res.sendfile("./db/movies.json", "utf8");
+});
+</code></pre>
+
+<h4>Résultats après optimisation</h4>
+
+<table>
+<thead>
+<tr>
+<th>                           </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 02- Tous les films        </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>???</h4>
+
+<p>Déjà allez lire l'introduction à node par <strong>Cédric Exbrayat</strong> <a href="http://hypedrivendev.wordpress.com/2011/06/28/getting-started-with-node-js-part-1/">http://hypedrivendev.wordpress.com/2011/06/28/getting-started-with-node-js-part-1/</a>.</p>
+
+<p>Je cite : <em>"Node.js ne se base pas sur des threads : c’est un serveur asynchrone qui utilise un process monothread et des I/O non bloquants. L’asynchronisme permet au thread d’exécuter des callbacks lorsqu’il est notifié d’une connexion"</em> ... <em>"Les I/O regroupent les accès disques, accès base de données, accès réseaux, bref tout ce qui prend du temps sur un ordinateur moderne (latence, débit limité etc…). Ici tous les I/O sont non bloquants, c’est à dire que tout appel est effectué en asynchrone, avec un callback qui sera exécuté une fois l’accès réalisé."</em></p>
+
+<p>En fait la 1ère fois, j'allais lire mes données en mémoire, du coup je ne profitais pas des I/O et finalement je perdais les avantages de l'asynchrone.</p>
+
+<p><em>Merci encore à Rémi Forax pour ses explications sur le sujet :)</em></p>
+
+<h4>Même test avec Node 0.11</h4>
+
+<p>J'ai ensuite upgradé la version de node, pas d'amélioration notable</p>
+
+<table>
+<thead>
+<tr>
+<th>                           </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 06- Tous les films        </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Pas d'amélioration notable</p>
+
+<h3>Test 2ème service : Charger un certain nombre de films dans une catégorie donnée</h3>
+
+<p>On est à nouveau avec du Node 0.6</p>
+
+<h4>Code du test</h4>
+
+<pre><code>class SomeMoviesLoadingScenario extends Simulation {
+  val title = System.getProperty("title", "localhost")
+  val server = System.getProperty("buddyserver", "http://192.168.128.142:3000");
+
+  val totalUsers = Integer.getInteger("gatling.users", 100).toInt
+  val delayInjection = Integer.getInteger("gatling.delay", 100).toInt
+  val loops = Integer.getInteger("gatling.loops", 100).toInt
+  val kindOfSearch = System.getProperty("kinsofsearch", "genre")
+  val searchValue = System.getProperty("searchvalue", "comedy")
+  val limit = System.getProperty("limit", "300")
+
+  val scn = scenario(s"$title : Loading some (max $limit) movies by $kindOfSearch  = $searchValue ($totalUsers users/$loops loops)")
+    .repeat(loops) {
+    exec(
+      http(s"Loading some (max $limit) movies by $kindOfSearch = $searchValue")
+        .get(server + "/movies/search/" + kindOfSearch + "/" + searchValue + "/" +limit)
+        .check(status.is(200)))
+  }
+
+  setUp(scn
+    .inject(ramp(totalUsers) over (delayInjection seconds))
+  )
+}
+</code></pre>
+
+<h4>Résultats</h4>
+
+<table>
+<thead>
+<tr>
+<th>                          </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 03- 300 1ères comédies   </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>Optimisation 1 du service</h4>
+
+<p>Alors on m'a conseillé plusieurs optimisations, comme "sortir" <code>new RegExp()</code> de <code>filter</code></p>
+
+<p>Avant :</p>
+
+<pre><code>app.get("/movies/search/genre/:genre/:limit", function(req, res) {
+  res.send(movies.filter(function(movie) {
+    return movie.Genre.toLowerCase().search(new RegExp(req.params.genre.toLowerCase()),"g") != -1;
+  }).slice(0,req.params.limit));
+});
+</code></pre>
+
+<p>Après :</p>
+
+<pre><code>app.get("/movies/search/genre/:genre/:limit", function(req, res) {
+  var regex = new RegExp(req.params.genre.toLowerCase(),"g");
+  res.send(movies.filter(function(movie) {
+    return movie.Genre.toLowerCase().search(regex) != -1;
+  }).slice(0,req.params.limit));
+});
+</code></pre>
+
+<h4>Résultats</h4>
+
+<p>J'ai obtenu les mêmes résultats</p>
+
+<table>
+<thead>
+<tr>
+<th>                          </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 04- 300 1ères comédies   </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Je serais tenté de dire que la condition de <code>filter</code> n'est exécuté qu'une seule fois, ce n'est pas un <code>forEach</code></p>
+
+<h4>Optimisation 2 du service</h4>
+
+<p>On m'a aussi conseillé de ne pas utiliser <code>toLowerCase()</code> mais plutôt la clause <code>i</code> (insensitive) des regex.</p>
+
+<p>Avant :</p>
+
+<pre><code>app.get("/movies/search/genre/:genre/:limit", function(req, res) {
+  var regex = new RegExp(req.params.genre.toLowerCase(),"g");
+  res.send(movies.filter(function(movie) {
+    return movie.Genre.toLowerCase().search(regex) != -1;
+  }).slice(0,req.params.limit));
+});
+</code></pre>
+
+<p>Après :</p>
+
+<pre><code>app.get("/movies/search/genre/:genre/:limit", function(req, res) {
+  var regex = new RegExp(req.params.genre,"i");
+  res.send(movies.filter(function(movie) {
+    return movie.Genre.search(regex) != -1;
+  }).slice(0,req.params.limit));
+});
+</code></pre>
+
+<p>J'ai là aussi, obtenu les mêmes résultats</p>
+
+<table>
+<thead>
+<tr>
+<th>                          </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 05- 300 1ères comédies   </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Je serais donc tenté de dire que la VM de Node est plutôt bien optimisée, ainsi que l'implémentation de <code>toLowerCase()</code></p>
+
+<h4>Optimisation 3 du service : avec Node 0.11</h4>
+
+<p>J'ai ensuite upgradé la version de node à 0.11 : mêmes résultats, pas d'amélioration notable avec la dernière version de Node</p>
+
+<table>
+<thead>
+<tr>
+<th>                          </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 07- 300 1ères comédies   </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>Optimisation 4 du service : avec Node 0.11 et en jouant avec <code>http.globalAgent.maxSockets</code></h4>
+
+<p>En standard sur ma VM j'ai <code>http.globalAgent.maxSockets = Infinity</code>, j'ai forcé la valeur à 5, 50 puis 150, je n'ai pas eu d'amélioration :</p>
+
+<table>
+<thead>
+<tr>
+<th>                              </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 08- 300 1ères maxSockets=5   </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 09- 300 1ères maxSockets=50  </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 10- 300 1ères maxSockets=150 </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Je m'aperçois que Node n'a aucun problème à servir ses 100 requêtes secondes, du coup je me décide à le stresser un peu et modifie mon code de test :</p>
+
+<h3>Test 2ème service "plus dur" : Charger un certain nombre de films dans une catégorie donnée</h3>
+
+<p>Pour le même délai d'injection, je vais augmenter le nombre d'utilisateurs :</p>
+
+<pre><code>val totalUsers = Integer.getInteger("gatling.users", 300).toInt
+</code></pre>
+
+<p>et le délai (qui ne change pas)</p>
+
+<pre><code>val delayInjection = Integer.getInteger("gatling.delay", 100).toInt
+</code></pre>
+
+<p>ce qui nous donnera 30 000 requêtes</p>
+
+<h4>Code du test (toujours en Node 0.11)</h4>
+
+<pre><code>class SomeMoviesLoadingScenarioHarder extends Simulation {
+  val title = System.getProperty("title", "localhost")
+  val server = System.getProperty("buddyserver", "http://192.168.128.142:3000");
+
+  val totalUsers = Integer.getInteger("gatling.users", 300).toInt
+  val delayInjection = Integer.getInteger("gatling.delay", 100).toInt
+  val loops = Integer.getInteger("gatling.loops", 100).toInt
+  val kindOfSearch = System.getProperty("kinsofsearch", "genre")
+  val searchValue = System.getProperty("searchvalue", "comedy")
+  val limit = System.getProperty("limit", "300")
+
+  val scn = scenario(s"$title : Loading some (max $limit) movies by $kindOfSearch  = $searchValue ($totalUsers users/$loops loops)")
+    .repeat(loops) {
+    exec(
+      http(s"Loading some (max $limit) movies by $kindOfSearch = $searchValue")
+        .get(server + "/movies/search/" + kindOfSearch + "/" + searchValue + "/" +limit)
+        .check(status.is(200)))
+  }
+
+  setUp(scn
+    .inject(ramp(totalUsers) over (delayInjection seconds))
+  )
+}
+</code></pre>
+
+<p>Je repars du code non optimisé du service :</p>
+
+<p>Avant :</p>
+
+<pre><code>app.get("/movies/search/genre/:genre/:limit", function(req, res) {
+  res.send(movies.filter(function(movie) {
+    return movie.Genre.toLowerCase().search(new RegExp(req.params.genre.toLowerCase()),"g") != -1;
+  }).slice(0,req.params.limit));
+});
+</code></pre>
+
+<p>Après :</p>
+
+<pre><code>app.get("/movies/search/genre/:genre/:limit", function(req, res) {
+  var regex = new RegExp(req.params.genre.toLowerCase(),"g");
+  res.send(movies.filter(function(movie) {
+    return movie.Genre.toLowerCase().search(regex) != -1;
+  }).slice(0,req.params.limit));
+});
+</code></pre>
+
+<p>Puis :</p>
+
+<pre><code>app.get("/movies/search/genre/:genre/:limit", function(req, res) {
+  var regex = new RegExp(req.params.genre,"i");
+  res.send(movies.filter(function(movie) {
+    return movie.Genre.search(regex) != -1;
+  }).slice(0,req.params.limit));
+});
+</code></pre>
+
+<p>Puis : <code>http.globalAgent.maxSockets = 400</code>, puis <code>http.globalAgent.maxSockets = 10</code></p>
+
+<h4>Résultats</h4>
+
+<p>On voit bien que cette fois-ci, on a "stressé" node :</p>
+
+<table>
+<thead>
+<tr>
+<th>                                  </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 11- 300 1ères pas d'optimisation </td>
+<td style="text-align:center;"> 132      </td>
+<td style="text-align:center;"> 9008      </td>
+<td style="text-align:center;"> 5926               </td>
+<td style="text-align:center;"> 15066      </td>
+<td style="text-align:center;"> 227          </td>
+</tr>
+<tr>
+<td> 12- 300 1ères optimisation 1     </td>
+<td style="text-align:center;"> 138      </td>
+<td style="text-align:center;"> 9411      </td>
+<td style="text-align:center;"> 5936               </td>
+<td style="text-align:center;"> 14653      </td>
+<td style="text-align:center;"> 217          </td>
+</tr>
+<tr>
+<td> 13- 300 1ères optimisation 2     </td>
+<td style="text-align:center;"> 132      </td>
+<td style="text-align:center;"> 9264      </td>
+<td style="text-align:center;"> 4434               </td>
+<td style="text-align:center;"> 16302      </td>
+<td style="text-align:center;"> 227          </td>
+</tr>
+<tr>
+<td> 14- 300 1ères maxSockets=400     </td>
+<td style="text-align:center;"> 130      </td>
+<td style="text-align:center;"> 9173      </td>
+<td style="text-align:center;"> 6322               </td>
+<td style="text-align:center;"> 14505      </td>
+<td style="text-align:center;"> 230          </td>
+</tr>
+<tr>
+<td> 15- 300 1ères maxSockets=10      </td>
+<td style="text-align:center;"> 130      </td>
+<td style="text-align:center;"> 5957      </td>
+<td style="text-align:center;"> 7220               </td>
+<td style="text-align:center;"> 16823      </td>
+<td style="text-align:center;"> 230          </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Ma première conclusion serait de garder la valeur par défaut de <code>http.globalAgent.maxSockets</code> et creuser sur les optimisations concernant les regexs (faire plus de tirs), mais je continue à penser que <code>toLowerCase()</code> fait très bien son boulot.</p>
+
+<p>Avant de passer à la suite, je vais aussi modifier mon code de test pour le chargement de tous les films, là aussi avec 300 utilisateurs avec un délai de 100 secondes.</p>
+
+<h4>Code du test (toujours en Node 0.11)</h4>
+
+<pre><code>class AllMoviesLoadingScenarioHarder extends Simulation {
+  val title = System.getProperty("title", "localhost")
+  val server = System.getProperty("buddyserver", "http://192.168.128.142:3000");
+  val totalUsers = toInt(System.getProperty("gatling.users", "300"));
+  val delayInjection = toInt(System.getProperty("gatling.delay", "100"));
+
+  val loops = toInt(System.getProperty("gatling.loops", "100"));
+  val scn = scenario("Loading all movies (" + totalUsers + " users/" + loops + " loops)").repeat(loops) {
+    exec(
+      http("Loading all movies")
+        .get(server + "/movies")
+        .check(status.is(200)))
+  }
+
+  setUp(scn
+    .inject(ramp(totalUsers users) over (delayInjection seconds)))
+}
+</code></pre>
+
+<h4>Résultats</h4>
+
+<table>
+<thead>
+<tr>
+<th>                                                   </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 16- Tous les films (fichier sur disque) 300 users </td>
+<td style="text-align:center;"> 141      </td>
+<td style="text-align:center;"> 8558      </td>
+<td style="text-align:center;"> 6487               </td>
+<td style="text-align:center;"> 14955      </td>
+<td style="text-align:center;"> 213          </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Module cluster</h2>
+
+<p>Maintenant je vais essayer le module cluster de node avec nos 2 services : "Tous les films" et "les 300 1ères comédies", toujours sur du node 0.11. L'utilisation du module cluster de node, implique quelques modifications. Globalement, votre code applicatif est déplacé dans le <code>else</code> ci-dessous :</p>
+
+<pre><code>var cluster = require('cluster');
+
+//...
+
+// Code to run if we're in the master process
+if (cluster.isMaster) {
+
+  // Count the machine's CPUs
+  var cpuCount = require('os').cpus().length;
+
+  // Create a worker for each CPU
+  for (var i = 0; i &lt; cpuCount; i += 1) {
+    cluster.fork();
+  }
+
+  // Listen for dying workers
+  cluster.on('exit', function (worker) {
+
+    // Replace the dead worker, we're not sentimental
+    console.log('Worker ' + worker.id + ' died :(');
+    cluster.fork();
+
+  });
+
+// Code to run if we're in a worker process
+} else {
+  // your application ...
+}
+</code></pre>
+
+<h3>Résultats</h3>
+
+<p>On s'aperçoit que la mise en œuvre du module cluster est particulièrement payante :</p>
+
+<table>
+<thead>
+<tr>
+<th>                                                   </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 17- Tous les films (disque) 300 users / cluster   </td>
+<td style="text-align:center;"> 181      </td>
+<td style="text-align:center;"> 22207     </td>
+<td style="text-align:center;"> 3993               </td>
+<td style="text-align:center;"> 3800       </td>
+<td style="text-align:center;"> 165          </td>
+</tr>
+<tr>
+<td> 18- 300 1ères comédies 300 users / cluster        </td>
+<td style="text-align:center;"> 206      </td>
+<td style="text-align:center;"> 26417     </td>
+<td style="text-align:center;"> 3149               </td>
+<td style="text-align:center;"> 434        </td>
+<td style="text-align:center;"> 145          </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>si on passe les tests avec seulement 100 utilisateurs :</p>
+
+<table>
+<thead>
+<tr>
+<th>                                                   </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 19- Tous les films (disque) 100 users / cluster   </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 20- 300 1ères comédies 100 users / cluster        </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Pas de changement par rapport à la version sans le module cluster pour le même scénario, donc le module cluster n'est intéressant qu'à partir d'un certain nombre d'utilisateurs.</p>
+
+<h2>Utilisation d'Express 4</h2>
+
+<p>J'ai ensuite procédé à la mise à jour d'express et relancé les tests sur les 2 services (optimisés) avec 300 utilisateurs :</p>
+
+<h3>Résultats</h3>
+
+<table>
+<thead>
+<tr>
+<th>                                                   </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 21- Tous les films (disque) 300 users / cluster   </td>
+<td style="text-align:center;"> 196      </td>
+<td style="text-align:center;"> 25436     </td>
+<td style="text-align:center;"> 1777               </td>
+<td style="text-align:center;"> 2787       </td>
+<td style="text-align:center;"> 152          </td>
+</tr>
+<tr>
+<td> 22- 300 1ères comédies 300 users / cluster        </td>
+<td style="text-align:center;"> 232      </td>
+<td style="text-align:center;"> 29789     </td>
+<td style="text-align:center;"> 191                </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 129          </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>On note que la mise à jour en version 4.1.x d'Express met un sérieux coup de boost à l'application.</p>
+
+<h2>1ère consolidation</h2>
+
+<table>
+<thead>
+<tr>
+<th>                                                           </th>
+<th style="text-align:center;"> Nb Req/s </th>
+<th style="text-align:center;"> t &lt; 800ms </th>
+<th style="text-align:center;"> 800ms &lt; t &lt; 1200ms </th>
+<th style="text-align:center;"> t > 1200ms </th>
+<th style="text-align:center;"> Durée (secs) </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 01- Tous les films (node 0.6 fichier en mémoire)          </td>
+<td style="text-align:center;"> 6        </td>
+<td style="text-align:center;">           </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;"> 10000      </td>
+<td style="text-align:center;"> 1578         </td>
+</tr>
+<tr>
+<td> 02- Tous les films (node 0.6 fichier sur disque)          </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 03- 300 1ères comédies (node 0.6)                         </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 04- 300 1ères (node 0.6) optimisation 1                   </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 05- 300 1ères (node 0.6) optimisation 2                   </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 06- Tous les films (node 0.11 fichier sur disque)         </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 07- 300 1ères (node 0.11) optimisation 2                  </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 08- 300 1ères (node 0.11) maxSockets=5                    </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 09- 300 1ères (node 0.11) maxSockets=50                   </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 10- 300 1ères (node 0.11) maxSockets=150                  </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 11- 300 1ères pas d'optimisation 100->300 users           </td>
+<td style="text-align:center;"> 132      </td>
+<td style="text-align:center;"> 9008      </td>
+<td style="text-align:center;"> 5926               </td>
+<td style="text-align:center;"> 15066      </td>
+<td style="text-align:center;"> 227          </td>
+</tr>
+<tr>
+<td> 12- 300 1ères optimisation 1 100->300 users               </td>
+<td style="text-align:center;"> 138      </td>
+<td style="text-align:center;"> 9411      </td>
+<td style="text-align:center;"> 5936               </td>
+<td style="text-align:center;"> 14653      </td>
+<td style="text-align:center;"> 217          </td>
+</tr>
+<tr>
+<td> 13- 300 1ères optimisation 2 100->300 users               </td>
+<td style="text-align:center;"> 132      </td>
+<td style="text-align:center;"> 9264      </td>
+<td style="text-align:center;"> 4434               </td>
+<td style="text-align:center;"> 16302      </td>
+<td style="text-align:center;"> 227          </td>
+</tr>
+<tr>
+<td> 14- 300 1ères maxSockets=400 100->300 users               </td>
+<td style="text-align:center;"> 130      </td>
+<td style="text-align:center;"> 9173      </td>
+<td style="text-align:center;"> 6322               </td>
+<td style="text-align:center;"> 14505      </td>
+<td style="text-align:center;"> 230          </td>
+</tr>
+<tr>
+<td> 15- 300 1ères maxSockets=10  100->300 users               </td>
+<td style="text-align:center;"> 130      </td>
+<td style="text-align:center;"> 5957      </td>
+<td style="text-align:center;"> 7220               </td>
+<td style="text-align:center;"> 16823      </td>
+<td style="text-align:center;"> 230          </td>
+</tr>
+<tr>
+<td> 16- Tous les films (fichier sur disque) 300 users         </td>
+<td style="text-align:center;"> 141      </td>
+<td style="text-align:center;"> 8558      </td>
+<td style="text-align:center;"> 6487               </td>
+<td style="text-align:center;"> 14955      </td>
+<td style="text-align:center;"> 213          </td>
+</tr>
+<tr>
+<td> 17- Tous les films (disque) 300 users / cluster           </td>
+<td style="text-align:center;"> 181      </td>
+<td style="text-align:center;"> 22207     </td>
+<td style="text-align:center;"> 3993               </td>
+<td style="text-align:center;"> 3800       </td>
+<td style="text-align:center;"> 165          </td>
+</tr>
+<tr>
+<td> 18- 300 1ères comédies 300 users / cluster                </td>
+<td style="text-align:center;"> 206      </td>
+<td style="text-align:center;"> 26417     </td>
+<td style="text-align:center;"> 3149               </td>
+<td style="text-align:center;"> 434        </td>
+<td style="text-align:center;"> 145          </td>
+</tr>
+<tr>
+<td> 19- Tous les films (disque) 100 users / cluster           </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 20- 300 1ères comédies 100 users / cluster                </td>
+<td style="text-align:center;"> 99       </td>
+<td style="text-align:center;"> 10000     </td>
+<td style="text-align:center;">                    </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 100          </td>
+</tr>
+<tr>
+<td> 21- Tous les films (disque) 300 users / cluster exp. v4   </td>
+<td style="text-align:center;"> 196      </td>
+<td style="text-align:center;"> 25436     </td>
+<td style="text-align:center;"> 1777               </td>
+<td style="text-align:center;"> 2787       </td>
+<td style="text-align:center;"> 152          </td>
+</tr>
+<tr>
+<td> 22- 300 1ères comédies 300 users / cluster exp. v4        </td>
+<td style="text-align:center;"> 232      </td>
+<td style="text-align:center;"> 29789     </td>
+<td style="text-align:center;"> 191                </td>
+<td style="text-align:center;">            </td>
+<td style="text-align:center;"> 129          </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Conclusion n°1</h2>
+
+<p>Pour le moment, les seul réels axes d'optimisation concernent les I/O, le module cluster et la mise à jour majeure d'Express. L'exercice suivant (à venir) sera de comparer avec d'autres stacks mais aussi avec un backend (type base de données) pour avoir une idée plus précise. Faites des tests suffisamment "stressants" pour noter les différences (ex module cluster). Et bien sûr, faites attention au développeur :).</p>
+
+        <g:plusone size="medium"></g:plusone>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    </div>
+    <div class="whoring">
+        <hr>
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'k33gblog'; // required: replace example with your forum shortname
+
+                var disqus_identifier = 'optimisation de performances avec node et express';
+
+                // The following are highly recommended additional parameters. Remove the slashes in front to use.
+                // var disqus_identifier = 'unique_dynamic_id_1234';
+                // var disqus_url = 'http://example.com/permalink-to-page.html';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
+
+
+    <div id="related">
+        <h2>Related Posts</h2>
+            <ul class="posts">
+            
+              <li><span>10 May 2014</span> &raquo; <a href="/2014/05/10/ATOM-SHELL.html">Atom-shell, javascript everywhere</a></li>
+            
+              <li><span>09 May 2014</span> &raquo; <a href="/2014/05/09/NPM-NODE-CLI.html">Faites vos outils avec npm et node</a></li>
+            
+              <li><span>04 May 2014</span> &raquo; <a href="/2014/05/04/MIXIT-2014.html">MixITFR2014</a></li>
+            
+        </ul>
+    </div>
+</div>
+    </div>
+
+    <div class="row">
+        <h3>A voir : Les GROS tutos Play!> 1 & 2 !, Backbone</h3>
+        <ul>
+            <li>
+                <a href="http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html">
+                    Play!► 2 en douceur •
+                </a>
+                <a href="http://3monkeys.github.com/play.rules/livre.play.un.web/play.rules.one.html">
+                    Apprendre Play!► 1 •
+                </a>
+                <a href="http://3monkeys.github.com/play.rules/">
+                    Versions epub & pdf
+                </a>
+            </li>
+            <li>
+                <a href="http://k33g.github.io/backbone.en.douceur/">
+                    Backbone.js "en douceur" •
+                </a>
+                <a href="http://k33g.github.io/backbone.en.douceur/backbone.en.douceur.20121220.pdf"><b>LE</b> pdf</a>
+            </li>
+            <li>
+                A venir : Golo "dans tous les sens" ♥
+            </li>
+        </ul>
+    </div>
+    <hr>
+
+</div>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-11383603-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- Google Analytics end -->
+
+</body>
+</html>

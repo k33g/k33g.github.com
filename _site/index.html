@@ -20,12 +20,13 @@
         .jumbotron {
             background-color: #b8eee9;
             border-radius: 0px;
+            padding: 10px 30px;
         }
     </style>
 
     <!-- syntax highlighting CSS -->
     <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
-	<link rel="stylesheet" href="/css/default.min.css">
+		<link rel="stylesheet" href="/css/default.min.css">
 
 
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
@@ -35,12 +36,11 @@
 <body >
 
 <div class="jumbotron">
-    <h1>K33G_ORG's Blog</h1>
-    <p></p>
-    <a class="label label-info" href="/">home</a>
+    <a class="label label-warning" href="/">K33G_ORG's Blog</a>
     <a class="label label-info" href="http://twitter.com/k33g_org/">@k33g_org</a>
     <a class="label label-warning" href="http://feeds.feedburner.com/K33g_orgsBlog">rss</a>
     <a class="label label-info" href="http://k33g.github.com/all.html">all posts</a>
+    <a class="label label-warning" href="http://www.k33g.org/">me</a>
 </div>
 <div class="container">
 
@@ -52,15 +52,15 @@
         <h3>Blog Posts (last 5)</h3>
         <ul class="posts">
             
-            <li><span>10 Dec 2013</span> &raquo; <a href="/2013/12/10/POLYMER-2.html">Polymer 1er contact le retour</a></li>
+            <li><span>10 May 2014</span> &raquo; <a href="/2014/05/10/ATOM-SHELL.html">Atom-shell, javascript everywhere</a></li>
             
-            <li><span>07 Dec 2013</span> &raquo; <a href="/2013/12/07/POLYMER-1.html">Polymer 1er contact</a></li>
+            <li><span>09 May 2014</span> &raquo; <a href="/2014/05/09/NPM-NODE-CLI.html">Faites vos outils avec npm et node</a></li>
             
-            <li><span>29 Nov 2013</span> &raquo; <a href="/2013/11/29/BBOM.html">Le modèle objet de Backbone</a></li>
+            <li><span>04 May 2014</span> &raquo; <a href="/2014/05/04/MIXIT-2014.html">MixITFR2014</a></li>
             
-            <li><span>15 Nov 2013</span> &raquo; <a href="/2013/11/15/GOLO-JAVA.html">Golo et interopérabilité Java</a></li>
+            <li><span>28 Apr 2014</span> &raquo; <a href="/2014/04/28/NODE-PERFS.html">optimisation de performances avec node et express</a></li>
             
-            <li><span>13 Aug 2013</span> &raquo; <a href="/2013/08/13/THINK-SIMPLE.html">Think Simple</a></li>
+            <li><span>26 Apr 2014</span> &raquo; <a href="/2014/04/26/DEVOXXFR14.html">DevoxxFR2014</a></li>
             
         </ul>
     </div>
@@ -68,1065 +68,390 @@
     <div id="post">
         
 
-            <h3>10 Dec 2013</h3>
+            <h3>10 May 2014</h3>
 
-            <a href="/2013/12/10/POLYMER-2.html">comments &raquo;</a>
-            <h1>Polymer : "les mains dans le cambouis", épisode 2 : Ajax</h1>
+            <a href="/2014/05/10/ATOM-SHELL.html">comments &raquo;</a>
+            <h1>Atom-shell, javascript everywhere!</h1>
 
-<blockquote><p><em>Nous parlerons de:</em></p>
+<p>Depuis quelques jours, la release publique de <strong><a href="https://atom.io/">Atom</a></strong> l'éditeur de code de <strong>GitHub</strong> est disponible. Atom, c'est un ide léger (éditeur de code) à la SublimeText qui a comme spécificité d'être développé en javascript, basé sur <strong>node.js</strong> et <strong>Chromium</strong>, avec la possibilité de développer "autour" en <strong>Coffeescript</strong> (donc faire des plugins), mais aussi en javascript. Certes, Atom n'a pas la vélocité d'une application développée "tout en C++", mais je trouve, à la vue de ses capacités que c'est à lui tout seul un cas d'usage démontrant que l'on peut aller très loin en javascript.</p>
 
-<blockquote><ul>
-<li><em>Comment faire rapidement une petite API REST avec NodeJS et Express</em></li>
-<li><em>Comment faire des requêtes <code>GET</code> avec le composant <code>&lt;polymer-ajax&gt;</code></em></li>
-<li><em>Comment faire des requêtes <code>POST</code> avec le composant <code>&lt;polymer-ajax&gt;</code></em></li>
-</ul>
-</blockquote>
+<p>Mais ce que je trouve encore mieux, c'est que parallèlement, <strong>GitHub</strong> a publié <strong><a href="https://github.com/atom/atom-shell">Atom-shell</a></strong> : le framework de base qui a permis de développer <strong>Atom</strong>. Cela signifie que vous avez à votre disposition les outils nécessaires pour faire des applications desktop "à la Atom".</p>
 
-<p><em>Cet article est beaucoup plus court que le précédent, mais reste incontournable si vous voulez réaliser des SPA ayant des interactions avec un serveur.</em></p></blockquote>
+<p>D'autres projets de ce type existent, notamment <strong><a href="https://github.com/rogerwang/node-webkit">Node-Webkit</a></strong> qui était dans la place avant <strong>Atom-shell</strong> et qui n'en n'est pas moins intéressant, reposant sur les mêmes composants, et le projet est toujours très actif.</p>
 
-<h2>Pré-requis</h2>
+<p>Je vous explique donc rapidement comment vous pouvez faire une application avec <strong>Atom-shell</strong>. Pour démarrer, il vous faut node.js, npm et Grunt.</p>
 
-<p>Tout d'abord, il faut avoir lu le tuto précédent : <a href="http://k33g.github.io/2013/12/07/POLYMER-1.html">http://k33g.github.io/2013/12/07/POLYMER-1.html</a>.</p>
+<h2>Initialisation de l'application et installation d'Atom-shell</h2>
 
-<p>Ensuite, pour ce 2ème épisode nous aurons besoin d'un serveur qui puisse nous renvoyer du flux json et auquel nous pourrons envoyer des données (nous allons stocker notre liste côté serveur). Après réflexion (utiliser Play, utiliser SparkJava, ...), j'ai donc décidé d'aller au plus simple : utiliser <strong><a href="http://nodejs.org/">NodeJS</a></strong> et <strong><a href="http://expressjs.com/">Express</a></strong>. Je pars du principe que vous avez installé déjà installé <strong><a href="http://nodejs.org/">NodeJS</a></strong> <em>(et donc le gestionnaire de package npm)</em>.</p>
-
-<h3>Création du serveur</h3>
+<p>Commencez par créer un répertoire <code>myatom</code> avec un sous-répertoire <code>build</code> et un sous-répertoire <code>myatom-app</code>. Ensuite dans le sous répertoire <code>build</code>, créez 2 fichiers :</p>
 
 <ul>
-<li>en mode console, installez Express : tapez <code>sudo npm -g install express</code> (sous Windows pas besoin de <code>sudo</code>)</li>
-<li>puis créez un répertoire pour votre application (dans mon cas : <code>02-ajax</code>)</li>
-<li><p>dans ce répertoire (<code>cd 02-ajax</code>), créez un fichier <code>package.json</code> avec le contenu suivant</p>
+<li><code>package.json</code></li>
+<li><code>Gruntfile.js</code></li>
+</ul>
 
-<pre><code>  {
-    "name": "hello-polymer",
-    "description": "hello-polymer app",
-    "version": "0.0.1",
-    "dependencies": {
-      "express": "3.x"
-    }
+
+<h3>Contenu de <code>package.json</code></h3>
+
+<pre><code>{
+  "name": "myatom-app-atom-build",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-download-atom-shell": "^0.7.0"
   }
-</code></pre></li>
-<li><p>ensuite, tapez <code>npm install</code>, les dépendances nécessaires pour faire tourner Express vont être installées</p></li>
-<li>créer ensuite (toujours dans le répertoire de votre application) un répertoire <code>public</code> dans lequel vous pouvez copier l'ensemble des fichiers de l'article précédent (<code>index.html</code>, le répertoire <code>components</code> et son contenu, et faites de même pour le répertoire <code>bower_components</code>)</li>
-</ul>
+}
+</code></pre>
 
+<h3>Contenu de <code>Gruntfile.js</code></h3>
 
-<p>Vous devriez avoir l'arborescence suivante :</p>
+<div class="highlight"><pre><code class="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
 
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-011.png" alt="Alt &quot;011.png&quot;" /></p>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+    <span class="nx">pkg</span><span class="o">:</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">readJSON</span><span class="p">(</span><span class="s1">&#39;package.json&#39;</span><span class="p">),</span>
+    <span class="s2">&quot;download-atom-shell&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">version</span><span class="o">:</span> <span class="s2">&quot;0.12.3&quot;</span><span class="p">,</span>
+      <span class="nx">outputDir</span><span class="o">:</span> <span class="s2">&quot;./atom-shell&quot;</span><span class="p">,</span>
+      <span class="nx">rebuild</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
 
-<h3>Création de l'application Express</h3>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-download-atom-shell&#39;</span><span class="p">);</span>
 
-<p>Rien de plus simple. Créez dans votre répertoire applicatif un fichier <code>app.js</code> avec le code suivant:</p>
-
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">()</span>
-
-<span class="kd">var</span> <span class="nx">buddies</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Bob Morane&quot;</span><span class="p">},</span>
-  <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Doctor No&quot;</span><span class="p">},</span>
-  <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Fox Mulder&quot;</span><span class="p">},</span>
-  <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Lady Penelope&quot;</span><span class="p">}</span>
-<span class="p">];</span>
-
-<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/public&#39;</span><span class="p">));</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">());</span>
-
-<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/buddies&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">buddies</span><span class="p">))</span>
-<span class="p">});</span>
-
-<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&quot;/buddies&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
-  <span class="kd">var</span> <span class="nx">buddy</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span>
-  <span class="nx">buddies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">buddy</span><span class="p">)</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">buddy</span><span class="p">))</span>
-<span class="p">});</span>
-
-<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
+<span class="p">};</span>
 </code></pre></div>
 
 
-<p>Pour lancer notre application, il suffira de lancer <code>node app.js</code>, vous pouvez tester dès maintenant avec l'url <code>http://localhost:3000</code> dans votre navigateur, vous arriverez sur le contenu de notre page <code>index.html</code>. Si vous avez le plugin <strong>Postman</strong> pour Chrome, vous pouvez tester votre "api" dès maintenant <em>(vous pouvez aussi utilisez curl)</em>.</p>
+<h3>Installer Atom-shell</h3>
 
-<h4>Requête GET</h4>
+<p>Dans votre terminal préféré, allez dans le répertoire <code>build</code>, et tapez les commandes suivantes :</p>
 
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-012.png" alt="Alt &quot;012.png&quot;" /></p>
+<pre><code>npm install
+</code></pre>
 
-<h4>Requête POST</h4>
+<p>Cela va télécharger les dépendances nécessaires, puis :</p>
 
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-013.png" alt="Alt &quot;013.png&quot;" /></p>
+<pre><code>grunt download-atom-shell
+</code></pre>
 
-<p>Relancez la requête <code>GET</code> :</p>
+<p>Cela va déclencher la tâche Grunt qui va télécharger les ressources nécessaires d'Atom-shell.</p>
 
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-014.png" alt="Alt &quot;014.png&quot;" /></p>
+<p>Au bout de quelques instants vous aurez 2 nouveaux répertoires dans votre répertoire <code>build</code> :</p>
 
-<p>Nous avons bien un nouvel enregistrement. Notre serveur est opérationnel. Nous pouvons retourner faire du <strong>Polymer</strong>.</p>
+<pre><code>build/
+├── node_modules/
+└── atom-shell/
+</code></pre>
 
-<h2><code>&lt;buddies-list&gt;</code> appelle le serveur</h2>
+<h2>Créer l'application</h2>
 
-<p>Alors souvenez-vous, notre "liste de copains" <code>&lt;buddies-list&gt;</code>avait le code suivant :</p>
+<p>Donc normalement, vous devez avoir une structure de répertoires comme celle-ci :</p>
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;buddies-list&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;polymer-signals</span> <span class="na">on-polymer-signal-newbuddy=</span><span class="s">&quot;{{onNewBuddySignal}}&quot;</span><span class="nt">&gt;&lt;/polymer-signals&gt;</span>
-    <span class="nt">&lt;h2&gt;</span>{{title}}<span class="nt">&lt;/h2&gt;</span>
-    <span class="nt">&lt;ul&gt;</span>
-      <span class="nt">&lt;template</span> <span class="na">repeat=</span><span class="s">&quot;{{buddies}}&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;li&gt;</span>{{name}}<span class="nt">&lt;/li&gt;</span>
-      <span class="nt">&lt;/template&gt;</span>
-    <span class="nt">&lt;/ul&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;buddies-list&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Title is &quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">buddies</span> <span class="o">=</span> <span class="p">[</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Bob Morane&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Doctor No&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Fox Mulder&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Lady Penelope&quot;</span><span class="p">}</span>
-        <span class="p">];</span>
-      <span class="p">},</span>
-      <span class="nx">onNewBuddySignal</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">sender</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">buddies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Sender : &quot;</span><span class="p">,</span> <span class="nx">sender</span><span class="p">)</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
-</code></pre></div>
+<pre><code>myatom/
+├── build/
+|   ├── node_modules/
+|   └── atom-shell/
+└── myatom-app/
+</code></pre>
 
-
-<p>Nous souhaitons que notre liste soit "remplie" par les infos du serveur. Pour cela nous allons utiliser le composant <code>&lt;polymer-ajax&gt;</code> (qui a été installé avec la commande <code>bower install polymer-elements</code> lors du 1er épisode)</p>
+<p>Créez dans le répertoire <code>myatom-app</code> 3 fichiers :</p>
 
 <ul>
-<li>Supprimez le code de la méthode <code>ready</code></li>
-<li>Dans <code>&lt;template&gt;</code> on ajoute le composant <code>&lt;polymer-ajax&gt;</code> en précisant ses attributs et callbacks</li>
-<li>Dans la méthode <code>onReceive(response)</code> déclenchée une fois que nous recevons les données du serveur, on affecte les données reçues à la propriétés <code>buddies</code> du composant <em>(propriété utilisée dans le template)</em></li>
-<li>Remarque : dans le tag <code>&lt;polymer-ajax&gt;</code> vous remarquerez l'attribut <code>auto</code>, qui lance automatiquement la requête.</li>
+<li><code>package.json</code></li>
+<li><code>index.html</code></li>
+<li><code>main.js</code></li>
 </ul>
 
 
-<p>Votre code devrez ressembler à ceci :</p>
+<h3>Contenu de  <code>package.json</code></h3>
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;buddies-list&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;polymer-ajax</span> <span class="na">id=</span><span class="s">&quot;xhr&quot;</span> <span class="na">auto</span> <span class="na">handleAs=</span><span class="s">&quot;json&quot;</span> <span class="na">method=</span><span class="s">&quot;GET&quot;</span> <span class="na">url=</span><span class="s">&quot;buddies&quot;</span>
-                  <span class="na">on-polymer-response=</span><span class="s">&quot;{{onReceive}}&quot;</span>
-                  <span class="na">on-polymer-error=</span><span class="s">&quot;{{onError}}&quot;</span>
-                  <span class="na">on-polymer-complete=</span><span class="s">&quot;{{onComplete}}&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;/polymer-ajax&gt;</span>
-    <span class="nt">&lt;polymer-signals</span> <span class="na">on-polymer-signal-newbuddy=</span><span class="s">&quot;{{onNewBuddySignal}}&quot;</span><span class="nt">&gt;&lt;/polymer-signals&gt;</span>
-    <span class="nt">&lt;h2&gt;</span>{{title}}<span class="nt">&lt;/h2&gt;</span>
-    <span class="nt">&lt;ul&gt;</span>
-      <span class="nt">&lt;template</span> <span class="na">repeat=</span><span class="s">&quot;{{buddies}}&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;li&gt;</span>{{name}}<span class="nt">&lt;/li&gt;</span>
-      <span class="nt">&lt;/template&gt;</span>
-    <span class="nt">&lt;/ul&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;buddies-list&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+<p>Vous précisez dans ce fichier le nom du script principal de votre application : <code>main.js</code></p>
 
-      <span class="p">},</span>
-      <span class="nx">onReceive</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">buddies</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">detail</span><span class="p">.</span><span class="nx">response</span><span class="p">;</span>
-      <span class="p">},</span>
-      <span class="nx">onError</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/*foo*/</span> <span class="p">},</span>
-      <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/*foo*/</span> <span class="p">},</span>
+<pre><code>{
+  "name": "myatom-app",
+  "version": "0.1.0",
+  "main": "main.js"
+}
+</code></pre>
 
-      <span class="nx">onNewBuddySignal</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">sender</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">buddies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Sender : &quot;</span><span class="p">,</span> <span class="nx">sender</span><span class="p">)</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
+<h3>Contenu de  <code>index.html</code></h3>
+
+<p>Aujourd'hui, nous allons rester simple :</p>
+
+<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Hello World!<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;h1&gt;</span>Hello World!<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
 </code></pre></div>
 
 
-<p>Si vous ouvrez votre navigateur avec l'url <a href="http://localhost:3000/">http://localhost:3000/</a>, vous devriez voir s'afficher la nouvelle liste.</p>
+<h3>Contenu de  <code>main.js</code></h3>
 
-<p>Il ne nous reste plus qu'à gérer l'ajout de nouveaux "buddies".</p>
+<p>Là nous avons un peu plus de choses :</p>
 
-<h2><code>&lt;hello-john-doe&gt;</code> parle aussi au serveur</h2>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">BrowserWindow</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;browser-window&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">Menu</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;menu&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dialog&#39;</span><span class="p">);</span>
 
-<p>Nous allons modifier notre composant <code>&lt;hello-john-doe&gt;</code> pour qu'il fasse des requêtes de type <code>POST</code> vers notre serveur (pour ajouter des "buddies" à la liste).</p>
+<span class="kd">var</span> <span class="nx">mainWindow</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 
-<p>Notre code était le suivant :</p>
+<span class="c1">// Quit when all windows are closed.</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;window-all-closed&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">platform</span> <span class="o">!=</span> <span class="s1">&#39;darwin&#39;</span><span class="p">)</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nx">quit</span><span class="p">();</span>
+<span class="p">});</span>
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;hello-john-doe&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">&quot;hello&quot;</span><span class="nt">&gt;</span>Hello {{name}}<span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;input</span> <span class="na">value=</span><span class="s">&quot;{{name}}&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;button</span> <span class="na">on-click=</span><span class="s">&quot;{{clickMe}}&quot;</span><span class="nt">&gt;</span>Click Me!<span class="nt">&lt;/button&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;hello-john-doe&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">;</span>
-      <span class="p">},</span>
-      <span class="nx">nameChanged</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">!=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="nx">mainWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BrowserWindow</span><span class="p">({</span><span class="nx">width</span><span class="o">:</span> <span class="mi">320</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">200</span><span class="p">});</span>
+  <span class="nx">mainWindow</span><span class="p">.</span><span class="nx">loadUrl</span><span class="p">(</span><span class="s1">&#39;file://&#39;</span> <span class="o">+</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/index.html&#39;</span><span class="p">);</span>
+
+  <span class="nx">mainWindow</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">mainWindow</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">});</span>
+
+  <span class="kd">var</span> <span class="nx">templateMenu</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">submenu</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Quit&#39;</span><span class="p">,</span>
+          <span class="nx">accelerator</span><span class="o">:</span> <span class="s1">&#39;Command+Q&#39;</span><span class="p">,</span>
+          <span class="nx">click</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">app</span><span class="p">.</span><span class="nx">quit</span><span class="p">();</span> <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="nx">clickMe</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="s2">&quot;CLICKED&quot;</span><span class="p">;</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">];</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">asyncFire</span><span class="p">(</span>
-          <span class="s1">&#39;polymer-signal&#39;</span><span class="p">,</span>
-          <span class="p">{</span>
-            <span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;newbuddy&quot;</span><span class="p">,</span>
-            <span class="nx">data</span> <span class="o">:</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
+  <span class="nx">menu</span> <span class="o">=</span> <span class="nx">Menu</span><span class="p">.</span><span class="nx">buildFromTemplate</span><span class="p">(</span><span class="nx">templateMenu</span><span class="p">);</span>
+  <span class="nx">Menu</span><span class="p">.</span><span class="nx">setApplicationMenu</span><span class="p">(</span><span class="nx">menu</span><span class="p">);</span>
+
+<span class="p">});</span>
 </code></pre></div>
 
 
-<ul>
-<li>Là aussi nous allons utiliser le composant <code>&lt;polymer-ajax&gt;</code> mais avec <code>method="POST"</code> et sans attribut <code>auto</code></li>
-<li>Nous changeons la méthode <code>clickMe</code> : lorsque l'on appuie sur le bouton, on passe les informations <code>{ name : this.name }</code> au seveur par le biais d'une requête <code>POST</code>.</li>
-<li>La commande <code>this.$.xhr.go();</code> sert à déclencher l'appel ajax de type <code>POST</code> au serveur <em>(où <code>xhr</code> est l'id du composant <code>&lt;polymer-ajax&gt;</code>)</em></li>
-<li>Une fois la réponse du serveur obtenue, la méthode <code>onReceive</code> est déclenchée (callback), donc nous déclenchons le signal <code>"newbuddy"</code> avec <code>asyncFire()</code> <em>(cette fois ci pas besoin de passer les données, il faut juste déclencher le signal)</em>.</li>
-</ul>
+<p><strong>à retenir</strong> : <code>var BrowserWindow = require('browser-window');</code> sert à créer la fenêtre native du navigateur, donc la fenêtre principale de votre application, celle dans laquelle sera chargée la page <code>index.html</code></p>
 
+<h3>Lancez la bête!</h3>
 
-<p>Voici le code modifié :</p>
+<p>Dans votre répertoire <code>myatom</code>, lancez la commande :</p>
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;hello-john-doe&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;polymer-ajax</span> <span class="na">id=</span><span class="s">&quot;xhr&quot;</span> <span class="na">handleAs=</span><span class="s">&quot;json&quot;</span> <span class="na">method=</span><span class="s">&quot;POST&quot;</span> <span class="na">url=</span><span class="s">&quot;buddies&quot;</span>
-                  <span class="na">on-polymer-response=</span><span class="s">&quot;{{onReceive}}&quot;</span>
-    <span class="err">&lt;/</span><span class="na">polymer-ajax</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">&quot;hello&quot;</span><span class="nt">&gt;</span>Hello {{name}}<span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;input</span> <span class="na">value=</span><span class="s">&quot;{{name}}&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;button</span> <span class="na">on-click=</span><span class="s">&quot;{{clickMe}}&quot;</span><span class="nt">&gt;</span>Click Me!<span class="nt">&lt;/button&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;hello-john-doe&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">;</span>
-      <span class="p">},</span>
-      <span class="nx">nameChanged</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">!=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">;</span>
-        <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="nx">clickMe</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="s2">&quot;CLICKED&quot;</span><span class="p">;</span>
+<pre><code>./build/atom-shell/Atom.app/Contents/MacOS/Atom ./myatom-app
+</code></pre>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">xhrArgs</span> <span class="o">=</span> <span class="p">{</span>
-          <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">},</span>
-          <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> <span class="nx">name</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="p">})</span>
-        <span class="p">};</span>
+<p>Et votre killer app apparaît <code>\o/</code>:</p>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">go</span><span class="p">();</span>
-      <span class="p">},</span>
-      <span class="nx">onReceive</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">asyncFire</span><span class="p">(</span>
-          <span class="s1">&#39;polymer-signal&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;newbuddy&quot;</span> <span class="p">}</span>
-        <span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
-</code></pre></div>
+<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/myatomapp.png" alt="Alt &quot;myatomapp.png&quot;" /></p>
 
-
-<p>Allons juste modifier le code du composant <code>&lt;buddies-list&gt;</code> pour qu'il rafraîchisse la liste lors de l'ajout d'un élément. Pour cela il suffit de modifier dans <code>buddies-list.html</code> la méthode <code>onNewBuddySignal()</code> <em>(déclenchée par le signal "newbuddy")</em> de cette façon :</p>
-
-<div class="highlight"><pre><code class="javascript"><span class="nx">onNewBuddySignal</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">sender</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">go</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<p>Avec <code>this.$.xhr.go();</code>, on appelle la requête de type <code>GET</code> du composant.</p>
-
-<p>Il ne vous reste maintenant plus qu'à tester.</p>
-
-<p>Vous trouverez le code de l'exemple ici : <a href="https://github.com/k33g/polymer-les-mains-dans-le-cambouis/tree/master/02-ajax">https://github.com/k33g/polymer-les-mains-dans-le-cambouis/tree/master/02-ajax</a>.</p>
-
-<blockquote><p><em>Piste de réflexion : j'ai embarqué le composant <code>&lt;polymer-ajax&gt;</code> au sein de mes composants. Il pourrait être intéressant de les "extraire" et les rendre indépendants, et les faire communiquer avec les autres composants par l'émission et la réception de signaux</em>.</p></blockquote>
-
-<p>Bonne lecture.</p>
+<p><strong>C'est fini pour aujourd'hui</strong>, mais vous pouvez aller lire la documentation : <a href="https://github.com/atom/atom-shell/tree/master/docs">https://github.com/atom/atom-shell/tree/master/docs</a></p>
 
             <br>
-            <a href="/2013/12/10/POLYMER-2.html">comments &raquo;</a>
+            <a href="/2014/05/10/ATOM-SHELL.html">comments &raquo;</a>
             <br>
             <hr style="border: 1px; border-color: #cccccc; border-style: dashed; ">
             <br>
         
 
-            <h3>07 Dec 2013</h3>
+            <h3>09 May 2014</h3>
 
-            <a href="/2013/12/07/POLYMER-1.html">comments &raquo;</a>
-            <h1>Polymer : "les mains dans le cambouis", épisode 1</h1>
+            <a href="/2014/05/09/NPM-NODE-CLI.html">comments &raquo;</a>
+            <h1>Faites vos outils avec npm et node</h1>
 
-<blockquote><p><em>Nous parlerons de:</em></p>
-
-<blockquote><ul>
-<li><em>Les pré-requis et installation</em></li>
-<li><em>Ecriture de 2 composants polymer</em></li>
-<li><em>Communication entre composants polymer</em></li>
-</ul>
-</blockquote>
-
-<p><em>Polymer est un nouveau framework javascript à base de composants web écrits par des développeurs de chez Google. Il s'appuie donc sur la norme des <strong>Web Components</strong> et parie sur les évolutions des navigateurs dans le futur (notamment sur l'implémentation du pattern Observer, comme le fait <strong>Angular</strong>). <strong>Polymer</strong> en attendant que ces évolutions "arrivent" fournit les <strong>polyfills</strong> nécessaires. <strong>Polymer</strong> est tout jeune et en plein développement (donc sujet à modifications fréquentes), mais il mérite que l'on s'y intéresse (ne serait-ce que parce qu'il vient de chez Google) car il est assez simple d'accès, aussi magique qu'Angular (mais probablement avec un temps d'apprentissage plus rapide). De plus <strong>Polymer</strong> est aussi porté côté <strong>Dart</strong> et pourrait devenir la partie "IHM" d'Angular (à vérifier).</em></p>
-
-<p><em>Cet article ne va pas vous parler plus que ça du concept des "Web Components". Je vous invite vivement à lire l'excellent article de <a href="https://twitter.com/julienvey">@julienvey</a> sur le sujet (en français en plus donc profitez-en) : <a href="http://www.infoq.com/fr/articles/polymer-nouveaux-standards-web">http://www.infoq.com/fr/articles/polymer-nouveaux-standards-web</a>.</em></p></blockquote>
-
-<p>Cet article va plutôt être "pratico-pratique" pour vous mettre le pied à l'étrier si vous avez envie de voir rapidement si <strong>Polymer</strong> est fait pour vous.</p>
-
-<p>Tous les exemples présentés dans cet épisode et dans ceux à venir sont(seront) disponibles ici : <a href="https://github.com/k33g/polymer-les-mains-dans-le-cambouis">https://github.com/k33g/polymer-les-mains-dans-le-cambouis</a>.</p>
-
-<p>Pour cet épisode vous trouverez tous les éléments ici : <a href="https://github.com/k33g/polymer-les-mains-dans-le-cambouis/tree/master/01-introduction">https://github.com/k33g/polymer-les-mains-dans-le-cambouis/tree/master/01-introduction</a></p>
-
-<h2>Pré-requis</h2>
-
-<h3>1 serveur web</h3>
-
-<p>Tout d'abord, il vous faudra il vous faudra un serveur web. Pour ce 1er épisode, nul besoin de quelque chose de très compliqué. Si vous êtes sous OSX ou Linux, une simple commande <code>python -m SimpleHTTPServer</code> dans votre répertoire de travail fera l'affaire. Sinon vous pouvez aussi utiliser <a href="https://github.com/nodeapps/http-server">https://github.com/nodeapps/http-server</a>, pour l'installer : <code>npm install http-server -g</code> et ensuite il suffit de lancer la commande <code>http-server</code> dans votre répertoire de travail.</p>
-
-<p>Il ne vous reste plus qu'à créer un répertoire de travail que nous appellerons <code>01-introduction</code>.</p>
-
-<p>Néanmoins n'importe quel serveur http, serveur d'application convient, d'ailleurs dans un prochain épisode nous utiliserons <strong>Polymer</strong> avec <strong>Play 2 Scala</strong>.</p>
-
-<h3>Installation de Polymer</h3>
-
-<p>Pour installer <strong>Polymer</strong>, le plus simple pour le moment est d'utiliser <strong><a href="http://bower.io/">Bower</a></strong>. Pour l'installer, rien de plus simple : <code>npm install -g bower</code> <em>(vous aurez compris qu'il sera plus pratique d'avoir installé NodeJS sur votre poste, même si vous pouvez reproduire toutes ces manipulation à la main)</em>.</p>
-
-<p>Pour "installer" Polymer :</p>
-
-<pre><code>cd 01-introduction
-bower install polymer
-</code></pre>
-
-<p><strong>Bower</strong> a crée un répertoire <code>bower_components</code> avec les librairies nécessaires dans 2 sous-répertoires <code>platform</code> et <code>polymer</code>.</p>
-
-<p>Il ne vous reste plus qu'à créer une page <code>index.html</code> avec le code suivant :</p>
-
-<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html&gt;</span>
-<span class="nt">&lt;head&gt;</span>
-  <span class="nt">&lt;title&gt;</span>01-introduction<span class="nt">&lt;/title&gt;</span>
-  <span class="c">&lt;!-- Load Polymer --&gt;</span>
-  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/platform/platform.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/polymer/polymer.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-
-<span class="nt">&lt;/head&gt;</span>
-<span class="nt">&lt;body&gt;</span>
-
-<span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
-</code></pre></div>
-
-
-<p>Nous sommes prêts.</p>
-
-<h2>Premier composant Polymer (Polymer element)</h2>
-
-<p>Un composant Polymer se compose généralement d'une portion de code html et d'une portion de code javascript sous cette forme :</p>
-
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;mon-composant&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="c">&lt;!-- foo --&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;mon-composant&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
-</code></pre></div>
-
-
-<p>La méthode <code>ready()</code> est déclenchée à l'initialisation du composant. Maintenant, faisons le notre. Et ainsi vous disposez d'un nouveau tag html <code>&lt;mon-composant&gt;</code>.</p>
-
-<h3>Création du composant hello-john-doe</h3>
-
-<p>Dans votre répertoire de travail, créez un répertoire <code>components</code> puis dans ce sous-répertoire créez un fichier html <code>hello-john-doe.html</code> et saisissez le code suivant :</p>
-
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;hello-john-doe&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;h1&gt;</span>Hello {{name}}<span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;input</span> <span class="na">value=</span><span class="s">&quot;{{name}}&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;hello-john-doe&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">;</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
-</code></pre></div>
-
-
-<p><strong>Remarque : le nom d'un composant doit toujours être au minimum composé de 2 parties séparées par un <code>-</code>.</strong></p>
-
-<h3>Déclaration et utilisation du composant</h3>
-
-<p>Dans votre page <code>index.html</code>, il faut déclare votre composant au niveau de <code>&lt;head&gt;&lt;/head&gt;</code> de cette façon : <code>&lt;link rel="import" href="components/hello-john-doe.html"&gt;</code> et ensuite il suffira d'utiliser <code>&lt;hello-john-doe&gt;&lt;/hello-john-doe&gt;</code> dans votre page html, comme ceci :</p>
-
-<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html&gt;</span>
-<span class="nt">&lt;head&gt;</span>
-  <span class="nt">&lt;title&gt;</span>01-introduction<span class="nt">&lt;/title&gt;</span>
-  <span class="c">&lt;!-- Load Polymer --&gt;</span>
-  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/platform/platform.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/polymer/polymer.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-
-  <span class="c">&lt;!-- my components --&gt;</span>
-  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;import&quot;</span> <span class="na">href=</span><span class="s">&quot;components/hello-john-doe.html&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;/head&gt;</span>
-<span class="nt">&lt;body&gt;</span>
-  <span class="nt">&lt;hello-john-doe&gt;&lt;/hello-john-doe&gt;</span>
-<span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
-</code></pre></div>
-
-
-<p>Maintenant vous pouvez lancer votre serveur web (ie: <code>http-server</code>) et appeler votre page dans votre navigateur : <a href="[http://localhost:numero_de_port]">http://localhost:numero_de_port</a> :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-001.png" alt="Alt &quot;001.png&quot;" /></p>
-
-<p>Vous pouvez voir que la valeur de <code>name</code> a bien été initialisée à <code>John Doe</code> avec la méthode <code>render()</code>. Et si vous saisissez un nouveau nom, le contenu du tag <code>&lt;h1&gt;&lt;/h1&gt;</code> change automatiquement :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-002.png" alt="Alt &quot;002.png&quot;" /></p>
-
-<h3>Tips : Accéder à un composant de l'extérieur :</h3>
-
-<p>Ce n'est pas forcément une bonne pratique, mais c'est bon à savoir. Une fois votre composant déclaré dans votre page html, c'est un composant du DOM à part entière, donc si vous souhaitez y accéder, vous pouvez procéder de la manière suivante pour obtenir une référence à celui-ci :</p>
-
-<pre><code>var helloJohn = document.querySelectorAll("hello-john-doe")[0]
-</code></pre>
-
-<p>Et ainsi, vous pouvez accéder à ses propriétés et les modifier, comme <code>name</code> dans notre exemple : <code>helloJohn.name = "Actarus"</code>, et le changement dans le composant se fera automatiquement :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-003.png" alt="Alt &quot;003.png&quot;" /></p>
-
-<h3>Instances du composant hello-john-doe</h3>
-
-<p>Déclarez un 2 ème composant <code>&lt;hello-john-doe&gt;</code> dans votre page :</p>
-
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;body&gt;</span>
-  <span class="nt">&lt;hello-john-doe&gt;&lt;/hello-john-doe&gt;</span>
-  <span class="nt">&lt;hr&gt;</span>
-  <span class="nt">&lt;hello-john-doe&gt;&lt;/hello-john-doe&gt;</span>
-<span class="nt">&lt;/body&gt;</span>
-</code></pre></div>
-
-
-<p>Ouvrez à nouveau la page avec votre navigateur, vous noterez que les 2 composants <code>&lt;hello-john-doe&gt;</code> fonctionnent de manière indépendante :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-004.png" alt="Alt &quot;004.png&quot;" /></p>
-
-<h3><code>OnChange()</code> et autres petites choses ...</h3>
-
-<p>A tout propriété d'un composant Polymer, vous pouvez associer une méthode qui sera déclenchée à chaque changement de la propriété, cette méthode prend comme nom, le nom de la propriété + <code>Changed</code>, donc dans le cas qui nous concerne ce sera <code>nameChanged</code>. Modifiez donc le code de notre composant de la manière suivante :</p>
+<p>Lorsque je code, j'ai souvent des tâches répétitives (quel que soit le langage), ie:</p>
 
 <ul>
-<li>ajout d'un <code>id</code> au tag <code>h1</code> : <code>&lt;h1 id="hello"&gt;Hello  {{name}} &lt;/h1&gt;</code></li>
-<li>ajout d'une méthode <code>nameChanged()</code></li>
+<li>écrire des modèles et des collections Backbone</li>
+<li>écrire des modèles Play</li>
+<li>écrire des routes pour Express.js</li>
+<li>...</li>
 </ul>
 
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;hello-john-doe&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">&quot;hello&quot;</span><span class="nt">&gt;</span>Hello {{name}}<span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;input</span> <span class="na">value=</span><span class="s">&quot;{{name}}&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;hello-john-doe&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">;</span>
-      <span class="p">},</span>
-      <span class="nx">nameChanged</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">!=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
+<p>Nul doute, que vous avez énormément d'autres exemples en tête. L'outil du moment pour régler ce type de problème est <a href="http://yeoman.io/">Yeoman</a> (oui il y en a d'autres, mais Yeoman c'est "hype" ;)) et ensuite, ou vous avez de la chance, ou il faut écrire le plugin dont vous avez besoin. Dans certains cas, surtout si vous n'avez pas besoin de quelque chose de complexe, vous pouvez rapidement écrire un utilitaire avec uniquemnt node et npm.</p>
+
+<h2>Spécifications (par exemple)</h2>
+
+<p>Je passe mon temps à écrire des modèles et des collections Backbone qui ressemblent à ceci :</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="cm">/*--- Human Model ---*/</span>
+<span class="kd">var</span> <span class="nx">HumanModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">defaults</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(){</span>
+      <span class="k">return</span> <span class="p">{}</span>
+    <span class="p">},</span>
+    <span class="nx">urlRoot</span> <span class="o">:</span> <span class="s2">&quot;humans&quot;</span>
+<span class="p">});</span>
+
+<span class="cm">/*--- Humans Collection ---*/</span>
+<span class="kd">var</span> <span class="nx">HumansCollection</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">url</span> <span class="o">:</span> <span class="s2">&quot;humans&quot;</span><span class="p">,</span>
+  <span class="nx">model</span><span class="o">:</span> <span class="nx">HumanModel</span>
+<span class="p">});</span>
 </code></pre></div>
 
 
-<p>Ouvrez à nouveau la page avec votre navigateur :</p>
+<p>Et j'aimerais aller plus vite, juste taper <code>bb Human</code> et obtenir mon fichier généré.</p>
 
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-005.png" alt="Alt &quot;005.png&quot;" /></p>
+<h2>Juste fais-le ...</h2>
 
-<p><strong>Vous noterez l'utilisation de <code>$</code> qui permet d'accéder automatiquement à l'élément d'id <code>hello</code>.</strong></p>
+<h3>package.json</h3>
 
-<h3>Ajoutons un "OnClick"</h3>
+<p>Commencez par créer un répertoire <code>bbtools</code>. Ensuite dans ce répertoire, créez un fichier <code>package.json</code> avec le contenu suivant :</p>
 
-<p>Proposons un peu plus d'action à notre composant en lui ajoutant un bouton, et une méthode associée au "click" sur le bouton :</p>
-
-<ul>
-<li>dans la partie "html" (donc à l'intérieur de <code>&lt;template&gt;&lt;/template&gt;</code>), on ajoute : <code>&lt;button on-click=" {{clickMe}} "&gt;Click Me!&lt;/button&gt;</code> où <code>clickMe</code> dans <code>{{clickMe}}</code> est le nom de la méthode appelé lorsque l'on clique sur le bouton</li>
-<li>dans la partie "javascript", on ajoute une méthode <code>clickMe()</code></li>
-</ul>
-
-
-<p>Nous obtiendrons le code suivant :</p>
-
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;hello-john-doe&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">&quot;hello&quot;</span><span class="nt">&gt;</span>Hello {{name}}<span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;input</span> <span class="na">value=</span><span class="s">&quot;{{name}}&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;button</span> <span class="na">on-click=</span><span class="s">&quot;{{clickMe}}&quot;</span><span class="nt">&gt;</span>Click Me!<span class="nt">&lt;/button&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;hello-john-doe&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">;</span>
-      <span class="p">},</span>
-      <span class="nx">nameChanged</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">!=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">;</span>
-        <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="nx">clickMe</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="s2">&quot;CLICKED&quot;</span><span class="p">;</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
-</code></pre></div>
-
-
-<p>Ouvrez à nouveau la page avec votre navigateur :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-006.png" alt="Alt &quot;006.png&quot;" /></p>
-
-<h2>Deuxième composant Polymer : une liste</h2>
-
-<p>Nous allons créer une 2ème composant destiné à afficher une liste d'éléments, nous appellerons ce nouveau composant : <code>&lt;buddies-list&gt;&lt;/buddies-list&gt;</code>. Donc créez un nouveau fichier <code>buddie-list.html</code> dans le répertoire <code>components</code> avec le code suivant :</p>
-
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;buddies-list&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;ul&gt;</span>
-      <span class="nt">&lt;template</span> <span class="na">repeat=</span><span class="s">&quot;{{buddies}}&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;li&gt;</span>{{name}}<span class="nt">&lt;/li&gt;</span>
-      <span class="nt">&lt;/template&gt;</span>
-    <span class="nt">&lt;/ul&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;buddies-list&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">buddies</span> <span class="o">=</span> <span class="p">[</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Bob Morane&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Doctor No&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Fox Mulder&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Lady Penelope&quot;</span><span class="p">}</span>
-        <span class="p">];</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
-</code></pre></div>
-
-
-<p>Ensuite, déclarez votre composant dans <code>index.html</code> : <code>&lt;link rel="import" href="components/buddies-list.html"&gt;</code> et vous pouvez maintenant utiliser directement le nouveau tag : <code>&lt;buddies-list&gt;&lt;/buddies-list&gt;</code> :</p>
-
-<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html&gt;</span>
-<span class="nt">&lt;head&gt;</span>
-  <span class="nt">&lt;title&gt;</span>01-introduction<span class="nt">&lt;/title&gt;</span>
-  <span class="c">&lt;!-- Load Polymer --&gt;</span>
-  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/platform/platform.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/polymer/polymer.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-
-  <span class="c">&lt;!-- my components --&gt;</span>
-  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;import&quot;</span> <span class="na">href=</span><span class="s">&quot;components/hello-john-doe.html&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;import&quot;</span> <span class="na">href=</span><span class="s">&quot;components/buddies-list.html&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;/head&gt;</span>
-<span class="nt">&lt;body&gt;</span>
-  <span class="nt">&lt;hello-john-doe&gt;&lt;/hello-john-doe&gt;</span>
-  <span class="nt">&lt;hr&gt;</span>
-  <span class="nt">&lt;buddies-list&gt;&lt;/buddies-list&gt;</span>
-<span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
-</code></pre></div>
-
-
-<p>Ouvrez à nouveau la page avec votre navigateur :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-007.png" alt="Alt &quot;007.png&quot;" /></p>
-
-<p>Comme avec le composant précédent, nous pouvons accéder "de l'extérieur" à notre composant pour par exemple lui ajouter des éléments :</p>
-
-<pre><code>document.querySelector("buddies-list").buddies.push({name : "Emma Peel"})
+<pre><code>{
+ "name": "bbtools",
+ "version": "0.0.0",
+ "bin": { "bb": "bb.js"},
+ "dependencies": {
+   "underscore": "1.6.0"
+  }
+}
 </code></pre>
 
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-008.png" alt="Alt &quot;008.png&quot;" /></p>
+<p>L'objectif étant de disposer d'une commande <code>bb</code> qui exécutera le fichier <code>bb.js</code>. Notez <code>"underscore": "1.6.0"</code>, nous allons nous servir des capacités de "templating" de la librairie Underscore</p>
 
-<h3>Tips : jouons avec les attributs</h3>
+<h3>Notre template</h3>
 
-<p>Imaginez que vous déclarez votre nouveau composant de la manière suivante :</p>
+<p>Créez (dans le même répertoire) un fichier <code>bb.tpl</code> avec le contenu suivant :</p>
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;buddies-list</span> <span class="na">title=</span><span class="s">&quot;Buddies List&quot;</span><span class="nt">&gt;&lt;/buddies-list&gt;</span>
+<div class="highlight"><pre><code class="javascript"><span class="cm">/*--- &lt;%= modelName %&gt; Model ---*/</span>
+<span class="kd">var</span> <span class="o">&lt;%=</span> <span class="nx">modelName</span> <span class="o">%&gt;</span><span class="nx">Model</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">defaults</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(){</span>
+      <span class="k">return</span> <span class="p">{}</span>
+    <span class="p">},</span>
+    <span class="nx">urlRoot</span> <span class="o">:</span> <span class="s2">&quot;&lt;%= modelName.toLowerCase() %&gt;s&quot;</span>
+<span class="p">});</span>
+
+<span class="cm">/*--- &lt;%= modelName %&gt;s Collection ---*/</span>
+<span class="kd">var</span> <span class="o">&lt;%=</span> <span class="nx">modelName</span> <span class="o">%&gt;</span><span class="nx">sCollection</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">url</span> <span class="o">:</span> <span class="s2">&quot;&lt;%= modelName.toLowerCase() %&gt;s&quot;</span><span class="p">,</span>
+  <span class="nx">model</span><span class="o">:</span> <span class="o">&lt;%=</span> <span class="nx">modelName</span> <span class="o">%&gt;</span><span class="nx">Model</span>
+<span class="p">});</span>
 </code></pre></div>
 
 
-<p>Le simple fait d'avoir ajouter un attribut <code>title</code> dans la définition du tag a créé un propriété <code>title</code> pour notre composant <code>buddies-list</code>, accessible aussi bien au niveau du code html (au sein de la balise <code>&lt;template&gt;&lt;/template&gt;</code>) qu'au niveau du code javascript. Modifiez le composant <code>buddies-list</code> de la façon suivante :</p>
+<h3>Le code applicatif</h3>
+
+<p>Créez (dans le même répertoire) un fichier <code>bb.js</code> avec le contenu suivant :</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;underscore&#39;</span><span class="p">);</span>
+
+<span class="nx">require</span><span class="p">.</span><span class="nx">extensions</span><span class="p">[</span><span class="s1">&#39;.tpl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">module</span><span class="p">,</span> <span class="nx">filename</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">tpl</span>  <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./bb.tpl&quot;</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">model_name</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nx">model_name</span> <span class="o">+</span> <span class="s2">&quot;.js&quot;</span>
+  <span class="p">,</span> <span class="nx">tpl</span><span class="p">({</span><span class="nx">modelName</span> <span class="o">:</span><span class="nx">model_name</span><span class="p">})</span>
+<span class="p">);</span>
+</code></pre></div>
+
+
+<h4>Explications</h4>
 
 <ul>
-<li>ajout de <code>&lt;h2&gt; {{title}} &lt;/h2&gt;</code>dans la section <code>template</code></li>
-<li>lecture de la valeur de <code>title</code> dans la méthode <code>ready()</code> : <code>console.log("Title is ", this.title);</code></li>
+<li><code>#!/usr/bin/env node</code> : rendra le fichier exécutable</li>
+<li><code>_.template(require("./bb.tpl"))</code> va lire notre fichier <code>bb.tpl</code> et le transforme en objet template pour Underscore</li>
+<li><code>process.cwd()</code> permet de connaître le répertoire d'où l'on appelle la commande <code>bb</code></li>
+<li><code>process.argv[2]</code> permet d'obtenir le 1er argument passé à la commande <code>bb</code> (comme par exemple <code>bb Human</code>)</li>
+<li><code>tpl({modelName :model_name })</code> : on "explique" au template que l'on passe le contenu de <code>model_name</code> à <code>modelName</code> définie dans le template</li>
 </ul>
 
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;buddies-list&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;h2&gt;</span>{{title}}<span class="nt">&lt;/h2&gt;</span>
-    <span class="nt">&lt;ul&gt;</span>
-      <span class="nt">&lt;template</span> <span class="na">repeat=</span><span class="s">&quot;{{buddies}}&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;li&gt;</span>{{name}}<span class="nt">&lt;/li&gt;</span>
-      <span class="nt">&lt;/template&gt;</span>
-    <span class="nt">&lt;/ul&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;buddies-list&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Title is &quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">buddies</span> <span class="o">=</span> <span class="p">[</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Bob Morane&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Doctor No&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Fox Mulder&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Lady Penelope&quot;</span><span class="p">}</span>
-        <span class="p">];</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
-</code></pre></div>
+<h3>Enregistrez votre outil</h3>
 
+<p>Pour que votre nouvelle commande soit disponible "partout" (pouvoir l'appeler de n'importe quel répertoire), tapez la commande suivante (on est toujours dans notre répertoire de développement) :</p>
 
-<p>Ouvrez à nouveau la page avec votre navigateur :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-009.png" alt="Alt &quot;009.png&quot;" /></p>
-
-<p>Nous avons donc maintenant un titre pour notre liste, que l'on peut paramétrer à partir d'un attribut dans le tag html correspondant au composant (<code>&lt;buddies-list title="Buddies List"&gt;&lt;/buddies-list&gt;</code>).</p>
-
-<h2>Les composants parlent au composants</h2>
-
-<p>Il serait intéressant maintenant que les éléments saisis dans le 1er composant puissent être ajoutés dans la liste du 2ème composant lorsque l'on clique sur le bouton (j'imagine que vous m'aviez vu venir de loin ...). Il existe différentes méthodes pour communiquer entre composants de Polymer (Un peu de lecture par ici si vous le souhaitez : <a href="http://www.polymer-project.org/articles/communication.html">http://www.polymer-project.org/articles/communication.html</a>), et ma préférée est celle qui fonctionne à base de signaux grâce au composant <strong><a href="http://www.polymer-project.org/docs/elements/#polymer-signals"><code>&lt;polymer-signals&gt;</code></a></strong>. Pour l'utiliser nous allons devoir installer les "polymer elements" qui sont des composant Polymer supplémentaires, dont notamment <code>&lt;polymer-signals&gt;</code>.</p>
-
-<p>Pour se faire, nous utiliserons <strong>Bower</strong> une fois de plus :</p>
-
-<pre><code>bower install polymer-elements
+<pre><code>npm link
 </code></pre>
 
-<p>Une fois les nouveaux éléments installés, nous pouvons donc utiliser <code>&lt;polymer-signals&gt;</code>. Nous aurons donc un composant qui sera "l'emetteur de signal", dans notre cas le composant <code>&lt;hello-john-doe&gt;&lt;/hello-john-doe&gt;</code> qui enverra le signal <code>newbuddy</code> et le récepteur sera notre composant <code>&lt;buddies-list&gt;&lt;/buddies-list&gt;</code>.</p>
+<p>Si ce n'est pas déjà fait, cela va télécharger les dépendances nécessaires (underscrore dans notre cas), puis créer un "lien symbolique" vers votre fichier <code>bb.js</code></p>
 
-<p><strong>Avant toute chose n'oublions pas</strong> de référencer <code>&lt;polymer-signals&gt;</code>:</p>
+<p>Maintenant, de n'importe où, dans une console (terminal), vous pouvez taper <code>bb Animal</code> et cela vous génèrera votre fichier <code>Animal.js</code> avec votre modèle et votre collection.</p>
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;import&quot;</span>
-        <span class="na">href=</span><span class="s">&quot;bower_components/polymer-elements/polymer-signals/polymer-signals.html&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-
-
-<p>Puis transformons <code>&lt;hello-john-doe&gt;&lt;/hello-john-doe&gt;</code> en emetteur.</p>
-
-<h3>L'emetteur</h3>
-
-<p>Modifiez le code de <code>hello-john-doe.html</code> de la façon suivante :</p>
-
-<p>Nous ajoutons l'envoi d'un signal <code>newbuddy</code> à l'aide de <code>asyncFire()</code> dans la méthode <code>clickMe()</code> :</p>
-
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;hello-john-doe&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">&quot;hello&quot;</span><span class="nt">&gt;</span>Hello {{name}}<span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;input</span> <span class="na">value=</span><span class="s">&quot;{{name}}&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;button</span> <span class="na">on-click=</span><span class="s">&quot;{{clickMe}}&quot;</span><span class="nt">&gt;</span>Click Me!<span class="nt">&lt;/button&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;hello-john-doe&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">;</span>
-      <span class="p">},</span>
-      <span class="nx">nameChanged</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">!=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">;</span>
-        <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="nx">clickMe</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="s2">&quot;CLICKED&quot;</span><span class="p">;</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">asyncFire</span><span class="p">(</span>
-          <span class="s1">&#39;polymer-signal&#39;</span><span class="p">,</span>
-          <span class="p">{</span>
-            <span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;newbuddy&quot;</span><span class="p">,</span>
-            <span class="nx">data</span> <span class="o">:</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
-</code></pre></div>
-
-
-<p>Nous passons donc à <code>asyncFire()</code> le nom du signal (<code>name : "newbuddy"</code>) et les données à envoyer (<code>data : { name : this.name }</code>).</p>
-
-<p>Il nous faut maintenant un récepteur, donc transformons <code>&lt;buddies-list&gt;&lt;/buddies-list&gt;</code>.</p>
-
-<h3>Le récepteur</h3>
-
-<ul>
-<li>Ajoutons dans la partie html du composant la déclaration suivante <code>&lt;polymer-signals on-polymer-signal-newbuddy=" {{onNewBuddySignal}} "&gt;&lt;/polymer-signals&gt;</code> qui signifie que notre récepteur s'abonne au signal <code>newbuddy</code>et qu'il déclenchera la méthode <code>onNewBuddySignal()</code> s'il "entend" le signal. <strong>Important :</strong> il faut bien respecter la notation <code>on-polymer-signal-newbuddy</code> avec le nom du signal <strong>bien orthographié</strong>, en <strong>1 seul mot</strong> et en <strong>minuscules</strong>. Pour le nom de la méthode <code>onNewBuddySignal()</code> par contre vous faites comme vous le sentez.</li>
-<li>Ajoutons la méthode <code>onNewBuddySignal()</code> déclenchée par le signal</li>
-</ul>
-
-
-<p>Nous aurons donc le code suivant pour <code>buddies-list</code> :</p>
-
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;polymer-element</span> <span class="na">name=</span><span class="s">&quot;buddies-list&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;template&gt;</span>
-    <span class="nt">&lt;polymer-signals</span> <span class="na">on-polymer-signal-newbuddy=</span><span class="s">&quot;{{onNewBuddySignal}}&quot;</span><span class="nt">&gt;&lt;/polymer-signals&gt;</span>
-    <span class="nt">&lt;h2&gt;</span>{{title}}<span class="nt">&lt;/h2&gt;</span>
-    <span class="nt">&lt;ul&gt;</span>
-      <span class="nt">&lt;template</span> <span class="na">repeat=</span><span class="s">&quot;{{buddies}}&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;li&gt;</span>{{name}}<span class="nt">&lt;/li&gt;</span>
-      <span class="nt">&lt;/template&gt;</span>
-    <span class="nt">&lt;/ul&gt;</span>
-  <span class="nt">&lt;/template&gt;</span>
-  <span class="nt">&lt;script&gt;</span>
-    <span class="nx">Polymer</span><span class="p">(</span><span class="s2">&quot;buddies-list&quot;</span><span class="p">,{</span>
-      <span class="nx">ready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Title is &quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">buddies</span> <span class="o">=</span> <span class="p">[</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Bob Morane&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Doctor No&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Fox Mulder&quot;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Lady Penelope&quot;</span><span class="p">}</span>
-        <span class="p">];</span>
-      <span class="p">},</span>
-      <span class="nx">onNewBuddySignal</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">sender</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">buddies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Sender : &quot;</span><span class="p">,</span> <span class="nx">sender</span><span class="p">)</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/polymer-element&gt;</span>
-</code></pre></div>
-
-
-<p>Donc, à la réception du signal <code>newbuddy</code> nous ajouterons les données envoyées par l'émetteur : <code>this.buddies.push(data)</code> <em>(au passage remarquez que vous pouvez récupérer une référence de l'émetteur via l'argument <code>sender</code>)</em>.</p>
-
-<p>Il ne vous reste plus qu'à tester. Ouvrez à nouveau la page avec votre navigateur :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-010.png" alt="Alt &quot;010.png&quot;" /></p>
-
-<p>Voilà!. Et de cette manière vous n'êtes pas obligés d'accéder aux composants "par l'extérieur" puisqu'ils peuvent communiquer par "signaux".</p>
-
-<p>Bien sûr, un composant peut être à la fois émetteur et récepteur, s'abonner à différents signaux, etc. ...</p>
-
-<p>C'est tout pour aujourd'hui. Cela vous laisse le temps de vous amuser un peu avec. Au prochain épisode, nous verrons comment "discuter" avec le serveur (nous parlerons d'ajax, json, REST, ...) mais aussi nous vérifierons si <strong>Polymer</strong> reste compatible avec les autres frameworks javascript (la question étant, puis-je continuer à utiliser jQuery, Backbone, Underscore, ...).</p>
-
-<p>Bonne Lecture (et bon WE à tous) ;).</p>
+<p>Voilà, c'est très simple et utile. Si vous sentez que votre outil devient une usine à gaz, passez quand même à Yeoman ;).</p>
 
             <br>
-            <a href="/2013/12/07/POLYMER-1.html">comments &raquo;</a>
+            <a href="/2014/05/09/NPM-NODE-CLI.html">comments &raquo;</a>
             <br>
             <hr style="border: 1px; border-color: #cccccc; border-style: dashed; ">
             <br>
         
 
-            <h3>29 Nov 2013</h3>
+            <h3>04 May 2014</h3>
 
-            <a href="/2013/11/29/BBOM.html">comments &raquo;</a>
-            <h1>Le modèle objet de Backbone est puissant, mais ATTENTION! (ceci est un cri)</h1>
+            <a href="/2014/05/04/MIXIT-2014.html">comments &raquo;</a>
+            <h1>Mix-it-2014</h1>
 
-<p>Je ne présente plus <a href="http://backbonejs.org/">Backbone</a>, cette petite librairie javascript MVC survitaminée. Un des aspects importants de Backbone, c'est son modèle objet que l'on peut deviner à travers ses différents composants (Model, Collection, View, Router). Ce modèle est séduisant car il nous permet de reproduire une logique <strong>"orientée classe"</strong> dans notre code javascript, mais attention les raccourcis peuvent être dangereux, car le modèle objet javascript est lui très différent d'un modèle objet tel celui de Java, .Net, etc. ... Au passage je vous conseille cette excellente lecture : <a href="http://naholyr.fr/2011/02/le-point-sur-javascript-et-heritage-prototypal/">"Le point sur Javascript et l’héritage prototypal"</a> par <a href="https://twitter.com/naholyr">Naholyr</a>.</p>
+<p>Un de mes plus grands regrets sera de ne pas avoir été speaker lors de Mix-IT, mais quand j'ai vu le programme proposé je me suis dit que je n'avais pas mis la barre assez haute (j'ai un an pour me creuser la tête et trouver quelque chose d'original). Et pourtant quand j'ai vu les thèmes, ma 1ère réaction a été de me dire, "ok, c'est du haut niveau, mais ça s'éloigne de mes envies". Mais je me suis quand même inscrit, ne serait-ce que pour soutenir l'équipe qui fait un boulot formidable et du coup être un parmi tant d'autres qui participent à la pérennité de cette conférence. C'était aussi l'occasion de voir et de revoir des personnes que j'apprécie mais que je ne croise pas assez souvent.</p>
 
-<p>Je me suis fait avoir pas plus tard qu'hier, donc voici une piqûre de rappel à travers 2 composants de Backbone (Modèles et Vues) sur quelques pièges à éviter. Les concepts sont applicables à l'ensemble des composants.</p>
+<p>Eh bien ma 1ère impression était fausse, j'y ai vraiment trouvé mon compte. Avec du recul, je dirais que l'équipe a préparé et "beloté" un programme qui s'adressait à un public plus large et qui permettait à chacun d'y trouver son compte, et j'y ai trouvé le mien. Donc déjà rien que pour ça : chapeau!</p>
 
-<h2>Les modèles</h2>
+<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/mixit14-01.png" alt="Alt &quot;mixit14-01.png&quot;" /></p>
 
-<h3>Rappel</h3>
+<h2>J'ai aimé, j'ai pas aimé ...</h2>
 
-<p>Un modèle en Backbone est la structure de données qui va donc porter les informations. Généralement, il se définit de la façon suivante :</p>
+<p>Alors, étant "speaker junior" (et pourtant "geek presque senior"), et du coup sachant comme ça peut être dur de parler en public, que dès fois ce n'est pas ton jour, je ne me permettrais pas de dire "ah il était mauvais!" : sachez que le gars qui monte sur scène, il en a des énormes et qu'il a envie de vous parler de quelque chose qui le passionne.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">Human</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+<p><em>La seul fois où j'aurais à la limite l'envie d'être "désagréable", ce sera les fois où le speaker tient des propos désobligeants, n'a n'en rien à faire de son public et n'est là que pour promouvoir sa boutique sans apporter quoique ce soit d'autre au public. Mais je n'ai rien vu de tout ça.</em></p>
 
-<span class="p">});</span>
+<p>Alors, y-a-t-il des choses que je n'ai pas aimées ? Oui, mais c'est uniquement parce que le sujet ne me convenait pas, et en <strong>échangeant</strong> à la sortie vous comprendrez que d'autres ont aimé. N'oubliez pas ce principe d'<strong>échange</strong>, c'est aussi ça l'intérêt d'aller dans des conférences comme Mix-IT.</p>
 
-<span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Human</span><span class="p">({</span><span class="nx">firstName</span><span class="o">:</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="nx">lastName</span><span class="o">:</span><span class="s2">&quot;Morane&quot;</span><span class="p">});</span>
-</code></pre></div>
+<h2>Oui, mais du coup est-ce qu'il y a quelque chose qui t'a plu ?</h2>
 
+<h3>Les Aliens</h3>
 
-<p>Donc <code>bob</code> est une instance de <code>Human</code> qui lui-même <strong>"hérite"</strong> de <code>Backbone.Model</code>, et sa structure ressemble à ceci :</p>
+<p>J'ai aimé les <strong>Aliens</strong> et notamment : <a href="http://www.mix-it.fr/profile/lionel">Lionel Dricot</a> qui lors d'une keynote nous a exposé sa vision du <strong>Système</strong> (financier, économique, ...) d'aujourd'hui et de ce qu'il pourrait être demain. Les 1ères secondes, je me suis dit <em>"mais qu'est ce que c'est que ça!?"</em>, et le reste de la keynote j'ai été scotché à mon siège. Une bonne bouffée d'oxygène et d'optimisme. <em>En passant, vu ses pompes, je suis sûr qu'il connaît Pamela Fox ;)</em>. Lisez le! <a href="http://ploum.net/">http://ploum.net/</a>.</p>
 
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/BBOM-01.png" alt="Alt &quot;BBOM-01.png&quot;" /></p>
+<p>Ensuite, toujours chez les Aliens :<a href="http://www.mix-it.fr/profile/Rieul">Rieul Techer</a> qui lors de sa présentation m'a rappelé mes expérimentations, petit enfant, avec mon microscope et des mélanges improbables et odorants qui ont définitivement bousillé la moquette de ma chambre au grand dam de ma mère. Et il nous a expliqué que l'on pouvait continuer à faire cela même adulte avec la possibilité de faire avancer le monde et faire de grandes choses à partir de peu (<em>Et là c'est ma femme qui va me pourrir quand elle s'apercevra que j'ai décidé de transformer la cuisine en laboratoire :)</em>). Rieul a donc parlé du <strong>" DoItYourself biology pour une science ouverte"</strong>, je vous engage à creuser le sujet, c'est passionnant et là aussi ça laisse pas mal d'espoir pour notre futur.</p>
 
-<p>Nous avons passé les <code>fields</code> (<code>properties</code>) et leurs valeurs directement dans le constructeur de <code>Human</code> et maintenant nous pouvons accéder à ces propriétés de la façon suivante :</p>
+<h3>Dans un registre plus technique ...</h3>
 
-<div class="highlight"><pre><code class="javascript"><span class="c1">//Qui es tu ?</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bob</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;firstName&quot;</span><span class="p">),</span> <span class="nx">bob</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;lastName&quot;</span><span class="p">))</span>
+<p>Je suis allé voir entre autres :</p>
 
-<span class="c1">//Je veux mon nom en majuscule</span>
-<span class="nx">bob</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;lastName&quot;</span><span class="p">,</span><span class="s2">&quot;MORANE&quot;</span><span class="p">)</span>
+<ul>
+<li><a href="http://www.mix-it.fr/session/520/rapport-cout-performance-de-differentes-stacks-web">Rapport coût/performance de différentes stacks Web</a> par <a href="https://twitter.com/nfonrose">@nfonrose</a>, j'aurais aimé des chiffres, mais ça m'a donné pas mal d'idées et d'informations par rapport à ce que l'on aurait pu faire sur notre prez à DevoxxFR (cf. mon billet précédent <a href="http://k33g.github.io/2014/04/26/DEVOXXFR14.html">Devoxx France Ed° 2014 : "Lavage de cerveau"</a>)</li>
+<li><a href="http://www.mix-it.fr/session/500/machine-learning-et-regulation-numerique">Machine learning et régulation numérique</a> avec <a href="https://twitter.com/glaforge">@glaforge</a> et <a href="https://twitter.com/DidierGirard">DidierGirard</a> : c'était passionnant, j'avais eu une mission sur le sujet un peu avant 2000 (si si) et on n'y connaissait rien, j'aurais bien aimé avoir cette prez :). C'était aussi l'occasion de voir Guillaume Laforge sur d'autres sujets que Groovy et c'était bien.</li>
+<li><a href="http://www.mix-it.fr/session/424/angularjs-from-scratch">AngularJS from scratch</a> par <a href="https://twitter.com/Swiip">@Swiip</a> <em>(alias Matthieu Lux de LyonJS)</em> et <a href="https://twitter.com/olivierhuber">@olivierhuber</a> : je ne suis pas un grand fan d'Angular, mais leur atelier était brillant : partir de zéro pour ré-écrire les grands principes d'Angular, je trouve le principe excellent et particulièrement formateur et j'y retournerais! (<em>j'avais un gros rhume, faut que je termine toutes les étapes</em>) Si ce principe pouvait faire des petits, ça serait excellent (<em>Backbone from scratch, Golo from scratch, ...</em>). Encore Bravo!</li>
+<li><a href="http://www.mix-it.fr/session/330/le-mythe-du-framework-agile">Le mythe du framework agile</a> par <a href="https://twitter.com/BodySplash">BodySplash</a> alias Jean-Baptiste Dusseaut, le gars qui t'explique que tu as tout faux de bosser avec ton framework préféré qui fait tout (ex Play, mais pas que), au début tu grinces des dents, c'est "trollesque" mais argumenté (donc intelligent et constructif), il t'explique pourquoi à partir d'expériences vécues, j'ai appris 2,3 trucs en plus et suis reparti avec quelques idées et sujets à creuser (reste juste à trouver du temps ou à ne pas dormir). Ce mec est à suivre!</li>
+<li><a href="http://www.mix-it.fr/session/361/tour-d-horizon-de-node-js">Tour d’horizon de Node.js</a> : là j'y suis allé, mais pas pour le sujet (que j'affectionne pourtant) mais pour le speaker <a href="https://twitter.com/porteneuve">Christophe Porteneuve</a> : si un jour j'arrive à dépasser le cap de "speaker junior" je voudrais avoir son aisance. Christophe est techniquement brillant, c'est incontestable, mais c'est aussi un "showman" et je trouve qu'avec les années il s'améliore réellement : d'aucuns le trouvent un peu trop "trollesque" et moi je trouve qu'il arrive maintenant à pondérer ça admirablement. Donc même si vous n'aimez pas le javascript, quand Christophe Porteneuve passe pas loin de chez vous, allez le voir.</li>
+</ul>
 
-<span class="c1">//Ou bien</span>
-<span class="nx">bob</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span><span class="nx">firstName</span><span class="o">:</span><span class="s2">&quot;BOB&quot;</span><span class="p">,</span> <span class="nx">lastName</span><span class="o">:</span><span class="s2">&quot;MORANE&quot;</span><span class="p">})</span>
-</code></pre></div>
 
+<h3>Mix-Teen</h3>
 
-<p>Les méthodes d'instance de <code>Model</code>, donc <code>get</code> et <code>set</code> sont les équivalents de "getter" et "setter", et ils permettent d'accéder et modifier la propriété <code>attributes</code> qui contient l'ensemble des données de la structure.</p>
+<p>Cette édition de Mix-IT a hébergé un nouveau projet dédié aux plus jeunes : <strong><a href="http://www.mix-it.fr/mixit14/mixteen">Mix-Teen</a></strong> destiné à initier les enfants à la programmation. Je n'y ai pas participé, là c'était pour mes 2 rejetons qui ont adoré, et j'entends plus parler de l'équipe que de Scratch ou Algoïd, donc j'imagine que les <strong>adultes ont été très bons</strong>, donc <strong>félicitations</strong> pour avoir tenu autant de gamins tout un après midi. Petit clin d’œil amical à Audrey (Ma fille est très fière d'avoir pu te faire un bisou, j'espère qu'elle ne ta pas refiler son énorme rhume) et à Thierry (je ne sais pas si Junior sera "informaticien", mais Thierry par ci, Thierry par là ...).</p>
 
-<h3>Le piège : les valeurs par défaut</h3>
+<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/mix-teen-01.png" alt="Alt &quot;mix-teen-01.png&quot;" /></p>
 
-<p>Dans les modèles Backbone, il est possible de définir des valeurs par défaut, de la façon suivante :</p>
+<p>Et <strong>bravo aux enfants</strong> à peine impressionnés par le public. <em>(mais pourquoi je me stresse autant?)</em></p>
 
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">Human</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-    <span class="nx">defaults</span> <span class="o">:</span> <span class="p">{</span>
-        <span class="nx">firstName</span><span class="o">:</span><span class="s2">&quot;John&quot;</span><span class="p">,</span>
-        <span class="nx">lastName</span><span class="o">:</span><span class="s2">&quot;Doe&quot;</span><span class="p">,</span>
-        <span class="nx">friends</span><span class="o">:</span><span class="p">[]</span>
-    <span class="p">}</span>
-<span class="p">});</span>
-</code></pre></div>
+<h3>Des regrets ?</h3>
 
+<p>Oh oui : il y a plein de choses que je n'ai pas pu voir. Il faudrait faire 2 jours supplémentaires pour pouvoir rejouer la conférences ;), j'aurais aimé voir (mais j'y arriverais) :</p>
 
-<p>C'est très pratique. Vous pouvez ensuite instancier vos modèles et ajouter des <code>friends</code> à <code>bob</code>:</p>
+<ul>
+<li><a href="http://www.mix-it.fr/session/462/devops-en-parler-c-est-bien-en-faire-c-est-mieux">Devops, en parler c'est bien, en faire c'est mieux</a> par <a href="https://twitter.com/sylvainMougenot">@sylvainMougenot</a></li>
+<li><a href="http://www.mix-it.fr/session/388/application-web-moderne-en-java-the-codestory-way">Application Web Moderne en Java. The CodeStory Way</a> par <a href="https://twitter.com/dgageot">@dgageot</a> et <a href="https://twitter.com/morlhon">@morlhon</a></li>
+<li><a href="http://www.mix-it.fr/session/365/prenez-le-controle-d-un-aeroport-avec-akka">Prenez le contrôle d'un aéroport avec Akka</a> par <a href="https://twitter.com/jeanhelou">@jeanhelou</a> et <a href="https://twitter.com/xbucchiotty">@xbucchiotty</a></li>
+<li>Et enfin, au risque de ne pas tout comprendre <a href="http://www.mix-it.fr/session/401/lets-invoke-dynamite-in-javaee-with-invokedynamic">Let's Invoke Dynamite in JavaEE with InvokeDynamic</a> par <a href="https://twitter.com/antoine_sd">@antoine_sd</a> mon autre modèle de speaker</li>
+</ul>
 
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Human</span><span class="p">({</span><span class="nx">firstName</span><span class="o">:</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="nx">lastName</span><span class="o">:</span><span class="s2">&quot;Morane&quot;</span><span class="p">});</span>
-<span class="kd">var</span> <span class="nx">john</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Human</span><span class="p">()</span>
-<span class="kd">var</span> <span class="nx">jane</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Human</span><span class="p">({</span><span class="nx">firstName</span><span class="o">:</span><span class="s2">&quot;Jane&quot;</span><span class="p">})</span>
 
-<span class="nx">bob</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;friends&quot;</span><span class="p">).</span><span class="nx">push</span><span class="p">(</span><span class="nx">john</span><span class="p">,</span> <span class="nx">jane</span><span class="p">)</span>
-</code></pre></div>
+<p><strong>Donc ... Vivement l'an prochain et encore bravo et merci de m'avoir étonné!</strong></p>
 
-
-<p>Et là c'est le drame. Allons voir les "copains" de <code>jane</code> et de <code>john</code> (mais euh ... tu ne parlais de <code>bob</code> ?)</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/BBOM-02.png" alt="Alt &quot;BBOM-02.png&quot;" /></p>
-
-<p>Mais que s'est-il passé!? En fait, le champ <code>friends</code> est <strong>partagé</strong> entre toutes les instances!</p>
-
-<p>Alors quand on vous dit de lire la documentation, ce n'est pas pour rien :) Mais dans ce cas là, ils auraient pu l'afficher en rouge et en gras. Sur <a href="http://backbonejs.org/#Model-defaults">http://backbonejs.org/#Model-defaults</a>, il est dit  <strong>en petit et en italique</strong> ceci :</p>
-
-<p><em>Remember that in JavaScript, objects are passed by reference, so if you include an object as a default value, it will be shared among all instances. Instead, define defaults as a function.</em></p>
-
-<h3>Solution</h3>
-
-<p>Donc pour la faire simple et rapide, définissez vos valeurs par défaut avec une fonction de la manière suivante :</p>
-
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">Human</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-    <span class="nx">defaults</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="p">{</span>
-        <span class="nx">firstName</span><span class="o">:</span><span class="s2">&quot;John&quot;</span><span class="p">,</span>
-        <span class="nx">lastName</span><span class="o">:</span><span class="s2">&quot;Doe&quot;</span><span class="p">,</span>
-        <span class="nx">friends</span><span class="o">:</span><span class="p">[]</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-<p>Et là, cela va tout de suite mieux :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/BBOM-03.png" alt="Alt &quot;BBOM-03.png&quot;" /></p>
-
-<p>Passons donc à la problématique suivante (dont les origines sont identiques) à l'aide des vues.</p>
-
-<h2>Les vues</h2>
-
-<p>La problématique qui va suivre est aussi valable pour les modèles, collections et routeurs mais on la trouve plus souvent dans le cas des vues.</p>
-
-<h3>Très rapide petit rappel</h3>
-
-<p>La vue dans Backbone (<code>Backbone.View</code>) est la structure qui va faire le lien entre vos modèles et votre affichage "HTML" dans le navigateur. ... C'est donc ... un contrôleur (<em>private joke</em>).</p>
-
-<p>Elle se définit généralement de la manière suivante :</p>
-
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">Humans</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-  <span class="nx">model</span> <span class="o">:</span> <span class="nx">Human</span>
-<span class="p">})</span>
-
-<span class="kd">var</span> <span class="nx">HumansView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-  <span class="nx">initialize</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">template</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span>
-      <span class="s2">&quot;&lt;% _.each(humans ,function(human){ %&gt;&quot;</span><span class="o">+</span>
-      <span class="s2">&quot;&lt;li&gt;&lt;%= human.firstName %&gt; - &lt;%= human.lastName %&gt;&lt;/li&gt;&quot;</span><span class="o">+</span>
-      <span class="s2">&quot;&lt;% }); %&gt;&quot;</span>
-    <span class="p">);</span>
-  <span class="p">},</span>
-  <span class="nx">render</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">renderedContent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">({</span><span class="nx">humans</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()});</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">renderedContent</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">humansView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HumansView</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span><span class="k">new</span> <span class="nx">Humans</span><span class="p">([</span><span class="nx">bob</span><span class="p">,</span><span class="nx">john</span><span class="p">,</span><span class="nx">jane</span><span class="p">])})</span>
-<span class="nx">humansView</span><span class="p">.</span><span class="nx">render</span><span class="p">()</span>
-</code></pre></div>
-
-
-<p>Côté HTML, j'ai juste à ajouter <code>&lt;ul&gt;&lt;/ul&gt;</code> dans ma page, et le contenu de ma vue ira gentiment s'insérer au milieu.</p>
-
-<p>Et là tout va bien :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/BBOM-04.png" alt="Alt &quot;BBOM-04.png&quot;" /></p>
-
-<h3>Le piège : encore une histoire de partage!</h3>
-
-<p>Ce cas de figure voudrait que l'on utilise des "subviews" (une vue par modèle), comme cela chaque sous-vue possède son propre modèle d'événements, méthodes etc. ... ce qui permet d'interagir de manière unitaire sur les éléments de la liste, de ne pas être obligé de tout recharger pour rafraîchir un seul élément, etc. ... etc. ...</p>
-
-<p>Donc notre code devrait ressembler à ceci :</p>
-
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">HumanItemView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-  <span class="nx">tagName</span><span class="o">:</span><span class="s2">&quot;li&quot;</span><span class="p">,</span>
-  <span class="nx">initialize</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">template</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span>
-        <span class="s2">&quot;&lt;li&gt;&lt;%= firstName %&gt; - &lt;%= lastName %&gt;&lt;/li&gt;&quot;</span>
-    <span class="p">);</span>
-  <span class="p">},</span>
-  <span class="nx">render</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">renderedContent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">());</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">renderedContent</span><span class="p">);</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">HumansView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-  <span class="nx">el</span>  <span class="o">:</span> <span class="s2">&quot;ul&quot;</span><span class="p">,</span>
-  <span class="nx">subViews</span> <span class="o">:</span> <span class="p">[],</span>
-  <span class="nx">initialize</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">subViews</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">HumanItemView</span><span class="p">({</span><span class="nx">model</span><span class="o">:</span><span class="nx">model</span><span class="p">}));</span>
-    <span class="p">},</span><span class="k">this</span><span class="p">)</span>
-  <span class="p">},</span>
-  <span class="nx">render</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Render each child view</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
-    <span class="nx">_</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subViews</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">view</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">view</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
-    <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">humansView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HumansView</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span><span class="k">new</span> <span class="nx">Humans</span><span class="p">([</span><span class="nx">bob</span><span class="p">,</span><span class="nx">john</span><span class="p">,</span><span class="nx">jane</span><span class="p">])})</span>
-<span class="nx">humansView</span><span class="p">.</span><span class="nx">render</span><span class="p">()</span>
-</code></pre></div>
-
-
-<p>Donc, dans ma vue principale <code>HumansView</code> j'ai ajouté une propriété <code>subViews</code>. A l'initialisation je parcours la collection et j'instancie autant de sous-vues que de modèles.</p>
-
-<p>Maintenant, je souhaite instancier une 2ème fois <code>HumansView</code> avec une nouvelle collection ayant un contenu différent pour pouvoir afficher un contenu de ma liste différent selon les cas :</p>
-
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">humansView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HumansView</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span><span class="k">new</span> <span class="nx">Humans</span><span class="p">([</span><span class="nx">bob</span><span class="p">,</span><span class="nx">john</span><span class="p">,</span><span class="nx">jane</span><span class="p">])});</span>
-<span class="kd">var</span> <span class="nx">humansView2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HumansView</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span><span class="k">new</span> <span class="nx">Humans</span><span class="p">([</span><span class="nx">john</span><span class="p">,</span><span class="nx">jane</span><span class="p">])});</span>
-
-<span class="nx">humansView</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-</code></pre></div>
-
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/BBOM-05.png" alt="Alt &quot;BBOM-05.png&quot;" /></p>
-
-<p><strong>Arghhh!</strong> ... :) <code>subViews</code> est partagée entre toutes les instances de <code>HumansView</code>, donc les vues s'ajoutent pour toutes les instances.</p>
-
-<h3>Solution</h3>
-
-<p>En fait, il suffit de déclarer <code>subViews</code> dans la méthode <code>initialize</code> de cette manière :</p>
-
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">HumansView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-  <span class="nx">el</span>  <span class="o">:</span> <span class="s2">&quot;ul&quot;</span><span class="p">,</span>
-  <span class="nx">initialize</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">subViews</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">){</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">subViews</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">HumanItemView</span><span class="p">({</span><span class="nx">model</span><span class="o">:</span><span class="nx">model</span><span class="p">}));</span>
-    <span class="p">},</span><span class="k">this</span><span class="p">)</span>
-  <span class="p">},</span>
-  <span class="nx">render</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Render each child view</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
-    <span class="nx">_</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subViews</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">view</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">view</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
-    <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-<h3>De la même manière ...</h3>
-
-<p>J'aimerais pouvoir afficher mes 2 instances de <code>HumansView</code> en même temps et à 2 endroits différents dans ma page HTML :</p>
-
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;list1&quot;</span><span class="nt">&gt;&lt;/ul&gt;</span>
-<span class="nt">&lt;hr&gt;</span>
-<span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;list2&quot;</span><span class="nt">&gt;&lt;/ul&gt;</span>
-</code></pre></div>
-
-
-<p>Dans ce cas là, il suffit de supprimer la référence <code>el  : "ul"</code> qui elle aussi, je le rappelle est partagée avec toutes les instances de <code>HumansView</code> :</p>
-
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">HumansView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-  <span class="nx">initialize</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">subViews</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">){</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">subViews</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">HumanItemView</span><span class="p">({</span><span class="nx">model</span><span class="o">:</span><span class="nx">model</span><span class="p">}));</span>
-    <span class="p">},</span><span class="k">this</span><span class="p">)</span>
-  <span class="p">},</span>
-  <span class="nx">render</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Render each child view</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
-    <span class="nx">_</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subViews</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">view</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">view</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
-    <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-<p>Et d'instancier nos 2 vues de cette façon :</p>
-
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">humansView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HumansView</span><span class="p">({</span><span class="nx">el</span><span class="o">:</span><span class="s2">&quot;#list1&quot;</span><span class="p">,</span><span class="nx">collection</span><span class="o">:</span><span class="k">new</span> <span class="nx">Humans</span><span class="p">([</span><span class="nx">bob</span><span class="p">,</span><span class="nx">john</span><span class="p">,</span><span class="nx">jane</span><span class="p">])});</span>
-<span class="kd">var</span> <span class="nx">humansView2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HumansView</span><span class="p">({</span><span class="nx">el</span><span class="o">:</span><span class="s2">&quot;#list2&quot;</span><span class="p">,</span><span class="nx">collection</span><span class="o">:</span><span class="k">new</span> <span class="nx">Humans</span><span class="p">([</span><span class="nx">john</span><span class="p">,</span><span class="nx">jane</span><span class="p">])});</span>
-
-<span class="nx">humansView</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-<span class="nx">humansView2</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-</code></pre></div>
-
-
-<p>Et là tout va bien :</p>
-
-<p><img src="https://github.com/k33g/k33g.github.com/raw/master/images/BBOM-06.png" alt="Alt &quot;BBOM-06.png&quot;" /></p>
-
-<h2>Conclusion</h2>
-
-<p>Faites attention à la manière dont vous déclarez les propriétés de vos objets. Pensez d'abord à l'utilisation que vous allez en faire : le partage entre instance est aussi un aspect intéressant, mais il ne faut jamais l'oublier, car on reprend facilement des "vieux" réflexes "à la Java" qui ne fonctionnent pas forcément pareil en JavaScript.</p>
-
-<p>J'espère que cet article servira à certains d'entre-vous.</p>
-
-<p>Prochain épisode, nous verrons comment "détourner" le modèle objet de Backbone et se l'approprier à d'autres fins.</p>
-
-<p>Bon WE à tous.</p>
+<p><em>La semaine prochaine je vous parle avec beaucoup de retard de 2 autres conférences qui m'ont beaucoup plus aussi : SoftShake et Sainté Mobile Days.</em></p>
 
             <br>
-            <a href="/2013/11/29/BBOM.html">comments &raquo;</a>
+            <a href="/2014/05/04/MIXIT-2014.html">comments &raquo;</a>
             <br>
             <hr style="border: 1px; border-color: #cccccc; border-style: dashed; ">
             <br>
