@@ -65,6 +65,8 @@ Cela va télécharger les dépendances nécessaires, puis :
 
 Cela va déclencher la tâche Grunt qui va télécharger les ressources nécessaires d'Atom-shell.
 
+**Remarque** : j'avais déjà **Atom** installé, mais il semblerait qu'il faille le ["Atom Package Manager"](https://github.com/atom/apm) pour que la commande Grunt fonctionne. Merci à [Roderik van der Veer](http://vanderveer.be/) pour l'information :). 
+
 Au bout de quelques instants vous aurez 2 nouveaux répertoires dans votre répertoire `build` :
 
     build/
