@@ -81,6 +81,8 @@ var <%= modelName %>sCollection = Backbone.Collection.extend({
 Créez (dans le même répertoire) un fichier `bb.js` avec le contenu suivant :
 
 {% highlight javascript %}
+#!/usr/bin/env node
+
 var fs = require('fs');
 var _ = require('underscore');
 
