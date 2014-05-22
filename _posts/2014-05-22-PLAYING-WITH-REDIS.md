@@ -43,20 +43,20 @@ Donc en java, si j'avais des hashmaps qui représenteraient des humains, j'aurai
 {% highlight java %}
 Jedis jedis = new Jedis("localhost", 6379);
 
-HashMap<String, String> bob = new HashMap<String, String>() {{
+HashMap<String, String> bob = new HashMap<String, String>() {% raw %}{{
   put("firstName", "Bob");
   put("lastName", "Morane");
-}};
+}}{% endraw %};
 
-HashMap<String, String> john = new HashMap<String, String>() {{
+HashMap<String, String> john = new HashMap<String, String>() {% raw %}{{
   put("firstName", "John");
   put("lastName", "Doe");
-}};
+}}{% endraw %};
 
-HashMap<String, String> jane = new HashMap<String, String>() {{
+HashMap<String, String> jane = new HashMap<String, String>() {% raw %}{{
   put("firstName", "Jane");
   put("lastName", "Doe");
-}};
+}}{% endraw %};
 {% endhighlight %}
 
 ###Sauvegarde des "humains"
