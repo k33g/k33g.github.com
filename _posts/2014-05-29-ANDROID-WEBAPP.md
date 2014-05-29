@@ -104,7 +104,7 @@ L.imageOverlay("images/lugdunum.png", mapBounds).addTo(map);
 
 Si vous voulez l'installer sur votre terminal android, connectez vous à cette utl, puis dans le menu de Chrome pour Android, sélectionnez "Ajouter à l'écran d'accueil".
 
-<img src="https://github.com/k33g/k33g.github.com/raw/master/images/lugdumetro.jpg" height="70%" width="70%">
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/lugdumetro.jpg" height="40%" width="40%">
 
 Et le code est ici: [https://github.com/lugdunum/metro](https://github.com/lugdunum/metro).
 
