@@ -4,15 +4,19 @@ title: K33G_ORG
 ---
 
 <!-- CONTENU DE LA HOMEPAGE -->
-{% for post in site.posts limit:3 %}
+{% for post in site.posts limit:5 %}
 <article class="uk-article">
-
-  <p class="uk-article-meta">Posté le {{ post.date | date_to_string }} : <a href="{{ post.url }}">commenter &raquo;</a></p>
-  {{ post.content }}
+  <h1 class="uk-article-title">{{ post.title }}</h1>
+  <p class="uk-article-meta">Posté le {{ post.date | date_to_string }} : <a href="{{ post.url }}">lire l'article &raquo;</a></p>
+  <!--{{ post.excerpt }}-->
+  {{ post.content | strip_html | truncatewords:75 }}
   <p>
-    <a class="uk-button uk-button-primary" href="{{ post.url }}">Commenter &raquo;</a>
+    <a class="uk-button uk-button-primary" href="{{ post.url }}">Lire l'article ...</a>
   </p>
 
 </article>
 {% endfor %}
+<article class="uk-article">
+  <h4><a href="/all.html">Tous les articles ...</a></h4>
+</article>
 
