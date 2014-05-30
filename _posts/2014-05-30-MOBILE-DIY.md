@@ -1,12 +1,12 @@
 ---
 
 layout: post
-title: Web Mobile, faîtes votre framework!
-info : Web Mobile, faîtes votre framework!
+title: Web Mobile, faites votre framework!
+info : Web Mobile, faites votre framework!
 
 ---
 
-#Web Mobile, faîtes votre framework!
+#Web Mobile, faites votre framework!
 
 Hier, je vous parlais des possibilités de Chrome pour Android. Il est très possible vous l'avez deviné de faire des webapps très fonctionnelles. Lorsque je fais de la veille à propos du web mobile, je tombe sur de nombreux frameworks (de différente qualité), mais un bon nombre d'entre-eux essayent de reproduire l'aspect natif du terminal mobile et souvent c'est malheureux (un petit côté "cheap"), surtout lors d'upgrade de l'OS qui change d'IHM. D'autres ne le font pas mais sont souvent très "typés".
 
