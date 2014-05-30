@@ -3,12 +3,9 @@ layout: default
 title: K33G_ORG
 ---
 
-<div id="home">
-    <h1>All Blog Posts</h1>
-    <ul class="posts">
-        {% for post in site.posts %}
-          <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a> <br>
-              {{ post.info }}</li>
-        {% endfor %}
-    </ul>
-</div>
+<h1 class="uk-panel-title">Les 10 derniers articles</h1>
+<ul class="uk-list uk-list-line">
+  {% for post in site.posts %}
+  <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>

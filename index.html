@@ -3,37 +3,16 @@ layout: default
 title: K33G_ORG
 ---
 
-<div id="home">
-    <!--
-	<g:plusone size="medium"></g:plusone>
-    <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="k33g_org">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-    -->
-    <div>
-        <h5>Les 10 derniers articles</h5>
-        <ul class="posts" style="list-style: none;">
-            {% for post in site.posts limit:10 %}
-            <li class="col-xs-6"><small><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></small></li>
-            {% endfor %}
-        </ul>
-    </div>
-    <br>
-    <hr style="border: 1px; border-color: #cccccc; border-style: dashed; ">
+<!-- CONTENU DE LA HOMEPAGE -->
+{% for post in site.posts limit:3 %}
+<article class="uk-article">
 
+  <p class="uk-article-meta">Posté le {{ post.date | date_to_string }} : <a href="{{ post.url }}">commenter &raquo;</a></p>
+  {{ post.content }}
+  <p>
+    <a class="uk-button uk-button-primary" href="{{ post.url }}">Commenter &raquo;</a>
+  </p>
 
+</article>
+{% endfor %}
 
-    <div id="post">
-        {% for post in site.posts limit:3 %}
-
-            <h4>{{ post.date | date_to_string }} - <a href="{{ post.url }}">commenter &raquo;</a></h4>
-
-            
-            {{ post.content }}
-            <br>
-            <a href="{{ post.url }}">pour commenter aller sur la page de l'article &raquo;</a>
-            <br>
-            <hr style="border: 1px; border-color: #cccccc; border-style: dashed; ">
-            <br>
-        {% endfor %}
-    </div>
-
-</div>
