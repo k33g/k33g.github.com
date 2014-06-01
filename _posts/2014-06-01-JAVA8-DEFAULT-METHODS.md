@@ -8,7 +8,7 @@ info : Java 8, méthodes par défaut dans les interfaces
 
 #Java 8, méthodes par défaut dans les interfaces
 
-1er jour de juin, pas beaucoup de temps, levé à la bourre, mais un truc en tête lié à la présentation de [José Paumard]() au dernier Lyon JUG ([http://www.lyonjug.org/evenements/java-8](http://www.lyonjug.org/evenements/java-8)) : avec l'arrivée de Java 8, nous avons maintenant la possibilité de définir des méthodes par défaut dans les interfaces. Je ne vais pas vous expliquer tous les tenants et aboutissants de la chose (il faudrait déjà que je le fasse pour moi), mais je vais vous faire un exemple rapide sur le sujet.
+1er jour de juin, pas beaucoup de temps, levé à la bourre, mais un truc en tête lié à l'excellente présentation de [José Paumard](https://twitter.com/JosePaumard) au dernier Lyon JUG ([http://www.lyonjug.org/evenements/java-8](http://www.lyonjug.org/evenements/java-8)) : avec l'arrivée de Java 8, nous avons maintenant la possibilité de définir des méthodes par défaut dans les interfaces. Je ne vais pas vous expliquer tous les tenants et aboutissants de la chose (il faudrait déjà que je le fasse pour moi), mais je vais vous faire un exemple rapide sur le sujet.
 
 *J'utiliserais plus tard cette manière de faire pour faire un mini "helper" pour Redis (et Jedis), mais cela fera l'objet d'un autre article sur "faire sa lib java from scratch".*
 
