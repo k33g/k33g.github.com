@@ -7,16 +7,16 @@ title: K33G_ORG
 {% for post in site.posts limit:5 %}
 <article class="uk-article">
   <h1 class="uk-article-title">{{ post.title }}</h1>
-  <p class="uk-article-meta">Posté le {{ post.date | date_to_string }} : <a href="{{ post.url }}">lire l'article &raquo;</a></p>
+  <p class="uk-article-meta">Written on {{ post.date | date_to_string }} : <a href="{{ post.url }}">Read this post &raquo;</a></p>
   <!--{{ post.excerpt }}-->
   {{ post.content | strip_html | truncatewords:75 }}
   <p>
-    <a class="uk-button uk-button-primary" href="{{ post.url }}">Lire l'article ...</a>
+    <a class="uk-button uk-button-primary" href="{{ post.url }}">Read this post ...</a>
   </p>
 
 </article>
 {% endfor %}
 <article class="uk-article">
-  <h4><a href="/all.html">Tous les articles ...</a></h4>
+  <h4><a href="/all.html">All posts ...</a></h4>
 </article>
 

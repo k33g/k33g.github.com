@@ -40,10 +40,10 @@
         <a href="http://feeds.feedburner.com/K33g_orgsBlog">rss</a>
       </li>
       <li>
-        <a href="/all.html">Tous les articles</a>
+        <a href="/all.html">All posts</a>
       </li>
       <li>
-        <a href="http://www.k33g.org/">Ma pomme</a>
+        <a href="http://www.k33g.org/">Me</a>
       </li>
       <li>
         <a href="https://github.com/k33g">Github</a>
@@ -81,7 +81,7 @@
         <p>A difficult double life : by day, i'm "enterprise advocate", at night, some call me K33gorg</p>
       </div>
       <div class="uk-panel">
-        <h3 class="uk-panel-title">Les 10 derniers articles</h3>
+        <h3 class="uk-panel-title">Last 10 posts</h3>
         <ul class="uk-list uk-list-line">
           {% for post in site.posts limit:10 %}
           <li><small><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></small></li>
@@ -92,13 +92,13 @@
       <div class="uk-panel">
         <h3 class="uk-panel-title">Tutos</h3>
         <ul class="uk-list uk-list-line">
-          <li><small><a href="http://e-books.github.io/je.decouvre.angular/">Je découvre Angular</a></small></li>
-          <li><small><a href="http://e-books.github.io/preparer.son.projet.js/">Préparer son projet JS</a></small></li>
-          <li><small><a href="http://e-books.github.io/backbone.en.douceur/">1 "Gros" tuto Backbone</a></small></li>
+          <li><small><a href="http://e-books.github.io/je.decouvre.angular/">Je découvre Angular (FR)</a></small></li>
+          <li><small><a href="http://e-books.github.io/preparer.son.projet.js/">Préparer son projet JS (FR)</a></small></li>
+          <li><small><a href="http://e-books.github.io/backbone.en.douceur/">1 "Gros" tuto Backbone (FR)</a></small></li>
           <li><small><a href="http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html">
-            Play!► 2 en douceur</a></small></li>
+            Play!► 2 en douceur (FR)</a></small></li>
           <li><small><a href="http://3monkeys.github.com/play.rules/livre.play.un.web/play.rules.one.html">
-            Apprendre Play!► 1</a></small></li>
+            Apprendre Play!► 1 (FR)</a></small></li>
         </ul>
       </div>
 

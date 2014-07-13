@@ -7,7 +7,7 @@ layout: none
 		<title>K33G_ORG's blog</title>
 		<description>programming, javascript, java, iOS, WebOS, Android, ...</description>
 		<link>http://k33g.github.com/</link>
-		{% for post in site.posts limit:5 %}
+		{% for post in site.posts limit:10 %}
 			<item>
 				<title>{{ post.title }}</title>
 				<description>{{ post.content | xml_escape}}</description>
