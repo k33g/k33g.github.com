@@ -9,7 +9,7 @@ info : Get ready for ECMAScript 6
 ***ERRATUM:***
 *This an update of a previous post: [Get ready for ECMAScript 6](http://k33g.github.io/2014/06/26/ES6-READY.html). During my investigation, I realized that there was an easier way to "make ECMAScript 6. The update  concerns only the use of bower and the Javascript references in html pages.*
 
-*There is no impact avout the next post: [ECMAScript 6 in action with the inheritance and the models](http://k33g.github.io/2014/07/05/ES6-IN-ACTION-WITH-MODELS.html).*
+*There is no impact about the next post: [ECMAScript 6 in action with the inheritance and the models](http://k33g.github.io/2014/07/05/ES6-IN-ACTION-WITH-MODELS.html).*
 
 #Get ready for ECMAScript 6
 
