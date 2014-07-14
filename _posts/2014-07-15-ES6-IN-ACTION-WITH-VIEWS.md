@@ -72,9 +72,9 @@ class HumansList {
 
   view ()  { return `
     <ul>
-      {{#each humans}}
-      <li>{{id}} {{firstName}} {{lastName}}</li>
-      {{/each}}
+      {% raw %}{{#each humans}}{% endraw %}
+      <li>{% raw %}{{id}}{% endraw %} {% raw %}{{firstName}}{% endraw %} {% raw %}{{lastName}}{% endraw %}</li>
+      {% raw %}{{/each}}{% endraw %}
     </ul>
   `;}
 
