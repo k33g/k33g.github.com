@@ -275,7 +275,7 @@ collection.fetch().done(() => {
 });
 {% endhighlight %}
 
-####Model implementation
+####Collection implementation
 
 {% highlight javascript %}
 class Collection {
