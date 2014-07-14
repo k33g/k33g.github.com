@@ -1,8 +1,8 @@
 ---
 
 layout: post
-title: Get ready for ECMAScript 6
-info : Get ready for ECMAScript 6
+title: Erratum, Get ready for ECMAScript 6
+info : Erratum, Get ready for ECMAScript 6
 
 ---
 
