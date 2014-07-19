@@ -59,7 +59,7 @@ we no longer need:
 - `core` directory (and `model.js` and `collection.js `)
 - `humans-list.js` but keep `components/` directory
 
-{% highlight javascript %}
+{% highlight text %}
     es6-project/
     ├── node_modules/
     ├── public/   
