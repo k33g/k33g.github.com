@@ -60,23 +60,23 @@ we no longer need:
 - `humans-list.js` but keep `components/` directory
 
 {% highlight text %}
-    es6-project/
-    ├── node_modules/
-    ├── public/   
-    |   ├── bower_components/  
-    |   ├── js/          
-    |   |   └── app/  
-    |   |        ├── models/
-    |   |        |   ├── human.js    
-    |   |        |   └── humans.js  
-    |   |        ├── components/    
-    |   |        |   └── ...    
-    |   |        └── main.js
-    |   └── index.html
-    ├── .bowerrc
-    ├── bower.json
-    ├── package.json    
-    └── app.js
+es6-project/
+├── node_modules/
+├── public/   
+|   ├── bower_components/  
+|   ├── js/          
+|   |   └── app/  
+|   |        ├── models/
+|   |        |   ├── human.js    
+|   |        |   └── humans.js  
+|   |        ├── components/    
+|   |        |   └── ...    
+|   |        └── main.js
+|   └── index.html
+├── .bowerrc
+├── bower.json
+├── package.json    
+└── app.js
 {% endhighlight %}
 
 ###Modify `human.js`
