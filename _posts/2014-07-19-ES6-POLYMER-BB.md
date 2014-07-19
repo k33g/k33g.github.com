@@ -59,7 +59,7 @@ we no longer need:
 - `core` directory (and `model.js` and `collection.js `)
 - `humans-list.js` but keep `components/` directory
 
-
+{% highlight shell %}
     es6-project/
     ├── node_modules/
     ├── public/   
@@ -77,6 +77,7 @@ we no longer need:
     ├── bower.json
     ├── package.json    
     └── app.js
+{% endhighlight %}
 
 ###Modify `human.js`
 
