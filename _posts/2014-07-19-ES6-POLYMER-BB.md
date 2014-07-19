@@ -182,7 +182,7 @@ Define a Polymer component is very easy:
 
 ###Content of `humans-list.js`
 
-I've decided to externalize the JavaScript code of the component because I want to write it with **EcmaScript 6** grammar:
+I've decided to externalize the JavaScript code of the component because I want to write it with **ECMAScript 6** grammar:
 
 {% highlight javascript %}
 import Human from '../models/human';
