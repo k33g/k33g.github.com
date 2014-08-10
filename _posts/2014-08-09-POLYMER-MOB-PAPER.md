@@ -439,7 +439,7 @@ Then, go back to our component (`main-screen.html`) to change the code:
 
 You can try:
 
-<img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-mob-08.png" height="60%" width="60%">
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-mob-09.png" height="60%" width="60%">
 
 Easy! :)
 
