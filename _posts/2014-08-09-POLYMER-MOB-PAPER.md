@@ -294,7 +294,8 @@ Before we go any further, let's change two or three things. I want something "mo
 
 **Value of `menuTitle` will be displayed here: `{% raw %}{{menuTitle}}{% endraw %}`**
 
-{% highlight html %}        
+{% highlight html %}     
+   
           <span>{% raw %}{{menuTitle}}{% endraw %}</span>
         </core-toolbar>
         <core-menu>
@@ -308,6 +309,7 @@ Before we go any further, let's change two or three things. I want something "mo
 **Value of `mainTitle` will be displayed here: `{% raw %}{{mainTitle}}{% endraw %}`**
 
 {% highlight html %}      
+
       <span tool>
         {% raw %}{{mainTitle}}{% endraw %}
         <paper-shadow z="1"></paper-shadow>
@@ -377,6 +379,7 @@ Then, go back to our component (`main-screen.html`) to change the code:
 - I added a custom attribute `num` to each `core-item` : `num="0"`, `num="1"`, `num="2"`
 
 {% highlight html %} 
+
         <core-menu on-core-select="{% raw %}{{selectAction}}{% endraw %}">
           <!-- num is personnalized attribute -->
           <core-item num="0" label="Android" icon="android"></core-item>
@@ -400,6 +403,7 @@ Then, go back to our component (`main-screen.html`) to change the code:
 - identify the component with `id="pages"`
 
 {% highlight html %} 
+
         <core-pages id="pages" selected="0">
           <div>You have selected "Android"</div>
           <div>You have selected "Bug Report"</div>
