@@ -3,6 +3,8 @@
 layout: post
 title: Book review, Backbone Blueprints
 info : Book review, Backbone Blueprints
+teaser: An easy to read book about Backbone with useful and complete examples.
+image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/Backbone_blueprints.jpg" height="30%" width="30%">
 
 ---
 

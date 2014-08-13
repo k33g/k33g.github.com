@@ -8,8 +8,11 @@ title: K33G_ORG
 <article class="uk-article">
   <h1 class="uk-article-title">{{ post.title }}</h1>
   <p class="uk-article-meta">Written on {{ post.date | date_to_string }} : <a href="{{ post.url }}">Read this post &raquo;</a></p>
-  <!--{{ post.excerpt }}-->
-  {{ post.content | strip_html | truncatewords:75 }}
+  
+  <h2>{{ post.teaser }}<h2>
+  {{ post.image }}
+
+  <!--{{ post.content | strip_html | truncatewords:75 }}-->
   <p>
     <a class="uk-button uk-button-primary" href="{{ post.url }}">Read this post ...</a>
   </p>

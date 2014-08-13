@@ -3,6 +3,7 @@
 layout: post
 title: ECMAScript 6 in action with the view
 info : ECMAScript 6 in action with the view
+teaser: How to use Handlebars with ECMAScript 6.
 
 ---
 

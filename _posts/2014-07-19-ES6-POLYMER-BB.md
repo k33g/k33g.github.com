@@ -3,7 +3,7 @@
 layout: post
 title: ECMAScript 6 + BackBone + Polymer
 info : ECMAScript 6 + BackBone + Polymer
-
+teaser: Backbone can play (easily) with ECMAScript 6 and Polymer.
 ---
 
 #ECMAScript 6 + BackBone + Polymer

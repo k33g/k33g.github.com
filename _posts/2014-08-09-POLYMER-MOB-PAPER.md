@@ -3,6 +3,8 @@
 layout: post
 title: Quick-start, mobile web application with Polymer and Material Design
 info : Quick-start, mobile web application with Polymer and Material Design
+teaser: We'll see how to create a mobile webapp for Android with Polymer (and a bit of "Material Design").
+image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-mob-00.jpg" height="30%" width="30%">
 
 ---
 
