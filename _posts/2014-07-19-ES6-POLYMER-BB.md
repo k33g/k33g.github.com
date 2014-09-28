@@ -236,6 +236,11 @@ You've just to add this in `index.html`:
 <link rel="import" href="js/app/components/humans-list.html">
 {% endhighlight %}
 
+and you can use your component like this:
+{% highlight html %}
+<humans-list></humans-list>
+{% endhighlight %}
+
 **And ... You've just to refresh your page** (*Dont' forget to run `node app.js`*).
 
 The more I work with **ES6**, the more I love it.
