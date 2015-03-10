@@ -3,7 +3,7 @@
 layout: post
 title: Connecter une Sphero et un RaspberryPI
 info : Connecter une Sphero et un RaspberryPI
-teaser: ...
+teaser: Pas si simple mais une fois que l'on a les informations tout roule!
 image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/sphero.jpg" height="30%" width="30%">
 
 ---
