@@ -3,7 +3,7 @@
 layout: post
 title: Connecter une Sphero et un RaspberryPI
 info : Connecter une Sphero et un RaspberryPI
-teaser: En ce moment, pour les besoins d'une présentation sur l'IOT pour Devoxx France 2015, avec Laurent Huet, je "joue" avec MQTT, Mosca, CylonJS et des objets connectés: des faux pour des simulation avec Paho, mais aussi des vrais comme le Wiced mais aussi la Sphero. C'est mon RaspberryPI qui sert de "hub" (le lien avec les objets et le broker de messages). Et quand j'ai voulu connecter le RPI et la Sphero, ça n'a pas fonctionné du 1er coup, donc je vous donne ma recette.
+teaser: ...
 image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/sphero.jpg" height="30%" width="30%">
 
 ---
