@@ -93,13 +93,13 @@ L'objectif, c'est de jouer avec la Sphero, donc nous allons utiliser CylonJS ([h
 
 Dans votre répertoire de travail, créez un fichier `package.json` avec le contenu suivant:
 
-  {
-    "name": "play-with-sphero",
-    "dependencies": {
-      "cylon": "^0.22.1",
-      "cylon-sphero": "^0.18.0"
+    {
+      "name": "play-with-sphero",
+      "dependencies": {
+        "cylon": "^0.22.1",
+        "cylon-sphero": "^0.18.0"
+      }
     }
-  }
 
 Faites : `npm install`
 
@@ -158,6 +158,13 @@ Cylon.robot({
 }).start();
 {% endhighlight %}
 
+**Remarque**:
+
+Pour obtenir le port de connexion de la sphero (`sphero: { adaptor: 'sphero', port: '/dev/rfcomm0' }`), vous devez lancer la commande (dans votre répertoire de travail) :
+
+    sudo node_modules/.bin/cylon-ble-scan
+
+Qui vous donnera les infos nécessaires (`/dev/rfcomm0` dans mon cas)
 
 En gros, une fois lancé, la Sphero va changer de couleur au démarrage et bouger un chouilla, et une fois que vous la secouez un peu, ça affichera des données dans votre console.
 
