@@ -1,14 +1,14 @@
 ---
 
 layout: post
-title: Riot and ECMAScript 6 in-browser transpilation
-info : Riot and ECMAScript 6 in-browser transpilation
+title: Riot and in-browser ECMAScript 6 transpilation
+info : Riot and in-browser ECMAScript 6 transpilation
 teaser: I love Riot, and to my mind it's useful that we don't need to pre-compile tags. But you have to do that if you want work with ECMAScript 6 or Coffeescript. That'a pity, because, these transpilers can make in-browser transpilation.
 image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/riot240x.png" height="30%" width="30%">
 
 ---
 
-#Riot and ECMAScript 6 online transpilation (and Coffeescript)
+#Riot and in-browser ECMAScript 6 transpilation (and Coffeescript)
 
 I love Riot, and to my mind it's useful that we don't need to pre-compile tags. But you have to do that if you want work with ECMAScript 6 or Coffeescript. That'a pity, because, these transpilers can make in-browser transpilation.
 
