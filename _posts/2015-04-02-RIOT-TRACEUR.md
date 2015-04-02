@@ -67,7 +67,7 @@ So, you should have something like that:
 </html>
 {% endhighlight %}
 
-##Create ou tag `yo-bob`
+##Create our tag `yo-bob`
 
 We will not use the riot tags but describe our component in JavaScript (ES2015), using ES6 Template Strings like that:
 
