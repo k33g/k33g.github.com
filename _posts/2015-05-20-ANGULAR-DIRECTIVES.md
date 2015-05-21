@@ -4,7 +4,7 @@ layout: post
 title: My small arrangements with Angular
 info : My small arrangements with Angular
 teaser: How to use Angular 1.x like Polymer (only with directives)
-image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/angular_logo.png">
+image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/angular_logo.jpg">
 
 ---
 
