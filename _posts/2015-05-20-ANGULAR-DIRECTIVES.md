@@ -118,6 +118,7 @@ The previous directive is nested in this directive (`<human model="human"></huma
 {% endhighlight %}
 
 And that's all!
+... Finally, Angular 1.x, it's fun ;)
 
 
 
