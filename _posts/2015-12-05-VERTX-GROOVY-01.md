@@ -1,8 +1,8 @@
 ---
 
 layout: post
-title: Vert-X + Groovy: un excellent combo pour le web - Partie 1
-info : Vert-X + Groovy: un excellent combo pour le web - Partie 1 
+title: Vert-X et Groovy, un excellent combo pour le web - Partie 1
+info : Vert-X et Groovy, un excellent combo pour le web - Partie 1 
 teaser: Ces dernières années, ma vie de développeur a été très largement influencée par PlayFramework 1 (en Java) puis par Express (Node, donc du JavaScript) après avoir compris que Play 2 n'était pas pour moi (disparition de la magie). Cependant, même si Node c'est très bien et que cela répond à 80% des besoins, pour les 20% restant j'en reviens à Java ... Mais avec une petite perte de souplesse ... Jusqu'au jour où ...
 ---
 
