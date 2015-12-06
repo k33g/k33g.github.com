@@ -3,7 +3,7 @@
 layout: post
 title: Vert-X et Groovy, un excellent combo pour le web - Partie 2
 info : Vert-X et Groovy, un excellent combo pour le web - Partie 2 
-teaser: Dans l'épisode précédent vous avez vu pu voir la facilité de mise en oeuvre d'une application Vert-x avec Groovy. Aujourd'hui, nous faisons court (c'est dimanche) et nous voyons comment gérer des requête de type POST.
+teaser: Dans l'épisode précédent vous avez vu pu voir la facilité de mise en oeuvre d'une application Vert-x avec Groovy. Aujourd'hui, nous faisons court (c'est dimanche) et nous voyons comment gérer des requêtes de type POST.
 ---
 
 
