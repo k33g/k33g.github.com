@@ -36,7 +36,7 @@ Augmentations.pimpMyClasses()
 {% endhighlight %}
 
 ça fonctionne, mais j'aurais bien aimé que mes classes soient "augmentées" de manière transparentes. Et c'est là que Guillaume m'a mis sur la piste des **Extension Modules** [http://www.groovy-lang.org/metaprogramming.html#_extension_modules](http://www.groovy-lang.org/metaprogramming.html#_extension_modules).
-En gros, vos c'est le moyen de charger automatiquement vos extensions sans avoir à le faire de manière explicite dans votre code.
+En gros, c'est le moyen de charger automatiquement vos extensions sans avoir à le faire de manière explicite dans votre code.
 
 ##Mise en oeuvre d'un module d'extension
 
@@ -87,7 +87,7 @@ class WebExtensions {
 }
 {% endhighlight %}
 
-Maintenant je pourrais récupérer mes paramètre comme cela:
+Maintenant je pourrais récupérer mes paramètres comme cela:
 
 {% highlight groovy %}
 String name = context.param("name").toString()
@@ -109,7 +109,7 @@ context
     ]))
 {% endhighlight %}
 
-si je j'ajoute cette méthode à ma classe d'extensions:
+si j'ajoute cette méthode à ma classe d'extensions:
 
 {% highlight groovy %}
 //import io.vertx.core.json.Json
@@ -130,7 +130,7 @@ context.sendJson([
 ])
 {% endhighlight %}
 
-Dans le même esprit je voudrais pouvoir récupérer les données Json lors d'un `POST`.
+Dans le même esprit, je voudrais pouvoir récupérer les données Json lors d'un `POST`.
 
 ###Nouvelle extension: `bodyAsJson`
 
@@ -140,7 +140,7 @@ Normalement je dois écrire ceci:
 Json.decodeValue(context.getBodyAsString(), Object.class)
 {% endhighlight %}
 
-si je j'ajoute cette méthode à ma classe d'extensions:
+si j'ajoute cette méthode à ma classe d'extensions:
 
 {% highlight groovy %}
 static Object bodyAsJson(RoutingContext self, klass) {
@@ -169,7 +169,7 @@ router.post("/api/humans").handler({ context ->
 })
 {% endhighlight %}
 
-si je j'ajoute ces méthodes à ma classe d'extensions:
+si j'ajoute ces méthodes à ma classe d'extensions:
 
 {% highlight groovy %}
 //import io.vertx.groovy.ext.web.Router
@@ -204,7 +204,7 @@ router.route("/*").handler(StaticHandler.create())
 server.requestHandler(router.&accept).listen(8080)
 {% endhighlight %}
 
-si je j'ajoute ceci à ma classe d'extensions:
+si j'ajoute ceci à ma classe d'extensions:
 
 {% highlight groovy %}
 /*
