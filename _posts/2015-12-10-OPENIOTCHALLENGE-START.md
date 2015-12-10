@@ -3,7 +3,7 @@
 layout: post
 title: Open IoT Challenge, my start-up
 info : Open IoT Challenge, my start-up
-teaser: I participate in the Open IoT Challenge (of the Eclipse Foundation). For some time, I wondered: "How can I test my backends infrastructure with thousands of connected objects (or more) without these objects?".
+teaser: I participate in the Open IoT Challenge of the Eclipse Foundation. For some time, I wondered: "How can I test my backends infrastructure with thousands of connected objects (or more) without these objects?".
 ---
 
 #Open IoT Challenge
