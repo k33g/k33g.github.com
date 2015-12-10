@@ -8,7 +8,7 @@ teaser: I participate in the Open IOT Challenge
 
 #Open IOT Challenge: start-up
 
-I participate in the Open IOT Challenge [http://iot.eclipse.org/open-iot-challenge/](http://iot.eclipse.org/open-iot-challenge/) (of the Eclipse Foundation). For some time, I wondered: "How can I test my backends infrastructure with thousands of connected objects (or more) without these objects?". My idea is to develop a simulator of things. So, my project is a software simulator of connected devices and gateways. It will a DSL (with **Groovy**) like this:
+I participate in the Open IOT Challenge [http://iot.eclipse.org/open-iot-challenge/](http://iot.eclipse.org/open-iot-challenge/) (of the Eclipse Foundation). For some time, I wondered: "How can I test my backends infrastructure with thousands of connected objects (or more) without these objects?". My idea is to develop a simulator of things. So, my project is a software simulator of connected devices and gateways. It will be a DSL (with **Groovy**) like this:
 
 {% highlight groovy %}
 def coapGateway001 = new CoapGateway(id:"coapgw001", coapPort: 5683, execEnv: env, locationName: "Home")
