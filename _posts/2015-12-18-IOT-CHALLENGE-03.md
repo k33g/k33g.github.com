@@ -127,6 +127,8 @@ function main = |args| {
 
 Once again, you can see that it's very easy to simulate "connected things" with **Atta**. Next time, we'll see the REST Gateway and/or some more sophisticated sensors simulators.
 
+**Atta** project is here: [https://github.com/ant-colony/atta](https://github.com/ant-colony/atta) *yes, I know, it lacks a little bit of documentation*.
+
 Stay tuned :)
 
 
