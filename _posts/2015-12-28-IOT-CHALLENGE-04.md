@@ -25,7 +25,7 @@ I've used this kind of formula:
 
 For example, this is the **temperature** ability:
 
-```groovy
+{% highlight groovy %}
 trait temperature {
   Double minTemperature = -10.0
   Double maxTemperature = 10.0
@@ -43,11 +43,11 @@ trait temperature {
   }
 
 }
-```
+{% endhighlight %}
 
 Then the **TemperatureSensor** is very easy to implements:
 
-```groovy
+{% highlight groovy %}
 class TemperatureSensor extends TemplateSensor implements temperature, location {
   String topic = "temperatures" // emission topic
 
@@ -67,22 +67,22 @@ class TemperatureSensor extends TemplateSensor implements temperature, location 
     ]
   }
 }
-```
+{% endhighlight %}
 
 You can see that we model fluctuations in temperature data throughout the time:
 
-```groovy
+{% highlight groovy %}
 LocalDateTime now = LocalDateTime.now()
 Double t = now.getMinute() + now.getSecond() / 100
 this.temperatureValue = this.getTemperatureLevel(t)
-```
+{% endhighlight %}
 
 And, of course, these sensors are very easy to use:
 
-```groovy
+{% highlight groovy %}
 def T = new TemperatureSensor(id:"001", minTemperature: -5.0, maxTemperature: 10.0, delay: 1000, locationName:"RoomA")
 def H = new HumiditySensor(id:"H003", locationName:"Garden")
-```
+{% endhighlight %}
 
 ##Logging (and monitoring) features
 
@@ -98,15 +98,15 @@ I added a new object: **Supervisor**, that allows several things:
 
 For example, if you want to display informations:
 
-```groovy
+{% highlight groovy %}
 Supervisor supervisor = new Supervisor(scenarioName:"test")
     .loggerName("LOG01").loggerFileName("temperatures.humidity.log");
 supervisor.gateways([gateway1, gateway2])
-```
+{% endhighlight %}
 
 You have to get an instance of `Supervisor` and "assign" the gateways to the supervisor. Then if tou only want display informations, you can do something like that:
 
-```groovy
+{% highlight groovy %}
 gateway1.connect(success: { token ->
 
   gateway1.start {
@@ -130,7 +130,7 @@ gateway1.connect(success: { token ->
   }
 
 })
-```
+{% endhighlight %}
 
 And then you'll get displayed informations like that:
 
@@ -144,7 +144,7 @@ And then you'll get displayed informations like that:
 
 If you want to log data to a file (see `loggerFileName("temperatures.humidity.log")`), you have just to do that : `gateway1.updateLog("publication", true, true)` or even simpler `gateway1.updateLog("publication")`. Then you will find a log file (`temperatures.humidity.log`) that will look like this:
 
-```xml
+{% highlight xml %}
 <record>
   <date>2015-12-28T07:38:33</date>
   <millis>1451284713065</millis>
@@ -167,15 +167,15 @@ If you want to log data to a file (see `loggerFileName("temperatures.humidity.lo
   <thread>15</thread>
   <message>[scenarioName:test, gatewayId:g002, gatewayType:MQTT, task:emitting, start:07:38:30.853, end:07:38:33.041, delay:2188]</message>
 </record>
-```
+{% endhighlight %}
 
 ###"Monitoring"
 
 I added two helpers if you want to make a web application to follow the gateways and their data. If you want to use it, you just have to do this:
 
-```groovy
+{% highlight groovy %}
 supervisor.startHttpServer(9090)
-```
+{% endhighlight %}
 
 **Remark**: this part has been develop with **[Vert.x](http://vertx.io/)**.
 
@@ -185,7 +185,7 @@ Then you can query gateways like that:
 
 Open a browser with [http://localhost:9090/api/gateways](http://localhost:9090/api/gateways) and you'll get a JSON Array of data:
 
-```json
+{% highlight json %}
 [ {
   "id" : "g001",
   "kind" : "MQTT",
@@ -253,19 +253,19 @@ Open a browser with [http://localhost:9090/api/gateways](http://localhost:9090/a
     }
   }
 } ]
-```
+{% endhighlight %}
 
 **Remark**: If you want to query a specific gateway, you can use the api with the id of the gateway: [http://localhost:9090/api/gateways/g002](http://localhost:9090/api/gateways/g002)
 
 Of course you can use it with JavaScript like that (with jQuery):
 
-```javascript
+{% highlight javascript %}
 setInterval(function() {
   $.get("api/gateways").then(function(data) {
     console.log(data)
   });
 }, 2000);
-```
+{% endhighlight %}
 
 ####SSE Streaming
 
@@ -281,12 +281,12 @@ You'll obtain a flux like that:
 
 And it's very easy to use it with JavaScript:
 
-```javascript
+{% highlight javascript %}
 var source = new EventSource('sse/all');
 source.addEventListener('message', function(message) {
     console.log(JSON.parse(message.data));
 }, false);
-```
+{% endhighlight %}
 
 You can find a complete sample here: [https://github.com/ant-colony/atta/blob/master/sandbox/mqtt_samples/groovy/mqtt_temp_hum.groovy](https://github.com/ant-colony/atta/blob/master/sandbox/mqtt_samples/groovy/mqtt_temp_hum.groovy).
 
