@@ -3,7 +3,7 @@
 layout: post
 title: Open IOT Challenge, AttA and the SpaceCows
 info : Open IoT Challenge, AttA and the SpaceCows
-teaser: I participate in the Open IOT Challenge, my project is called "Atta", and today I explain how to simulate a herd of animals (in movement)
+teaser: I participate in the Open IOT Challenge, my project is called "Atta", and today I explain how to simulate a herd of animals ... in movement
 ---
 
 #Open IOT Challenge, AttA and the SpaceCows
