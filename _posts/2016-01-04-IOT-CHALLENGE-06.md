@@ -171,11 +171,11 @@ And now, open your browser [http://127.0.0.1:1880/](http://127.0.0.1:1880/)
 
 ###Define our MQTT connection
 
-1. Drag'n drop a mqtt input from the left column to the workspace
+ - **1:** Drag'n drop a mqtt input from the left column to the workspace
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr02.png" height="70%" width="70%">
 
-2. Double-Click on the mqtt node to setup the broker and to subscribe to a a topic
+- **2:** Double-Click on the mqtt node to setup the broker and to subscribe to a a topic
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr03.png" height="70%" width="70%">
 
@@ -188,23 +188,23 @@ gateway1
   .publish(success: {publishToken -> })
 {% endhighlight %}
 
-3. Drag'n drop an output (debug) node from the left column to the workspace
+- **3:** Drag'n drop an output (debug) node from the left column to the workspace
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr04.png" height="70%" width="70%">
 
-4. Link the input node and the output node
+- **4:** Link the input node and the output node
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr05.png" height="70%" width="70%">
 
-5. Double-Click on the output node to setup the properties (notice the property `to` is set with `debug tab`)
+- **5:** Double-Click on the output node to setup the properties (notice the property `to` is set with `debug tab`)
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr06.png" height="70%" width="70%">
 
-6. Now, click on the **Deploy** button (at the top right corner), and then select the debug tab (in the right column)
+- **6:** Now, click on the **Deploy** button (at the top right corner), and then select the debug tab (in the right column)
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr07.png" height="70%" width="70%">
 
-7. You can do the same thing for the other MQTT gateway (don't forget to deploy to see data of the new gateway):
+- **7:** You can do the same thing for the other MQTT gateway (don't forget to deploy to see data of the new gateway):
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr08.png" height="70%" width="70%">
 
@@ -212,15 +212,15 @@ gateway1
 
 I want to store data in a log file:
 
-1. Drag'n drop a storage file node from the left column to the workspace
+- **1:** Drag'n drop a storage file node from the left column to the workspace
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr09.png" height="70%" width="70%">
 
-2. Double-Click on the file node to setup the properties
+- **2:** Double-Click on the file node to setup the properties
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr10.png" height="70%" width="70%">
 
-3. Link the file node to the 2 mqtt nodes, and deploy
+- **3:** Link the file node to the 2 mqtt nodes, and deploy
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr11.png" height="70%" width="70%">
 
@@ -228,11 +228,11 @@ Now you have a `my.iot.log` file with all the data
 
 ###Define our CoAP connection
 
-1. To query a CoAP resource, drag'n drop a function "coap request" node from the left column to the workspace
+- **1:** To query a CoAP resource, drag'n drop a function "coap request" node from the left column to the workspace
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr12.png" height="70%" width="70%">
 
-2. Double-Click on the coap request node to setup the properties
+- **2:** Double-Click on the coap request node to setup the properties
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr13.png" height="70%" width="70%">
 
@@ -247,19 +247,19 @@ SimpleCoapGateway coapGateway0 = new SimpleCoapGateway(
 )
 {% endhighlight %}
 
-3. You have to define a trigger to run the request: drag'n drop a input "inject" node to the workspace
+- **3:** You have to define a trigger to run the request: drag'n drop a input "inject" node to the workspace
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr14.png" height="70%" width="70%">
 
-4. Double-Click on the trigger node to setup the properties
+- **4:** Double-Click on the trigger node to setup the properties
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr15.png" height="70%" width="70%">
 
-5. Link the trigger node to the CoAP request node
+- **5:** Link the trigger node to the CoAP request node
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr16.png" height="70%" width="70%">
 
-6. Create an output (debug) node, link it to the CoAP request node and push the deploy button. Now you can see the CoAP data too:
+- **6:** Create an output (debug) node, link it to the CoAP request node and push the deploy button. Now you can see the CoAP data too:
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr17.png" height="70%" width="70%">
 
