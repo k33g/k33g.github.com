@@ -6,7 +6,7 @@ info : Think Simple
 
 ---
 
-#Think Simple, Yeoman, Bower, i <3 you but sometimes you're too heavy!
+# Think Simple, Yeoman, Bower, i <3 you but sometimes you're too heavy!
 
 *(sorry for my english ;))*
 
@@ -16,9 +16,9 @@ So I decided to make lighter, i've created an other (again!) Backbone Boilerplat
 
 I've called it **M33** and you can find it here : **[https://github.com/k33g/m33](https://github.com/k33g/m33)**. And it's very easy to use.
 
-##How to use M33 ?
+## How to use M33 ?
 
-###First you have to install it ... And it's simple
+### First you have to install it ... And it's simple
 
 Type `git clone --q --depth 0 git@github.com:k33g/m33.git killerapp` where `killerapp` is the directory name of your web application (the directory is created).
 
@@ -26,9 +26,9 @@ Then you've just get the skeleton of your webapp :
 
 ![](https://raw.github.com/k33g/k33g.github.com/master/images/m33-01.jpg)
 
-###M33 structure
+### M33 structure
 
-####index.html
+### #   index.html
 
 Bootstrap css file an Requirejs are declared in the header :
 
@@ -39,7 +39,7 @@ Bootstrap css file an Requirejs are declared in the header :
 
 `data-main="js/main"` explains that `main.js` is the main javascript file to load (with the configuration)
 
-####main.js
+### #   main.js
 
 In `main.js`, we declare the vendors javascript libraries and call the `initialize` method of `application` module :
 
@@ -62,7 +62,7 @@ require(['application'], function (application) {
 
 We explain that `application` module is in the `application.js` file : `require(['application']` and declare it as `application` with the parameter function : `function (application) {`.
 
-####application.js
+### #   application.js
 
 The `initialize` method of `application` module allows us to define dependencies : `define(['jquery', ...`, load the `Router.js` module : `'routers/Router'` and the `ApplicationView.js` module : `'views/ApplicationView'`. And we instanciate the `Router` and the `ApplicationView`(as parameter of the router).
 
@@ -93,7 +93,7 @@ define([
 });
 {% endhighlight %}
 
-####views/ApplicationView.js
+### #   views/ApplicationView.js
 
 `ApplicationView` is a kind of pattern that allow to manage views, models and collections.
 
@@ -116,7 +116,7 @@ define([
 });
 {% endhighlight %}
 
-####routers/Router.js
+### #   routers/Router.js
 
 `Router.js` aims to check if there is an applicationView, and to define the "routes" and there actions.
 
@@ -146,11 +146,11 @@ define([
 
 Now let's code!
 
-###A very quick little sample
+### A very quick little sample
 
 We just want display a persons list.
 
-####Data
+### #   Data
 
 Create a `humans.data.js` file at the root of your webapp directory, with some records :
 
@@ -158,7 +158,7 @@ Create a `humans.data.js` file at the root of your webapp directory, with some r
 [{"id":"001", "firstName":"Bob", "lastName":"Morane"},{"id":"002", "firstName":"John", "lastName":"Doe"},{"id":"003", "firstName":"Jane", "lastName":"Doe"}]
 {% endhighlight %}
 
-####Models and Collections : Human and Humans
+### #   Models and Collections : Human and Humans
 
 Create `Human.js` (model) and `Humans.js` (collection) in the `js/models` directory :
 
@@ -205,7 +205,7 @@ You can note :
 
 Now we want to create the view to display the humans.
 
-####Views, templates etc. ...
+### #   Views, templates etc. ...
 
 First, go to edit the `index.html` file, we want indicate where data will be displayed, inside the tag `<div class="human-view"></div>`: 
 
@@ -275,7 +275,7 @@ define([
 - `this.listenTo(this.collection, "sync", this.render)` : the view listen to sync events (http request) of the collection, so, when we'll call the `fetch` (the `sync` event is fired) method of the collection, the `render` method of the view will be called.
 - `this.trigger("humansAreRendered")` the view trigger a custom event when she has rendered the collection.
 
-####Load data, instanciate the view, display humans
+### #   Load data, instanciate the view, display humans
 
 We are going to instanciate `HumansView` and `Humans` collection in the `initialize` method of `ApplicationView`.
 
@@ -317,13 +317,13 @@ define([
 
 And, that'all!.
 
-##How to test the webapp?
+## How to test the webapp?
 
 If you're working with OSX or Linux, you can (inside the webapp directory) run `python -m SimpleHTTPServer 8080` and then open [http://localhost:8080](http://localhost:8080).
 
 Otherwise you can also install **http-server** : `npm install http-server -g`, then, run `http-server -p 8080`and, open [http://localhost:8080](http://localhost:8080).
 
-##How to update vendors libraries of your webapp
+## How to update vendors libraries of your webapp
 
 It's easy, just run `./loadjs.sh` (OSX or Linux) or `loadjs.cmd` in the webapp directory. The script only call **pulldown** to load libraries.
 

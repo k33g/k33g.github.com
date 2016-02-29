@@ -6,9 +6,9 @@ info : Créer son blog chez GitHub avec Jekill
 
 ---
 
-#Jekill & GitHub
+#  Jekill & GitHub
 
-##Introduction
+## Introduction
 
 [Jekyll](https://github.com/mojombo/jekyll) est un générateur de site web statique fait en ruby à partir de fichier markdown (et textile). Il se trouve qu'il est installé automatiquement sur GitHub quand vous créez un compte, et que vous n'avez pas besoin de faire du ruby pour l'utiliser. Une fois l'arborescence du site construite, vous n'avez plus qu'à "pusher" vos billets au format markdown pour qu'ils soient publiés sur votre blog.
 

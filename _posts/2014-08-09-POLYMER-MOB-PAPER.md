@@ -8,13 +8,13 @@ image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/polym
 
 ---
 
-#Mobile web application with Polymer and Material Design (quick-start)
+# Mobile web application with Polymer and Material Design (quick-start)
 
 >>We'll see how to create a mobile webapp for Android with Polymer (and a bit of "Material Design").
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/polymer-mob-00.jpg" height="40%" width="40%">
 
-##Prepare the project
+## Prepare the project
 
 **Remark:** you need:
 
@@ -28,7 +28,7 @@ In a directory (ie: `my-project`) create 2 files:
 
 with these contents:
 
-###.bowerrc
+### .bowerrc
 
 {% highlight javascript %}
 {
@@ -36,16 +36,16 @@ with these contents:
 }
 {% endhighlight %}
 
-###bower.json
+### bower.json
 
 {% highlight javascript %}
 {
   "name": "my-project",
   "version": "0.0.0",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.3.5",
-    "core-elements": "Polymer/core-elements#~0.3.5",
-    "paper-elements": "Polymer/paper-elements#~0.3.5"
+    "polymer": "Polymer/polymer# ~0.3.5",
+    "core-elements": "Polymer/core-elements# ~0.3.5",
+    "paper-elements": "Polymer/paper-elements# ~0.3.5"
   }
 }
 }
@@ -53,7 +53,7 @@ with these contents:
 
 And type (in terminal or console application) : `bower install`, waiting ..., you're ready!
 
-##Step 01: Our first component
+## Step 01: Our first component
 
 **Specifications:**: "I want a web app with a main panel and a menu panel"
 
@@ -98,7 +98,7 @@ first create (at the root of `my-project`) a new html file named `index.html`:
 
 So now, if you have followed, we will create a `main-screen` component.
 
-###main-screen component
+### main-screen component
 
 Firstly, create a `components` directory into `js` directory, and a new html file named `main-screen.html` inside `components` directory:
 
@@ -146,7 +146,7 @@ Firstly, create a `components` directory into `js` directory, and a new html fil
 </polymer-element>
 {% endhighlight %}
 
-My sample code is inspired from Polymer documentation [http://www.polymer-project.org/docs/elements/core-elements.html#core-scaffold](http://www.polymer-project.org/docs/elements/core-elements.html#core-scaffold) : *`core-scaffold` provides general application layout, introducing a responsive scaffold containing a header, toolbar, menu, title and areas for application content*.
+My sample code is inspired from Polymer documentation [http://www.polymer-project.org/docs/elements/core-elements.html# core-scaffold](http://www.polymer-project.org/docs/elements/core-elements.html# core-scaffold) : *`core-scaffold` provides general application layout, introducing a responsive scaffold containing a header, toolbar, menu, title and areas for application content*.
 
 **Note**: keyword `tool` in `<span tool>` tag allows the itle bar of the right panel.
 
@@ -166,11 +166,11 @@ Click on the button, the left panel appears again (click outside the left panel 
 
 You can find source code of this first step, here: [https://github.com/metals/copper/tree/master/creation-steps/step-01](https://github.com/metals/copper/tree/master/creation-steps/step-01).
 
-##Step 02: something prettier
+## Step 02: something prettier
 
-We will try to do something nicer. I will use the colors shown here: [http://www.google.com/design/spec/style/color.html#color-ui-color-palette](http://www.google.com/design/spec/style/color.html#color-ui-color-palette)
+We will try to do something nicer. I will use the colors shown here: [http://www.google.com/design/spec/style/color.html# color-ui-color-palette](http://www.google.com/design/spec/style/color.html# color-ui-color-palette)
 
-###Beautify the left panel
+### Beautify the left panel
 
 At the same location of your component (`main-screen.html`), create a css file `main-screen.css`. Add a reference to this file in your component code:
 
@@ -197,14 +197,14 @@ core-scaffold {
 
 /* menu bar of the left panel */
 core-toolbar {
-    background: #000000;
-    color: #fafafa;
+    background: # 000000;
+    color: # fafafa;
 }
 
 /* content of the left panel */
 core-header-panel {
-    background: #616161;
-    color: #fafafa;
+    background: # 616161;
+    color: # fafafa;
 }
 
 .content {
@@ -228,7 +228,7 @@ And test your web app again:
 
 It's better! ;)
 
-###Beautify the right panel
+### Beautify the right panel
 
 `core-toolbar` and `core-header-panel`  are "difficult" to find because they are **inside the Shadow DOM**.
 
@@ -243,13 +243,13 @@ Then, add this to `main-screen.css`:
 {% highlight css %}
 /* title bar of the right panel */
 core-scaffold::shadow core-toolbar {
-    background: #ff5722;
-    color: #fafafa;
+    background: # ff5722;
+    color: # fafafa;
 }
 /* content of the right panel */
 core-scaffold::shadow core-header-panel {
-    background: #ffccbc;
-    color: #212121;
+    background: # ffccbc;
+    color: # 212121;
 }
 {% endhighlight %}
 
@@ -347,9 +347,9 @@ And now you can (re)use your component like that (in `index.html`):
 
 You can find source code of this second step, here: [https://github.com/metals/copper/tree/master/creation-steps/step-02](https://github.com/metals/copper/tree/master/creation-steps/step-02).
 
-##Step 03: and now, some action 
+## Step 03: and now, some action 
 
-Now I want to display different content in the right panel, when I click on the items in the left pane. For this I will use the component `core-pages` (see [http://www.polymer-project.org/docs/elements/core-elements.html#core-pages](http://www.polymer-project.org/docs/elements/core-elements.html#core-pages)).
+Now I want to display different content in the right panel, when I click on the items in the left pane. For this I will use the component `core-pages` (see [http://www.polymer-project.org/docs/elements/core-elements.html# core-pages](http://www.polymer-project.org/docs/elements/core-elements.html# core-pages)).
 
 We will once again change our component.
 

@@ -6,15 +6,15 @@ info : ECMAScript 6 + BackBone + Polymer
 teaser: Backbone can play (easily) with ECMAScript 6 and Polymer.
 ---
 
-#ECMAScript 6 + BackBone + Polymer
+# ECMAScript 6 + BackBone + Polymer
 
 Last time we've used **Handlebars** ([http://k33g.github.io/2014/07/15/ES6-IN-ACTION-WITH-VIEWS.html](http://k33g.github.io/2014/07/15/ES6-IN-ACTION-WITH-VIEWS.html)), but my favorite framework is **Backbone** because of the models and collections. But I hate the system of views and templating and I'm jealous of **Angular** or even **Knockout**. But fortunately, **Polymer** exists!.
 
-##First refactoring our Models and Collections
+## First refactoring our Models and Collections
 
 Always in the same project:
 
-###Update `bower.json`
+### Update `bower.json`
 
 We need Backbone and Polymer:
 
@@ -26,8 +26,8 @@ We need Backbone and Polymer:
     "uikit": "~2.8.0",
     "jquery": "~2.1.1",
     "traceur": "~0.0.49",
-    "polymer": "Polymer/polymer#~0.3.3",
-    "core-elements": "Polymer/core-elements#~0.3.3",
+    "polymer": "Polymer/polymer# ~0.3.3",
+    "core-elements": "Polymer/core-elements# ~0.3.3",
     "backbone": "~1.1.2"
   },
   "resolutions": {
@@ -52,7 +52,7 @@ Don't forget to reference *Polymer* (`platform.js`), **Underscore** and **Backbo
 
 Then change a little bit the structure of our project.
 
-###Change directory structure of the project
+### Change directory structure of the project
 
 we no longer need:
 
@@ -79,7 +79,7 @@ es6-project/
 └── app.js
 {% endhighlight %}
 
-###Modify `human.js`
+### Modify `human.js`
 
 Modify your code like this:
 
@@ -112,7 +112,7 @@ export default Human;
 **Note 2:** `Object.defineProperty(this, "firstName", {/* foo */})` allows to define property `firstName`, so now I can write `bob.firstName` instead of `bob.get("firstName")` or `bob.firstName = "Bob"` instead of `bob.set("firstName", "Bob")` (*and it will be useful with Polymer templates*).
 
 
-###Modify `humans.js`
+### Modify `humans.js`
 
 Modify your code like this:
 
@@ -131,7 +131,7 @@ class Humans extends Backbone.Collection {
 export default Humans;
 {% endhighlight %}
 
-##Create our Polymer component
+## Create our Polymer component
 
 Create two new files in `components/` directory : `humans-list.html` and `humans-list.js`
 
@@ -154,7 +154,7 @@ Create two new files in `components/` directory : `humans-list.html` and `humans
     ├── package.json    
     └── app.js
 
-###Content of `humans-list.html`
+### Content of `humans-list.html`
 
 Define a Polymer component is very easy:
 
@@ -180,7 +180,7 @@ Define a Polymer component is very easy:
 </polymer-element>
 {% endhighlight %}
 
-###Content of `humans-list.js`
+### Content of `humans-list.js`
 
 I've decided to externalize the JavaScript code of the component because I want to write it with **ECMAScript 6** grammar:
 
@@ -228,7 +228,7 @@ Polymer("humans-list",{
 
 {% endhighlight %}
 
-###Reference the component
+### Reference the component
 
 You've just to add this in `index.html`:
 

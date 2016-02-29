@@ -6,13 +6,13 @@ info : PlayRules Déploiement Tomcat
 
 ---
 
-#Play.Rules!► eBook : Une nouvelle partie sur le déploiement
+# Play.Rules!► eBook : Une nouvelle partie sur le déploiement
 
 Combien d'entre vous vont jusqu'au bout dans le cycle de vie d'une application Play!► ? Vous apprenez à vous servir de Play!►, ça tourne très bien sur votre configuration de développement, vous avez pu faire briller les yeux des copains en démontrant la facilité du joujou, mais êtes vous allez plus loin ? Avez vous tenté d'installer votre application sur une autre machine, avec un serveur d'application ou sur le cloud, avec plusieurs instances, ... ???
 
 Cette [nouvelle partie](https://github.com/3monkeys/play.rules/tree/master/livre/part03-deploiement) de l'eBook opensource [Play.Rules!►](https://github.com/3monkeys/play.rules) va traiter d'une phase redoutée par certains (moi), maîtrisée par d'autres : la **"mise en production"**.
 
-##Quel contenu ?
+## Quel contenu ?
 
 Alors là, ça dépendra de mes(nos) investigations, des contributions de certains committers, etc. ...
 Idéalement, j'espère pouvoir traiter les serveurs d'applications, le cloud et l'intégration continue.

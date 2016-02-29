@@ -6,13 +6,13 @@ info : Vert-X et Groovy, un excellent combo pour le web - Partie 3
 teaser: Ce qui est intéressant avec Groovy, c'est la "meta programmation", c'est à dire sa capacité à ajouter des comportements à des classes existantes (mais ce n'est pas que ça). Aujourd'hui voyons donc comment "commencer" un framework pour les "faignasses".
 ---
 
-#Vert-X + Groovy: Faire un framework pour paresseux
+# Vert-X + Groovy: Faire un framework pour paresseux
 
 Ce qui est intéressant avec Groovy, c'est la "meta programmation", c'est à dire sa capacité à ajouter des comportements à des classes existantes (mais ce n'est pas que ça). Aujourd'hui voyons donc comment "commencer" un framework pour les "faignasses".
 
 Tout d'abord je remercie [https://twitter.com/glaforge](https://twitter.com/glaforge) qui m'a permis de faire les choses dans les règles de l'art.
 
-Mon objectif est de simplifier le code à écrire, et dans un 1er temps je suis parti sur le concept d'**ExpandoMetaClass** [http://www.groovy-lang.org/metaprogramming.html#metaprogramming_emc](http://www.groovy-lang.org/metaprogramming.html#metaprogramming_emc) *(J'ajoute des méthodes aux classes de Vert-X au run-time)*.
+Mon objectif est de simplifier le code à écrire, et dans un 1er temps je suis parti sur le concept d'**ExpandoMetaClass** [http://www.groovy-lang.org/metaprogramming.html# metaprogramming_emc](http://www.groovy-lang.org/metaprogramming.html# metaprogramming_emc) *(J'ajoute des méthodes aux classes de Vert-X au run-time)*.
 
 Mais ma problématique, était de "charger/greffer" ses nouvelles méthodes de la façon la plus transparente possible. Avec le principe d'**ExpandoMetaClass**, il faut explicitement "exécuter" les "greffons" dans le code. Et si on souhaite modulariser ses extensions, il faudra créer une classe dans un package avec une méthode qui exécute les extensions et appeler explicitement cette méthode:
 
@@ -35,10 +35,10 @@ Puis dans mon code j'appelerais:
 Augmentations.pimpMyClasses()
 {% endhighlight %}
 
-ça fonctionne, mais j'aurais bien aimé que mes classes soient "augmentées" de manière transparentes. Et c'est là que Guillaume m'a mis sur la piste des **Extension Modules** [http://www.groovy-lang.org/metaprogramming.html#_extension_modules](http://www.groovy-lang.org/metaprogramming.html#_extension_modules).
+ça fonctionne, mais j'aurais bien aimé que mes classes soient "augmentées" de manière transparentes. Et c'est là que Guillaume m'a mis sur la piste des **Extension Modules** [http://www.groovy-lang.org/metaprogramming.html# _extension_modules](http://www.groovy-lang.org/metaprogramming.html# _extension_modules).
 En gros, c'est le moyen de charger automatiquement vos extensions sans avoir à le faire de manière explicite dans votre code.
 
-##Mise en oeuvre d'un module d'extension
+## Mise en oeuvre d'un module d'extension
 
 Pour cela il vous faut danns votre projet un répertoire (et sous-répertoires) `/resources/META-INF/services` dans lequel vous aurez un fichier `org.codehaus.groovy.runtime.ExtensionModule`
 
@@ -60,10 +60,10 @@ Dans ce fichier nous allons définir où sont nos extensions:
 
 Ensuite créez une classe `WebExtensions` dans un package `my.extensions` et créons nos extensions.
 
-##Extensions de classes
+## Extensions de classes
 
 
-###1ère extension: `param`
+### 1ère extension: `param`
 
 Lorsque je veux récupérer le paramètre d'une requête de type `GET` avec  Vert-x, je dois écrire:
 
@@ -95,7 +95,7 @@ String name = context.param("name").toString()
 
 Je suis d'accord, je n'ai pas gagné grand chose, donc allons un peu plus loin.
 
-###Nouvelle extension: `sendJson`
+### Nouvelle extension: `sendJson`
 
 Pour renvoyer du Json à mon navigateur, avec vert-x je dois écrire:
 
@@ -132,7 +132,7 @@ context.sendJson([
 
 Dans le même esprit, je voudrais pouvoir récupérer les données Json lors d'un `POST`.
 
-###Nouvelle extension: `bodyAsJson`
+### Nouvelle extension: `bodyAsJson`
 
 Normalement je dois écrire ceci:
 
@@ -156,7 +156,7 @@ def obj = context.bodyAsJson(Object.class)
 
 Mais allons encore un peu plus loin
 
-###Nouvelles extensions: `GET` et `POST`
+### Nouvelles extensions: `GET` et `POST`
 
 Actuellement je définis mes routes comme ceci:
 
@@ -195,7 +195,7 @@ router.POST("/api/humans", { context ->
 }
 {% endhighlight %}
 
-###Et enfin une dernière pour la route: `start`
+### Et enfin une dernière pour la route: `start`
 
 Pour démarrer mon serveur http et lui expliquer où sont mes assets statiques, je fais ceci:
 
@@ -227,7 +227,7 @@ server.start(router, 8080, "/*")
 
 Donc ...
 
-##Au final le code de notre projet devrait ressembler à ceci
+## Au final le code de notre projet devrait ressembler à ceci
 
 {% highlight groovy %}
 def server = vertx.createHttpServer()

@@ -6,9 +6,9 @@ info : Jo and Coffeescript does not share the same model of Class
 
 ---
 
-#Make the Jo widgets "Coffeescript compliant"
+# Make the Jo widgets "Coffeescript compliant"
 
-##What is the problem ?
+## What is the problem ?
 
 Unfortunately for me, Jo and Coffeescript does not share the same model of Class.
 I wish to do something like this (to add some behaviors to my joButton , for example)
@@ -22,7 +22,7 @@ I wish to do something like this (to add some behaviors to my joButton , for exa
 		    @setStyle({background : color})
 
 
-... But ... Coffeescript disagrees. Indeed, the [Jo Class pattern](http://joapp.com/docs/#Class%20Patterns) is different from the Coffeescript model :
+... But ... Coffeescript disagrees. Indeed, the [Jo Class pattern](http://joapp.com/docs/# Class%20Patterns) is different from the Coffeescript model :
 
 A "pure" implementation of joButton in coffeescript would probably look like this (after JS comilation):
 
@@ -93,17 +93,17 @@ But in reality :
 And it works fine, but my problem now, is that it is not really compatible with Coffeescript :(
 or Coffeescript isn't compatible with that ;)
 
-- I don't think that [@balmer](https://twitter.com/#!/balmer) (Dad's Jo) is fun to rewrite Jo, even to please me.
+- I don't think that [@balmer](https://twitter.com/# !/balmer) (Dad's Jo) is fun to rewrite Jo, even to please me.
 - I did not want to rewrite my favorite framework (I'm not even sure to happen)
 
 But, **I want "class", "extends", "CoffeScript" and "Jo" !!!**
 
 
-##A Solution
+## A Solution
 
 I don't know if this is the best solution, but it works for me.
 
-###In the first place
+### In the first place
 
 - I create a "base Widget Class" that copies all members of a "Jo Widget"
 - I add a property `isCoffeeWidget` setted to `true` (we will see later why)
@@ -120,22 +120,22 @@ I don't know if this is the best solution, but it works for me.
 
 
 
-    #fake joButton
+    # fake joButton
     class JOButton extends Widget
         constructor:(args)->
             @joWidget = new joButton args
             super args
 
-    #fake joInput
+    # fake joInput
     class JOInput extends Widget
         constructor:(args)->
             @joWidget = new joInput args
             super args
 
-    #and so on ...
+    # and so on ...
 
 
-###In the second place
+### In the second place
 
 If you want to do something like that : `myJoGroup.push myNewFakedButton`, it will not work.
 Indeed, the `joContainer.push()` method is waiting for an `Object` or an `Array` (of `Objects`). So, we have to override `joContainer.push()` method. Write this code (duplicate the code and patch it) :
@@ -186,7 +186,7 @@ Indeed, the `joContainer.push()` method is waiting for an `Object` or an `Array`
 
 
 
-###And finally ...
+### And finally ...
 
 You can do that :
 
@@ -202,15 +202,15 @@ You can do that :
 
 	anyJoContainer.push myCuteButton
 
-	#you can push Arrays of faked widgets
+	# you can push Arrays of faked widgets
 
 	myCuteButton.changeBackGroundColor "red"
 
 
-##To conclude
+## To conclude
 
 - If you have a better idea, feel free to contact me
 - You have no excuse not to do "Jo + Coffeescript"
 
 
-*Have a nice day! [@k33g_org](https://twitter.com/#!/k33g_org)*
+*Have a nice day! [@k33g_org](https://twitter.com/# !/k33g_org)*

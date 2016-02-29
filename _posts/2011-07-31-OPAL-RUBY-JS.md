@@ -6,11 +6,11 @@ info : Ruby en js en mode runtime (pas compilé)
 
 ---
 
-#Un bijou : Opal, un runtime ruby en javascript
+# Un bijou : Opal, un runtime ruby en javascript
 
 Sur le même principe que CoffeeScript, [Opal](http://adambeynon.github.com/opal/) est un runtime ruby écrit en JS. Vous pouvez compiler le code ruby en JS, ou l'utiliser directement dans votre navigateur avec le runtime et le parser (ça va être un peu lent mais ça reste utilisable). C'est ce 2ème mode que nous allons tester.
 
-##Mise en oeuvre, Classes et héritage
+## Mise en oeuvre, Classes et héritage
 
 Récupérez [http://adambeynon.github.com/opal/js/opal.js](http://adambeynon.github.com/opal/js/opal.js) et [http://adambeynon.github.com/opal/js/opal-parser.js](http://adambeynon.github.com/opal/js/opal-parser.js).
 
@@ -93,7 +93,7 @@ Lancez dans le navigateur, avec la console ouverte, vous devriez voir apparaîtr
 
 Funny !, non ?
 
-##Interagir avec javascript
+## Interagir avec javascript
 
 Modifiez ou créez une nouvelle page, comme celle ci :
 
@@ -118,9 +118,9 @@ Modifiez ou créez une nouvelle page, comme celle ci :
     </script>
 
     <script type="text/ruby" charset="utf-8">
-        #Bridge between JS and Ruby
+        # Bridge between JS and Ruby
 
-        #exec global js code
+        # exec global js code
         def tryThat(args)
             `test(args);`
         end
@@ -141,7 +141,7 @@ Pour appeler du code js "inline", il faut l'entourer de **backticks**, à ne pas
     donc `test(args);` et pas 'test(args);'
 
 
-##Interagir avec le dom
+## Interagir avec le dom
 
 Si, c'est possible aussi!
 
@@ -160,7 +160,7 @@ Modifiez ou créez une nouvelle page, comme celle ci :
     </body>
 
     <script type="text/ruby" charset="utf-8">
-        #Bridge between JS and Ruby
+        # Bridge between JS and Ruby
         class rQuery
             def setHtml(selector,txt)
                 `document.querySelector(selector).innerHTML = txt;`
@@ -179,7 +179,7 @@ Modifiez ou créez une nouvelle page, comme celle ci :
 
 Lancez dans le navigateur, une fois le runtime chargé, le contenu de la balise `<h1></h1>` devrait changer.
 
-##Conclusion
+## Conclusion
 
 Opal est assez jeune, mais à suivre pour les ruby's lovers.
 Une fois de plus, cela démontre la puissance de JS (non ce n'est pas du troll)

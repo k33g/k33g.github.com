@@ -8,7 +8,7 @@ image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/Backb
 
 ---
 
-#"Backbone Blueprints" book review 
+# "Backbone Blueprints" book review 
 
 I love the magic of Angular and simplicity, but ultimately for complex SPA, I always return to my favorite framework: Backbone. Its object model (kind of classes), models and collections to easily connect to REST API, make it necessary (it's my belief). But despite its apparent simplicity, Backbone is not always easy to control when you want to make a complete application.
 

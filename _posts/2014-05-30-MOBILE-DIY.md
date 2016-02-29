@@ -6,7 +6,7 @@ info : Web Mobile, faites votre framework!
 
 ---
 
-#Web Mobile, faites votre framework!
+# Web Mobile, faites votre framework!
 
 Hier, je vous parlais des possibilités de Chrome pour Android. Il est très possible vous l'avez deviné de faire des webapps très fonctionnelles. Lorsque je fais de la veille à propos du web mobile, je tombe sur de nombreux frameworks (de différente qualité), mais un bon nombre d'entre-eux essayent de reproduire l'aspect natif du terminal mobile et souvent c'est malheureux (un petit côté "cheap"), surtout lors d'upgrade de l'OS qui change d'IHM. D'autres ne le font pas mais sont souvent très "typés".
 
@@ -27,7 +27,7 @@ Aujourd'hui, je souhaite juste avoir le cadre de base pour:
 
 la prochaine fois, je tenterais d'angulariser mon projet.
 
-##Côté html
+## Côté html
 
 Dans un répertoire, créez 2 sous-répertoires `js` et `css`, dans `js` créez un fichier `kiss.js` et dans `css` créez un fichier `kiss.css`.
 
@@ -67,17 +67,17 @@ Ensuite nous décrivons notre IHM:
 <body>
 
   <header>
-    <a href="#home" class="title">KISS</a>
+    <a href="# home" class="title">KISS</a>
   </header>
 
   <div id="main" class="card">
     <p> Main Page</p>
-    <p><a name="go_to_second" href="#second">next screen ...</a></p>
+    <p><a name="go_to_second" href="# second">next screen ...</a></p>
   </div>
 
   <div id="second" class="card">
     <p>Cras mattis consectetur purus sit amet fermentum.</p>
-    <p><a name="go_to_first" href="#first">previous screen ...</a></p>
+    <p><a name="go_to_first" href="# first">previous screen ...</a></p>
     <form id="informations" onsubmit="return false;"> <ul>
       <li><input type="text" name="firstName" placeholder="FirstName"/></li>
       <li><input type="text" name="lastName" placeholder="LastName"/></li>
@@ -91,7 +91,7 @@ Ensuite nous décrivons notre IHM:
 </html>
 {% endhighlight %}
 
-##Coté css
+## Coté css
 
 Dans le fichier `kiss.css`, nous avons:
 
@@ -125,7 +125,7 @@ form ul {
 form ul li {
   margin: 0 0 4px 0;
   -webkit-border-radius: 4px;
-  border: 1px solid #979797;
+  border: 1px solid # 979797;
   padding: 4px;
 }
 form ul li.no-border {
@@ -149,8 +149,8 @@ textarea {
 
 input[type=submit] {
   font-size: 0.9em;
-  border: 1px solid #AAAAAA;
-  background: #AAAAAA;
+  border: 1px solid # AAAAAA;
+  background: # AAAAAA;
   -webkit-border-radius: 6px;
   width: 100%;
   padding: 6px;
@@ -167,9 +167,9 @@ header {
   left: 0;
   top: 0;
   padding: 6px;
-  background: #333333;
-  color: #AAAAAA;
-  border-bottom: 4px solid #205eaa;
+  background: # 333333;
+  color: # AAAAAA;
+  border-bottom: 4px solid # 205eaa;
   margin: 0 0 4px 0;
 }
 {% endhighlight %}
@@ -181,7 +181,7 @@ a.title {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   text-decoration: none;
   font-weight: bold;
-  color: #fff;
+  color: # fff;
   float: left;
 }
 {% endhighlight %}
@@ -195,17 +195,17 @@ div.card {
   padding: 0px;
 }
 
-div#main {
+div# main {
   display: block;
 }
 {% endhighlight %}
 
 Ces 2 derniers styles signifient qu'au chargement de la page `index.html`:
 
-- `<div id="main" class="card"></div>` est visible (`div#main {display: block;}`)
+- `<div id="main" class="card"></div>` est visible (`div# main {display: block;}`)
 - `<div id="second" class="card">` n'est pas affiché (`display: none;`)
 
-##Côté javascript
+## Côté javascript
 
 Je n'ai pas voulu utiliser de framework pour le moment pour ne pas avoir d'effet de bord avec Angular pour la suite, donc le code va rester très simple:
 
@@ -220,8 +220,8 @@ Je n'ai pas voulu utiliser de framework pour le moment pour ne pas avoir d'effet
     }
   }
 
-  var firstScreen = $("#main").result;
-  var secondScreen = $("#second").result;
+  var firstScreen = $("# main").result;
+  var secondScreen = $("# second").result;
 
   var linkGoToSecondScreen = $("a[name='go_to_second']").result;
   var linkGoToFirstScreen = $("a[name='go_to_first']").result;

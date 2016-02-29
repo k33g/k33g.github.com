@@ -6,11 +6,11 @@ info : Open IoT Challenge, what's up with Atta for Christmas?
 teaser: I participate in the Open IOT Challenge, my project is called "Atta", and today I added 2 new sensors and logging abilities for the gateways
 ---
 
-#Open IOT Challenge: what's up with Atta for Christmas?
+# Open IOT Challenge: what's up with Atta for Christmas?
 
 Today (these last days in fact) I added 2 new sensors and logging features for the gateways.
 
-##New sensors
+## New sensors
 
 I added 2 new "sensor abilities" (Groovy Traits) to Atta that produce less random data (I want more realistic data):
 
@@ -84,7 +84,7 @@ def T = new TemperatureSensor(id:"001", minTemperature: -5.0, maxTemperature: 10
 def H = new HumiditySensor(id:"H003", locationName:"Garden")
 {% endhighlight %}
 
-##Logging (and monitoring) features
+## Logging (and monitoring) features
 
 I added a new object: **Supervisor**, that allows several things:
 
@@ -94,7 +94,7 @@ I added a new object: **Supervisor**, that allows several things:
 
 *Remark: (the gateway has to implement `supervisable` trait).*
 
-###Logging
+### Logging
 
 For example, if you want to display informations:
 
@@ -169,7 +169,7 @@ If you want to log data to a file (see `loggerFileName("temperatures.humidity.lo
 </record>
 {% endhighlight %}
 
-###"Monitoring"
+### "Monitoring"
 
 I added two helpers if you want to make a web application to follow the gateways and their data. If you want to use it, you just have to do this:
 
@@ -179,7 +179,7 @@ supervisor.startHttpServer(9090)
 
 **Remark**: this part has been develop with **[Vert.x](http://vertx.io/)**.
 
-####REST API
+### #   REST API
 
 Then you can query gateways like that:
 
@@ -267,7 +267,7 @@ setInterval(function() {
 }, 2000);
 {% endhighlight %}
 
-####SSE Streaming
+### #   SSE Streaming
 
 If you prefer streaming than polling, **Supervisor** instance streams data to thanks SSE. You can open [http://localhost:9090/sse/all](http://localhost:9090/sse/all) to test it.
 

@@ -7,12 +7,12 @@ teaser: Dans l'épisode précédent vous avez vu pu voir la facilité de mise en
 ---
 
 
-#Vert-X + Groovy: aujourd'hui: le POST
+# Vert-X + Groovy: aujourd'hui: le POST
 
 Aujourd'hui ce sera court: "comment répondre à une requête de type POST".
 
 
-##Request body
+## Request body
 
 Avant toute chose, il faut activer la capacité de Vert-x à lire le `body` au moment de la requête. Il faut donc ajouter ceci dans votre code:
 
@@ -26,7 +26,7 @@ Dans ce cas, nous activons la possibilité pour l'ensemble des routes, mais il e
 router.route().handler(BodyHandler.create("/api/humans*"))
 {% endhighlight %}
 
-##Gérer le POST
+## Gérer le POST
 
 Notre code est très simple:
 
@@ -75,7 +75,7 @@ Et vous devriez obtenir quelque chose comme ceci:
     {"firstName":"Bob","id":42,"lastName":"Morane"}
 
 
-##Json selon Vert-x
+## Json selon Vert-x
 
 Jusqu'ici, j'utilisais les capacités de Groovy à gérer le Json. Mais sachez que Vert-X propose aussi l'outillage json nécessaire par le biais du package `io.vertx.core.json.Json`, donc ajouter un import dans votre code: `import io.vertx.core.json.Json`. Puis continuons à coder.
 

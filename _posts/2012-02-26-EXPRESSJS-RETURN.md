@@ -6,7 +6,7 @@ info : stykkekode la suite
 
 ---
 
-#Express.js, le Play!>Framework du Javascript ? La suite ...
+# Express.js, le Play!>Framework du Javascript ? La suite ...
 
 Hier, c'était : [cf. 1ère partie "Express is Play (?)"](http://k33g.github.com/2012/02/19/EXPRESSJS_IS_PLAY.html)
 
@@ -14,11 +14,11 @@ Aujourd'hui, ce sera l'authentification twitter, mais tout d'abord un peu de cos
 
 ... **Faites vous un café avant, il faut être concentré ;)**
 
-##Codemirror
+## Codemirror
 
 Etant donné que nous saisissons du markdown, allons jusqu'au bout et proposons un éditeur de code avec un peu de couleur. Pour cela nous allons utiliser CodeMirror, un éditeur de code en js assez sympa à utiliser (et surtout facile à utiliser) : [http://codemirror.net/](http://codemirror.net/)
 
-###Installation
+### Installation
 
 Il faut récupérer ici : [https://github.com/marijnh/CodeMirror2](https://github.com/marijnh/CodeMirror2)
 
@@ -31,7 +31,7 @@ puis dans `public/stylesheets` :
 - `codemirror.css`
 - `rubyblue.css` (le thème)
 
-###Utilisation
+### Utilisation
 
 Dans `/views/layout.ejs`, ajouter les références aux feuilles de style :
 
@@ -66,7 +66,7 @@ Dans `/views/layout.ejs`, ajouter les références aux feuilles de style :
 
 On retourne dans `/views/index.ejs`,
 
-####HTML :
+### #   HTML :
 
 Dans notre formulaire html, il n'y a pas grand chose qui change, nous allons juste ajouter un "compteur" pour le nombre de caractères à saisir :
 
@@ -92,7 +92,7 @@ Dans notre formulaire html, il n'y a pas grand chose qui change, nous allons jus
 	</div>
 
 
-####Javascript :
+### #   Javascript :
 
 Là on on a un peu plus de boulot :
 
@@ -110,10 +110,10 @@ Juste après `$(document).ready(function() { ` ajouter ceci :
 
 
 	//le compteur
-	var counter = $("#counter");
+	var counter = $("# counter");
 
 	//une référence à notre bouton d'ajout
-	var postSnippetButton = $("#postsnippet");
+	var postSnippetButton = $("# postsnippet");
 
 	counter.css("color","green");
 
@@ -144,7 +144,7 @@ Juste après `$(document).ready(function() { ` ajouter ceci :
 
 Une dernière petite modification : dans notre vue `window.SnippetFormView`, nous allons modifier le code qui permet de récupérer la saisie faites dans la textarea, puis de vider celle-ci. Remplacez donc :
 
-- `code : converter.makeHtml(this.$('#code').val())` par `code : converter.makeHtml(editor.getValue())`
+- `code : converter.makeHtml(this.$('# code').val())` par `code : converter.makeHtml(editor.getValue())`
 - et `this.$('textarea').val('')` par `editor.setValue('')`
 
 Et voilà pour la partie cosmétique, si tout va bien vous devriez obtenir ceci :
@@ -152,7 +152,7 @@ Et voilà pour la partie cosmétique, si tout va bien vous devriez obtenir ceci 
 ![Alt "express10.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express10.png)
 
 
-##Authentification Twitter
+## Authentification Twitter
 
 Pour cette partie, je dois reconnaître que cela m'a pris un peu plus de temps. Alors je ne fais pas le tour complet de l'authentification via Twitter, mais ça devrait vous donner assez de billes pour creuser plus loin.
 L'objectif de cette partie est le suivant :
@@ -160,14 +160,14 @@ L'objectif de cette partie est le suivant :
 - pouvoir s'authentifier via Twitter
 - ne pouvoir poster qu'une fois autentifié
 
-###Pré-requis
+### Pré-requis
 
 Nous n'allons pas ré-inventer la roue (je ne suis même pas sûr d'y arriver), pour gérer les sessions et s'authentifier avec un compte de rseau social, il existe l'excellente librairie **everyauth** : [https://github.com/bnoguchi/everyauth](https://github.com/bnoguchi/everyauth). Je n'ai rien fait de génial, je me suis juste inspirré des codes d'exemples [https://github.com/bnoguchi/everyauth/blob/master/example/server.js](https://github.com/bnoguchi/everyauth/blob/master/example/server.js) (j'ai juste customisé à ma sauce).
 
 - aller dans le répertoire de votre application : `cd stykkekode`
 - tapez la commande `npm install everyauth`
 
-####Aller enregistrer son application chez Twitter
+### #   Aller enregistrer son application chez Twitter
 
 - aller sur le site des développeurs : [https://dev.twitter.com/](https://dev.twitter.com/)
 - "signer" vous
@@ -188,7 +188,7 @@ Ensuite :
 
 - Clickez sur "Create my access token"
 
-####Paramétrer son poste : "fake http://dev.k33g.org"
+### #   Paramétrer son poste : "fake http://dev.k33g.org"
 
 En mode commande, tapez : `sudo pico /etc/hosts` et ajoutez la ligne suivante :
 
@@ -205,7 +205,7 @@ Et donc cela va vous permettre de tester le callback de twitter en local
 Retournons maintenant dans le code.
 
 
-###Déclaration et paramétrage de everyauth
+### Déclaration et paramétrage de everyauth
 
 Nous allons tout d'abord créer un fichier `config.js` à la racine de l'application. Et nous allons renseigner dans ce fichier les informations nécessaires à la connexion avex Twitter :
 
@@ -260,9 +260,9 @@ En fin de fichier juste avant `app.listen(3000);` ajouter `everyauth.helpExpress
 	app.listen(3000);
 
 
-###Utilisation d'everyauth
+### Utilisation d'everyauth
 
-####Modèle "user"
+### #   Modèle "user"
 
 Premièrement, allez créer un "model" `user.js` dans le répertoire `models` avec le code suivant
 
@@ -292,9 +292,9 @@ Premièrement, allez créer un "model" `user.js` dans le répertoire `models` av
 	user.add = function(source, sourceUser) {
 		user.nextUserId+=1;
 		var authenticatedUser = new user(user.nextUserId, source, sourceUser);
-		console.log("#################################");
+		console.log("### #   #   ### #   #   ### #   #   ### #   #   ### #   #   ### #   #   ### ");
 		console.log(authenticatedUser);
-		console.log("#################################");
+		console.log("### #   #   ### #   #   ### #   #   ### #   #   ### #   #   ### #   #   ### ");
 		user.listById[authenticatedUser.id] = authenticatedUser;
 		return authenticatedUser;
 	};
@@ -310,7 +310,7 @@ Premièrement, allez créer un "model" `user.js` dans le répertoire `models` av
 	exports.user = user;
 
 
-####Utilisation dans server.js
+### #   Utilisation dans server.js
 
 Entre `var app = module.exports = express.createServer();` et `app.configure(...)` ajoutez :
 
@@ -348,7 +348,7 @@ Entre `var app = module.exports = express.createServer();` et `app.configure(...
 	/* === end of authentication === */
 
 
-####Utilisation dans la vue index.ejs
+### #   Utilisation dans la vue index.ejs
 
 Ajoutons un peu de code à notre vue juste après `<div class="container">` :
 
@@ -373,7 +373,7 @@ Vous êtes redirigé vers votre application :
 
 C'est cool ça fonctionne (en tous cas chez moi, c'est ok) mais ce n'est pas beau.
 
-###Derniers réglages
+### Derniers réglages
 
 Toujours dans `index.ejs` on modifie le code précédent :
 
@@ -389,7 +389,7 @@ Et pensez à déactiver le "vidage" des zones de texte (on veut conserver le pse
 
 et remplacez par :
 
-	this.$('#title').val('');
+	this.$('# title').val('');
 
 (oui, je sais, les id cémal)
 

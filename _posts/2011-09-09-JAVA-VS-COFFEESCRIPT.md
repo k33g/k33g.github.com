@@ -6,17 +6,17 @@ info : "Lutte des classes"
 
 ---
 
-#Java Classes versus Coffeescript Classes
+# Java Classes versus Coffeescript Classes
 
 ![Alt "java_vs_coffeescript.jpg"](https://github.com/k33g/k33g.github.com/raw/master/images/java_vs_coffeescript.jpg)
 
 Coffeescript provides classes in Javascript, which is useful for structuring the code in a more traditional object-oriented programming. To understand how this works, I tried to write Java classes and then write the equivalent in Coffeescript. I give you today the results of my work.
 
-##First Class
+## First Class
 
-###Java
+### Java
 
-####Definition :
+### #   Definition :
 
 
     package java_versus_coffeescript;
@@ -36,7 +36,7 @@ Coffeescript provides classes in Javascript, which is useful for structuring the
     }
 
 
-####Use :
+### #   Use :
 
 
     package java_versus_coffeescript;
@@ -50,50 +50,50 @@ Coffeescript provides classes in Javascript, which is useful for structuring the
     }
 
 
-####Results :
+### #   Results :
 
     My name is First Animal
 
-###Coffeescript
+### Coffeescript
 
 **With Coffeescript, instance-level properties are declared inside the constructor.**
 
-####Definition :
+### #   Definition :
 
 
-    #Animal
+    # Animal
     class Animal
         constructor:(name)->
             @name = name
 
         toString:()->
-            "My name is #{@name}"
+            "My name is # {@name}"
 
 
-####Use :
+### #   Use :
 
 
-    #Use
+    # Use
     animal = new Animal "First Animal"
     console.log animal.toString()
 
-####Results :
+### #   Results :
 
     My name is First Animal
 
-####Remarks :
+### #   Remarks :
 
 You can define members as parameters of the constructor and even set default values :
 
 
-    #Animal
+    # Animal
     class Animal
         constructor:(@name="???")->
 
         toString:()->
-            "My name is #{@name}"
+            "My name is # {@name}"
 
-    #Use
+    # Use
     animal = new Animal "First Animal"
     anOtherAnimal = new Animal
 
@@ -106,11 +106,11 @@ You can define members as parameters of the constructor and even set default val
     My name is First Animal
     My name is ???
 
-##Inheritance
+## Inheritance
 
-###Java
+### Java
 
-####Definition :
+### #   Definition :
 
 
     package java_versus_coffeescript;
@@ -135,7 +135,7 @@ You can define members as parameters of the constructor and even set default val
     }
 
 
-####Use :
+### #   Use :
 
 
     package java_versus_coffeescript;
@@ -150,52 +150,52 @@ You can define members as parameters of the constructor and even set default val
     }
 
 
-####Results :
+### #   Results :
 
     My name is Wolf, i'm a Dog
     My name is Wolf, i'm a Dog wouaf! wouaf !
 
-###Coffeescript
+### Coffeescript
 
-####Definition :
+### #   Definition :
 
 
-    #Dog
+    # Dog
     class Dog extends Animal
         constructor:(name)->
-            #call parent constructor
+            # call parent constructor
             super name
 
         wouaf:->
-            #call inherited method
-            "#{@toString()}  wouaf! wouaf !"
+            # call inherited method
+            "# {@toString()}  wouaf! wouaf !"
 
         toString:()->
-            #call parent method
-            "#{super}, i'm a Dog"
+            # call parent method
+            "# {super}, i'm a Dog"
 
 
-####Use :
+### #   Use :
 
 
-    #Use
+    # Use
     wolf = new Dog "Wolf"
     console.log wolf.toString()
     console.log wolf.wouaf()
 
 
-####Results :
+### #   Results :
 
     My name is Wolf, i'm a Dog
     My name is Wolf, i'm a Dog  wouaf! wouaf !
 
-##Static Variables (Class Variables) + Inheritance
+## Static Variables (Class Variables) + Inheritance
 
 I treat both on "static" and "inheritance" as the way "to do static" may affect the inheritance.
 
-###Java
+### Java
 
-####Definition :
+### #   Definition :
 
 
     public class Animal {
@@ -237,7 +237,7 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
     }
 
 
-####Use :
+### #   Use :
 
 
     public class Java_versus_coffeescript {
@@ -256,20 +256,20 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
     }
 
 
-####Results :
+### #   Results :
 
     Total of animals : 3
     Total of animals (from Dog Class) :3
     Total of dogs : 2
 
-###Coffeescript
+### Coffeescript
 
-####Definition :
+### #   Definition :
 
 
-    #Animal
+    # Animal
     class Animal
-        #Static / class variable
+        # Static / class variable
         animalCounter : 0
 
         constructor:(name)->
@@ -277,51 +277,51 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
             Animal::animalCounter++
 
         toString:()->
-            "My name is #{@name}"
+            "My name is # {@name}"
 
-    #Dog
+    # Dog
     class Dog extends Animal
-        #Static / class variable
+        # Static / class variable
         dogCounter : 0
 
         constructor:(name)->
-            #call parent constructor
+            # call parent constructor
             super name
             Dog::dogCounter++
 
         wouaf:->
-            #call inherited method
-            "#{@toString()}  wouaf! wouaf !"
+            # call inherited method
+            "# {@toString()}  wouaf! wouaf !"
 
         toString:()->
-            #call parent method
-            "#{super}, i'm a Dog"
+            # call parent method
+            "# {super}, i'm a Dog"
 
 
-####Use :
+### #   Use :
 
 
-    #Use
+    # Use
     animal = new Animal "First Animal"
     wolf = new Dog "Wolf"
     cookie = new Dog "Cookie"
 
-    console.log "Total of animals : #{Animal::animalCounter}"
-    console.log "Total of animals (from Dog Class) : #{Dog::animalCounter}"
-    console.log "Total of dogs : #{Dog::dogCounter}"
+    console.log "Total of animals : # {Animal::animalCounter}"
+    console.log "Total of animals (from Dog Class) : # {Dog::animalCounter}"
+    console.log "Total of dogs : # {Dog::dogCounter}"
 
 
-####Results :
+### #   Results :
 
     Total of animals : 3
     Total of animals (from Dog Class): 3
     Total of dogs : 2
 
-##Static Methods + Inheritance
+## Static Methods + Inheritance
 
-###Java
+### Java
 
-####Definition :
+### #   Definition :
 
 
     public class Animal {
@@ -370,7 +370,7 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
         }
     }
 
-####Use :
+### #   Use :
 
 
     public class Java_versus_coffeescript {
@@ -390,21 +390,21 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
     }
 
 
-####Results :
+### #   Results :
 
     getAnimalsCount : 3
     getAnimalsCount (from Dog Class) :3
     getDogsCount : 2
     getDogsCount from instance : 2
 
-###Coffeescript
+### Coffeescript
 
-####Definition :
+### #   Definition :
 
 
-    #Animal
+    # Animal
     class Animal
-        #Static / class variable
+        # Static / class variable
         animalCounter : 0
 
         constructor:(name)->
@@ -412,48 +412,48 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
             Animal::animalCounter++
 
         toString:()->
-            "My name is #{@name}"
-        #Static method
+            "My name is # {@name}"
+        # Static method
         @getAnimalsCount:->
             Animal::animalCounter
 
-    #Dog
+    # Dog
     class Dog extends Animal
-        #Static / class variable
+        # Static / class variable
         dogCounter : 0
 
         constructor:(name)->
-            #call parent constructor
+            # call parent constructor
             super name
             Dog::dogCounter++
 
         wouaf:->
-            #call inherited method
-            "#{@toString()}  wouaf! wouaf !"
+            # call inherited method
+            "# {@toString()}  wouaf! wouaf !"
 
         toString:()->
-            #call parent method
-            "#{super}, i'm a Dog"
-        #Static method
+            # call parent method
+            "# {super}, i'm a Dog"
+        # Static method
         @getDogsCount:->
             Dog::dogCounter
 
 
-####Use :
+### #   Use :
 
 
-    #Use
+    # Use
     animal = new Animal "First Animal"
     wolf = new Dog "Wolf"
     cookie = new Dog "Cookie"
 
-    console.log "getAnimalsCount : #{Animal.getAnimalsCount()}"
-    console.log "getAnimalsCount (from Dog Class) : #{Dog.getAnimalsCount()}"
-    console.log "getDogsCount : #{Dog.getDogsCount()}"
-    console.log "getDogsCount from instance : #{cookie.getDogsCount()}"
+    console.log "getAnimalsCount : # {Animal.getAnimalsCount()}"
+    console.log "getAnimalsCount (from Dog Class) : # {Dog.getAnimalsCount()}"
+    console.log "getDogsCount : # {Dog.getDogsCount()}"
+    console.log "getDogsCount from instance : # {cookie.getDogsCount()}"
 
 
-####Results :
+### #   Results :
 
     getAnimalsCount : 3
     getAnimalsCount (from Dog Class) : 3
@@ -462,7 +462,7 @@ I treat both on "static" and "inheritance" as the way "to do static" may affect 
 
 *With Coffescript, an instance of a class can't call static method (Personally, I find it logical)*
 
-##Static & Inheritance : An other way ?
+## Static & Inheritance : An other way ?
 
 There is another way to do (with a different behavior from a heritage point of view) :
 
@@ -472,9 +472,9 @@ There is another way to do (with a different behavior from a heritage point of v
 
 *Code :*
 
-    #Animal
+    # Animal
     class Animal
-        #Static / class variable
+        # Static / class variable
         @animalCounter : 0
 
         constructor:(name)->
@@ -482,40 +482,40 @@ There is another way to do (with a different behavior from a heritage point of v
             Animal.animalCounter++
 
         toString:()->
-            "My name is #{@name}"
-        #Static method
+            "My name is # {@name}"
+        # Static method
         @getAnimalsCount:->
             Animal.animalCounter
 
-    #Dog
+    # Dog
     class Dog extends Animal
-        #Static / class variable
+        # Static / class variable
         @dogCounter : 0
 
         constructor:(name)->
-            #call parent constructor
+            # call parent constructor
             super name
             Dog.dogCounter++
 
         wouaf:->
-            #call inherited method
-            "#{@toString()}  wouaf! wouaf !"
+            # call inherited method
+            "# {@toString()}  wouaf! wouaf !"
 
         toString:()->
-            #call parent method
-            "#{super}, i'm a Dog"
-        #Static method
+            # call parent method
+            "# {super}, i'm a Dog"
+        # Static method
         @getDogsCount:->
             Dog.dogCounter
 
-    #Use
+    # Use
     animal = new Animal "First Animal"
     wolf = new Dog "Wolf"
     cookie = new Dog "Cookie"
 
-    console.log "getAnimalsCount : #{Animal.getAnimalsCount()}"
-    console.log "getAnimalsCount (from Dog Class) : #{Dog.getAnimalsCount()}"
-    console.log "getDogsCount : #{Dog.getDogsCount()}"
+    console.log "getAnimalsCount : # {Animal.getAnimalsCount()}"
+    console.log "getAnimalsCount (from Dog Class) : # {Dog.getAnimalsCount()}"
+    console.log "getDogsCount : # {Dog.getDogsCount()}"
 
 
 
@@ -523,7 +523,7 @@ There is another way to do (with a different behavior from a heritage point of v
 
 In a class-level method (not in an instance-level method as constructor) you can access class-level property with this : `@animalCounter` instead of `Animal.animalCounter` :
 
-        #Static method
+        # Static method
         @getAnimalsCount:->
             @animalCounter
 
@@ -583,7 +583,7 @@ To understand this behavior, you have just to read the javascript compiled versi
     })();
 
 
-##Private members ?
+## Private members ?
 
 LOL ;)
 

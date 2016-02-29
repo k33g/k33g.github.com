@@ -6,7 +6,7 @@ info : Redis et les HashMaps
 
 ---
 
-#Redis et les HashMaps
+# Redis et les HashMaps
 
 Je viens de visionner le TIA (tool in action) de [Nicolas Martignole](https://twitter.com/nmartignole) lors de **Devoxx FR 2014** sur Redis : [Redis, une base Not Only NoSQL](http://parleys.com/play/535e4ed8e4b03397a8eee8d4/chapter0/about). Je l'avais loupé, je passais juste après et du coup, "légèrement tendu" je me préparais "psychologiquement" ;). Je vous engage vivement à le visionner, c'est une très bonne présentation de Redis, qui en plus "sent" le vécu, puis Nicolas nous parle de son expérience réelle avec Redis.
 
@@ -26,19 +26,19 @@ Alors, on aime ou pas, mais je trouve ça pratique.
 
 **Pré-requis**: avoir visionné le TIA de Nicolas.
 
-##HMSET
+## HMSET
 
 Il se trouve que la commande `HMSET` de Redis permet d'enregistrer des hashs (associés à une clé): [http://redis.io/commands/hmset](http://redis.io/commands/hmset) et que le driver Java **Jedis** ([https://github.com/xetorthio/jedis](https://github.com/xetorthio/jedis)) possède la méthode "helper" `hmset(key, map)` qui permet de sauvegarder des hashmaps de ce type `HashMap<String, String>`. *(1)*
 
-Un petit exemple ici sur le repo Jedis : [https://github.com/xetorthio/jedis/blob/master/src/test/java/redis/clients/jedis/tests/commands/HashesCommandsTest.java#L81](https://github.com/xetorthio/jedis/blob/master/src/test/java/redis/clients/jedis/tests/commands/HashesCommandsTest.java#L81) 
+Un petit exemple ici sur le repo Jedis : [https://github.com/xetorthio/jedis/blob/master/src/test/java/redis/clients/jedis/tests/commands/HashesCommandsTest.java# L81](https://github.com/xetorthio/jedis/blob/master/src/test/java/redis/clients/jedis/tests/commands/HashesCommandsTest.java# L81) 
 
 *(1): il n'y a que des types `String` avec Redis, donc oubliez le type `Object`.*
 
-##Application en Java
+## Application en Java
 
 Donc en java, si j'avais des hashmaps qui représenteraient des humains, j'aurais le code suivant:
 
-###Connexion à Redis et définition des "humains"
+### Connexion à Redis et définition des "humains"
 
 {% highlight java %}
 Jedis jedis = new Jedis("localhost", 6379);
@@ -59,7 +59,7 @@ HashMap<String, String> jane = new HashMap<String, String>() {% raw %}{{
 }}{% endraw %};
 {% endhighlight %}
 
-###Sauvegarde des "humains"
+### Sauvegarde des "humains"
 
 {% highlight java %}
 /* === save all humans to the redis server === */
@@ -69,7 +69,7 @@ jedis.hmset("john:male", john);
 jedis.hmset("jane:female", jane);
 {% endhighlight %}
 
-###Retrouver un "humain"
+### Retrouver un "humain"
 
 On utilise la méthode `hgetAll`en lui passant la clé de "l'humain" recherché
 
@@ -83,7 +83,7 @@ En sortie, nous aurons ceci:
 
     {lastName=Doe, firstName=Jane}
 
-###Lister toutes les clés
+### Lister toutes les clés
 
 {% highlight java %}
 /* === get All Humans keys === */
@@ -97,7 +97,7 @@ En sortie, nous aurons ceci:
     john:male
     jane:female
 
-###Lister toutes les "humains"
+### Lister toutes les "humains"
 
 Pour cela nous passerons par la liste des clés:
 
@@ -113,7 +113,7 @@ En sortie, nous aurons ceci:
     {firstName=John, lastName=Doe}
     {lastName=Doe, firstName=Jane}
 
-###Ne lister que les garçons
+### Ne lister que les garçons
 
 {% highlight java %}
 /* === get only males === */
@@ -132,7 +132,7 @@ Ce qui signifie que la **clé est porteuse d'informations** et qu'il est importa
 
 Vous trouverez le code source ici: [https://github.com/java-experiments/try-redis-with-jedis](https://github.com/java-experiments/try-redis-with-jedis)
 
-##En Golo pour la route
+## En Golo pour la route
 
 Juste le listing Golo, qui se passe d'explication (la logique reste la même)
 
@@ -145,25 +145,25 @@ let bob = map[["firstName", "Bob"], ["lastName", "Morane"]]
 let john = map[["firstName", "John"], ["lastName", "Doe"]]
 let jane = map[["firstName", "Jane"], ["lastName", "Doe"]]
 
-# === save all humans to the redis server ===
+#  === save all humans to the redis server ===
 
 jedis: hmset("bob:male", bob)
 jedis: hmset("john:male", john)
 jedis: hmset("jane:female", jane)
 
-# === get Jane ===
+#  === get Jane ===
 
 println(jedis: hgetAll("jane:female"))
 
-# === get All Humans keys ===
+#  === get All Humans keys ===
 
 jedis: keys("*"): each(|key| -> println(key))
 
-# === get All Humans ===
+#  === get All Humans ===
 
 jedis: keys("*"): each(|key| -> println(jedis: hgetAll(key)))
 
-# === get only males ===
+#  === get only males ===
 
 jedis: keys("*:male"): each(|key| -> println(jedis: hgetAll(key)))
 {% endhighlight %}

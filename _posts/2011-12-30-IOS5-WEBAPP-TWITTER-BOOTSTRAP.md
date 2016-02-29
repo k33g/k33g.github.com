@@ -6,13 +6,13 @@ info : ipad, iphone webapp with twitter bootstrap
 
 ---
 
-#ipad, iphone webapp with twitter bootstrap
+# ipad, iphone webapp with twitter bootstrap
 
 By adding a small matter, it is possible to very easily a mobile webapp (for iPad or iPhone) with "Twitter Bootstrap".
 
-##What we need ?
+## What we need ?
 
-###First, html skeleton
+### First, html skeleton
 
 We have to :
 
@@ -52,7 +52,7 @@ We have to :
         </html>
 
 
-###Add a few new css styles
+### Add a few new css styles
 
 To the end of the `<head>` tag :
 
@@ -119,7 +119,7 @@ What have we done ?
 - we are playing with new css property `-webkit-overflow-scrolling : touch;` of iOS5 Safari Mobile, that allows ["native momentul scrolling"](http://johanbrook.com/browsers/native-momentum-scrolling-ios-5/)
 - we are using `@media queries` to change size of the webapp sides when rotating.
 
-##Now, adding some html content
+## Now, adding some html content
 
 We need :
 
@@ -127,7 +127,7 @@ We need :
  - a fixed toolbar (on top)
  - a scrollable panel (with tabs inside)
 
-###Main skeleton :
+### Main skeleton :
 
 
     <body>
@@ -151,7 +151,7 @@ We need :
     </body>
 
 
-###ToolBar :
+### ToolBar :
 
 
     <body>
@@ -163,10 +163,10 @@ We need :
         <div class="topbar">
             <div class="topbar-inner">
                 <div class="container-fluid">
-                    <a class="brand" href="#">WebAPP</a>
+                    <a class="brand" href="# ">WebAPP</a>
                     <ul class="nav">
-                        <li><a href="#">Hello</a></li>
-                        <li><a href="#">World</a></li>
+                        <li><a href="# ">Hello</a></li>
+                        <li><a href="# ">World</a></li>
                     </ul>
                 </div>
             </div>
@@ -182,7 +182,7 @@ We need :
     </body>
 
 
-###Scrollable panel with tabs :
+### Scrollable panel with tabs :
 
 
     <body>
@@ -194,10 +194,10 @@ We need :
         <div class="topbar">
             <div class="topbar-inner">
                 <div class="container-fluid">
-                    <a class="brand" href="#">WebAPP</a>
+                    <a class="brand" href="# ">WebAPP</a>
                     <ul class="nav">
-                        <li><a href="#">Hello</a></li>
-                        <li><a href="#">World</a></li>
+                        <li><a href="# ">Hello</a></li>
+                        <li><a href="# ">World</a></li>
                     </ul>
                 </div>
             </div>
@@ -208,8 +208,8 @@ We need :
             <!-- CONTENT -->
             <div class="content insideScrollablePanel">
                 <ul class="tabs" data-tabs="tabs">
-                    <li class="active"><a href="#home">Home</a></li>
-                    <li class=""><a href="#message">Message</a></li>
+                    <li class="active"><a href="# home">Home</a></li>
+                    <li class=""><a href="# message">Message</a></li>
                 </ul>
 
                 <div id="my-tab-content" class="tab-content">
@@ -233,7 +233,7 @@ We need :
     </body>
 
 
-###Activate tabs management with javascript
+### Activate tabs management with javascript
 
 We are using `bootstrap-tabs.js` and `jquery-1.7.1.min.js`. Just after the `<body>` tag, add some javascript :
 
@@ -247,7 +247,7 @@ We are using `bootstrap-tabs.js` and `jquery-1.7.1.min.js`. Just after the `<bod
     </script>
 
 
-###Last step : add content in tabs
+### Last step : add content in tabs
 
 
         <!-- SCROLLABLE PANEL -->
@@ -255,8 +255,8 @@ We are using `bootstrap-tabs.js` and `jquery-1.7.1.min.js`. Just after the `<bod
             <!-- CONTENT -->
             <div class="content insideScrollablePanel">
                 <ul class="tabs" data-tabs="tabs">
-                    <li class="active"><a href="#home">Home</a></li>
-                    <li class=""><a href="#message">Message</a></li>
+                    <li class="active"><a href="# home">Home</a></li>
+                    <li class=""><a href="# message">Message</a></li>
                 </ul>
 
                 <div id="my-tab-content" class="tab-content">
@@ -287,7 +287,7 @@ We are using `bootstrap-tabs.js` and `jquery-1.7.1.min.js`. Just after the `<bod
                                 Donec sed odio dui.
                             </p>
                             <p>
-                                <a class="btn" href="#">View details »</a>
+                                <a class="btn" href="# ">View details »</a>
                             </p>
                         </div>
                         <div class="span5">
@@ -300,7 +300,7 @@ We are using `bootstrap-tabs.js` and `jquery-1.7.1.min.js`. Just after the `<bod
                                 Donec sed odio dui.
                             </p>
                             <p>
-                                <a class="btn" href="#">View details »</a>
+                                <a class="btn" href="# ">View details »</a>
                             </p>
                         </div>
                     </div>
@@ -313,14 +313,14 @@ We are using `bootstrap-tabs.js` and `jquery-1.7.1.min.js`. Just after the `<bod
         </div>
 
 
-###What it looks like ?
+### What it looks like ?
 
 ![Alt "twittios501.png"](https://github.com/k33g/k33g.github.com/raw/master/images/twittios501.png)
 ![Alt "twittios502.png"](https://github.com/k33g/k33g.github.com/raw/master/images/twittios502.png)
 
-##And now ... Splitted view for iPad !
+## And now ... Splitted view for iPad !
 
-###Change our styles
+### Change our styles
 
 Add this :
 
@@ -355,7 +355,7 @@ Add this :
     }
 
 
-###Change our skeleton
+### Change our skeleton
 
 We need :
 
@@ -403,7 +403,7 @@ We need :
         </body>
 
 
-###Final code (add some content) :
+### Final code (add some content) :
 
 
     <body>
@@ -413,7 +413,7 @@ We need :
         <div class="topbar">
             <div class="topbar-inner">
                 <div class="container-fluid">
-                    <a class="brand" href="#">WebAPP</a>
+                    <a class="brand" href="# ">WebAPP</a>
                 </div>
             </div>
         </div>
@@ -425,46 +425,46 @@ We need :
                 <div class="well">
                     <h5>Sidebar</h5>
                     <ul>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
                     </ul>
                     <h5>Sidebar</h5>
                     <ul>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
                     </ul>
                     <h5>Sidebar</h5>
                     <ul>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
                     </ul>
 
                     <h5>Sidebar</h5>
                     <ul>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
                     </ul>
                     <h5>Sidebar</h5>
                     <ul>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
                     </ul>
                     <h5>Sidebar</h5>
                     <ul>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
+                        <li><a href="# ">Link</a></li>
+                        <li><a href="# ">Link</a></li>
                     </ul>
 
                 </div>
@@ -480,8 +480,8 @@ We need :
             <div class="topbar-inner">
                 <div class="container-fluid">
                     <ul class="nav">
-                        <li><a href="#">Hello</a></li>
-                        <li><a href="#">World</a></li>
+                        <li><a href="# ">Hello</a></li>
+                        <li><a href="# ">World</a></li>
                     </ul>
                 </div>
             </div>
@@ -492,8 +492,8 @@ We need :
             <!-- CONTENT -->
             <div class="content insideScrollablePanel">
                 <ul class="tabs" data-tabs="tabs">
-                    <li class="active"><a href="#home">Home</a></li>
-                    <li class=""><a href="#message">Message</a></li>
+                    <li class="active"><a href="# home">Home</a></li>
+                    <li class=""><a href="# message">Message</a></li>
                 </ul>
 
                 <div id="my-tab-content" class="tab-content">
@@ -524,7 +524,7 @@ We need :
                                 Donec sed odio dui.
                             </p>
                             <p>
-                                <a class="btn" href="#">View details »</a>
+                                <a class="btn" href="# ">View details »</a>
                             </p>
                         </div>
                         <div class="span5">
@@ -537,7 +537,7 @@ We need :
                                 Donec sed odio dui.
                             </p>
                             <p>
-                                <a class="btn" href="#">View details »</a>
+                                <a class="btn" href="# ">View details »</a>
                             </p>
                         </div>
                     </div>
@@ -553,7 +553,7 @@ We need :
     </body>
 
 
-###What it looks like ?
+### What it looks like ?
 
 ![Alt "twittios503.png"](https://github.com/k33g/k33g.github.com/raw/master/images/twittios503.png)
 ![Alt "twittios504.png"](https://github.com/k33g/k33g.github.com/raw/master/images/twittios504.png)

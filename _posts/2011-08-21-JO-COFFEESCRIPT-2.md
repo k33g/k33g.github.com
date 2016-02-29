@@ -6,7 +6,7 @@ info : Jo and CoffeeScript, sample
 
 ---
 
-#Jo is absolutely "sexy" with Coffeescript !
+# Jo is absolutely "sexy" with Coffeescript !
 
 I continue my investigations with Jo and Coffeescript. Here's another little example :
 

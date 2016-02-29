@@ -6,13 +6,13 @@ info : Java 8, méthodes par défaut dans les interfaces
 
 ---
 
-#Java 8, méthodes par défaut dans les interfaces
+# Java 8, méthodes par défaut dans les interfaces
 
 1er jour de juin, pas beaucoup de temps, levé à la bourre, mais un truc en tête lié à l'excellente présentation de [José Paumard](https://twitter.com/JosePaumard) au dernier Lyon JUG ([http://www.lyonjug.org/evenements/java-8](http://www.lyonjug.org/evenements/java-8)) : avec l'arrivée de Java 8, nous avons maintenant la possibilité de définir des méthodes par défaut dans les interfaces. Je ne vais pas vous expliquer tous les tenants et aboutissants de la chose (il faudrait déjà que je le fasse pour moi), mais je vais vous faire un exemple rapide sur le sujet.
 
 *J'utiliserais plus tard cette manière de faire pour faire un mini "helper" pour Redis (et Jedis), mais cela fera l'objet d'un autre article sur "faire sa lib java from scratch".*
 
-##Une première interface : Identification
+## Une première interface : Identification
 
 Je définis une 1ère interface `Identification`
 
@@ -26,7 +26,7 @@ public interface Identification {
 
 Jusque là rien de bien nouveau, j'ai juste besoin d'une méthode `getName` pour plus tard.
 
-##Une deuxième interface : FlyingAbility
+## Une deuxième interface : FlyingAbility
 
 C'est maintenant que j'utilise les méthodes par défaut:
 
@@ -47,7 +47,7 @@ Pour cela j'utilise le mot-clé `default`, et vous remarquez que mon interface "
 
 Cela signifie que toute classe qui implémentera `FlyingAbility`aura une nouvelle méthode `fly()` `\o/`!!!
 
-##Une troisième interface avant l'exemple final : SwimmingAbility
+## Une troisième interface avant l'exemple final : SwimmingAbility
 
 Sur le même principe que la précédente:
 
@@ -66,7 +66,7 @@ public interface SwimmingAbility extends Identification {
 
 *... Donc vous me voyez venir ...*
 
-##L'exemple final : une classe Duck
+## L'exemple final : une classe Duck
 
 *... Oui, je sais, je suis original le matin ...*. Donc notre classe `Duck`:
 

@@ -6,11 +6,11 @@ info : Faites vos classes en Kotlin
 
 ---
 
-#Faites vos classes en Kotlin
+# Faites vos classes en Kotlin
 
 Juste quelques bouts de code pour montrer de quelle manière on peut faire ses 1ères classes en Kotlin.
 
-##Mode rapide
+## Mode rapide
 
 	class Human(val firstName : String, val lastName : String) {
 
@@ -27,12 +27,12 @@ Juste quelques bouts de code pour montrer de quelle manière on peut faire ses 1
 
 	}
 
-###Exécution :
+### Exécution :
 
 	Hello bob morane
 	bob morane
 
-###A noter :
+### A noter :
 
 - typage : à droite
 - mot clé pour une fonction ou méthode : `fun`
@@ -44,7 +44,7 @@ Juste quelques bouts de code pour montrer de quelle manière on peut faire ses 1
 - pas de `new`, instanciation à l'affectation
 - pas d'obligation de "typer" `bob`, mais vous pourriez écrire `var bob : Human = Human("bob", "morane")`
 
-##On ajoute un constructeur
+## On ajoute un constructeur
 
 	class Human(val firstName : String, val lastName : String) {
 
@@ -57,13 +57,13 @@ Juste quelques bouts de code pour montrer de quelle manière on peut faire ses 1
 	    }
 	}
 
-###Exécution :
+### Exécution :
 
 	I'm the constructor of bob morane
 	Hello bob morane
 	bob morane
 
-##Cool : les propriétés ! (mais qu'est ce que vous foutez chez Oracle/Java !?!)
+## Cool : les propriétés ! (mais qu'est ce que vous foutez chez Oracle/Java !?!)
 
 	class Human(first : String, last : String) {
 	    private var _firstName = first
@@ -102,18 +102,18 @@ Juste quelques bouts de code pour montrer de quelle manière on peut faire ses 1
 
 	}
 
-###A noter :
+### A noter :
 
 - j'ai enlevé `val` dans les paramètres de la classe (du constructeur "primaire") sinon nous aurions des propriétés `first` et `last` en plus des propriétés `FirstName` et `LastName`
 
-###Exécution :
+### Exécution :
 
 	I'm the constructor of bob morane
 	Hello bob morane
 	bob morane
 	BOB MORANE
 
-##Héritage
+## Héritage
 
 Alors de base, les classes sont `final`, il faut donc les préfixer par le mot-clé `open` si l'on souhaite en hériter :
 
@@ -157,13 +157,13 @@ Alors de base, les classes sont `final`, il faut donc les préfixer par le mot-c
 
 	}
 
-###Exécution :
+### Exécution :
 
 	I'm the constructor of Clark Kent
 	Hello Clark Kent
 	Super Man
 
-##Surcharge
+## Surcharge
 
 Comme pour la classe, il faudra utiliser le mot-clé `open` avant un membre de la classe pour pouvoir le surcharger (il faudra aussi que la classe soit `open` : pas de membre `open` dans une classe `final`, et un membre "surchargé" est par défaut `open`, à moins de le préfixé par `final`), donc si on veut surcharger `sayHello` de `Human` :
 
@@ -209,12 +209,12 @@ Comme pour la classe, il faudra utiliser le mot-clé `open` avant un membre de l
 
 	}
 
-###Exécution :
+### Exécution :
 
 	I'm the constructor of Clark Kent
 	Hello Clark Kent, Super Man
 
-##One more thing : Super !
+## One more thing : Super !
 
 Si vous voulez appeler la méthode de la classe mère dans votre surcharge, utilisez `super<supertype_name>.overrided_method()` :
 
@@ -225,19 +225,19 @@ Si vous voulez appeler la méthode de la classe mère dans votre surcharge, util
 	    }
 	}
 
-###Exécution :
+### Exécution :
 
 	I'm the constructor of Clark Kent
 	Hello Clark Kent
 	Your HeroName is Super Man
 
-##Multi-héritage ?
+## Multi-héritage ?
 
 ... Nous verrons ça dans un prochain article ... Il faut que j'aille bosser.
 
-##1ères impressions
+## 1ères impressions
 
-Je ne sais pas vous, mais en ce qui me concerne, ce nouveau langage me plaît beaucoup, une touche de Java, une touche de Javascript, une touche de C# (les propriétés !, ... qui existent aussi en Javascript ;) ).
+Je ne sais pas vous, mais en ce qui me concerne, ce nouveau langage me plaît beaucoup, une touche de Java, une touche de Javascript, une touche de C#  (les propriétés !, ... qui existent aussi en Javascript ;) ).
 
 Et le bruit qui court du moment : la Team Kotlin voudrait utiliser Play!Framework :) ça va être une bonne année !
 

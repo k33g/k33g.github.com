@@ -6,13 +6,13 @@ info : How to connect Backbone Models to PlayFramework Models
 
 ---
 
-#BackBone Models & Play!> Models jouent ensemble : La suite
+# BackBone Models & Play!> Models jouent ensemble : La suite
 
-##Pré-requis (indispensable!)
+## Pré-requis (indispensable!)
 
 Avoir lu la 1ère partie : [http://k33g.github.com/2012/02/04/BB-MODELS-AND-PLAY.html](http://k33g.github.com/2012/02/04/BB-MODELS-AND-PLAY.html)
 
-##Problématique : 
+## Problématique : 
 
 Je souhaite affecter une technologie à un bookmark (je classe mes bookmarks par techno).
 
@@ -55,9 +55,9 @@ Et je voudrais pouvoir faire des "choses" comme celles-ci :
 
 Mais avant d'en arriver là, il va  falloir aller coder en conséquence côté Play!>.
 
-##Préparation :
+## Préparation :
 
-###Créer un modèle Play!> : Techno.java
+### Créer un modèle Play!> : Techno.java
 
 Donc dans `app/models`, créer une classe Java, `Techno.java` :
 
@@ -87,7 +87,7 @@ Donc dans `app/models`, créer une classe Java, `Techno.java` :
 	}
 
 
-###Créer une relation entre Bookmark.java & Techno.java
+### Créer une relation entre Bookmark.java & Techno.java
 
 Donc dans `app/models`, modifier la classe Java, `Bookmark.java` en ajoutant un membre `techno` de type `Techno` et annoté avec `@ManyToOne` (pour la relation) :
 
@@ -130,11 +130,11 @@ Donc dans `app/models`, modifier la classe Java, `Bookmark.java` en ajoutant un 
 	}
 
 
-###Modification conf/routes :
+### Modification conf/routes :
 
 Modifions le fichier `conf/routes` : (là même chose que pour le tuto précédent avec les bookmarks)
 
-	# Technos routes
+	#  Technos routes
 	GET     /bb/techno		Application.getTechno
 	POST	/bb/techno 		Application.postTechno
 	PUT 	/bb/techno 		Application.putTechno
@@ -142,7 +142,7 @@ Modifions le fichier `conf/routes` : (là même chose que pour le tuto précéde
 
 	GET     /bb/technos		Application.allTechnos
 
-###Modifions le contrôleur Application.java :
+### Modifions le contrôleur Application.java :
 
 Dans la classe `app/controllers/Application.java`, ajoutons les méthodes nécessaires pour gérer les opérations de CRUD des technos lorsque Backbone "envoie" des informations : (c'est exactement le même principe que pour le tuto précédent) :
 
@@ -207,7 +207,7 @@ Dans la classe `app/controllers/Application.java`, ajoutons les méthodes néces
 
 Maintenant, passons aux choses sérieuses :
 
-##Gestion de la relation côté Play!>
+## Gestion de la relation côté Play!>
 
 Nous allons modifier les méthodes relatives aux bookmarks dans `Application.java`.
 
@@ -279,11 +279,11 @@ Lorsque Play!> (en fait le contrôleur) reçoit un bookmark "JSONisé" de Backbo
 	    }
 
 
-##Allons faire un tour chez Backbone
+## Allons faire un tour chez Backbone
 
 Maintenant que tout est prêt côté serveur, on peut aller s'amuser côté client.
 
-###Ajoutons quelques technos :
+### Ajoutons quelques technos :
 
 Dans la console de votre navigateur préféré :
 
@@ -311,7 +311,7 @@ Puis on vérifie que "tout s'est bien passé" :
 
 ![Alt "bbplay_2_001.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay_2_001.png)
 
-###Création d'un nouveau bookmark avec une techno existante
+### Création d'un nouveau bookmark avec une techno existante
 
 Toujours dans la console :
 
@@ -327,7 +327,7 @@ Toujours dans la console :
 	LyonJS.save();
 
 
-###Création d'un nouveau bookmark avec une nouvelle techno
+### Création d'un nouveau bookmark avec une nouvelle techno
 
 Toujours dans la console :
 
@@ -341,7 +341,7 @@ Toujours dans la console :
 	ChezMoi.save();
 
 
-###Vérifications :
+### Vérifications :
 
 Encore dans la console :
 
@@ -371,7 +371,7 @@ Vérifions aussi les technos :
 
 ![Alt "bbplay_2_003.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay_2_003.png)
 
-###Vérification ultime :
+### Vérification ultime :
 
 On reste dans la console :
 
@@ -393,15 +393,15 @@ Puis faites :
 
 Arghhhh ! Et là, c'est le drame (encore) :
 
-Vous obtenez un **"horrible"** `TypeError: Object #<Object> has no method 'get'`
+Vous obtenez un **"horrible"** `TypeError: Object # <Object> has no method 'get'`
 
 ![Alt "bbplay_2_004.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay_2_004.png)
 
-###Mais que s'est-il donc passé ?
+### Mais que s'est-il donc passé ?
 
 En fait, lorsque que vous avez fait un `fetch()` du bookmark, il a bien "récupéré" les infos du serveur, mais n'a pas "casté" la techno du bookmark en `Backbone.Model`, donc votre techno (du bookmark) existe bien, mais est un simple `Object`. Les données sont bien là, vous pouvez vérifier en faisant ceci : `LyonJS.get("techno").label;`
 
-###Mais ça m'arrange pas ! Comment fait-on ?
+### Mais ça m'arrange pas ! Comment fait-on ?
 
 Je vais vous présenter une méthode "à l'arrache", pas forcément la plus éléguante, mais qui a le mérite d'être simple et donc de vous éviter beaucoup de soucis (d'effets de bord) pour finalement pas beaucoup d'effort.
 Nous allons ajouter une méthode `fetchWithTechno` à notre modèle `Bookmark` (nous sommes toujours côté Backbone pour mémoire) :
@@ -438,11 +438,11 @@ Nous allons ajouter une méthode `fetchWithTechno` à notre modèle `Bookmark` (
 	});
 
 
-####Que fait donc `fetchWithTechno()` ?
+### #   Que fait donc `fetchWithTechno()` ?
 
 Cette méthode, fait un fetch du bookmark, vérifie s'il a une techno, et si c'est la cas, fait un fetch de cette techno afin de la "caster" en `Backbone.Model`.
 
-####On vérifie ? (penser à raffraîchir la page de votre navigateur)
+### #   On vérifie ? (penser à raffraîchir la page de votre navigateur)
 
 
 	//on récupère la liste des bookmarks
@@ -469,7 +469,7 @@ Cette méthode, fait un fetch du bookmark, vérifie s'il a une techno, et si c'e
 
 Et là la techno de notre bookmark est bien un `Backbone.Model`. :)
 	
-###Allez, un dernier pour la route, on fait la même chose pour la collection :
+### Allez, un dernier pour la route, on fait la même chose pour la collection :
 
 
 	window.Bookmarks = Backbone.Collection.extend({
@@ -499,7 +499,7 @@ Et là la techno de notre bookmark est bien un `Backbone.Model`. :)
 	});
 
 
-####Et on se fait une dernière vérification :
+### #   Et on se fait une dernière vérification :
 
 
 	var bookmarks = new Bookmarks();
@@ -514,7 +514,7 @@ Bon, c'est terminé. Maintenant à vous de bosser ! Il reste plein de choses à 
 
 **PS:** : Si vous relevez des erreurs, si vous avez quelque chose de plus "élégant" pour le faire, etc. ... Allez-y, je ne me vexerais pas, bien au contraire.
 
-##@+
+## @+
 
 *... tiens avec Play!> v°2, ça donnerait quoi ? ... ;)*
 

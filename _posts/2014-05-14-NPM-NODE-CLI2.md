@@ -6,11 +6,11 @@ info : Un peu d'interactivité dans vos outils node
 
 ---
 
-#Un peu d'interactivité dans vos outils node
+# Un peu d'interactivité dans vos outils node
 
 Je vous expliquais il y a peu comment construire ses propres outils en ligne de commande avec node et npm : [http://k33g.github.io/2014/05/09/NPM-NODE-CLI.html](http://k33g.github.io/2014/05/09/NPM-NODE-CLI.html). Nous allons voir aujourd'hui comment ajouté un peu d'interactivité et de couleur à tout ça. Donc, il faut repartir du même projet (donc lire l'article).
 
-##2 nouveaux modules : prompt et colors.js
+## 2 nouveaux modules : prompt et colors.js
 
 Lorsque je parle d'interactivité, je veux dire, que mon "programme" va "me poser" des questions auxquelles je vais devoir répondre. Pour cela je vais utiliser **prompt** ([https://github.com/flatiron/prompt](https://github.com/flatiron/prompt)), et pour les couleurs, le bien nommé **colors.js** ([https://github.com/Marak/colors.js](https://github.com/Marak/colors.js)). Modifiez donc votre fichier `package.json` de la manière suivante :
 
@@ -27,14 +27,14 @@ Lorsque je parle d'interactivité, je veux dire, que mon "programme" va "me pose
 
 Puis faites moi un petit `npm install` pour télécharger les 2 nouvelles dépendances.
 
-##Modification de `bb.js`
+## Modification de `bb.js`
 
 Maintenant, plutôt que de passer le nom du modèle en argument, je souhaite que ce soit l'outil qui demande le nom du modèle, je voudrais aussi pouvoir saisir les valeurs par défaut du modèle. Nous allons donc modifier le code du fichier `bb.js` de la façon suivante :
 
 **Ajout des référence à prompt et colors**:
 
 {% highlight javascript %}
-#!/usr/bin/env node
+# !/usr/bin/env node
 
 var fs = require('fs')
   , _ = require('underscore')
@@ -96,7 +96,7 @@ prompt.get(schema, function (err, result) {
 });
 {% endhighlight %}
 
-##Modification du template `bb.tpl`
+## Modification du template `bb.tpl`
 
 Nous modifions le template pour prendre en compte la nouvelle valeur `defaultValues: result.default_values` :
 
@@ -114,7 +114,7 @@ Nous modifions le template pour prendre en compte la nouvelle valeur `defaultVal
       model: <%= modelName %>Model
     });
 
-##Utilisation
+## Utilisation
 
 Dans un terminal, tapez `bb` et répondez (trompez vous aussi) :
 

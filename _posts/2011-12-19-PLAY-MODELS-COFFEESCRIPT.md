@@ -6,7 +6,7 @@ info : CoffeeScript Model Classes like Playframework's Models
 
 ---
 
-#Write CoffeeScript Model Classes like Playframework's Models
+# Write CoffeeScript Model Classes like Playframework's Models
 
 I love how models operate in Playframewok [http://www.playframework.org/documentation/1.2.4/model](http://www.playframework.org/documentation/1.2.4/model). In this article I will try to do the same with Coffeescript.
 
@@ -14,7 +14,7 @@ I love how models operate in Playframewok [http://www.playframework.org/document
 
 So, we are going create a class model step by step.
 
-##Automatically generate properties from public fields
+## Automatically generate properties from public fields
 
 
     class Model
@@ -36,7 +36,7 @@ So, we are going create a class model step by step.
 
 
 
-###What's going on?
+### What's going on?
 
 - The class constructor parses each field of itself (`Object.keys @`)
 - Create (for each field) a new field prefixed with "_"
@@ -46,7 +46,7 @@ Then, when you write `bob.name` it's `bob._name` wich is returned, when you writ
 
 **Remark** :
 
-You shoul have noticed that i use : `that = @`, it's a javascript habit. In fact, it's better using "fat arrow", see [http://jashkenas.github.com/coffee-script/#fat_arrow](http://jashkenas.github.com/coffee-script/#fat_arrow), and then, there is no need to use the artificial `that = @` :
+You shoul have noticed that i use : `that = @`, it's a javascript habit. In fact, it's better using "fat arrow", see [http://jashkenas.github.com/coffee-script/# fat_arrow](http://jashkenas.github.com/coffee-script/# fat_arrow), and then, there is no need to use the artificial `that = @` :
 
 
     class Model
@@ -67,16 +67,16 @@ You shoul have noticed that i use : `that = @`, it's a javascript habit. In fact
             configurable: true
 
 
-###Use it
+### Use it
 
 
-    #Human Model
+    # Human Model
     class Human  extends Model
       constructor:(name)->
         @name = name
         super
 
-    #Task Model
+    # Task Model
     class Task extends Model
       constructor:(label)->
         @label = label
@@ -101,11 +101,11 @@ I launch this code in a navigator (you can use node.js too if you want), and i g
 
 ![Alt "coffeemods01.png"](https://github.com/k33g/k33g.github.com/raw/master/images/coffeemods01.png)
 
-##I want to subscribe to "changes"
+## I want to subscribe to "changes"
 
 This approach is more "javascript/coffescript" than "playframework" but it's interesting for the development of web pages.
 
-###Create a Event class :
+### Create a Event class :
 
 
     class Event
@@ -116,7 +116,7 @@ This approach is more "javascript/coffescript" than "playframework" but it's int
         document.dispatchEvent evt
 
 
-###Update the Model class :
+### Update the Model class :
 
 
     class Model
@@ -131,12 +131,12 @@ This approach is more "javascript/coffescript" than "playframework" but it's int
               console.log "Get : ", propertyName, @["_"+propertyName]
               @["_"+propertyName]
             set: (value)=>
-              #save old value
+              # save old value
               old = @["_"+propertyName]
               console.log "Set : ", propertyName, value
               @["_"+propertyName] = value
 
-              #fire change event
+              # fire change event
               Event.send "Change",
                 property: propertyName
                 newValue : value
@@ -145,15 +145,15 @@ This approach is more "javascript/coffescript" than "playframework" but it's int
             enumerable: true
             configurable: true
 
-###Use it
+### Use it
 
-    #Human Model
+    # Human Model
     class Human  extends Model
       constructor:(name)->
         @name = name
         super
 
-    #Task Model
+    # Task Model
     class Task extends Model
       constructor:(label)->
         @label = label
@@ -176,7 +176,7 @@ I launch this code in a navigator, and i get this :
 
 ![Alt "coffeemods02.png"](https://github.com/k33g/k33g.github.com/raw/master/images/coffeemods02.png)
 
-##I want a list of models for each child class model
+## I want a list of models for each child class model
 
 I mean, if i have a Task class Model, i want something like that : `ask.list`, if i have a Human class Model, i want : `Human.list`.
 
@@ -197,12 +197,12 @@ Therefore, modify our Model class : (see last two lines of the class)
               console.log "Get : ", propertyName, @["_"+propertyName]
               @["_"+propertyName]
             set: (value)=>
-              #save old value
+              # save old value
               old = @["_"+propertyName]
               console.log "Set : ", propertyName, value
               @["_"+propertyName] = value
 
-              #fire change event
+              # fire change event
               Event.send "Change",
                 property: propertyName
                 newValue : value
@@ -211,12 +211,12 @@ Therefore, modify our Model class : (see last two lines of the class)
             enumerable: true
             configurable: true
 
-        #create static list of models
+        # create static list of models
         if not @.__proto__.constructor.list
           @.__proto__.constructor.list = []
 
 
-###Add a save method (in memory) to the class Model
+### Add a save method (in memory) to the class Model
 
 What i want ? If i save a model, it adds itself to the list, if it's a new model, an id (guid) is automatically generated (if not exists) and the model is pushed to the list. If id exists, we check if model exists in the list, if not it is pushed too, if it exists, updates are automatically reflected (the magic of javascript ;) (*) ).
 
@@ -243,7 +243,7 @@ Then, i add a save method and a static guid method (to generate GUID) to the Mod
 
 (*) : Once the model was saved (and therefore added to the list), you do not have to call the save method at each change (because it is in memory). But it is good practice, especially if we add persistence capabilities in the local storage, for example.
 
-###Use it
+### Use it
 
 
     task1 = new Task "Milk"
@@ -264,7 +264,7 @@ I launch this code in a navigator, and i get this :
 
 ![Alt "coffeemods03.png"](https://github.com/k33g/k33g.github.com/raw/master/images/coffeemods03.png)
 
-###Add a delete method (in memory) to the class Model
+### Add a delete method (in memory) to the class Model
 
 
       delete:->
@@ -273,9 +273,9 @@ I launch this code in a navigator, and i get this :
         @
 
 
-##I want to query my models !!!
+## I want to query my models !!!
 
-###First all() and fetch() methods
+### First all() and fetch() methods
 
 I add those statics methods to the Model class :
 
@@ -288,17 +288,17 @@ I add those statics methods to the Model class :
         @result
 
 
-###Use it
+### Use it
 
 
-    #get all tasks
+    # get all tasks
     Task.all().fetch()
 
-    #get all humans
+    # get all humans
     Human.all().fetch()
 
 
-###Add a find method
+### Add a find method
 
 I add this static method to the Model class :
 
@@ -313,7 +313,7 @@ I add this static method to the Model class :
          @
 
 
-###Use it
+### Use it
 
 
     Human.find("name", "SAM").fetch()
@@ -323,7 +323,7 @@ I add this static method to the Model class :
     ).fetch()
 
 
-###Add first, last and from methods
+### Add first, last and from methods
 
 I add those statics methods to the Model class :
 
@@ -343,7 +343,7 @@ I add those statics methods to the Model class :
         @
 
 
-###Use it
+### Use it
 
 
     bob = new Human "BOB"
@@ -366,7 +366,7 @@ I launch this code in a navigator, and i get this :
 
 ![Alt "coffeemods04.png"](https://github.com/k33g/k33g.github.com/raw/master/images/coffeemods04.png)
 
-##I want to sort my models !!!
+## I want to sort my models !!!
 
 I add this static method to the Model class :
 
@@ -384,7 +384,7 @@ I add this static method to the Model class :
 
               @list.reverse()  if order is "DESC"
             else
-              #numerical sort
+              # numerical sort
               if order is "DESC"
                 @list.sort (a, b) ->
                   b[what] - a[what]
@@ -394,12 +394,12 @@ I add this static method to the Model class :
         @
 
 
-###Use it :
+### Use it :
 
 
     Human.all().orderBy("name","DESC").fetch()
 
 
-##Next time ...
+## Next time ...
 
 We will see how to use localstorage of navigator with our models.

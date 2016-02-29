@@ -6,7 +6,7 @@ info : Atom-shell, javascript everywhere
 
 ---
 
-#Atom-shell, javascript everywhere!
+# Atom-shell, javascript everywhere!
 
 Depuis quelques jours, la release publique de **[Atom](https://atom.io/)** l'éditeur de code de **GitHub** est disponible. Atom, c'est un ide léger (éditeur de code) à la SublimeText qui a comme spécificité d'être développé en javascript, basé sur **node.js** et **Chromium**, avec la possibilité de développer "autour" en **Coffeescript** (donc faire des plugins), mais aussi en javascript. Certes, Atom n'a pas la vélocité d'une application développée "tout en C++", mais je trouve, à la vue de ses capacités que c'est à lui tout seul un cas d'usage démontrant que l'on peut aller très loin en javascript.
 
@@ -16,14 +16,14 @@ D'autres projets de ce type existent, notamment **[Node-Webkit](https://github.c
 
 Je vous explique donc rapidement comment vous pouvez faire une application avec **Atom-shell**. Pour démarrer, il vous faut node.js, npm et Grunt.
 
-##Initialisation de l'application et installation d'Atom-shell
+## Initialisation de l'application et installation d'Atom-shell
 
 Commencez par créer un répertoire `myatom` avec un sous-répertoire `build` et un sous-répertoire `myatom-app`. Ensuite dans le sous répertoire `build`, créez 2 fichiers :
 
 - `package.json`
 - `Gruntfile.js`
 
-###Contenu de `package.json`
+### Contenu de `package.json`
 
     {
       "name": "myatom-app-atom-build",
@@ -34,7 +34,7 @@ Commencez par créer un répertoire `myatom` avec un sous-répertoire `build` et
       }
     }
 
-###Contenu de `Gruntfile.js`
+### Contenu de `Gruntfile.js`
 
 {% highlight javascript %}
 module.exports = function(grunt) {
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
 };
 {% endhighlight %}
 
-###Installer Atom-shell
+### Installer Atom-shell
 
 Dans votre terminal préféré, allez dans le répertoire `build`, et tapez les commandes suivantes :
 
@@ -73,7 +73,7 @@ Au bout de quelques instants vous aurez 2 nouveaux répertoires dans votre répe
     ├── node_modules/
     └── atom-shell/
 
-##Créer l'application
+## Créer l'application
 
 Donc normalement, vous devez avoir une structure de répertoires comme celle-ci :
 
@@ -89,7 +89,7 @@ Créez dans le répertoire `myatom-app` 3 fichiers :
 - `index.html`
 - `main.js`
 
-###Contenu de  `package.json`
+### Contenu de  `package.json`
 
 Vous précisez dans ce fichier le nom du script principal de votre application : `main.js`
 
@@ -99,7 +99,7 @@ Vous précisez dans ce fichier le nom du script principal de votre application :
       "main": "main.js"
     }
 
-###Contenu de  `index.html`
+### Contenu de  `index.html`
 
 Aujourd'hui, nous allons rester simple :
 
@@ -115,7 +115,7 @@ Aujourd'hui, nous allons rester simple :
 </html>
 {% endhighlight %}
 
-###Contenu de  `main.js`
+### Contenu de  `main.js`
 
 Là nous avons un peu plus de choses :
 
@@ -162,7 +162,7 @@ app.on('ready', function() {
 
 **à retenir** : `var BrowserWindow = require('browser-window');` sert à créer la fenêtre native du navigateur, donc la fenêtre principale de votre application, celle dans laquelle sera chargée la page `index.html`
 
-###Lancez la bête!
+### Lancez la bête!
 
 Dans votre répertoire `myatom`, lancez la commande :
 

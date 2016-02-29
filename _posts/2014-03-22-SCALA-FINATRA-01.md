@@ -6,7 +6,7 @@ info : J'apprends Scala avec Finatra
 
 ---
 
-#J'apprends Scala avec Finatra: Part I
+# J'apprends Scala avec Finatra: Part I
 
 Je suis obligé de reconnaître que je "trolle" sur Scala sans réellement en faire. Mais à chaque fois que j'ai essayé dans faire, je trouvais ça un peu obscur. Il y a peu [@loic_d](https://twitter.com/loic_d), connaissant mon intérêt pour les micro-frameworks m'a poussé ce lien [http://finatra.info/](http://finatra.info/). **Finatra** est un micro-framework web en Scala réalisé chez **Twitter**. En lisant le code d'exemple sur la home page j'ai trouvé ça tout de suite très lisible. 
 
@@ -30,22 +30,22 @@ Nous verrons aussi que nous pouvons facilement mettre en œuvre une fonctionnali
 
 *Remarque: avez vous vu dans le code le mot clé `toFuture` ? Finatra est un framework web asynchrone.*
 
-##Avertissement
+## Avertissement
 
 Alors, attention, moi aussi j'apprends Scala (et Finatra), donc je peux dire des choses choquantes (ou peut-être fausses). Ce blog est propulsé par **GitHub** par ici : [https://github.com/k33g/k33g.github.com](https://github.com/k33g/k33g.github.com), ce qui veut dire que vous pouvez faire des [pull requests](https://help.github.com/articles/using-pull-requests) sur ce que j'écris pour m'aider à m'améliorer (merci d'avance), vous pouvez même déclarer des [issues](https://github.com/k33g/k33g.github.com/issues), mais je préfère les PR (comme ça vous bossez pour moi ;) ). Par contre il vous faudra un compte **GitHub** (et c'est l'occasion de le faire tout de suite si vous n'en avez pas).
 
-##Pré-requis
+## Pré-requis
 
 - Vous devez installer Scala (facile)
-- Vous devez installer **sbt** [http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html#installing-sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html#installing-sbt) (facile aussi)
+- Vous devez installer **sbt** [http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html# installing-sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html# installing-sbt) (facile aussi)
 
 *Remarque: sbt pour Scala Build Tools est un utilitaire destiner à vous faciliter la vie pour vos projets Scala.*
 
-##Rappel : Classes & Objets
+## Rappel : Classes & Objets
 
 Avant de rentrer dans le dur, nous allons juste un peu "désacraliser" Scala et apprendre à faire une petite classe, pour bien vérifier que finalement, c'est simple.
 
-###Création du projet
+### Création du projet
 
 Tout d'abord, nous allons créer une rapide structure de projet Scala, compréhensible par **sbt**, ce qui nous permettra de compiler notre code facilement.
 
@@ -59,11 +59,11 @@ Créez l'arborescence suivante (adaptez selon vos besoins) : (là on le fait à 
                  |--k33g
                     |--models
                            
-####Référence(s) pour aller plus loin sur la notion de création de projet
+### #   Référence(s) pour aller plus loin sur la notion de création de projet
 
 - [http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/](http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/)
 
-###Programme principal
+### Programme principal
 
 Dans `demo/src/main/scala/org/k33g/` créez le fichier `Demo.scala` *(remarquez que le nom `Demo` versus le nom du répertoire `demo`, ce n'est pas obligatoire, mais c'est plus propre)* avec le code suivant :
 
@@ -82,7 +82,7 @@ Sauvegardez, ouvrez votre terminal ou votre console, allez dans `demo` (`cd demo
 
 `\o/`
 
-###First Class : `Human`
+### First Class : `Human`
 
 Dans `demo/src/main/scala/org/k33g/models` créez le fichier `Human.scala` avec le code suivant :
 
@@ -120,9 +120,9 @@ Toujours dans `demo` lancez à nouveau un `sbt run`, vous allez obtenir :
 
 Voilà, vous savez tout ;), Scala c'est facile ... On peut maintenant aller faire une application web en Scala (avec Finatra).
 
-##Ma première application Finatra
+## Ma première application Finatra
 
-###Installer Finatra
+### Installer Finatra
 
 - Téléchargez [https://github.com/twitter/finatra/archive/1.5.2.zip](https://github.com/twitter/finatra/archive/1.5.2.zip)
 - Dé-zippez
@@ -134,14 +134,14 @@ Chez moi (sous OSX), cela ressemble à ça :
     export FINATRA_HOME
     export PATH=$PATH:$FINATRA_HOME
 
-###Générez votre 1er projet
+### Générez votre 1er projet
 
 - Tapez ceci : `finatra new org.k33g.DemoWeb`
 - A la question `Install Bower components? (y/n)` répondez `y` (cela va permettre par défaut de télécharger **Bootstrap** et **jQuery**)
 
 Vous obtenez donc votre squelette de projet dans le répertoire `DemoWeb`. Mais avant de lancez quoique ce soit procédons à quelques réglages.
 
-####Préparez votre "stack front" avec Bower : un peu de javascript
+### #   Préparez votre "stack front" avec Bower : un peu de javascript
 
 Allez dans `DemoWeb` et modifiez `bower.json` en lui ajoutant 2 dépendances : `backbone` et `underscore`, de cette manière :
 
@@ -166,7 +166,7 @@ Allez dans `DemoWeb` et modifiez `bower.json` en lui ajoutant 2 dépendances : `
 
 Ensuite, lancez `bower update` (dans `DemoWeb`) et les frameworks javascript **Backbone** et **Underscore** seront téléchargés.
 
-####Modifiez (préparez) la page d'accueil
+### #   Modifiez (préparez) la page d'accueil
 
 Modifiez `src/main/resources/public/index.html` de cette façon :
 
@@ -193,7 +193,7 @@ Modifiez `src/main/resources/public/index.html` de cette façon :
 </html>
 {% endhighlight %}
 
-####Modifiez le code de démarrage de l'application
+### #   Modifiez le code de démarrage de l'application
 
 Ouvrez `src/main/scala/org/k33G/DemoWeb/App.scala` et simplifiez le code de cette manière :
 
@@ -219,15 +219,15 @@ object App extends FinatraServer {
 
 Nous nous contentons donc de dire qu'il faut afficher `index.html` si l'on appelle la racine du site `/` dans le navigateur.
 
-####Il est temps de tester
+### #   Il est temps de tester
 
 Il suffit de lancer la commande `sbt run`. La console **sbt** "va compiler" votre application et ensuite vous notifier que vous pouvez vous connecter : `finatra: http server started on port: :7070`, ouvrez donc [http://localhost:7070/](http://localhost:7070/). Tout roule ? On passe donc à la suite. Arrêtez l'application : `Ctrl + c`.
 
-##Création d'un service json
+## Création d'un service json
 
 Nous allons juste créer une classe `Human` (encore!) et nous la "publierons" au format json pour le navigateur.
 
-###Création de la classe Human
+### Création de la classe Human
 
 Tout d'abord créez un répertoire `models` dans le répertoire `src/main/scala/org/k33g`. Dans ce répertoire, créez une classe `Human.scala` avec le code source suivant :
 
@@ -239,7 +239,7 @@ class Human(val id: String, val firstName: String, val lastName: String) {
 }
 {% endhighlight %}
 
-###Création de notre service
+### Création de notre service
 
 Ouvrez à nouveau `src/main/scala/org/k33g/DemoWeb/App.scala`, nous allons rajouter une "routes" qui fournira du jso, au navigateur :
 
@@ -300,7 +300,7 @@ Testez en lançant `sbt run` et appelez [http://localhost:7070/humans/42](http:/
 
 Pas trop dur?
 
-####Remarque:
+### #   Remarque:
 
 Pour les faignasses, sachez que vous pouvez remplacer :
 
@@ -318,7 +318,7 @@ par :
 render.json(bob).toFuture
 {% endhighlight %}
 
-###Utilisation du service json avec Backbone
+### Utilisation du service json avec Backbone
 
 Parce qu'une application web sans javascript n'est pas une vraie application web, retournez ouvrir `index.html` et ajouter le code suivant en vas de page juste avant la fermeture de la balise `<body>` (donc `</body>`) :
 
@@ -342,7 +342,7 @@ Parce qu'une application web sans javascript n'est pas une vraie application web
 
 Rafraîchissez votre page, vous allez voir que votre titre se met à jour avec les données du service json.
 
-##Auto-Reload
+## Auto-Reload
 
 Ce qui me plaisez énormément dans Play!>1 (et 2), c'était le rechargement automatique (+compilation) lorsque l'on modifiait le code. Sachez que moyennant une petite "bidouille" ceci est très possible. Il suffit d'ajouter un plugin à **sbt**. Ce plugin est [sbt-revolver](https://github.com/spray/sbt-revolver).
 

@@ -6,7 +6,7 @@ info : Open IoT Challenge, AttA and the SpaceCows
 teaser: I participate in the Open IOT Challenge, my project is called "Atta", and today I explain how to simulate a herd of animals ... in movement
 ---
 
-#Open IOT Challenge, AttA and the SpaceCows
+# Open IOT Challenge, AttA and the SpaceCows
 
 In the real world, a lot of connected things (like wearables) are moving. Think about this (virtual) use case:
 
@@ -26,7 +26,7 @@ src="http://www.youtube.com/embed/Bp8NkVVQ8uk">
 
 Now, let see how to play with it.
 
-##Extend the BoidSensor
+## Extend the BoidSensor
 
 You have first to extend `BoidSensor` class:
 
@@ -139,7 +139,7 @@ And if you want to see the result, you just have to open [http://localhost:8080/
 
 The Web application is using **Socket.io client** and **RaphaelJS**. You can see the code here: [https://github.com/ant-colony/atta/blob/master/sandbox/boids_samples/public/index.html](https://github.com/ant-colony/atta/blob/master/sandbox/boids_samples/public/index.html)
 
-##An other sample
+## An other sample
 
 In the previous sample, I've used only one gateway and several sensors for this gateway, but we can imagine that each spacecow is connected, then for each spacecow (sensor) we have a gateway:
 

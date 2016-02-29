@@ -7,7 +7,7 @@ teaser: Faire des démos pendant un talk ce n'est pas toujours simple. J'ai donc
 ---
 
 
-#Mettez un terminal dans vos slides
+# Mettez un terminal dans vos slides
 
 Le 6 novembre, j'ai eu la chance de pouvoir faire un talk au [DevFest Nantes](https://devfest.gdgnantes.com/) (je vous en parlerais dans un autre post) et je me suis bien fait plaisir. Mon talk abordait (pour résumer) les moyens de piloter des nano-computers et des micros-controllers en JavaScript [https://www.youtube.com/watch?v=zd3j6yPLmdY](https://www.youtube.com/watch?v=zd3j6yPLmdY), et pour que l'auditoire ne s'endorme pas, j'aime bien faire des démonstrations. Mais dans le cas de ce talk, je dois pour les démos, "sortir" du slideware, ouvrir une ou plusieurs consoles, tapez des commandes et montrer simultanément (avec une caméra - pour que les gens au fond de la salles puissent aussi voir ce qu'il se passe) le résultat des commandes sur les composants électroniques.
 
@@ -17,9 +17,9 @@ Plutôt que de vous expliquer toutes les étapes, j'ai "dockerisé" tout mon bou
 
 Et je vous explique comment l'utiliser (ensuite à vous de perfectionner l'outil)
 
-##Utilisation de "PrezTools"
+## Utilisation de "PrezTools"
 
-###Builder l'image
+### Builder l'image
 
 Dans un 1er temps, vous allez cloner le repository:
 
@@ -33,7 +33,7 @@ Ensuite vous tapez les commandes suivantes:
 Et vous patientez. 
 **Remarque**: `preztools` est le nom de votre image, `assets` est le répertoire contenant le `Dockerfile` et les éléments nécessaires à la construction de l'image.
 
-###Lancer la bête
+### Lancer la bête
 
 Une fois l'image construite, dans un terminal docker, lancez la commande suivante:
 
@@ -45,7 +45,7 @@ Vous devriez obtenir ceci:
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/term0.png" height="70%" width="70%">
 
-###Vérification
+### Vérification
 
 - Maintenant dans votre navigateur, ouvrez [http://192.168.99.100:9000/](http://192.168.99.100:9000/)
 - Sélectionnez le lien [http://192.168.99.100:9000/sample1.html](http://192.168.99.100:9000/sample1.html)
@@ -68,9 +68,9 @@ Vous allez "splitter" en 4 votre terminal:
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/term3.png" height="70%" width="70%">
 
-Libre à vous maintenant d'écrire vos propre fichiers de configurations **teamocil** en vous inspirant de ça: [https://github.com/remiprev/teamocil#examples](https://github.com/remiprev/teamocil#examples).
+Libre à vous maintenant d'écrire vos propre fichiers de configurations **teamocil** en vous inspirant de ça: [https://github.com/remiprev/teamocil# examples](https://github.com/remiprev/teamocil# examples).
 
-##Et après
+## Et après
 
 Je vais certainement ajouter d'autres outils. Par exemple si vous ouvrez le lien [http://192.168.99.100:9000/sample3.html](http://192.168.99.100:9000/sample3.html) vous pouvez voir que je peux déjà rediriger le flux de ma webcam tout en montrant du code avec **vi**.
 

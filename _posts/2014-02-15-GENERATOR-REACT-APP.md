@@ -6,21 +6,21 @@ info : React Backbone Browserify
 
 ---
 
-#React - Backbone - Browserify : Que du bonheur!
+# React - Backbone - Browserify : Que du bonheur!
 
 J'ai eu beau essayer d'autres frameworks (Angular, Polymer, Ember ...), j'en reviens toujours à Backbone : son modèle objet, ses modèles et collections, associés à de la légèreté et de la simplicité, je n'arrive pas à m'en passer. Par contre, je trouve lourds les "Backbone Views" et les templates (Mustache et les autres), et probablement encore plus lourd, le système de gestion de dépendances et de module RequireJS.
 
-##Remplacer Backbone.View
+## Remplacer Backbone.View
 
 Il y a peu j'ai découvert [React](http://facebook.github.io/react/) qui permet de se substituer aux "Views" Backbone d'une façon tout à fait "concurrentielle". J'y gagne en visibilité (facilité de développement et de maintenance) et en puissance (plus rapide, plus léger). (cf. mon post ["React : La Révolution des Views (?) (côté front)"](http://k33g.github.io/2014/01/30/V.html) pour une initiation rapide).
 
-##Remplacer RequireJS
+## Remplacer RequireJS
 
 J'ai mis un moment à l'accepter, mais pour développer de "grosses" application javascript (surtout si l'on bosse en équipe), un gestionnaire de modules et de dépendances est **OBLIGATOIRE**!.
 Mais être obligé de déclarer l'ensemble des dépendances dans un fichier (avec le risque dans oublier si on ajoute une librairie), la notation utilisée dans chacun des modules (avec le risque d'oublier une dépendance là aussi), ... tout ça me "pompe l'air"!
 J'aime bien me simplifier la vie, et j'ai fini par tester quelque chose que j'avais mis de côté depuis un moment : [Browserify](http://browserify.org/). Pour faire court, cela permet d'avoir un système de gestion de module côté front identique à celui de **Nodejs** et donc d'utiliser **npm** pour télécharger vos librairies javascript préférées. Par exemple pour "récupérer" Backbone, préférez un `npm install backbone` à un `bower install backbone`. Ensuite, lorsque vous aurez besoin de Backbone dans un module, il suffira d'écrire `var Backbone = require("backbone");` dans votre fichier javascript. Vous n'aurez pas de tag `<script></script>` à ajouter dans votre page html, puisque la commande `browserify something.js -o bundle.js` permettra de créer un fichier javascript unique avec toutes les dépendances "mergée".
 
-##Oui, et comment fait-on?
+## Oui, et comment fait-on?
 
 Le but de cet article n'est pas de vous expliquer de A à Z comment construire l'ensemble de la stack et des éléments nécessaires pour faire une 1ère application, mais de vous permettre de découvrir simplement et facilement comment tout ceci fonctionne. Pour ce faire j'ai créé un générateur pour **[Yeoman](http://yeoman.io/)** *(1)* qui va vous permettre facilement (et automatiquement) de créer un projet avec toutes les dépendances nécessaires pour commencer à jouer avec :
 
@@ -34,13 +34,13 @@ Ce générateur s'appelle **generator-react-app**, vous pouvez le trouver ici : 
 
 Tout ceci peut paraître un peu abstrait, donc passons directement à la pratique.
 
-##Installer generator-react-app
+## Installer generator-react-app
 
 *Bien sûr vous avez besoin de Yeoman (et donc node et npm).*
 
 Dans un terminal, tapez `sudo npm install -g generator-react-app`
 
-##Créer le squelette de votre projet
+## Créer le squelette de votre projet
 
 Créez un répertoire : `mkdir humans-demo`, puis "allez" dans le répertoire : `cd humans-demo` et enfin lancez "mon killer generator" *(2)* : `yo react-app` et donnez un nom à votre application et à votre base de données :
 
@@ -55,7 +55,7 @@ Créez un répertoire : `mkdir humans-demo`, puis "allez" dans le répertoire : 
 
 attendez : le générateur va créer la structure de votre projet et télécharger via **npm** et **bower** toutes les dépendances nécessaires à votre projet.
 
-##Lancez votre application (pour voir)
+## Lancez votre application (pour voir)
 
 Vous devez maintenant avoir l'arborescence suivante :
 
@@ -73,7 +73,7 @@ Si tout va bien vous devriez obtenir ceci :
 
 *Si tout va mal, "pinguez" moi ...*
 
-##Créez des services CRUD pour Express (côté back)
+## Créez des services CRUD pour Express (côté back)
 
 Dans un terminal, tapez : `yo react-app:mgroutes Human` et répondez aux questions :
 
@@ -85,7 +85,7 @@ Dans un terminal, tapez : `yo react-app:mgroutes Human` et répondez aux questio
 
 Nous venons de renseigner le schema Mongoose : `firstName: String, lastName: String`, l'url (gardez la valeur par défaut) de base des routes sera `/humans` et 3 fichiers ont été créés **automatiquement** :
 
-###models/Human.js
+### models/Human.js
 
 {% highlight javascript %}
 var mongoose = require('mongoose');
@@ -102,7 +102,7 @@ var HumanModel = function() {
 module.exports = HumanModel;
 {% endhighlight %}
 
-###controllers/HumansCtrl.js
+### controllers/HumansCtrl.js
 
 {% highlight javascript %}
 var Human = require("../models/Human")();
@@ -140,7 +140,7 @@ var HumansCtrl = {
 module.exports = HumansCtrl;
 {% endhighlight %}
 
-###routes/Humans.routes.js
+### routes/Humans.routes.js
 
 {% highlight javascript %}
 var HumansCtrl = require("../controllers/HumansCtrl");
@@ -174,7 +174,7 @@ module.exports = HumansRoutes;
 
 Je vous ai déjà fait gagner beaucoup de temps non ? ;)
 
-##Créez les modèles et collections Backbone (côté front)
+## Créez les modèles et collections Backbone (côté front)
 
 Dans un terminal, tapez : `yo react-app:bbmc Human` et répondez aux questions : (gardez les valeurs par défaut quand elles sont proposées)
 
@@ -186,7 +186,7 @@ Dans un terminal, tapez : `yo react-app:bbmc Human` et répondez aux questions :
 
 Nous avons donc obtenu toujours automatiquement un modèle et une collection.
 
-###public/js/modules/models/HumanModel.js
+### public/js/modules/models/HumanModel.js
 
 {% highlight javascript %}
 var Backbone = require("backbone");
@@ -204,7 +204,7 @@ var HumanModel = Backbone.Model.extend({
 module.exports = HumanModel;
 {% endhighlight %}
 
-###public/js/modules/models/HumansCollection.js
+### public/js/modules/models/HumansCollection.js
 
 {% highlight javascript %}
 var Backbone = require("backbone");
@@ -218,13 +218,13 @@ var HumansCollection = Backbone.Collection.extend({
 module.exports = HumansCollection;
 {% endhighlight %}
 
-###Vous avez vu ?!
+### Vous avez vu ?!
 
 Nous sommes côté client, et nous déclarons les dépendances comme avec **Node** : `var HumanModel = require("./HumanModel");`, c'est tout de même plus simple qu'avec **Require**, c'est la magie de **Browserify**!
 
 Il ne faut pas oublier d'exporter chacun des modules pour pouvoir les utiliser : `module.exports = HumanModel;` et `module.exports = HumansCollection;`.
 
-##Passons à l'IHM avec React ou comment remplacer les "Views" Backbone
+## Passons à l'IHM avec React ou comment remplacer les "Views" Backbone
 
 Nous voulons pouvoir saisir des informations et les afficher, nous allons donc créer un formulaire et une table.
 
@@ -244,7 +244,7 @@ Ensuite, `yo react-app:tablebb HumansTable Human`
 
 Nous avons donc maintenant 2 composants **React** (toujours automatiquement)
 
-###public/js/react_components/HumanForm.js
+### public/js/react_components/HumanForm.js
 
 {% highlight javascript %}
 /** @jsx React.DOM */
@@ -313,7 +313,7 @@ var HumanForm = React.createClass({
 module.exports = HumanForm;
 {% endhighlight %}
 
-###public/js/react_components/HumansTable.js
+### public/js/react_components/HumansTable.js
 
 {% highlight javascript %}
 /** @jsx React.DOM */
@@ -332,7 +332,7 @@ var HumansTable = React.createClass({
   render: function() {
 
     var humansRows = this.state.data.map(function(human){
-      var deleteLink = "#delete_human/" + human._id;
+      var deleteLink = "# delete_human/" + human._id;
 
       return (
         <tr>
@@ -404,7 +404,7 @@ var HumansTable = React.createClass({
 module.exports = HumansTable;
 {% endhighlight %}
 
-###Vous avez vu là aussi ... ?!
+### Vous avez vu là aussi ... ?!
 
 Nous déclarons là aussi les dépendances de la même manière que pour les modèles et collection Backbone :
 
@@ -417,13 +417,13 @@ var React = require('react')
 
 Et surtout ne pas oublier : `/** @jsx React.DOM */` pour que les composants soit bien transformés par **grunt-react**.
 
-###One more thing!
+### One more thing!
 
 Une dernière petite remarque, dans la méthode `componentDidMount` de mon composant React, j'ai pu créer un "Router" Backbone complètement associé au composant.
 
-##Il ne nous reste plus qu'à afficher tout ça
+## Il ne nous reste plus qu'à afficher tout ça
 
-###Modifiez public/js/modules/main.js`
+### Modifiez public/js/modules/main.js`
 
 Ouvrez le fichier `public/js/modules/main.js` et remplacez son contenu par :
 
@@ -448,7 +448,7 @@ React.renderComponent(
 );
 {% endhighlight %}
 
-###Modifiez public/index.html
+### Modifiez public/index.html
 
 Modifiez le contenu du fichier `index.html` de la manière suivante :
 

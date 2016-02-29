@@ -7,7 +7,7 @@ teaser: Ces dernières années, ma vie de développeur a été très largement i
 ---
 
 
-#Vert-X + Groovy: un excellent combo pour le web 
+# Vert-X + Groovy: un excellent combo pour le web 
 
 Ces dernières années, ma vie de développeur a été très largement influencée par **PlayFramework 1** (en Java) puis par **Express** (Node, donc du JavaScript) après avoir compris que **Play 2** n'était pas pour moi *(disparition de la magie)*. Cependant, même si Node c'est très bien et que cela répond à 80% des besoins, pour les 20% restant j'en reviens à Java ... Mais avec une petite perte de souplesse ... 
 Jusqu'au jour où j'ai décidé de redonner une chance à Vert-X (un projet modulaire pour faire des webapps "réactives"). Je regardais ce projet régulièrement, mais à chaque fois que je creusais, au bout d'un moment je "bloquais" sur tel ou tel point et je passais à autre chose parce que je ne trouvais pas de solution. 
@@ -22,7 +22,7 @@ Mais après cette trop longue introduction, passons à l'action.
 
 Je vous engage quand même à parcourir la documentation [http://vertx.io/docs/](http://vertx.io/docs/)
 
-##Création du projet
+## Création du projet
 
 Créez une structure de projet Maven:
 
@@ -33,7 +33,7 @@ Créez une structure de projet Maven:
     |           └── Starter.groovy          
     ├── pom.xml  
 
-###Contenu de `pom.xml`
+### Contenu de `pom.xml`
 
 Je me suis **entièrement inspiré** de ce projet [https://github.com/vert-x3/vertx-examples/tree/master/maven-verticles/maven-verticle-groovy-compiled](https://github.com/vert-x3/vertx-examples/tree/master/maven-verticles/maven-verticle-groovy-compiled)
 
@@ -145,7 +145,7 @@ Ce qui est important, c'est cette ligne `<main.verticle>groovy:Starter</main.ver
 </project>
 {% endhighlight %}
 
-###Contenu de `Starter.groovy`
+### Contenu de `Starter.groovy`
 
 Aujourd'hui je veux faire simple. Il me faut:
 
@@ -154,7 +154,7 @@ Aujourd'hui je veux faire simple. Il me faut:
 - pouvoir servir des pages statiques
 
 
-###Initialisation du server http et du router
+### Initialisation du server http et du router
 
 {% highlight groovy %}
 import groovy.json.JsonOutput // nous en aurons besoin plus loin
@@ -171,7 +171,7 @@ server.requestHandler(router.&accept).listen(8080)
 
 Vous le voyez, rien de plus simple. Maintenant, ajoutons un service
 
-###Notre 1er service
+### Notre 1er service
 
 Créons notre première route:
 
@@ -196,7 +196,7 @@ server.requestHandler(router.&accept).listen(8080)
 
 **Simple!**
 
-###Service Json
+### Service Json
 
 Ajoutons une nouvelle route:
 
@@ -243,7 +243,7 @@ Donc si j'appelle: [http://localhost:8080/api/hi/bob](http://localhost:8080/api/
 
 **Toujours simple!**
 
-###Servir du contenu statique
+### Servir du contenu statique
 
 Pour cela, il vous suffit d'ajouter comme dernière route, ceci:
 
@@ -253,7 +253,7 @@ router.route("/*").handler(StaticHandler.create())
 
 Et de créer un répertoire `webroot` à la racine de votre projet, dans lequel vous pourrez déposer vos pages statiques, JavaScript, etc ...
 
-##Un dernier pour la route ...
+## Un dernier pour la route ...
 
 Ce que j'aimais beaucoup dans **Play**, c'était ça capacité à rebuilder et recharger l'application à chaque modification de code. **Sachez que c'est possible avec Vert-X**.
 
@@ -261,14 +261,14 @@ Voici comment faire:
 
 Tout d'abord, créez un fichier de script `build.sh` avec le contenu suivant:
 
-    #!/usr/bin/env bash
+    # !/usr/bin/env bash
     mvn package
 
 Rendez le exécutable (`chmod a+x build.sh`)
 
 Ensuite créez un nouveau fichier de script `go.sh` (lui aussi exécutable `chmod a+x go.sh`) avec le contenu suivant:
 
-    #!/usr/bin/env bash
+    # !/usr/bin/env bash
     ./build.sh
     java -jar target/atta-1.0-SNAPSHOT-fat.jar --redeploy="**/*.groovy" --onRedeploy="./build.sh"
 
@@ -278,7 +278,7 @@ Vous lancez `go.sh`, une première fois il va builder le projet et ensuite à ch
 
 Voilà. C'est tout pour aujourd'hui, la suite bientôt.
 
-##Remerciements
+## Remerciements
 
 Un grand merci à [@clementplop](https://twitter.com/clementplop) pour ses explications et sa patience ;)
 

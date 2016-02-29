@@ -6,7 +6,7 @@ info : Open IoT Challenge, last step
 teaser: I participate in the Open IOT Challenge, my project is called "Atta" (an IOT simulator), and today I I summarize my project.
 ---
 
-# AttA, last step (for the moment)
+#  AttA, last step (for the moment)
 
 I participate in the Open IOT Challenge [http://iot.eclipse.org/open-iot-challenge/](http://iot.eclipse.org/open-iot-challenge/) . And my project is a simulator of things (connected devices and gateways). It names **AttA**, and it's a DSL written with **Groovy** [http://www.groovy-lang.org/](http://www.groovy-lang.org/) and **Golo** [http://golo-lang.org/](http://golo-lang.org/).
 
@@ -70,10 +70,10 @@ If you need to embed your simulator, you can use Golo too:
 function PoneySensor = |id| {
 
   let x = Observable(0)
-  x: onChange(|value| -> println("# sensor "+ id + " x:"+value))
+  x: onChange(|value| -> println("#  sensor "+ id + " x:"+value))
 
   let y = Observable(0)
-  y: onChange(|value| -> println("# sensor "+ id + " x:"+value))
+  y: onChange(|value| -> println("#  sensor "+ id + " x:"+value))
 
   let sensorDefinition = Adapter()
     : extends("org.typeunsafe.atta.sensors.TemplateSensor")

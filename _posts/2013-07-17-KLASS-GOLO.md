@@ -6,13 +6,13 @@ info : goloClasses
 
 ---
 
-#Golo, en attendant les classes
+# Golo, en attendant les classes
 
 Pendant la période estivale, le [Doc](https://github.com/jponge) ne reste pas inactif et **Golo** "augmente" gentiment ses capacités, notamment avec les [Collection literals](https://github.com/golo-lang/golo-lang/pull/61) et les [Structures](https://sourceforge.net/p/golo-lang/discussion/users/thread/84255b46/) (pas encore disponibles sur le repository officiel). Ces quelques nouveautés de juillet m'ont poussé à faire un petit exercice : en attendant d'avoir des classes, quelle est la meilleure solutions pour les simuler ?
 
 Alors, jusqu'ici, mon mot-clé préféré dans **Golo** est `DynamicObject`, même si le [Doc](https://github.com/jponge) me déconseille (pour des raisons d'optimisation) de l'utiliser, j'en use et en abuse. Je commencerait donc par lui.
 
-##Objectif
+## Objectif
 
 L'objectif premier, c'est de simuler une bonne vieille classe "à la Java" comme celle ci :
 
@@ -36,7 +36,7 @@ Pour cela, je vais vous proposer 3 solutions :
 - avec une **HashMap** (nous verrons ainsi la nouvelle notation des "Collection literals") et une fonction
 - avec une **Structure** et une fonction
 
-##DynamicObject par l'exemple
+## DynamicObject par l'exemple
 
 Le code sera celui-ci : 
 
@@ -54,9 +54,9 @@ Nous l'utiliserons comme ceci :
     let bob = DynamicHuman("Bob", "Morane")
     println(bob:hello())
 
-Pour plus d'informations sur les DynamicObjects, c'est par-ici [http://golo-lang.org/documentation/next/#_dynamic_objects](http://golo-lang.org/documentation/next/#_dynamic_objects).
+Pour plus d'informations sur les DynamicObjects, c'est par-ici [http://golo-lang.org/documentation/next/# _dynamic_objects](http://golo-lang.org/documentation/next/# _dynamic_objects).
 
-##Une "pseudo-classe" avec une HashMap
+## Une "pseudo-classe" avec une HashMap
 
 Le code sera celui-ci : 
 
@@ -78,7 +78,7 @@ Nous l'utiliserons comme ceci :
 
 **Remarque** : la notation est moins sexy qu'avec un DynamicObject, mais pourquoi pas ... A priori c'est plus optimisé qu'un DynamicObject.
 
-##Struct / la nouveauté de la semaine
+## Struct / la nouveauté de la semaine
 
 Lundi, apparaît un thread à propos d'une nouvelle fonctionnalité : `struct` [https://sourceforge.net/p/golo-lang/discussion/users/thread/84255b46/](https://sourceforge.net/p/golo-lang/discussion/users/thread/84255b46/). Et cette phrase : *"Indeed, it compiles to JVM classes, and as such, they are way faster than dynamic objects."* m'interpelle sur 2 points : 
 
@@ -105,7 +105,7 @@ Et nous l'utiliserons comme ceci :
     let bob = StructHuman("Bob", "Morane")
     println(bob:hello())
 
-##Oui, et alors ?
+## Oui, et alors ?
 
 Finalement que faut-il utiliser ? (rappelez-vous, je suis très fan des DynamicObjects).
 

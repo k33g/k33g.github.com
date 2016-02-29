@@ -6,7 +6,7 @@ info : Backbone Patterns
 
 ---
 
-#Backbone Patterns & Best Practices
+# Backbone Patterns & Best Practices
 
 J'ai eu la possibilité et la chance d'être relecteur du livre **["Backbone.js Patterns &nd Best Practices"](http://www.packtpub.com/backbone-js-patterns-and-best-practices/book)** de **Swarnendu De** pour [PACKT Publishing](http://www.packtpub.com).
 

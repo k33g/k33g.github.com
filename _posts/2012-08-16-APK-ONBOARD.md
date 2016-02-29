@@ -6,9 +6,9 @@ info : Créer une application PhoneGap directement sur son smartphone Android
 
 ---
 
-#PhoneGap "Onboard" avec Android.
+# PhoneGap "Onboard" avec Android.
 
-##Préambule
+## Préambule
 
 Peut-on coder directement une application Android sur son smartphone, et tant que l'on y est, peut-on aussi compiler l'apk (toujours sur le smartphone) ? ...
 
@@ -16,7 +16,7 @@ La réponse est **"OUI !"**. Je reconnais que ce n'est pas très pratique (plus 
 
 Nous allons faire une application hybride avec PhoneGap (on peut très bien faire une "pure" application native, mais je voulais vérifier que mon idée fonctionnait de bout en bout).
 
-##Pré-Requis
+## Pré-Requis
 
 Vous aurez besoin de 
 
@@ -27,7 +27,7 @@ Vous aurez besoin de
 
 Si vous n'avez pas de compte Dropbox, et que vous ne souhaitez pas en avoir, vous pouvez facilement adapter ce tuto et utiliser un cable USB pour transférer vos fichiers vers votre smartphone.
 
-##Création du squelette de projet Android
+## Création du squelette de projet Android
 
 - Allez dans votre répertoire Dropbox
 - Positionnez vous où vous voulez (à la racine de Dropbox ou dans un sous répertoire)
@@ -37,13 +37,13 @@ Si vous n'avez pas de compte Dropbox, et que vous ne souhaitez pas en avoir, vou
 
 Maintenant, vous disposez d'un répertoire projet android que nous allons "préparer" pour qu'il fonctione avec **PhoneGap**.
 
-##"Hybridons" notre projet Android
+## "Hybridons" notre projet Android
 
 - Dans le répertoire `libs` de votre projet android, copiez la librairie `cordova-2.0.0.jar` que vous trouvez dans le répertoire `\lib\android` du framework **PhoneGap**.
 - Dans le répertoire de votre projet android, créez un sous-répertoire `assets\www` dans lequel vous copierez la librairie javascript `cordova-2.0.0.js` que vous trouvez dans le répertoire `\lib\android` du framework **PhoneGap**.
 - Copiez le répertoire `xml` que vous trouvez dans le répertoire `\lib\android` du framework **PhoneGap** dans le répertoire `res` de votre projet android
 
-##Modifions DemoPhoneGap.java
+## Modifions DemoPhoneGap.java
 
 Ouvrez avec votre éditeur de texte préféré `DemoPhoneGap.java` (plus tard vous pourrez le faire directement sur votre smartphone), vous devez avoir le code suivant :
 
@@ -90,7 +90,7 @@ Donc :
 - `DemoPhoneGap` hérite maintenant de `DroidGap` et non plus de `Activity`
 - nous avons supprimé `setContentView(R.layout.main);` pour le remplacer par `super.loadUrl("file:///android_asset/www/index.html");`, ce qui signifie qu'au chargement de l'application, la page `index.html` sera chargée dans une UIWebview
 
-##Modifions AndroidManifest.xml
+## Modifions AndroidManifest.xml
 
 Ouvrez `AndroidManifest.xml` qui est à la racine de votre projet android, et qui doit ressembler à ceci :
 
@@ -178,7 +178,7 @@ Au final votre fichier devrait ressembler à ceci :
 	    </application>
 	</manifest>
 
-##Passons à la création de la partie "applicative" en html
+## Passons à la création de la partie "applicative" en html
 
 Dans le répertoire `assets\www`, créez un fichier `index.html` avec le code suivant :
 
@@ -199,7 +199,7 @@ Dans le répertoire `assets\www`, créez un fichier `index.html` avec le code su
 
 			document.addEventListener("deviceready", onDeviceReady, false);
 			function onDeviceReady() {
-				document.querySelector("#infos").innerHTML = [
+				document.querySelector("# infos").innerHTML = [
 					device.name,
 					device.cordova,
 					device.platform,
@@ -211,7 +211,7 @@ Dans le répertoire `assets\www`, créez un fichier `index.html` avec le code su
 		</script>
 	</html>
 
-##Prenez votre smartphone
+## Prenez votre smartphone
 
 - Lancez AIDE, à la demande de création d'un nouveau projet, faites `Cancel`
 
@@ -261,7 +261,7 @@ Dans le répertoire `assets\www`, créez un fichier `index.html` avec le code su
 
 ![Alt "aide_012.jpg"](https://github.com/k33g/k33g.github.com/raw/master/images/aide_012.jpg)
 
-##Maintenant ...
+## Maintenant ...
 
 Vous pouvez modifier directement votre application sur le smartphone et la compiler, tout cela sans repasser par votre desktop.
 Dans notre exemple, c'est même relativement facile, puisque l'essentiel du code à modifier est du HTML et du javascript.
@@ -270,7 +270,7 @@ Petit conseil pour la route, si vraiment cela vous tente de code "onboard", pour
 
 ![Alt "aide_013.jpg"](https://github.com/k33g/k33g.github.com/raw/master/images/aide_013.jpg)
 
-##Conclusion ?
+## Conclusion ?
 
 Geekerie ? Oui, certainement, mais pratique tout de même, si vous voulez tester/vérifier quelque chose d'urgence sans ordinateur sous la main (genre, durant un trop long repas de (belle)famille ;) ).
 

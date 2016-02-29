@@ -6,7 +6,7 @@ info : Les modèles et les collections plus en détails
 
 ---
 
-#BackBone par le bon bout : Partie I (Models+Collections)
+# BackBone par le bon bout : Partie I (Models+Collections)
 
 Ce week-end j'ai continué mes investigations autour de **"BB"**, et la conclusion (la mienne) est qu'avant d'essayer d'avoir une vue d'ensemble de ce framework, il est préférable de comprendre comment fonctionne chacun de ses composants, et surtout ce qu'ils apportent afin d'en tirer le maximum de bénéfices (et d'éviter d'écrire des usines à gaz).
 

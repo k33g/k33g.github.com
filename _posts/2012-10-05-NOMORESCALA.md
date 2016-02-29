@@ -6,7 +6,7 @@ info : Comment se passer des templates Scala dans Play
 
 ---
 
-#Comment se passer des templates Scala dans Play!> 2
+# Comment se passer des templates Scala dans Play!> 2
 
 >*Qu'allons nous voir ?*
 
@@ -26,7 +26,7 @@ info : Comment se passer des templates Scala dans Play
 >	- *Mise en conformité de `routes`*
 >	- *Ajout d'un § : "Optimisation du code du contrôleur"*
 
-##Avertissement
+## Avertissement
 
 L'introduction (§ Prélude) est longue, c'est un "petit" coup de gueule, mais vous pouvez franchement passer directement à la partie ***§ "Faites du Play!>, pas du Scala, ou comment je me passe des templates ?"*** si vous voulez mettre les mains dedans tout de suite.
 
@@ -40,7 +40,7 @@ Bonne lecture & remarques attendues.
 
 *P.*
 
-##Prélude
+## Prélude
 
 Cela va faire presque un an maintenant que je faisais ma première présentation en publique en compagnie de [@loic_d](https://twitter.com/loic_d) sur **PlayFramework 1** *(j'insiste sur le 1)* lors d'un **LyonJUG**. Alors, triple stress pour moi :
 
@@ -54,7 +54,7 @@ En dépit d'une grosse envie de reculer, mais n'ayant trouvé aucune excuse rée
 
 *(1): je suis avant-vendeur = faux commercial + faux développeur*
 
-###Solitude, ou comment Play!> 2 m'a tué
+### Solitude, ou comment Play!> 2 m'a tué
 
 Ma vision Play!> **1** de  était la suivante :
 
@@ -83,11 +83,11 @@ Je crois même me souvenir d'avoir vu passer un tweet de [@juliendubois](https:/
 
 Je ne suis plus sûr de ce que nous avons répondu, mais sur le coup : "Solitude !" *(Ah! [@loic_d](https://twitter.com/loic_d) me dit dans l'oreillette qu'il avait parlé du module de template Groovy en préparation à l'époque)*. Je comprend mieux pourquoi, nous n'arrivons pas à faire un ["Cast-it"](http://www.cast-it.fr/) avec toi sur le sujet, au bout de presqu'un an, Guillaume, tu dois être super embêté de nous avoir mis dans cette situation :)))
 
-###Tristesse et renaissance
+### Tristesse et renaissance
 
 Ce soir là, j'étais prêt à abandonner Play!>. Après quelques semaines (mois ?) d'errements et d'égarements, j'ai quand même appris à utiliser node.js et express.js !!! *(soit-dit en passant, c'est pas mal du tout)*, j'ai décidé que je n'allais pas m'avouer vaincu aussi facilement, **moi aussi je veux faire partie de l'élite !**, et je me suis "collé" dans Play!> **2** (j'ai un peu gratté sur ce que j'arrivais à apprendre : [http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html](http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html)).*([@loic_d](https://twitter.com/loic_d) devrait vous concocter quelques trucs supplémentaires dans un futur proche ... sur du Scala justement)*.
 
-####Résultats ???
+### #   Résultats ???
 
 Alors, je suis arrivé à retrouver mes petits en ce qui concerne les modèles et les contrôleurs, mais pour les vues, décidément je ne m'y fais pas, Scala, je n'y arrive pas (le 1er qui me dit que c'est comme javascript a intérêt à courrir vite), en dépit des efforts de [@loic_d](https://twitter.com/loic_d) pour me vendre le bouzin, pour le moment ce n'est pas pour moi *(Mais ne jamais dire jamais)*.
 
@@ -97,15 +97,15 @@ Malgré, cette légère problématique à propos des vues, **j'ai appris à nouv
 
 Nous voilà donc enfin dans le vif du sujet de cet article. Certes, c'était long, mais cela fait un an que je rumine :)
 
-##Faites du Play!>, pas du Scala, ou comment je me passe des templates ?
+## Faites du Play!>, pas du Scala, ou comment je me passe des templates ?
 
 Il se trouve que je suis très fan (et j'y crois) du modèle [**"Single Page Application"**](http://en.wikipedia.org/wiki/Single-page_application). En gros entre la page web et le serveur, seules les données circulent, vous n'avez potentiellement qu'une seule page html (avec pas mal d'intelligence en javascript) et côté serveur, vos contrôleurs vous crachent du json. Un exemple ? **Gmail !!!** *(donc ne me dites pas que l'idée est "débile")*.
 
 J'ai donc poussé l'exercice jusqu'au bout ;), j'ai même supprimé le répertoire `views` de mon projet Play!> 2.
 
-###Objectifs & Préparation du projet
+### Objectifs & Préparation du projet
 
-####Objectifs
+### #   Objectifs
 
 Mon but est de faire une application Play!> 2 sur les principes REST (Representational State Transfer) qui permettra de faire des opérations de type **CRUD** sur un modèle java en utilisant des services basés sur le protocole http avec les verbes suivants :
 
@@ -116,7 +116,7 @@ Mon but est de faire une application Play!> 2 sur les principes REST (Representa
 
 Si cela vous paraît obscur, pas d'inquiétude, la partie pratique du tuto devrait vous éclairer. Mais je vous engage fortement à lire [http://naholyr.fr/2011/08/ecrire-service-rest-nodejs-express-partie-1/](http://naholyr.fr/2011/08/ecrire-service-rest-nodejs-express-partie-1/) de [@naholyr](https://twitter.com/naholyr).
 
-####Génération du squelette de l'application
+### #   Génération du squelette de l'application
 
 Commencez donc par créer une application java Play!> 2 :
 
@@ -131,12 +131,12 @@ Faites un peu de rangement :
 - supprimez le contrôleur `Application.java` du répetoire `spa\app\controllers`
 - créez un répertoire `spa\app\models`
 
-#####Paramétrage de la persistance des données
+### #   #   Paramétrage de la persistance des données
 
 Aller dans `spa\conf\application.conf` et changez (vers la ligne 25) :
 
-	# db.default.driver=org.h2.Driver
-	# db.default.url="jdbc:h2:mem:play"
+	#  db.default.driver=org.h2.Driver
+	#  db.default.url="jdbc:h2:mem:play"
 
 par 
 
@@ -145,15 +145,15 @@ par
 
 puis décommentez :
 
-	# ebean.default="models.*"
+	#  ebean.default="models.*"
 
 ... enregistrez.
 
-#####Définition d'une route statique
+### #   #   Définition d'une route statique
 
 Aller dans `spa\conf\routes` et supprimer la "route Home" :
 
-	# Home page
+	#  Home page
 	GET     /                           controllers.Application.index()
 
 Et ajoutez celle-ci à la fin :
@@ -162,7 +162,7 @@ Et ajoutez celle-ci à la fin :
 
 Cela signifie, maintenant, que lorsque nous appellerons [http://localhost:9000](http://localhost:9000), ce sera la page statique `index.html` qui sera chargée.
 
-####Préparation des éléments statiques du projet
+### #   Préparation des éléments statiques du projet
 
 Avant de "coder" notre page `index.html` nous aurons besoin des éléments suivants :
 
@@ -176,7 +176,7 @@ Et collez moi tout ça pour le moment dans `spa\public\javascripts` (vous pouvez
 
 **Remarque :** YepNope est un loader de script, certains me diront que Play!> apporte le support de Require.js, mais je préfère YepNope, donc après vous pourrez adapter.
 
-####Codons notre page index.html
+### #   Codons notre page index.html
 
 Pour le moment pas besoin de grand chose, créez une page index.html dans `spa\public` avec le code suivant :
 
@@ -200,7 +200,7 @@ Pour le moment pas besoin de grand chose, créez une page index.html dans `spa\p
 
 Rien de très violent, jusqu'ici. Nous allons faire un peu plus de chose avec `main.js`.
 
-####Codons le fichier main.js de chargement de script :
+### #   Codons le fichier main.js de chargement de script :
 
 Créez un fichier main.js dans `spa\public` avec le code suivant :
 
@@ -223,7 +223,7 @@ Je pense que vous me voyez venir, je vais vous parler de Backbone, mais dans un 
 
 Vous pouvez d'ores et déjà tester votre page pour vérifier que les scripts javascript sont bien chargés.
 
-###Enfin un peu de Java : le modèle !
+### Enfin un peu de Java : le modèle !
 
 Codons notre 1er (et seul modèle), dans le répertoire `spa\app\models` donc. Et je ne vais pas être original pour 2 sous : `Human.java` :
 
@@ -246,7 +246,7 @@ Codons notre 1er (et seul modèle), dans le répertoire `spa\app\models` donc. E
 
 	}
 
-###Et maintenant ... Le contrôleur !
+### Et maintenant ... Le contrôleur !
 
 Là aussi, nous allons coder notre seul et unique contrôleur `Humans.java` dans `spa\app\controllers`. Cette fois, il y a un peu plus de code, donc soyez attentifs. J'explique en commentaire dans le code à quoi vont servir les méthodes :
 
@@ -343,35 +343,35 @@ Là aussi, nous allons coder notre seul et unique contrôleur `Humans.java` dans
 
 ... ça c'est fait.
 
-###Ensuite l'écriture indispensable des routes correspondantes (pour chacune des méthodes du contrôleur) :
+### Ensuite l'écriture indispensable des routes correspondantes (pour chacune des méthodes du contrôleur) :
 
 On ajoute ceci dans le fichier `routes` :
 
-	#Création
+	# Création
 	POST /humans  controllers.Humans.create()
 
-	#Mise à jour
+	# Mise à jour
 	PUT /humans/:id  controllers.Humans.update(id: Long)		
 
-	#Rechercher par Id
+	# Rechercher par Id
 	GET  /humans/:id  controllers.Humans.getById(id: Long)
 
-	#Supprimer par Id
+	# Supprimer par Id
 	DELETE /humans/:id  controllers.Humans.delete(id: Long)
 
-	#Retrouver tous les éléments
+	# Retrouver tous les éléments
 	GET /humans controllers.Humans.getAll()
 
-	#Retrouver certains éléments
+	# Retrouver certains éléments
 	GET /humans/:fieldName/equals/:value controllers.Humans.query(fieldName: String, value: String)
 
 Nous avons maintenant tout ce qu'il faut pour faire nos 1ères requêtes ajax. Vous pouvez Raffraîchir votre page (Play!> va vous proposer de créer votre modèle de données. Ne refusez pas.)
 
-###De l'Ajax dans la console
+### De l'Ajax dans la console
 
 Maintenant, ouvrez la console de votre navigateur, et nous allons essayer diverses requêtes ajax (avec l'aide de jQuery).
 
-####Créer des "Humans"
+### #   Créer des "Humans"
 
 Une 1ère création :
 
@@ -406,7 +406,7 @@ Et enfin une 3ème :
 
 A chaque fois vous pourrez noter que l'on obtient automatiquement un Id pour le model.
 
-####Retrouver tous les enregistrements :
+### #   Retrouver tous les enregistrements :
 
 C'est très simple : (notez le changement d'url : `/humans` à la place de `/human`)
 
@@ -421,7 +421,7 @@ Vous devriez obtenir une sortie de ce type dans la console :
 
 ![Alt "img"](https://github.com/k33g/k33g.github.com/raw/master/images/002-ajax.png)
 
-####Modification des modèles
+### #   Modification des modèles
 
 J'ai oublié de renseigner l'âge :
 
@@ -436,7 +436,7 @@ J'ai oublié de renseigner l'âge :
 
 **Remarque :** je suis allé au plus simple dans mon exemple (code côté java), donc vous devez penser à bien renseigner l'ensemble des champs lors de la mise à jour.
 
-####Faire une reqûete : je veux toute la famille "DOE"
+### #   Faire une reqûete : je veux toute la famille "DOE"
 
 Tout d'abord, ajouter un modèle avec un lastName égal à "DOE"
 
@@ -460,7 +460,7 @@ Donc, là si tous va bien vous obtiendrez cette sortie :
 
 ![Alt "img"](https://github.com/k33g/k33g.github.com/raw/master/images/003-ajax.png)
 
-####Suppression d'un modèle :
+### #   Suppression d'un modèle :
 
 Par exemple, je souhaite supprimer le modèle d'Id 4 (Jane) :
 
@@ -475,11 +475,11 @@ Et si vous tentez une seconde fois de supprimer le même modèle, vous récupèr
 
 Nous pourrions bien sûr programmer bien d'autres types de requêtes, mais pour l'exercice, les requêtes "de base" sont amplement suffisantes.
 
-###Backbone <3 Play!>
+### Backbone <3 Play!>
 
 Il est temps de faire du MVC côté client avec Backbone.js.
 
-####Création d'un Backbone.Model et d'une Backbone.Collection
+### #   Création d'un Backbone.Model et d'une Backbone.Collection
 
 Dans `main.js`, ajoutez `application         : 'assets/app.js'`
 
@@ -524,7 +524,7 @@ puis créez un fichier `app.js` qui contiendra notre application Backbone dans l
 		console.log("Démarrage de l'application Backbone");
 	}
 
-####Testons notre modèle et notre collection dans la console
+### #   Testons notre modèle et notre collection dans la console
 
 Toujours dans la console du navigateur :
 
@@ -568,7 +568,7 @@ Donc vous pouvez voir que nos "objets" Backbone savent très bien "discuter" ave
 
 Nous pouvons donc passer à la partie affichage.
 
-####Templating côté client
+### #   Templating côté client
 
 Pour cela nous utiliserons **Mustache.js**. 
 
@@ -577,7 +577,7 @@ Nous allons décrire notre template d'affichage dans la page `index.html` :
 	        <!-- définition du template -->
 	        <script type="text/template" id="humans_list_template">
 
-	            <ul>{ {#humans} }
+	            <ul>{ {# humans} }
 	                <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
 	            { {/humans} }</ul>
 	            
@@ -603,7 +603,7 @@ Donc au final, notre page html aura le code suivant :
 	        <!-- définition du template -->
 	        <script type="text/template" id="humans_list_template">
 
-	            <ul>{ {#humans} }
+	            <ul>{ {# humans} }
 	                <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
 	            { {/humans} }</ul>
 	            
@@ -623,9 +623,9 @@ Ensuite, allons coller notre code Backbone dans `app.js` :
 Nous allons ajouter une vue `HumansListView` :
 
 	App.Views.HumansListView = Backbone.View.extend({
-	    el : $("#humans_list"),
+	    el : $("# humans_list"),
 	    initialize : function () {
-	        this.template = $("#humans_list_template").html();
+	        this.template = $("# humans_list_template").html();
 
 	        //dès que la collection "change" j'actualise le rendu de la vue
 	        _.bindAll(this, 'render');
@@ -680,9 +680,9 @@ que nous allons utiliser dans la fonction `start()` qui est appelée une fois la
 	});
 
 	App.Views.HumansListView = Backbone.View.extend({
-	    el : $("#humans_list"),
+	    el : $("# humans_list"),
 	    initialize : function () {
-	        this.template = $("#humans_list_template").html();
+	        this.template = $("# humans_list_template").html();
 
 	        //dès que la collection "change" j'actualise le rendu de la vue
 	        _.bindAll(this, 'render');
@@ -716,7 +716,7 @@ Maintenant, enregistrez et raffraichissez la page de votre navigateur, et **"tad
 
 ![Alt "img"](https://github.com/k33g/k33g.github.com/raw/master/images/005-ajax.png)
 
-#####Attendez ce n'est pas fini :
+### #   #   Attendez ce n'est pas fini :
 
 Dans la console de votre navigateur, essayez ceci :
 
@@ -747,7 +747,7 @@ Cette fois, le modèle est enregistré en base, la collection rechargée et la l
 
 Backbone, vous permet beaucoup d'autres petits tours de magie, mais ce n'est pas l'objet de ce tuto.
 
-#####Une dernière remarque à propos du templating
+### #   #   Une dernière remarque à propos du templating
 
 Le template que nous avons utilisé est "passif", nous ne pouvons pas décrire de fonctions dans le template, tout est préparé en amont par l'objet `Backbone.View`. Si vous avez besoin de faire autrement (un peu comme avec les templates Scala ;)), c'est à dire "mettre" un peu d'intelligence dans le template (par exemple, afficher un message quand `age` n'est pas renseigné), sachez que la librairie **Underscore** possède elle aussi un moteur de template.
 
@@ -774,9 +774,9 @@ Si vous voulez essayez, votre template ressemblera à ceci :
 Votre nouvelle vue `HumansListAgainView` aura cette tête :
 
 	App.Views.HumansListAgainView = Backbone.View.extend({
-		el : $("#humans_list_again"),
+		el : $("# humans_list_again"),
 		initialize : function (blog) {
-			this.template = _.template($("#humans_list_again_template").html());
+			this.template = _.template($("# humans_list_again_template").html());
 
 	        _.bindAll(this, 'render');
 	        this.collection.bind('reset', this.render);
@@ -796,7 +796,7 @@ Sauvegardez, testez :
 
 ![Alt "img"](https://github.com/k33g/k33g.github.com/raw/master/images/006-ajax.png)
 
-####Optimisation du code du contrôleur
+### #   Optimisation du code du contrôleur
 
 Finalement, nous savons que nous n'échangeons que du JSON entre le client et le serveur, donc nous allons faire la même chose que `Form<Human> form = form(Human.class).bindFromRequest();` et `Human model = form.get();` mais en plus simple. Vous pouvez remplacer ces 2 lignes par `Human model = fromJson(request().body().asJson(), Human.class);` et nous aurons finalement le code suivant :
 

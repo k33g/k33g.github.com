@@ -6,13 +6,13 @@ info : How to connect Backbone Models to PlayFramework Models
 
 ---
 
-#BackBone Models & Play!> Models jouent ensemble
+# BackBone Models & Play!> Models jouent ensemble
 
-##Objectifs :
+## Objectifs :
 
 Nous allons voir comment faire discuter des modèles Backbone avec des modèles Play!> (version 1) et persister les données client côté serveur. C'est simple, mais concentrez vous quand même.
 
-##Prérequis :
+## Prérequis :
 
 - avoir installé Playframework : [http://www.playframework.org/](http://www.playframework.org/)
 - Télécharger Backbone : [http://documentcloud.github.com/backbone/](http://documentcloud.github.com/backbone/)
@@ -20,7 +20,7 @@ Nous allons voir comment faire discuter des modèles Backbone avec des modèles 
 - Télécharger la dernière version de jQuery (optionnel) : [http://jquery.com/](http://jquery.com/) (c'est aussi une dépendance de Backbone.js, mais cela fonctionnerait aussi avec Zepto)
 - Utiliser un navigateur "à base" de Webkit (Chrome, Safari) ou Firefox : il faut une console digne de ce nom pour suivre ce tuto.
 
-##Préparation :
+## Préparation :
 
 Tout d'abord, il faut créer une application Play. Donc positionnez vous dans un répertoire et tapez la commande suivante :
 
@@ -44,13 +44,13 @@ Ensuite, aller dans `app/views/main.html` et changer les includes javascript :
 
 C'est bon, vous êtes prêts. On commence.
 
-##Création d'un modèle et d'une collection BackBone :
+## Création d'un modèle et d'une collection BackBone :
 
 Aller dans `app/views/Application`, et modifier `index.html` :
 
 
-	#{extends 'main.html' /}
-    #{set title:'Home' /}
+	# {extends 'main.html' /}
+    # {set title:'Home' /}
 
     <script type="text/javascript">
 
@@ -87,7 +87,7 @@ Lorsque ces méthodes sont appelées, c'est l'objet `Backbone.sync` qui est appe
 - `DELETE` pour `destroy()`
 - `GET` pour `fetch()`
 
-##Un petit tour côté Play!>
+## Un petit tour côté Play!>
 
 Nous allons donc créer les méthodes qui répondrons aux requêtes de `Backbone.sync`.
 
@@ -134,7 +134,7 @@ Aller ensuite dans `controllers/Application.java` et ajouter les méthodes suiva
 	}
 
 
-##1er essai :
+## 1er essai :
 
 - Lancez l'application Bookmarks : `play run bookmarks`
 - se connecter à l'application : [http://localhost:9000/](http://localhost:9000/)
@@ -158,7 +158,7 @@ on s'aperçoit que c'est la méthode postBookmark qui est appelée, mais par con
 
 Même pas mal !. Nous allons donc re-écrire/surcharger `Backbone.sync`. ... Et on va faire simple.
 
-##Surcharge de Backbone.sync :
+## Surcharge de Backbone.sync :
 
 Dans public/javascripts, créer un nouveau fichier : `backbone.sync.js` :
 
@@ -204,11 +204,11 @@ Ensuite, aller dans `app/views/main.html` et inclure le nouveau fichier js à la
 
 	<script src="@{'/public/javascripts/backbone.sync.js'}" type="text/javascript" charset="${_response_encoding}"></sc
 
-##Prêts pour un 2ème essai ? "Playing with BB Models"
+## Prêts pour un 2ème essai ? "Playing with BB Models"
 
 Rechargez tout d'abord la page de votre navigateur pour prendre les modifications en compte. Puis passez aux étapes suivantes ci-dessous :
 
-###save()
+### save()
 
 Dans la console du navigateur tapez les commandes suivantes :
 
@@ -231,7 +231,7 @@ Donc lorsque l'on sauvegarde un modèle BB c'est une requête `POST` qui est env
 
 ![Alt "bbplay004.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay004.png)
 
-###save() again
+### save() again
 
 Dans la console du navigateur tapez les commandes suivantes : 
 
@@ -255,7 +255,7 @@ On a affecté un `id` au modèle, donc BB "estime" que le modèle existe, et don
 
 ![Alt "bbplay006.png"](https://github.com/k33g/k33g.github.com/raw/master/images/bbplay006.png)
 
-###destroy()
+### destroy()
 
 Dans la console du navigateur tapez les commandes suivantes : 
 
@@ -267,7 +267,7 @@ Dans la console Play!>, on obtient :
 
 Donc lorsque l'on détruit un modèle BB c'est une requête `DELETE` qui est envoyée et la méthode `deleteBookmark` qui est appelée.
 
-###fetch()
+### fetch()
 
 Dans la console du navigateur tapez les commandes suivantes : 
 
@@ -280,11 +280,11 @@ Dans la console Play!>, on obtient :
 Donc lorsque l'on utilise la méthode fetch() d'un modèle BB c'est une requête `GET` qui est envoyée et la méthode `getBookmark` qui est appelée.
 
 
-###Bilan des courses :
+### Bilan des courses :
 
 Nous avons tout ce qu'il faut côté Backbone pour passer les bonnes informations à Play!>. Nous passerons aux `Backbone.Collection(s)` plus tard. Pour le moment nous allons coder le "pendant" Java de notre modèle Backbone, afin de pouvoir effectuer des actions en base de données.
 
-##Créer un modèle Bookmark.java
+## Créer un modèle Bookmark.java
 
 Allez dans `app/models` et créez une classe `Bookmark.java` :
 
@@ -395,7 +395,7 @@ Arrêtez & relancez l'application (ça ne peut pas faire de mal).
 Rechargez tout d'abord la page de votre navigateur pour remettre "à zéro" les variables/objets/modèles javascript (Backbone) et relancer la compilation des classes côté Play!>.
 
 
-###save()
+### save()
 
 Dans la console du navigateur tapez les commandes suivantes :
 
@@ -410,7 +410,7 @@ Si vous tapez la commande : `b1.get("id")` vous obtenez `1`. C'est Play!> qui lo
 
 On vérifie ?
 
-###save again()
+### save again()
 
 Dans un 1er temps, on change une valeur d'une propriété de notre modèle et on sauve à nouveau :
 
@@ -423,7 +423,7 @@ On voit bien que cette fois ci, c'est un update, si vous surveillez votre termin
 
 Oui mais est-ce que ça a bien enregistré mes données en base ? Allons vérifier ...
 
-###fetch()
+### fetch()
 
 Rechargez une nouvelle fois la page de votre navigateur pour remettre "à zéro" les variables/objets/modèles javascript (Backbone). Puis tapez les commandes suivantes :
 
@@ -438,7 +438,7 @@ Une fois que le serveur a répondu, vous pouvez vérifier que vous avez bien ré
 
 Donc, nos données ont bien été enregistrées en base.
 
-###On ajoute quelques modèles avant de passer aux collections :
+### On ajoute quelques modèles avant de passer aux collections :
 
 	b2 = new Bookmark({label:"Coffee Bean",website:"http://coffeebean.loicdescotte.com/"});
 	b3 = new Bookmark({label:"blog.mklog",website:"http://blog.mklog.fr/"});
@@ -448,7 +448,7 @@ Donc, nos données ont bien été enregistrées en base.
 	b3.save();
 	b4.save();
 
-##Passons donc aux collections
+## Passons donc aux collections
 
 Rechargez une nouvelle fois la page de votre navigateur pour remettre "à zéro" les variables/objets/modèles javascript (Backbone). Puis tapez les commandes suivantes :
 
@@ -464,11 +464,11 @@ Une fois que le serveur a répondu :
 
 On a bien retrouvé nos données :) et finalement ce n'est pas si compliqué que ça.
 
-##Derniers coups de tournevis pour la route
+## Derniers coups de tournevis pour la route
 
 c'est mieux d'utilise des callbacks lorsque l'on fait des appels aux serveurs (ben oui on bosse en mode asynchrone) :
 
-###Par exemple pour un save()
+### Par exemple pour un save()
 
 
 	b = new Bookmark({label:"Google", website:"www.google.fr"})
@@ -479,7 +479,7 @@ c'est mieux d'utilise des callbacks lorsque l'on fait des appels aux serveurs (b
 		})
 
 
-###Ou pour un fetch()
+### Ou pour un fetch()
 
 
 	bookmarksCollection.fetch({
@@ -491,7 +491,7 @@ c'est mieux d'utilise des callbacks lorsque l'on fait des appels aux serveurs (b
 	})
 
 
-##Voilà, c'est fini pour aujourd'hui.
+## Voilà, c'est fini pour aujourd'hui.
 
 Bon je vous laisse déjà bricoler avec ça, et dans un prochain article, nous irons un peu plus loin : comment gère-t-on les relations ? (par exemple, on associe un thème ou une technologie à un bookmark). Et plus tard, je tenterais la même chose avec Play!> version 2.
 

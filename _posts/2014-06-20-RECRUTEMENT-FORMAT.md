@@ -6,7 +6,7 @@ info : 1 autre format de recrutement
 
 ---
 
-#1 autre format de recrutement, pourquoi pas?
+# 1 autre format de recrutement, pourquoi pas?
 
 Le 3 juillet, je me suis laissé embarqué (volontairement j'avoue) dans une "soirée recrutement" au format un peu spécial : En effet cette soirée est organisée comme une "mini conférence". C'est à dire ? Alors voilà :
 

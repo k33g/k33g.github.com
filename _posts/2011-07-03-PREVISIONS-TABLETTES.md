@@ -6,11 +6,11 @@ info : un délire rapide sur ce qu'il pourrait se passer en 2012 dans le monde d
 
 ---
 
-#MES PRÉVISIONS "TABLETTES 2012"
+#  MES PRÉVISIONS "TABLETTES 2012"
 
 En ce moment cela bouge beaucoup autour des tablettes (iPad 2, HP TouchPad, ...). Ce matin je vais m'essayer au petit jeu des prévisions : *"Que va-t-il se passer en 2012 ?"*
 
-##Bilan Flash 2011
+## Bilan Flash 2011
 
 **Tablettes Android :** trop chères (souvent + que l'iPad), OS pas adapté
 
@@ -35,7 +35,7 @@ Le modèle de développement tourne autour des technos web, HP a pondu le framew
 - c'est compatible avec les codes js existants (si vous avez envie de faire du jQuery, Zepto, ..., pas de problème)
 - inclusion dans la tablette de **Node.js** (le serveur d'application qui fait du buzz depuis plusieurs mois)
 
-##Les prévisions de madame Soleil : (sur le marché de la tablette)
+## Les prévisions de madame Soleil : (sur le marché de la tablette)
 
 - on va voir fleurir des framworks javascript/html5/css3 pour iOS
 - pas impossible que Apple nous en sorte un (avec Dashboard, ils ne sont pas loin d'avoir quelque chose)
@@ -49,7 +49,7 @@ Le modèle de développement tourne autour des technos web, HP a pondu le framew
 
 **Bilan des courses :** amis geeks développeurs, profitez des vacances pour réviser votre **javascript**, apprenez ce qu'est réellement le **DOM**, yeutez **HTML5**, **CSS3** ce n'est pas que pour les graphistes, et enfin prenez le temps d'installer **Node.js**.
 
-##Parts de marché des tablettes 1er semestre 2012
+## Parts de marché des tablettes 1er semestre 2012
 
 Là c'est juste pour le fun (comme le loto-flash)
 

@@ -6,9 +6,9 @@ info : stykkekode la suite
 
 ---
 
-#Express.js, le Play!>Framework du Javascript ? presque la Fin ...
+# Express.js, le Play!>Framework du Javascript ? presque la Fin ...
 
-##Il vous faut :
+## Il vous faut :
 
 - avoir suivi les épisodes précédents : [Partie 1](http://k33g.github.com/2012/02/19/EXPRESSJS_IS_PLAY.html) et [Partie 2](http://k33g.github.com/2012/02/26/EXPRESSJS-RETURN.html)
 - installer CouchDB : [http://couchdb.apache.org/index.html](http://couchdb.apache.org/index.html) vous pouvez trouver les binaires ici : [http://www.couchbase.com/download](http://www.couchbase.com/download)
@@ -16,18 +16,18 @@ info : stykkekode la suite
 
 **Cradle** est le client CouchDB pour node.js.
 
-###Installer cradle :
+### Installer cradle :
 
     cd stykkekode
     npm install cradle
 
-##Créer une base "snippets" dans couchdb
+## Créer une base "snippets" dans couchdb
 
 ![Alt "express15.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express15.png)
 
 ![Alt "express16.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express16.png)
 
-##Créer une vue dans couchdb :
+## Créer une vue dans couchdb :
 
 Il suffit de créer un nouveau document dans la base "snippets" avec l'interface d'administration de CouchDB, avec le code suivant :
 
@@ -45,7 +45,7 @@ Il suffit de créer un nouveau document dans la base "snippets" avec l'interface
 
 ![Alt "express17.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express17.png)
 
-##Modifions notre modèle "snippet.js" :
+## Modifions notre modèle "snippet.js" :
 
 Remplacez le code existant par celui ci :
 
@@ -107,7 +107,7 @@ Remplacez le code existant par celui ci :
     exports.snippet = snippet;
 
 
-##Modifions notre modèle "user.js"
+## Modifions notre modèle "user.js"
 
 On ajoute cette ligne `user.twitterListById[authenticatedUser.sourceUser.screen_name] = authenticatedUser;` dans la méthode `add`
 
@@ -115,10 +115,10 @@ On ajoute cette ligne `user.twitterListById[authenticatedUser.sourceUser.screen_
     user.add = function(source, sourceUser) {
         user.nextUserId+=1;
         var authenticatedUser = new user(user.nextUserId, source, sourceUser);
-        console.log("#################################");
+        console.log("### #   #   ### #   #   ### #   #   ### #   #   ### #   #   ### #   #   ### ");
         console.log(authenticatedUser.sourceUser.name);
         console.log(authenticatedUser.sourceUser.profile_image_url);
-        console.log("#################################");
+        console.log("### #   #   ### #   #   ### #   #   ### #   #   ### #   #   ### #   #   ### ");
         user.listById[authenticatedUser.id] = authenticatedUser;
 
         user.twitterListById[authenticatedUser.sourceUser.screen_name] = authenticatedUser;
@@ -127,7 +127,7 @@ On ajoute cette ligne `user.twitterListById[authenticatedUser.sourceUser.screen_
     };
 
 
-##Modifions routes/index.js
+## Modifions routes/index.js
 
 En début de fichier, ajouter la référence à `user` :
 
@@ -158,7 +158,7 @@ puis modifions `createSnippet` :
 
 
 
-##Vous pouvez tester !
+## Vous pouvez tester !
 
 - saisissez quelques données dans votre application
 - puis allez voir dans la console d'administration de CouchDB
@@ -168,7 +168,7 @@ puis modifions `createSnippet` :
 - Vos données sont bien persistées
 - Vous remarquerez que nous n'avons rien eu pour le moment à changer dans le code concernant Backbone.
 
-##La prochaine fois ...
+## La prochaine fois ...
 
 Nous allons paginer, donc écrire de nouvelles vues pour CouchDB, et jouer un peu avec Backbone.
 

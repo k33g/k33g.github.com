@@ -6,7 +6,7 @@ info : Swift, 1er contact
 
 ---
 
-#Swift, 1er contact
+# Swift, 1er contact
 
 Après quelques jours (semaines) d'inactivité (changement de job), je me remets à poster.
 

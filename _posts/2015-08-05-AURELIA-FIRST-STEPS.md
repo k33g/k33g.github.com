@@ -7,7 +7,7 @@ teaser: Aurelia est un framework web, sucesseur de Durandal, créé par Rob Eise
 image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/aurelia-logo.png">
 ---
 
-#Aurelia, premiers pas
+# Aurelia, premiers pas
 
 Il semblerait que tout nouveau framework javascript qui sorte se doive d'avoir le plus de dépendances et d'outils possibles, ce qui fait que pour écrire un simple "Hello World!", vous allez souvent récupérer plusieurs centaines de megas de fichiers et autres outils pour minifier, tester, déployer, ... Après, il faut juste comprendre comment cela fonctionne (ou pourquoi cela ne fonctionne pas), et si vous ne connaissez pas Grunt, Gulp, npm, Less, Sass, ... vous ne serez pas capable d'écrire et de démarrer votre simple "Hello World!".
 Heureusement, il y a des gens sympas qui "fabriquent" des "quicks tarters". C'est déjà le cas pour Angular2 en ce moment. Je vous conseille ces 2 là:
@@ -19,20 +19,20 @@ Bon, revenons à nos moutons:
 
 Ces derniers jour, j'ai voulu commencer à qualifier Aurelia (globalement, Aurelia a la même vocation qu'Angular: fournir tous les outils nécessaires pour faire une webapp). Je trouve que le tutorial de départ fait installer énormément de choses inutiles dans le cadre d'un apprentissage de départ. Je vous ai donc créé un "quick starter" pour Aurelia, que vous trouverez ici [https://github.com/k33g/aurelia-discovery](https://github.com/k33g/aurelia-discovery) pour démarrer rapidement.
 
-##Installation
+## Installation
 
     git clone https://github.com/k33g/aurelia-discovery.git
     npm install
     jspm install
 
-##Démarrage
+## Démarrage
 
 C'est une application Express qui fait office de serveur http:
     
     cd aurelia-discovery
     node app.js
 
-##Structure du "quick starter"
+## Structure du "quick starter"
 
 La structure de notre projet ressemble à ceci:
 
@@ -47,7 +47,7 @@ La structure de notre projet ressemble à ceci:
     ├── app.js
     ├── config.js (configuration du serveur http)
 
-###Ouvrir index.html
+### Ouvrir index.html
 
 `index.htm` est notre point de départ, il n'y a pas grand chose dedans, tout se jouera dans `app.html` et `app.js`.
 
@@ -72,7 +72,7 @@ La structure de notre projet ressemble à ceci:
 
 Donc ne touchez à rien. Remarquez l'attribut du tag body: `<body aurelia-app>` indispensable pour "expliquer" à Aurelia que votre application commence ici.
 
-###Ouvrir app.html et app.js
+### Ouvrir app.html et app.js
 
 `app.html` et `app.js` représentent le coeur de votre application (le composant principal). 
 
@@ -111,7 +111,7 @@ Ouvrez [http://localhost:8080/](http://localhost:8080/) avec votre navigateur (c
 
 Il est temps maintenant de faire notre 1er composant (custom component)
 
-##1er composant
+## 1er composant
 
 J'aimerais pouvoir faire un composant de type `<hello-world mytext="yo"></hello-world>`, que je pourrais utiliser comme un tag html de base et qui afficherait le contenu de mon attribut `myext`.
 
@@ -119,7 +119,7 @@ J'aimerais pouvoir faire un composant de type `<hello-world mytext="yo"></hello-
 - Créez un fichier `hello-world.html` (dans `components`)
 - Créez un fichier `hello-world.js` (dans `components`)
 
-###Déclaration du composant dans `app.html`
+### Déclaration du composant dans `app.html`
 
 Nous allons modifier le code de `app.html` pour référencer notre futur composant:
 
@@ -140,7 +140,7 @@ Nous allons modifier le code de `app.html` pour référencer notre futur composa
 - Vous notez donc l'utilisation du tag `<require from='...'></require>` pour référencer un composant
 - Et nous allons utiliser 3 fois notre composant
 
-###Ecriture de notre composant
+### Ecriture de notre composant
 
 Commençons par le plus simple:
 
@@ -177,7 +177,7 @@ Faites un "refresh" dans votre navigateur, et vous obtiendrez ceci:
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/aurelia-02.png">
 
-##Un 2ème composant pour la route
+## Un 2ème composant pour la route
 
 Je voudrais un composant qui m'affiche une liste à partir d'un tableau de valeurs, et pouvoir ajouter un élément à la liste lorsque je clique sur un lien:
 
@@ -196,7 +196,7 @@ Je voudrais un composant qui m'affiche une liste à partir d'un tableau de valeu
     </li>
   </ul>
 
-  <a href="#" click.trigger="updateList()">updateList</a>
+  <a href="# " click.trigger="updateList()">updateList</a>
 
 </template>
 {% endhighlight %}
@@ -249,7 +249,7 @@ Faites un "refresh" dans votre navigateur, et vous obtiendrez ceci (cliquez pour
 
 **Voilà. C'est tout simple. A suivre.**
 
-##Ressources
+## Ressources
 
 - suivre [Rob Eisenberg](https://twitter.com/eisenbergeffect)
 - lire [http://eisenbergeffect.bluespire.com/leaving-angular/](http://eisenbergeffect.bluespire.com/leaving-angular/)

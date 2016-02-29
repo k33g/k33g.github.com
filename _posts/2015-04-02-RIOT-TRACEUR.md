@@ -8,11 +8,11 @@ image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/riot2
 
 ---
 
-#Riot and in-browser TRACEUR transpilation, ("React like")
+# Riot and in-browser TRACEUR transpilation, ("React like")
 
 This is the reading of this article that inspired me: [http://blog.srackham.com/posts/riot-es6-webpack-apps/](http://blog.srackham.com/posts/riot-es6-webpack-apps/).
 
-##Prerequisite
+## Prerequisite
 
 You need:
 
@@ -40,7 +40,7 @@ So, you should have something like that:
 - create a `yo-bob.js` file in `public/js/tags`
 
 
-##Prepare `index.html`
+## Prepare `index.html`
 
 {% highlight html %}
 <!DOCTYPE html>
@@ -67,7 +67,7 @@ So, you should have something like that:
 </html>
 {% endhighlight %}
 
-##Create our tag `yo-bob`
+## Create our tag `yo-bob`
 
 We will not use the riot tags but describe our component in JavaScript (ES2015), using ES6 Template Strings like that:
 
@@ -103,7 +103,7 @@ export default {
 }
 {% endhighlight %}
 
-##Mount `yo-tag` in the package
+## Mount `yo-tag` in the package
 
 Edit `main.js`:
 
@@ -113,7 +113,7 @@ import yoBob from 'js/tags/yo-bob.js'
 yoBob.mount({});
 {% endhighlight %}
 
-##"Run" it
+## "Run" it
 
     cd my-app
     http-server

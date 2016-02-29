@@ -6,9 +6,9 @@ info : Enyo touch for Jo
 
 ---
 
-#Enyo touch for Jo
+# Enyo touch for Jo
 
-##Overriding joContainer.push()
+## Overriding joContainer.push()
 
 This is just a little piece of code wich overrides `push()` method of `joContainer` (but keep previous mode) and so, allows you to describe GUI in an other way :
 
@@ -49,7 +49,7 @@ This is just a little piece of code wich overrides `push()` method of `joContain
 
     }
 
-##Use it
+## Use it
 
 
     var row = new joFlexrow({ components : [
@@ -65,7 +65,7 @@ This is just a little piece of code wich overrides `push()` method of `joContain
 
     row.btn3.setData("<b>Hello i'm a button</b>");
 
-##Bigger sample
+## Bigger sample
 
 
     (function(){
@@ -127,7 +127,7 @@ This is just a little piece of code wich overrides `push()` method of `joContain
     }).call(this);
 
 
-##Use it with CoffeeScript
+## Use it with CoffeeScript
 
 
     jo.load()

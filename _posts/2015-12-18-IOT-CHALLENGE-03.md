@@ -6,11 +6,11 @@ info : Open IoT Challenge, new baby step with Atta
 teaser: I participate in the Open IOT Challenge, my project is called "Atta", and today I completed a 1st version of the CoAP Gateway
 ---
 
-#Open IOT Challenge: work in progress and CoAP Gateway
+# Open IOT Challenge: work in progress and CoAP Gateway
 
 I participate in the Open IOT Challenge (see post [http://k33g.github.io/2015/12/10/IOT-CHALLENGE-01.html](http://k33g.github.io/2015/12/10/IOT-CHALLENGE-01.html)), my project is called "Atta", in the previous post, I was taking about of the implementation of MQTT Gateway simulator ([http://k33g.github.io/2015/12/15/IOT-CHALLENGE-02.html](http://k33g.github.io/2015/12/15/IOT-CHALLENGE-02.html)) and today I completed a 1st **simple** version of the CoaP Gateway.
 
-##What is CoAP?
+## What is CoAP?
 
 CoAP (Constrained Application Protocol) is used as IOT protocol, it’s a restful protocol and it's used with simple devices. in fact with CoAP, there is no central server. "Servers" of resources are listening on each devices or gateway. 
 To my mind it's a good solution for problems of "high availability" and "fault tolerance": you can easily add or replace a Gateway, and it's more difficult to replace a server ;).
@@ -22,7 +22,7 @@ So, CoAP is a RESTful protocol, used in/with very simple electronics devices (Lo
 
 That is why, I also wanted to include a CoAP simulator in Atta (you know, my little DSL [https://github.com/ant-colony/atta](https://github.com/ant-colony/atta)).
 
-##The CoAP Gateway
+## The CoAP Gateway
 
 It's a first version, and it's a simple version (`SimpleCoapGateway` class) (one gateway - one resource and one REST method: `GET`), in the future, I'll provide a `CoapGateway` with the ability to get several resources and all REST methods.
 
@@ -52,7 +52,7 @@ coapGateway.sensors([
 
 **Remark:** I've used the **Californium** project [https://www.eclipse.org/californium/](https://www.eclipse.org/californium/) to create my gateways.
 
-###Use a NodeJS CoAP client to query the gateway
+### Use a NodeJS CoAP client to query the gateway
 
 It's very easy to create a JavaScript CoAP client with the **node-coap** project [https://github.com/mcollina/node-coap](https://github.com/mcollina/node-coap)
 
@@ -76,7 +76,7 @@ setInterval(() => {
 {% endhighlight %}
 
 
-###Use a Golo CoAP client to query the gateway
+### Use a Golo CoAP client to query the gateway
 
 **Golo** [http://golo-lang.org/](http://golo-lang.org/)  plays very well with **Californium**:
 

@@ -6,7 +6,7 @@ info : optimisation de performances avec node et express
 
 ---
 
-#Optimisation de performances avec Node et Express
+# Optimisation de performances avec Node et Express
 
 Suite à la présentation de **Jeff Maury** à laquelle j'ai eu le plaisir de participer à Devoxx France 2014 sur les performances web ([Web performances, regardons les résultats de près](http://cfp.devoxx.fr/devoxxfr2014/talk/TYU-863/Web%20performances,%20regardons%20les%20r%C3%A9sultats%20de%20pr%C3%A8s)), j'ai eu quelques retours intéressants sur la partie Node, notamment par [@alexiskinsella](https://twitter.com/alexiskinsella). Du coup j'ai décidé de tenter de mettre en œuvre ses conseils.
 
@@ -33,7 +33,7 @@ Vous trouverez :
 - les codes javascript par ici : [https://github.com/k33g/movie.buddy.webperfs/tree/master/node.experiments](https://github.com/k33g/movie.buddy.webperfs/tree/master/node.experiments) **Attention, tout n'est pas optimisé, c'est de l'expérimentation, donc à prendre avec des pincettes**
 - les codes de test sont par là : [https://github.com/k33g/movie.buddy.webperfs/tree/master/tests](https://github.com/k33g/movie.buddy.webperfs/tree/master/tests) **Attention ... Même remarque ;)**
 
-##Code des services
+## Code des services
 
 Je vais donc tester 2 services :
 
@@ -55,9 +55,9 @@ puis
       }).slice(0,req.params.limit));
     });
 
-###Test 1er service : Charger tous les films
+### Test 1er service : Charger tous les films
 
-####Code du test  
+### #   Code du test  
 
     class AllMoviesLoadingScenario extends Simulation {
       val title = System.getProperty("title", "localhost")
@@ -74,7 +74,7 @@ puis
         .inject(ramp(totalUsers users) over (totalUsers seconds)))
     }
 
-####Résultats
+### #   Résultats
 
 |                           | Nb Req/s | t < 800ms | 800ms < t < 1200ms | t > 1200ms | Durée (secs) |
 | ------------------------- |:--------:|:---------:|:------------------:|:----------:|:------------:|
@@ -83,7 +83,7 @@ puis
 
 Comme cela, même sans comparer avec une autre techno *(ce sera un autre exercice)*, ce n'est pas super puissant ...
 
-####Optimisation du service
+### #   Optimisation du service
 
 Avant:
 
@@ -97,14 +97,14 @@ Après :
       res.sendfile("./db/movies.json", "utf8");
     });
 
-####Résultats après optimisation
+### #   Résultats après optimisation
 
 |                           | Nb Req/s | t < 800ms | 800ms < t < 1200ms | t > 1200ms | Durée (secs) |
 | ------------------------- |:--------:|:---------:|:------------------:|:----------:|:------------:|
 | 02- Tous les films        | 99       | 10000     |                    |            | 100          |
 
 
-####???
+### #   ???
 
 Déjà allez lire l'introduction à node par **Cédric Exbrayat** [http://hypedrivendev.wordpress.com/2011/06/28/getting-started-with-node-js-part-1/](http://hypedrivendev.wordpress.com/2011/06/28/getting-started-with-node-js-part-1/).
 
@@ -114,7 +114,7 @@ En fait la 1ère fois, j'allais lire mes données en mémoire, du coup je ne pro
 
 *Merci encore à Rémi Forax pour ses explications sur le sujet :)*
 
-####Même test avec Node 0.11
+### #   Même test avec Node 0.11
 
 J'ai ensuite upgradé la version de node, pas d'amélioration notable
 
@@ -125,11 +125,11 @@ J'ai ensuite upgradé la version de node, pas d'amélioration notable
 
 Pas d'amélioration notable
 
-###Test 2ème service : Charger un certain nombre de films dans une catégorie donnée
+### Test 2ème service : Charger un certain nombre de films dans une catégorie donnée
 
 On est à nouveau avec du Node 0.6
 
-####Code du test 
+### #   Code du test 
 
     class SomeMoviesLoadingScenario extends Simulation {
       val title = System.getProperty("title", "localhost")
@@ -155,14 +155,14 @@ On est à nouveau avec du Node 0.6
       )
     }
 
-####Résultats
+### #   Résultats
 
 |                          | Nb Req/s | t < 800ms | 800ms < t < 1200ms | t > 1200ms | Durée (secs) |
 | ------------------------ |:--------:|:---------:|:------------------:|:----------:|:------------:|
 | 03- 300 1ères comédies   | 99       | 10000     |                    |            | 100          |
 
 
-####Optimisation 1 du service
+### #   Optimisation 1 du service
 
 Alors on m'a conseillé plusieurs optimisations, comme "sortir" `new RegExp()` de `filter`
 
@@ -183,7 +183,7 @@ Après :
       }).slice(0,req.params.limit));
     });
 
-####Résultats
+### #   Résultats
 
 J'ai obtenu les mêmes résultats
 
@@ -194,7 +194,7 @@ J'ai obtenu les mêmes résultats
 
 Je serais tenté de dire que la condition de `filter` n'est exécuté qu'une seule fois, ce n'est pas un `forEach`
 
-####Optimisation 2 du service
+### #   Optimisation 2 du service
 
 On m'a aussi conseillé de ne pas utiliser `toLowerCase()` mais plutôt la clause `i` (insensitive) des regex.
 
@@ -226,7 +226,7 @@ J'ai là aussi, obtenu les mêmes résultats
 
 Je serais donc tenté de dire que la VM de Node est plutôt bien optimisée, ainsi que l'implémentation de `toLowerCase()`
 
-####Optimisation 3 du service : avec Node 0.11
+### #   Optimisation 3 du service : avec Node 0.11
 
 J'ai ensuite upgradé la version de node à 0.11 : mêmes résultats, pas d'amélioration notable avec la dernière version de Node
 
@@ -235,7 +235,7 @@ J'ai ensuite upgradé la version de node à 0.11 : mêmes résultats, pas d'amé
 | 07- 300 1ères comédies   | 99       | 10000     |                    |            | 100          |
 
 
-####Optimisation 4 du service : avec Node 0.11 et en jouant avec `http.globalAgent.maxSockets`
+### #   Optimisation 4 du service : avec Node 0.11 et en jouant avec `http.globalAgent.maxSockets`
 
 En standard sur ma VM j'ai `http.globalAgent.maxSockets = Infinity`, j'ai forcé la valeur à 5, 50 puis 150, je n'ai pas eu d'amélioration :
 
@@ -248,7 +248,7 @@ En standard sur ma VM j'ai `http.globalAgent.maxSockets = Infinity`, j'ai forcé
 
 Je m'aperçois que Node n'a aucun problème à servir ses 100 requêtes secondes, du coup je me décide à le stresser un peu et modifie mon code de test :
 
-###Test 2ème service "plus dur" : Charger un certain nombre de films dans une catégorie donnée
+### Test 2ème service "plus dur" : Charger un certain nombre de films dans une catégorie donnée
 
 Pour le même délai d'injection, je vais augmenter le nombre d'utilisateurs :
 
@@ -260,7 +260,7 @@ et le délai (qui ne change pas)
 
 ce qui nous donnera 30 000 requêtes
 
-####Code du test (toujours en Node 0.11)
+### #   Code du test (toujours en Node 0.11)
 
     class SomeMoviesLoadingScenarioHarder extends Simulation {
       val title = System.getProperty("title", "localhost")
@@ -316,7 +316,7 @@ Puis :
 
 Puis : `http.globalAgent.maxSockets = 400`, puis `http.globalAgent.maxSockets = 10`
 
-####Résultats
+### #   Résultats
 
 On voit bien que cette fois-ci, on a "stressé" node :
 
@@ -333,7 +333,7 @@ Ma première conclusion serait de garder la valeur par défaut de `http.globalAg
 
 Avant de passer à la suite, je vais aussi modifier mon code de test pour le chargement de tous les films, là aussi avec 300 utilisateurs avec un délai de 100 secondes.
 
-####Code du test (toujours en Node 0.11)
+### #   Code du test (toujours en Node 0.11)
 
     class AllMoviesLoadingScenarioHarder extends Simulation {
       val title = System.getProperty("title", "localhost")
@@ -353,14 +353,14 @@ Avant de passer à la suite, je vais aussi modifier mon code de test pour le cha
         .inject(ramp(totalUsers users) over (delayInjection seconds)))
     }
 
-####Résultats
+### #   Résultats
 
 |                                                   | Nb Req/s | t < 800ms | 800ms < t < 1200ms | t > 1200ms | Durée (secs) |
 | ------------------------------------------------- |:--------:|:---------:|:------------------:|:----------:|:------------:|
 | 16- Tous les films (fichier sur disque) 300 users | 141      | 8558      | 6487               | 14955      | 213          |
 
 
-##Module cluster
+## Module cluster
 
 Maintenant je vais essayer le module cluster de node avec nos 2 services : "Tous les films" et "les 300 1ères comédies", toujours sur du node 0.11. L'utilisation du module cluster de node, implique quelques modifications. Globalement, votre code applicatif est déplacé dans le `else` ci-dessous : 
 
@@ -393,7 +393,7 @@ Maintenant je vais essayer le module cluster de node avec nos 2 services : "Tous
       // your application ...
     }
 
-###Résultats
+### Résultats
 
 On s'aperçoit que la mise en œuvre du module cluster est particulièrement payante :
 
@@ -413,11 +413,11 @@ si on passe les tests avec seulement 100 utilisateurs :
 
 Pas de changement par rapport à la version sans le module cluster pour le même scénario, donc le module cluster n'est intéressant qu'à partir d'un certain nombre d'utilisateurs.
 
-##Utilisation d'Express 4
+## Utilisation d'Express 4
 
 J'ai ensuite procédé à la mise à jour d'express et relancé les tests sur les 2 services (optimisés) avec 300 utilisateurs :
 
-###Résultats
+### Résultats
 
 |                                                   | Nb Req/s | t < 800ms | 800ms < t < 1200ms | t > 1200ms | Durée (secs) |
 | ------------------------------------------------- |:--------:|:---------:|:------------------:|:----------:|:------------:|
@@ -427,7 +427,7 @@ J'ai ensuite procédé à la mise à jour d'express et relancé les tests sur le
 
 On note que la mise à jour en version 4.1.x d'Express met un sérieux coup de boost à l'application. 
 
-##1ère consolidation
+## 1ère consolidation
 
 |                                                           | Nb Req/s | t < 800ms | 800ms < t < 1200ms | t > 1200ms | Durée (secs) |
 | --------------------------------------------------------- |:--------:|:---------:|:------------------:|:----------:|:------------:|
@@ -455,7 +455,7 @@ On note que la mise à jour en version 4.1.x d'Express met un sérieux coup de b
 | 22- 300 1ères comédies 300 users / cluster exp. v4        | 232      | 29789     | 191                |            | 129          |
 
 
-##Conclusion n°1
+## Conclusion n°1
 
 Pour le moment, les seul réels axes d'optimisation concernent les I/O, le module cluster et la mise à jour majeure d'Express. L'exercice suivant (à venir) sera de comparer avec d'autres stacks mais aussi avec un backend (type base de données) pour avoir une idée plus précise. Faites des tests suffisamment "stressants" pour noter les différences (ex module cluster). Et bien sûr, faites attention au développeur :).
 

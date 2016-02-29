@@ -6,11 +6,11 @@ info : Open IoT Challenge, work in progress and MQTT Gateway
 teaser: I participate in the Open IOT Challenge, my project is called "Atta", and today I completed a 1st version of the MQTT Gateway
 ---
 
-#Open IOT Challenge: work in progress and MQTT Gateway
+# Open IOT Challenge: work in progress and MQTT Gateway
 
 I participate in the Open IOT Challenge (see previous post [http://k33g.github.io/2015/12/10/IOT-CHALLENGE-01.html](http://k33g.github.io/2015/12/10/IOT-CHALLENGE-01.html)), my project is called "Atta", and today I completed a 1st version of the MQTT Gateway.
 
-##According to me, what is a connected thing?
+## According to me, what is a connected thing?
 
 There are certainly many definitions. I give you my own definition (one that guides me in designing my DSL).
 
@@ -26,13 +26,13 @@ Some devices can directly connect to internet because they directly embed a wifi
 
 In the case of Atta DSL, a connected thing is a Gateway class with a list of sensors. Each sensors is "autonomous" and publish data to the Gateway instance (and the Gateway instance is in charge to provide sensors' data to the world).
 
-##The MQTT Gateway
+## The MQTT Gateway
 
 Today, I've finalize a first (alpha) version of the MQTT Gateway class. I will commit source code soon, but here are some explanations:
 
 the `MQTTGateway` class extends `MQTTDevice` class and implements `Gateway` interface and `commonGatewayAbilities` trait (I love traits).
 
-###Create a sensor
+### Create a sensor
 
 `MQTTGateway` (and other Gateway implementations) can use pre-defined Atta sensors or you can create your own sensors:
 
@@ -63,7 +63,7 @@ And when the sensor is notified by the gateway, it produces a message with data 
 
 The sensor works in a thread.
 
-###Use the sensor(s) with the MQTTGateway
+### Use the sensor(s) with the MQTTGateway
 
 First of all, you need a MQTT Broker. You can use for example [Moquette](https://github.com/andsel/moquette) (Java MQTT Broker) or [Mosca](https://github.com/mcollina/mosca) (NodeJS MQTT Broker)
 
@@ -140,25 +140,25 @@ gateway.connect(success: { token ->
 
 So it's very easy to create a lot of sensors and a lot of gateways to **"stress"** your broker. :)
 
-##Using the MQTT Gateway with Golo
+## Using the MQTT Gateway with Golo
 
 **[Golo](http://golo-lang.org/)** is my favorite "tiny language" for the JVM (disclaimer: I commit sometimes on the Golo project). Golo is incubating at the **Eclipse Foundation**.
 
 I try to develop Atta DSL, keeping in mind that it can be used with other languages. So, it is already possible to use it with Golo.
 
-###Define a new sensor with Golo
+### Define a new sensor with Golo
 
-There is no class in Golo, so we have to use *Adapters* (see [http://golo-lang.org/documentation/next/index.html#_adapters_helper](http://golo-lang.org/documentation/next/index.html#_adapters_helper)).
+There is no class in Golo, so we have to use *Adapters* (see [http://golo-lang.org/documentation/next/index.html# _adapters_helper](http://golo-lang.org/documentation/next/index.html# _adapters_helper)).
 
 {% highlight golo %}
-# --- Create your own sensor ---
+#  --- Create your own sensor ---
 function PoneySensor = |id| {
 
   let x = Observable(0)
-  x: onChange(|value| -> println("# sensor "+ id + " x:"+value))
+  x: onChange(|value| -> println("#  sensor "+ id + " x:"+value))
 
   let y = Observable(0)
-  y: onChange(|value| -> println("# sensor "+ id + " x:"+value))
+  y: onChange(|value| -> println("#  sensor "+ id + " x:"+value))
 
   let sensorDefinition = Adapter()
     : extends("org.typeunsafe.atta.sensors.TemplateSensor")
@@ -187,7 +187,7 @@ function PoneySensor = |id| {
 }
 {% endhighlight %}
 
-###Define a MQTT gateway with Golo
+### Define a MQTT gateway with Golo
 
 The difficulty (for the moment) is that closures are not implemented in the same way with Golo or Groovy. So, I've created some methods in `MQTTGateway` class and `MQTTDevice` class to be used from Golo. I will create later modules to make the use with Golo more fluent.
 
@@ -209,7 +209,7 @@ function MqttPoneyGateway = |id, mqttId, locationName, broker| {
 
           this: notifyAllSensors()
 
-          this: topic("poneys") # publication topic
+          this: topic("poneys") #  publication topic
             : jsonContent(this: lastSensorsData())
             : publish()
 
@@ -217,7 +217,7 @@ function MqttPoneyGateway = |id, mqttId, locationName, broker| {
     })
     : implements("onSuccess", |this, token| {
         println(this: id() + " is connected :)")
-        # start the gateway when connection is ok
+        #  start the gateway when connection is ok
         this: start()
     })
     : implements("onFailure", |this, token, err| {

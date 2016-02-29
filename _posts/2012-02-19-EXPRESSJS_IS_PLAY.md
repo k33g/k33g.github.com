@@ -6,11 +6,11 @@ info : Express.js comme PlayFramework
 
 ---
 
-#Express.js, le Play!>Framework du Javascript ?
+# Express.js, le Play!>Framework du Javascript ?
 
 Pas tout seul, mais en lui ajoutant 2 ou 3 petites choses, on s'en approche.
 
-##Introduction
+## Introduction
 
 Pour démontrer ce que j'ai écrit dans mon titre, je vais "réaliser" une application à l'aide de :
 
@@ -35,11 +35,11 @@ Si vous arrivez au bout, vous aurez de quoi vous amuser. Et je tenterais d'aller
 
 Bon, on s'y colle. J'ai appelé mon application **stykkekode** qui veut dire "bout de code" en norvégien.
 
-##Installation côté serveur
+## Installation côté serveur
 
-###Pré-requis
+### Pré-requis
 
-Tout d'abord, vous devez installer **Nodejs** : [http://nodejs.org/#download](http://nodejs.org/#download), l'installeur en profite pour installer **npm** (node package manager), ce qui nous permettra d'installer le reste des composants.
+Tout d'abord, vous devez installer **Nodejs** : [http://nodejs.org/# download](http://nodejs.org/# download), l'installeur en profite pour installer **npm** (node package manager), ce qui nous permettra d'installer le reste des composants.
 
 Une fois **Nodejs** installé, nous allons installer **Express.js** ([http://expressjs.com/](http://expressjs.com/)), "petit" framework un peu dans le même esprit que **Play!>** qui permet de générer des applications web sous **Nodejs**.
 
@@ -68,7 +68,7 @@ Ensuite, je vous conseille d'installer **nodemon** ([https://github.com/remy/nod
 
 Voilà, voilà, nous pouvons commencer.
 
-##1ère view & 1ère route … 1er contrôleur
+## 1ère view & 1ère route … 1er contrôleur
 
 Aller dans le répertoire `views`, et créer 2 fichiers `index.ejs` et `layout.ejs`
 
@@ -120,7 +120,7 @@ Pour essayer :
 
 Nous avons donc rapidement vu les aspects, routes, vue et contrôleur, nous reviendrons plus en détail dessus, mais maintenant, allons un peu plus loin dans la construction de notre "stack".
 
-##Installer les librairies javascript
+## Installer les librairies javascript
 
 … Cela va nous servir pour plus tard
 
@@ -183,7 +183,7 @@ Puis les feuilles de styles dans `views/layout.ejs` :
 	</html>
 
 
-##Les modèles
+## Les modèles
 
 On ne vas pas s'occuper tout de suite de la persistance, mais nous allons créer des modèles et simuler cette persistance dans un 1er temps.
 
@@ -275,9 +275,9 @@ Sauvegardez. Si votre application tourne encore (sinon relancez) vous pourrez vo
 
 Maintenant allons écrire quelques routes et contrôleur(s)
 
-##Routes et Contrôleurs
+## Routes et Contrôleurs
 
-###Routes
+### Routes
 
 Préparons le travail pour Backbone.
 
@@ -291,7 +291,7 @@ Allez dans `server.js` (ou `app.js`) et copiez les routes suivantes (juste aprè
 
 	app.get("/snippets", routes.allSnippets);
 
-###Contrôleurs
+### Contrôleurs
 
 Allez dans `routes/index.js` et modifiez le code comme ceci :
 
@@ -377,11 +377,11 @@ Allez dans `routes/index.js` et modifiez le code comme ceci :
 		});
 	};
 
-###Testons :
+### Testons :
 
 Allez dans votre navigateur, ouvrez la console, et essayez les commandes suivantes :
 
-####createSnippet
+### #   createSnippet
 
 
 	$.ajax({
@@ -406,7 +406,7 @@ Allez dans votre navigateur, ouvrez la console, et essayez les commandes suivant
 
 on peut voir que le serveur nous a affecté un id
 
-####updateSnippet
+### #   updateSnippet
 
 
 	$.ajax({
@@ -432,7 +432,7 @@ on peut voir que le serveur nous a affecté un id
 
 Le serveur nous a renvoyé notre modèle modifié
 
-####getSnippet
+### #   getSnippet
 
 
 	$.ajax({
@@ -453,7 +453,7 @@ Le serveur nous a renvoyé notre modèle modifié
 
 Le serveur nous a renvoyé le modèle ayant l'id 1
 
-####deleteSnippet
+### #   deleteSnippet
 
 
 	$.ajax({
@@ -474,7 +474,7 @@ Le serveur nous a renvoyé le modèle ayant l'id 1
 
 Et maintenant nous allons appeler la liste de l'ensemble de nos "snippets" pour vérifier que nos modifications ont bien été prises en compte.
 
-####allSnippets
+### #   allSnippets
 
 
 	$.ajax({
@@ -495,9 +495,9 @@ Et maintenant nous allons appeler la liste de l'ensemble de nos "snippets" pour 
 
 ![Alt "express06.png"](https://github.com/k33g/k33g.github.com/raw/master/images/express06.png)
 
-##Mise en musique avec BackBone.js
+## Mise en musique avec BackBone.js
 
-###On re-écrit Backbone.sync
+### On re-écrit Backbone.sync
 
 Vous devez donc créer un fichier `backbone.sync.js` au même endroit que `backbone.js` :
 
@@ -554,7 +554,7 @@ Il faudra penser à ajouter dans 'index.ejs' :
 
 Nous allons donc modifier la vue `index.ejs` :
 
-###HTML
+### HTML
 
 
 	<!-- ma barre de titre -->
@@ -562,7 +562,7 @@ Nous allons donc modifier la vue `index.ejs` :
 		<div class="navbar-inner">
 			<div class="container">
 
-				<a class="brand" href="#">styKKeKode
+				<a class="brand" href="# ">styKKeKode
 					<% if (message) { %>
 						<%= message %>
 					<% } %>
@@ -608,7 +608,7 @@ Nous allons donc modifier la vue `index.ejs` :
 	<script src="javascripts/highlight.min.js"></script>
 
 
-###Javascript (Backbone & co)
+### Javascript (Backbone & co)
 
 Donc à la suite :
 
@@ -650,7 +650,7 @@ Donc à la suite :
 			window.converter = new Showdown.converter();
 
 			window.SnippetFormView = Backbone.View.extend({
-		        el : $('#snippet-form'),
+		        el : $('# snippet-form'),
 
 		        initialize : function() {
 		            this.form = arguments[0].form;
@@ -662,9 +662,9 @@ Donc à la suite :
 		            e.preventDefault();
 					var that = this;
 					var tmpSnippet = new Snippet({
-						title : this.$('#title').val(),
-						code : converter.makeHtml(this.$('#code').val()),
-						user : this.$('#user').val()
+						title : this.$('# title').val(),
+						code : converter.makeHtml(this.$('# code').val()),
+						user : this.$('# user').val()
 					});
 
 					tmpSnippet.save({},{
@@ -728,11 +728,11 @@ Donc à la suite :
 
 **Remarques :**
 
-- `window.converter = new Showdown.converter();` et `converter.makeHtml(this.$('#code').val())` servent à transformer le code markdown saisi en code html
+- `window.converter = new Showdown.converter();` et `converter.makeHtml(this.$('# code').val())` servent à transformer le code markdown saisi en code html
 - `$('pre code').each(function(index,e) {hljs.highlightBlock(e, '    ')});` sert à "coloriser" les parties "code source"
 
 
-###Allez on teste :
+### Allez on teste :
 
 - Vérifiez que votre application est lancée
 - Ouvrez l'url `localhost:3000/` dans votre navigateur
@@ -752,7 +752,7 @@ On ajoute et on obtient :
 Vous pouvez allez vérifier dans un autre navigateur que vos données sont bien là.
 
 
-##That's all ...
+## That's all ...
 
 Pour aujourd'hui, mais la prochaine fois, nous verrons comment "socialiser" notre application : seules les personnes authentifiées avec Twitter, pourront saisir des snippets. Nous mettrons quelques contrôles de validation. Et enfin (pas forcément dans le même article), nous verrons comment ajouter une véritable persistance avec une base NOSQL (je n'ai pas encore fait mon choix, mais j'ai un gros penchant pour CouchDB).
 

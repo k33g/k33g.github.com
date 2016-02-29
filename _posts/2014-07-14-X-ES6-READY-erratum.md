@@ -11,7 +11,7 @@ info : Erratum, Get ready for ECMAScript 6
 
 *There is no impact about the next post: [ECMAScript 6 in action with the inheritance and the models](http://k33g.github.io/2014/07/05/ES6-IN-ACTION-WITH-MODELS.html).*
 
-#Get ready for ECMAScript 6
+# Get ready for ECMAScript 6
 
 JavaScript evolves, and the next 6th version will be awesome, we'll have many great things like classes, maps, modules, ... (probably much more, but I'm just starting to learn).
 There are several ways to begin writing ES6 source code (even now with shims, polyfills and transpilers), you can find a tools list here [https://github.com/addyosmani/es6-tools](https://github.com/addyosmani/es6-tools).
@@ -22,7 +22,7 @@ I chose the simplest method to begin (to my mind) : no grunt task to transpile E
 
 **Caution:** I try to improve my english, I hope this post will be understandable, but don't hesitate to correct me (please).
 
-##Prepare the project
+## Prepare the project
 
 In a directory (ie: `es6-project`) create 4 files:
 
@@ -33,7 +33,7 @@ In a directory (ie: `es6-project`) create 4 files:
 
 with these contents:
 
-###.bowerrc
+### .bowerrc
 
 {% highlight javascript %}
 {
@@ -41,7 +41,7 @@ with these contents:
 }
 {% endhighlight %}
 
-###bower.json
+### bower.json
 
 ***This is an update of the previous post: we only need of traceur.js***
 
@@ -62,7 +62,7 @@ with these contents:
 
 *Remark: uikit isn't mandatory, it is only for pretty pages.*
 
-###package.json
+### package.json
 
 {% highlight javascript %}
 {
@@ -76,7 +76,7 @@ with these contents:
 }
 {% endhighlight %}
 
-###app.js
+### app.js
 
 {% highlight javascript %}
 var express = require('express')
@@ -92,7 +92,7 @@ app.listen(http_port);
 console.log("Listening on " + http_port);
 {% endhighlight %}
 
-###And now install all of this!
+### And now install all of this!
 
 - to download es6 shims: type `bower install`
 - to install Express: type `npm install`
@@ -123,9 +123,9 @@ Create a `js` directory, with an `app` sub-directory in `public`, and a `main.js
     ├── package.json    
     └── app.js
 
-###Some code
+### Some code
 
-####Prepare html
+### #   Prepare html
 
 Modifiy `index.html` like that:
 
@@ -154,7 +154,7 @@ Modifiy `index.html` like that:
 </html>
 {% endhighlight %}
 
-####Application class
+### #   Application class
 
 We are going to write our first ES6 class. So in the `main.js` file, type this content:
 
@@ -174,7 +174,7 @@ $(() => {
 
 This is our main class, the first "thing" that will be run in our webapp.
 
-####"Ignition"
+### #   "Ignition"
 
 We need to declare our main class in `index.html`, just add this after scripts declarations:
 
@@ -222,7 +222,7 @@ Hopefully, you shoul obtain a "very nice" message `E6 rocks!`.
 
 Now you have a "running" project and you can go deeper.
 
-##Go deeper: more classes
+## Go deeper: more classes
 
 Create a `models` directory in `publix/js/app` with two new JavaScript files inside `human.js` and `humans.js`:
 
@@ -242,7 +242,7 @@ Create a `models` directory in `publix/js/app` with two new JavaScript files ins
     ├── package.json    
     └── app.js
 
-###Human class
+### Human class
 
 Imagine Human class as a kind of model:
 
@@ -261,7 +261,7 @@ export default Human;
 
 *`export` keyword is very important, we "expose" Human class, so we can declare/load it from other JavaScript files.*
 
-###Humans class
+### Humans class
 
 We could say that Humans class is a collection of human's models:
 
@@ -280,7 +280,7 @@ class Humans {
 export default Humans;
 {% endhighlight %}
 
-###Using Human and Humans in Application class
+### Using Human and Humans in Application class
 
 We need to declare our 2 classes to use them. You have to use `import` keyword:
 

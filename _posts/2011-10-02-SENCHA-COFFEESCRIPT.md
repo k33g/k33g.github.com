@@ -6,7 +6,7 @@ info : SenchaTouch and Coffeescript
 
 ---
 
-#SenchaTouch becomes more readable and easier with Coffeescript
+# SenchaTouch becomes more readable and easier with Coffeescript
 
 I always thought **SenchaTouch** is a fantastic mobile framework. But it quickly becomes difficult to code, especially if you do not master completely.
 
@@ -19,7 +19,7 @@ Something like that :
 
 ![Alt "sencha-coffee.png"](https://github.com/k33g/k33g.github.com/raw/master/images/sencha-coffee.png)
 
-##Initialize the html page :
+## Initialize the html page :
 
 Before, you need (of course) :
 
@@ -45,9 +45,9 @@ Then, create an html page :
 
 And, now, create a `sencha.demo.coffee` file in which we will enter the code that follows.
 
-##First, "Model & Models"
+## First, "Model & Models"
 
-###Define them
+### Define them
 
 
 	class Model extends Ext.regModel
@@ -66,7 +66,7 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				data : data
 
 
-###Initialize "Model & Models"
+### Initialize "Model & Models"
 
 
 	menuChoice = new Model 'menuChoice', ['code', 'label', 'item']
@@ -80,9 +80,9 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 		]
 
 
-##Next, UI Components
+## Next, UI Components
 
-###Header and Footer
+### Header and Footer
 
 
 	class Header extends Ext.Toolbar
@@ -100,7 +100,7 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				dock : 'bottom'
 
 
-###Card (the screen that appears on the right side)
+### Card (the screen that appears on the right side)
 
 
 	class Card extends Ext.Panel
@@ -113,7 +113,7 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				html   : html
 
 
-###Right split view (a Card container)
+### Right split view (a Card container)
 
 
 	class RightView extends Ext.Carousel
@@ -123,10 +123,10 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				layout : 'fit'
 				direction : 'vertical'
 				style : 'background-color:white;'
-				items : cards # this is an array of cards
+				items : cards #  this is an array of cards
 
 
-###Left split view  (a kind of menu or list)
+### Left split view  (a kind of menu or list)
 
 
 	class LeftView extends Ext.List
@@ -142,11 +142,11 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 					itemtap : (subList, subIdx)->
 						store = subList.getStore()
 						record = store.getAt subIdx
-						#When i "tap" a item menu, i activate the corresponding card
+						# When i "tap" a item menu, i activate the corresponding card
 						linkedView.setActiveItem record.get fieldItemIndex
  
 
-###The main screen (it will encapsulate all the elements of the UI)
+### The main screen (it will encapsulate all the elements of the UI)
 
 
 	class MainScreen extends Ext.Panel
@@ -157,7 +157,7 @@ And, now, create a `sencha.demo.coffee` file in which we will enter the code tha
 				items : [items.rightSidePanel]
 
 
-##Last step : initialize the application
+## Last step : initialize the application
 
 
 	Ext.setup 

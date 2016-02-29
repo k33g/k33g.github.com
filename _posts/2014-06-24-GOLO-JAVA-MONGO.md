@@ -6,11 +6,11 @@ info : Golo, Java, Maven ... and MongoDb
 
 ---
 
-#Golo, Java, Maven ... and MongoDb
+# Golo, Java, Maven ... and MongoDb
 
 The last time (["Golo, Think different"](http://k33g.github.io/2014/06/22/GOLO-GOLO.html)), i tried to quickly introduce "Golo", and i explained that Golo was playing very well with Java. You can even generate a **Maven** project, add java source code and frameworks dependencies!
 
-##Create Golo Maven Project
+## Create Golo Maven Project
 
 Try this command:
 
@@ -51,7 +51,7 @@ Now, open `pom.xml` and search `<plugin>` node about `exec-maven-plugin`:
 
 You can see that `contacts` is considered as the main class, like the module name of `main.golo` with a `main` method.
 
-##Compile your new Golo project
+## Compile your new Golo project
 
 search `<plugin>` node about `maven-assembly-plugin`, and add `<outputDirectory>./</outputDirectory>` in the `<configuration>` node:
 
@@ -88,7 +88,7 @@ And now, run the command `mvn` and you'll get a new jar file: `contacts-0.0.1-SN
 
     java -jar contacts-0.0.1-SNAPSHOT-jar-with-dependencies.jar  
 
-##Add some java code
+## Add some java code
 
 In the `main` directory, create a `java` directory, and a package inside, ie `org.k33g.tools` with a java class `Hello.java`:
 
@@ -119,7 +119,7 @@ This is your project:
     |                       └── HelloWorld.java       
     └── pom.xml
 
-###Modifiy your main.golo file
+### Modifiy your main.golo file
 
 {% highlight coffeescript %}
 module contacts
@@ -139,9 +139,9 @@ Build your project: `mvn` and run it: `java -jar contacts-0.0.1-SNAPSHOT-jar-wit
     Hello World!
     Salut à Tous!
 
-##Use an "external" java framework
+## Use an "external" java framework
 
-###MongoDB
+### MongoDB
 
 I love to use MongoDB and it would be fine to "play with it in Golo" ;) then add this dependency inside the `<dependencies>` node:
 
@@ -217,8 +217,8 @@ augment mongoCollection {
     }
     return cursor
   }
-  # helpers :
-  function cursorToListOfMaps = |self, cursor| { # return list of HashMaps
+  #  helpers :
+  function cursorToListOfMaps = |self, cursor| { #  return list of HashMaps
     let models = list[]
     cursor: each(|doc| {
       let map = doc: toMap()
@@ -228,8 +228,8 @@ augment mongoCollection {
     })
     return models
   }
-  # helpers :
-  function cursorToList = |self, cursor| { # return list of MongoModels
+  #  helpers :
+  function cursorToList = |self, cursor| { #  return list of MongoModels
     let models = list[]
     cursor: each(|doc| {
       let newModel = mongoModel(self: _collection(), BasicDBObject())
@@ -353,7 +353,7 @@ augment mongoModel {
 }
 {% endhighlight %}
 
-###Modify main.golo to play with MongoDB
+### Modify main.golo to play with MongoDB
 
 Change the content of `main.golo` by this:
 

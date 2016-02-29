@@ -7,9 +7,9 @@ teaser: Je n'aime pas coder en C, j'aime le JavaScript, je veux "bidouiller" ave
 image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/arduino-000.png" height="50%" width="50%">
 ---
 
-#Premiers pas avec un Arduino, JavaScript et un RaspBerry
+# Premiers pas avec un Arduino, JavaScript et un RaspBerry
 
-##Intro & Objectifs
+## Intro & Objectifs
 
 Je n'aime pas coder en C, j'aime le JavaScript, je veux "bidouiller" avec un Arduino, mais en JS, je veux faire ça à partir d'un RaspBerry ... Et en plus, c'est possible, avec Johnny-Five voyons donc comment faire.
 
@@ -21,9 +21,9 @@ Vous aurez besoin de:
 
 ... C'est parti!
 
-##Paramétrage du RaspBerry
+## Paramétrage du RaspBerry
 
-###Connexion Wifi
+### Connexion Wifi
 
 Dans un 1er temps, paramétrons la connexion wifi du RaspBerry:
 
@@ -44,7 +44,7 @@ Sauvegardez.
 
 *PS: il vous faut un dongle wifi pour votre RaspBerry.*
 
-###Modifions le hostname
+### Modifions le hostname
 
 Donnons un petit nom réseau à notre RaspBerry, cela nous garantira de pouvoir le "contacter" sans forcément connaître son adresse IP.
 
@@ -79,7 +79,7 @@ A partir de maintenant, vous devez pouvoir vous connecter à votre RaspBerry en 
 
     ssh pi@bob.local
 
-###Installation de NodeJS
+### Installation de NodeJS
 
 J'aurais besoin d'installer la dernière (ou une récente) version de NodeJS.
 Tout d'abord, ajoutons le "repository" `apt.adafruit.com`à la liste des sources de notre RaspBerry (dans la console SSH):
@@ -92,7 +92,7 @@ Puis:
 
     sudo apt-get install node
 
-###Installation de Johnny-Five
+### Installation de Johnny-Five
 
 **Johnny-Five** ([https://github.com/rwaldron/johnny-five](https://github.com/rwaldron/johnny-five)) est un framework JavaScript (pour node) qui permet de "discuter" avec votre Arduino via le protocole **Firmata** (plus d'informations par ici: [https://github.com/firmata/protocol](https://github.com/firmata/protocol)).
 
@@ -104,7 +104,7 @@ Donc sur votre RaspBerry (en mode console via SSH):
     npm install johnny-five
 
     
-##Paramétrage de l'Arduino
+## Paramétrage de l'Arduino
 
 Pour permettre à l'Arduino de "discuter" avec Johnny-Five, il faut installer le programme "Firmata" sur l'Arduino.
 
@@ -118,7 +118,7 @@ Pour permettre à l'Arduino de "discuter" avec Johnny-Five, il faut installer le
 
 Si vous voulez une version en image, vous pouvez aller ici: [http://www.instructables.com/id/Arduino-Installing-Standard-Firmata/?ALLSTEPS](http://www.instructables.com/id/Arduino-Installing-Standard-Firmata/?ALLSTEPS)
 
-###Vérifications
+### Vérifications
 
 Ajouter une diode sur l'Arduino comme ceci:
 

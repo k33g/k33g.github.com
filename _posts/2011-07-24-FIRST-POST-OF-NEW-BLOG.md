@@ -6,7 +6,7 @@ info : Fin des vacances, j'en profite pour refaire mon blog
 
 ---
 
-#Parce que c'est plus Geek ...
+#  Parce que c'est plus Geek ...
 
 Voilà, c'est fait, mon blog change de plateforme et passe chez [GitHub](https://github.com/), ... parce que c'est plus "Geek", mais aussi parce que je trouve cela plus pratique : je peux saisir l'ensemble de mes billets en [markdown](https://github.com/3monkeys/play.rules), les gérer en conf (via Git & GitHub), un "commit, et hop ! c'est publié.
 
@@ -47,9 +47,9 @@ En ce qui concerne les commentaires, j'utilise la plateforme "sociale" [Disqus](
 
 Voilà, j'espère que cette nouvelle version vous plaira. Un grand merci à [@mklabs](http://twitter.com/mklabs/) pour m'avoir fait découvrir Jekill & Disqus.
 
-##Un peu de teasing
+## Un peu de teasing
 
-###à venir ... pas forcément dans l'ordre
+###  à venir ... pas forcément dans l'ordre
 
 - un tuto sur *"comment créer un blog Jekyll chez/sur GitHub"*
 - la suite du tuto BackBone : *"le même mais en plus propre"*

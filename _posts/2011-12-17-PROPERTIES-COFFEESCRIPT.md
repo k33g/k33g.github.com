@@ -6,11 +6,11 @@ info : CoffeeScript and Properties
 
 ---
 
-#CoffeeScript and Properties
+# CoffeeScript and Properties
 
 With the latest browsers, you can set properties for your objects. And as CoffeScript makes your code more beautiful, the result is quite nice.
 
-##First, create function "prop"
+## First, create function "prop"
 
 
     prop = (who, propName, getset) ->
@@ -21,7 +21,7 @@ With the latest browsers, you can set properties for your objects. And as CoffeS
         configurable: true
 
 
-##Now, you can write your classes like this :
+## Now, you can write your classes like this :
 
 
     class Human
@@ -38,10 +38,10 @@ With the latest browsers, you can set properties for your objects. And as CoffeS
             console.log "set : ", _name
 
       hello:->
-        console.log "Hi, i am #{@Name}"
+        console.log "Hi, i am # {@Name}"
 
 
-##And, use "super" when extending classes
+## And, use "super" when extending classes
 
 
     class SuperHeroe extends Human
@@ -56,18 +56,18 @@ With the latest browsers, you can set properties for your objects. And as CoffeS
             _power = value
 
 
-##Use it ...
+## Use it ...
 
 
     bob = new Human "Bob"
     bob.Name = "Bobby"
     bob.hello()
 
-    ### Output :
+    ###  Output :
     set :  Bobby
     get :  Bobby
     Hi, i am Bobby
-    ###
+    ### 
 
 
 Personally, i find it pretty, and remember that the properties do not exist in java ;) (big troll).

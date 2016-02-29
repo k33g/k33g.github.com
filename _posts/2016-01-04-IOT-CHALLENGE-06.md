@@ -6,11 +6,11 @@ info : Open IoT Challenge, AttA plays well with Node-RED
 teaser: I participate in the Open IOT Challenge, my project is called "Atta" (an IOT simulator), and today I explain how use it with Node-RED.
 ---
 
-#AttA plays well with Node-RED
+# AttA plays well with Node-RED
 
 Today I explain how to test your AttA simulation scripts with Node-RED.
 
-##Node-RED introduction
+## Node-RED introduction
 
 Node-RED is a project from IBM [http://nodered.org/](http://nodered.org/). This is a tool that allows to visually define connections, triggers, ... between things.
 
@@ -25,7 +25,7 @@ Then, you have to install CoAP support thanks to the project [node-red-contrib-c
 
 Before running Node-RED, we are going to create an AttA script simulation. 
 
-##AttA simulation
+## AttA simulation
 
 I want to simulate 2 MQTT Gateway and 1 CoAP Gateway:
 
@@ -126,7 +126,7 @@ gateway2.connect(success: { token ->
 
 You can find the source here: [https://github.com/ant-colony/atta/blob/master/sandbox/iot_demo/iot.groovy](https://github.com/ant-colony/atta/blob/master/sandbox/iot_demo/iot.groovy)
 
-##MQTT Broker
+## MQTT Broker
 
 You need a MQTT Broker:
 
@@ -159,7 +159,7 @@ You can find the source here: [https://github.com/ant-colony/atta/blob/master/sa
 - start the broker (the complete sample [https://github.com/ant-colony/atta/blob/master/sandbox/iot_demo/](https://github.com/ant-colony/atta/blob/master/sandbox/iot_demo/)), run `npm install`, then `./broker.sh`
 - start the simulation script: `./iot.sh` (you need Atta Project, and you have to build the project jar)
 
-##Define connections with Node-RED
+## Define connections with Node-RED
 
 First, we have to run Node-RED:
 
@@ -169,7 +169,7 @@ And now, open your browser [http://127.0.0.1:1880/](http://127.0.0.1:1880/)
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr01.png" height="70%" width="70%">
 
-###Define our MQTT connection
+### Define our MQTT connection
 
  - **1:** Drag'n drop a mqtt input from the left column to the workspace
 
@@ -208,7 +208,7 @@ gateway1
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/nr08.png" height="70%" width="70%">
 
-####Add a log file
+### #   Add a log file
 
 I want to store data in a log file:
 
@@ -226,7 +226,7 @@ I want to store data in a log file:
 
 Now you have a `my.iot.log` file with all the data
 
-###Define our CoAP connection
+### Define our CoAP connection
 
 - **1:** To query a CoAP resource, drag'n drop a function "coap request" node from the left column to the workspace
 

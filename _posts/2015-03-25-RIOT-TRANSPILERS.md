@@ -8,11 +8,11 @@ image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/riot2
 
 ---
 
-#Riot and in-browser ECMAScript 6 transpilation (and Coffeescript)
+# Riot and in-browser ECMAScript 6 transpilation (and Coffeescript)
 
 I love Riot, and to my mind it's useful that we don't need to pre-compile tags. But you have to do that if you want work with ECMAScript 6 or Coffeescript. That'a pity, because, these transpilers can make in-browser transpilation.
 
-##Problem
+## Problem
 
 When you make a riot custom tag like this:
 
@@ -35,9 +35,9 @@ When you make a riot custom tag like this:
 </yo-bob>
 {% endhighlight %}
 
-Then, you have to use riot executable to pre-compile the tag (see: [https://muut.com/riotjs/compiler.html#pre-compilation](https://muut.com/riotjs/compiler.html#pre-compilation)) and use a pre-processor (for my example it's **Babel**, because I want to develop with ES6), (see: [https://muut.com/riotjs/compiler.html#ecmascript-6](https://muut.com/riotjs/compiler.html#ecmascript-6))
+Then, you have to use riot executable to pre-compile the tag (see: [https://muut.com/riotjs/compiler.html# pre-compilation](https://muut.com/riotjs/compiler.html# pre-compilation)) and use a pre-processor (for my example it's **Babel**, because I want to develop with ES6), (see: [https://muut.com/riotjs/compiler.html# ecmascript-6](https://muut.com/riotjs/compiler.html# ecmascript-6))
 
-I would like to do that but with a in-browser "transpilation". If you read the source code of `compiler.js` : [https://github.com/muut/riotjs/blob/master/compiler.js#L113](https://github.com/muut/riotjs/blob/master/compiler.js#L113), you can see this method which is called when "es6" (`<script type="es6">`) is detected:
+I would like to do that but with a in-browser "transpilation". If you read the source code of `compiler.js` : [https://github.com/muut/riotjs/blob/master/compiler.js# L113](https://github.com/muut/riotjs/blob/master/compiler.js# L113), you can see this method which is called when "es6" (`<script type="es6">`) is detected:
 
 {% highlight javascript %}
   function es6(js) {
@@ -47,7 +47,7 @@ I would like to do that but with a in-browser "transpilation". If you read the s
 
 The browser can't use `es6()` because of `require()` method (which is a nodejs method).
 
-##Trick
+## Trick
 
 If you want in browser transpilation with **Babel**, first you have to include these two scripts in you html page:
 
@@ -100,7 +100,7 @@ And now, we have to provide a `require()` method to the browser. It' simple, ins
 
 And, it just works!
 
-##Same thing with Coffeescript
+## Same thing with Coffeescript
 
 It's simple too. Don't forget to include the transpiler in your page ([https://raw.githubusercontent.com/jashkenas/coffeescript/master/extras/coffee-script.js](https://raw.githubusercontent.com/jashkenas/coffeescript/master/extras/coffee-script.js)) and update the previous trick like that:
 
@@ -134,7 +134,7 @@ And now you can write your tag like that:
     lastName = "Morane"
 
     @label = '--- Yo! ---'
-    @subLabel = "Yo #{% raw %}{ firstName }{% endraw %} #{% raw %}{ lastName }{% endraw %}"
+    @subLabel = "Yo # {% raw %}{ firstName }{% endraw %} # {% raw %}{ lastName }{% endraw %}"
 
     @on 'mount', ->
       @root.querySelector('h1').style.color = 'orange'

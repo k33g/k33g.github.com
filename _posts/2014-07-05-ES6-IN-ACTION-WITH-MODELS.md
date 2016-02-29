@@ -6,13 +6,13 @@ info : ECMAScript 6 in action with the inheritance and the models
 
 ---
 
-#ECMAScript 6 in action with the inheritance and the models 
+# ECMAScript 6 in action with the inheritance and the models 
 
 Last time, we saw a way to initialize an "ES6" project ([http://k33g.github.io/2014/06/26/ES6-READY.html](http://k33g.github.io/2014/06/26/ES6-READY.html)). Today, we'll see how to play with the inheritance by creating models and collections.
 
 Initially, we've to update our nodejs application to serve data. I need a database, so I'll install **NeDB** ([http://blog.mongodb.org/post/55693224724/nedb-a-lightweight-javascript-database-using-mongodbs](http://blog.mongodb.org/post/55693224724/nedb-a-lightweight-javascript-database-using-mongodbs)).
 
-##Server side
+## Server side
 
 This is your project structure:
 
@@ -32,7 +32,7 @@ This is your project structure:
     ├── package.json    
     └── app.js
 
-###Install NeDB
+### Install NeDB
 
 Update `package.json`:
 
@@ -51,7 +51,7 @@ Update `package.json`:
 
 And to install NeDB: type `npm install`
 
-###REST API
+### REST API
 
 Update `app.js`:
 
@@ -115,7 +115,7 @@ humansDb.loadDatabase(function (err) {
 });
 {% endhighlight %}
 
-##Client side
+## Client side
 
 Create the following directory: `public/js/app/core` with to javascript files:
 
@@ -143,7 +143,7 @@ Now, your project structure is like that:
     ├── package.json    
     └── app.js
 
-###Define our Model class
+### Define our Model class
 
 My model has fields (and url for REST calls):
 
@@ -180,7 +180,7 @@ app.post("/humans", function(req, res) {
 });
 {% endhighlight %}
 
-####Model implementation
+### #   Model implementation
 
 {% highlight javascript %}
 class Model {
@@ -251,7 +251,7 @@ class Model {
 export default Model;
 {% endhighlight %}
 
-###Define our Collection class
+### Define our Collection class
 
 My collection has:
 
@@ -275,7 +275,7 @@ collection.fetch().done(() => {
 });
 {% endhighlight %}
 
-####Collection implementation
+### #   Collection implementation
 
 {% highlight javascript %}
 class Collection {
@@ -306,11 +306,11 @@ class Collection {
 export default Collection;
 {% endhighlight %}
 
-##Start with inheritance
+## Start with inheritance
 
 It's now it gets interesting :)
 
-###Define Human Model
+### Define Human Model
 
 Open `public/js/app/models/human.js` and update it like that:
 
@@ -329,7 +329,7 @@ export default Human;
 
 No surprise, the keyword for inheritance is `extends`. And we've to import `Model` before. **Please note the use of super keyword**. You've to invoke superclass's constructor.
 
-###Define Humans Collection
+### Define Humans Collection
 
 Open `public/js/app/models/humans.js` and update it like that:
 
@@ -347,7 +347,7 @@ class Humans extends Collection{
 export default Humans;
 {% endhighlight %}
 
-##And now,let's play with Humans!
+## And now,let's play with Humans!
 
 Open `public/js/app/main.js` and update it like that:
 
@@ -414,7 +414,7 @@ You can now test it, run `node app.js` and open [http://localhost:3000/](http://
             lastName: "Morane"
 
 
-##Display all Humans!
+## Display all Humans!
 
 We'll temporarily display the humans. And in a later tutorial we will create "ViewModels".
 
@@ -469,7 +469,7 @@ class Collection {
 export default Collection;
 {% endhighlight %}
 
-###The View
+### The View
 
 Now, we can create a new view class `HumansView` which is an observer and which will subscribe to humans collection notifications. Create a file `humansView.js` in `public/js/app/views`:
 

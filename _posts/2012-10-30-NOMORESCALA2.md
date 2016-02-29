@@ -6,14 +6,14 @@ info : templates Coffeescript dans Play
 
 ---
 
-#Je continue à me passer des templates Scala dans Play!> 2
+# Je continue à me passer des templates Scala dans Play!> 2
 
 >*Qu'allons nous voir ?*
 
 >	- *Que Coffeescript ça peut servir à quelque chose*
 >	- *rien d'autre, on fait court aujourd'hui*
 
-##Préambule
+## Préambule
 
 C'est promis, cette fois, je vais être plus court. Restant persuadé (et ce n'est pas faute d'avoir investiguer d'autres pistes) que Play!> est le framework java web le plus facile à mettre en oeuvre (entendez par là, *même si tu es nul tu dois y arriver*), mais que je ne suis pas fait pour Scala, j'ai continué ma petite expérience de la dernière fois.
 
@@ -37,7 +37,7 @@ Vous savez (ou pas) que Play!>2, sait aussi transpiler automatiquement du **Coff
 
 Et là camarade insomniaque, je vois tes yeux briller ...
 
-##Comment on fait ?
+## Comment on fait ?
 
 Ce n'est pas difficile. Commencez par céer un répertoire `assets` dans le répertoire `app` de votre projet (j'oubliais : repartez du projet de l'article précédent : [http://k33g.github.com/2012/10/05/NOMORESCALA.html](http://k33g.github.com/2012/10/05/NOMORESCALA.html)).
 
@@ -48,7 +48,7 @@ pour Mustache :
         <!-- définition du template -->
         <script type="text/template" id="humans_list_template">
 
-            <ul>{ {#humans} }
+            <ul>{ {# humans} }
                 <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
             { {/humans} }</ul>
             
@@ -89,7 +89,7 @@ Vous pouvez (devez) vous débarrasser des balises `<script>` et de leur contenu,
         <div id="humans_list_again"></div>
 
 
-###Externalisation des templates
+### Externalisation des templates
 
 Vous allez créer dans `app/assets` deux fichiers `.coffee` :
 
@@ -101,7 +101,7 @@ avec les contenus suivants (on prend les définitions de template de la page `in
 **<u>humans_list_template.coffee</u>**
 
 	App.Templates.humans_list_template = """
-	    <ul>{ {#humans} }
+	    <ul>{ {# humans} }
 	        <li>{ {id} } { {firstName} } { {lastName} } { {age} }</li>
 	    { {/humans} }</ul>
 	"""
@@ -126,7 +126,7 @@ avec les contenus suivants (on prend les définitions de template de la page `in
 Au lancement Play!> va transformer nos templates coffeescript en bons vieux fichiers javascript que nous allons pouvoir déclarer à notre script loader, et en plus on s'évite le fait d'aller interroger le DOM pour retrouver le contenu des balises `<script>`.
 
 
-###Modification du code javascript
+### Modification du code javascript
 
 Il va falloir modifier `main.js` & `app.js` :
 
@@ -170,9 +170,9 @@ Il va falloir modifier `main.js` & `app.js` :
 **<u>app.js</u>** : 2ème modification, il faut re-écrire la partie des vues qui allait interroger le DOM pour récupérer le template. Maintenant, on ne fait plus appel à jQuery pour ceci, les template sont dans des variables et Play!> aura "pré compilé" les templates.
 
 	App.Views.HumansListView = Backbone.View.extend({
-	    el : $("#humans_list"),
+	    el : $("# humans_list"),
 	    initialize : function () {
-	        //this.template = $("#humans_list_template").html();
+	        //this.template = $("# humans_list_template").html();
 
 	        this.template = App.Templates.humans_list_template; /* <--- la modif est ici */
 
@@ -193,9 +193,9 @@ Il va falloir modifier `main.js` & `app.js` :
 et :
 
 	App.Views.HumansListAgainView = Backbone.View.extend({
-		el : $("#humans_list_again"),
+		el : $("# humans_list_again"),
 		initialize : function (blog) {
-	        //this.template = _.template($("#humans_list_again_template").html());
+	        //this.template = _.template($("# humans_list_again_template").html());
 
 			this.template = _.template(App.Templates.humans_list_again_template); /* <--- la modif est ici */
 

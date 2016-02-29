@@ -7,11 +7,11 @@ teaser: How to use Handlebars with ECMAScript 6.
 
 ---
 
-#ECMAScript 6 in action with the view
+# ECMAScript 6 in action with the view
 
 Last time ([ECMAScript 6 in action with the inheritance and the models](http://k33g.github.io/2014/07/05/ES6-IN-ACTION-WITH-MODELS.html)) we've created an "humansView" quickly. Today we're going to use **Handlebars** to make something more "à la Backbone". **Handlebars** is a javascript templating library.
 
-##Modify bower.json
+## Modify bower.json
 
 {% highlight javascript %}
 {
@@ -31,7 +31,7 @@ Last time ([ECMAScript 6 in action with the inheritance and the models](http://k
 
 We've had `"handlebars": "~1.3.0"` (handlebars dependency). Now, type this command: `bower update`.
 
-##Update collection.js
+## Update collection.js
 
 We need to add a `toJson()` method to the collection, then we can pass simple json object to handlebars templates:
 
@@ -41,7 +41,7 @@ toJson () {
 }
 {% endhighlight %}
 
-##Create a component ViewModel: `HumansList`
+## Create a component ViewModel: `HumansList`
 
 You can delete `js/app/views/humansView.js`, create a new directory: `components` in `js/app/views` with a new javascript file `humans-list.js`:
 
@@ -73,7 +73,7 @@ class HumansList {
 
   view ()  { return `
     <ul>
-      {% raw %}{{#each humans}}{% endraw %}
+      {% raw %}{{# each humans}}{% endraw %}
       <li>{% raw %}{{id}}{% endraw %} {% raw %}{{firstName}}{% endraw %} {% raw %}{{lastName}}{% endraw %}</li>
       {% raw %}{{/each}}{% endraw %}
     </ul>
@@ -98,7 +98,7 @@ class HumansList {
 export default HumansList;
 {% endhighlight %}
 
-##Update main.js
+## Update main.js
 
 {% highlight javascript %}
 import Human from './models/human';
@@ -147,7 +147,7 @@ We've changed:
 - `import HumansList from './components/humans-list';`
 - and `var list = new HumansList(humans)`
 
-##Last update
+## Last update
 
 Modify `index.html`, you have just to add handlebars reference: `<script src="bower_components/handlebars/handlebars.min.js"></script>`:
 

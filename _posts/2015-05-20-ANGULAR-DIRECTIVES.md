@@ -8,7 +8,7 @@ image: <img src="https://github.com/k33g/k33g.github.com/raw/master/images/angul
 
 ---
 
-#My small arrangements with Angular
+# My small arrangements with Angular
 
 *Angular* (1.x) isn't my favorite tool. I love (and prefer) of Backbone, essentially because of Models and Collection, but I don't like Views, I prefer **web components** as Polymer or even better **Riot** (Riot is more about *custom tags* than *web components*, but functionally, it's almost the same thing).
 
@@ -18,7 +18,7 @@ However, I do not always have a choice. As I do not master Angular, I looked for
 - to work with Backbone Models and Collections
 - to forget Angular controllers, services, rootscope etc ...
 
-##And this is the sample of my experiments
+## And this is the sample of my experiments
 
 My requirements are very simple, I want to display the content of a Backbone collection thanks a tag `<humans></humans>` :
 
@@ -44,7 +44,7 @@ My requirements are very simple, I want to display the content of a Backbone col
 
 So, I've created 2 directives:
 
-###Human directive (human.js): display a model
+### Human directive (human.js): display a model
 
 {% highlight javascript %}
 var humanTag = angular.module('human.directive', []);
@@ -66,7 +66,7 @@ humanTag.directive('human',function() {
 
 We have to bind a human model to the directive (`scope : {human: '=model'}`) and the display is updated when the model change.
 
-###Humans directive (humans.js): display models of the collection
+### Humans directive (humans.js): display models of the collection
 
 {% highlight javascript %}
 var humansTag = angular.module('humans.directive', []);
@@ -88,7 +88,7 @@ humansTag.directive('humans',['humansCollection', function(humansCollection) {
 
 The previous directive is nested in this directive (`<human model="human"></human>`) and we bind the model with each instance of the human directive when parsing the collection. The display is update when we add a model (or when a model change, but it's only the nested item that is updated).
 
-###Updates of my html page
+### Updates of my html page
 
 {% highlight html %}
 <div ng-app="app">

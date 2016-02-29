@@ -6,7 +6,7 @@ info : gologolo
 
 ---
 
-#Proxy Dynamique en Golo
+# Proxy Dynamique en Golo
 
 Golo est fait pour utiliser des classes Java. Si vous manipulez des classes qui implémentent des interfaces, il est tout à fait possible de "greffer" des comportements à vos méthodes de classes (celles déclarées dans une interface) grâce à `import java.lang.reflect.Proxy`. Voyons donc comment faire:
 
@@ -54,7 +54,7 @@ public class TinyToon implements Toon {
 }
 {% endhighlight %}
 
-##Proxy dynamique
+## Proxy dynamique
 
 **Il est possible de créer un proxy de `TinyToon`, implémentant donc `Toon` et ce dynamiquement :**
 

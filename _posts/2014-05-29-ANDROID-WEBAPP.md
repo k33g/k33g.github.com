@@ -6,13 +6,13 @@ info : Chrome Android et les Webapps
 
 ---
 
-#Chrome Android et les Webapps
+# Chrome Android et les Webapps
 
 Depuis la version beta 31 de Chrome Android, il est enfin possible d'ajouter un raccourcis vers une webapp sur la home de son terminal et de l'afficher en plein écran comme une véritable application (comme ce que fait iOS depuis longtemps).
 
 Avec la puissance qu'atteignent maintenant les terminaux android, une webapp est tout à fait viable en tant qu'application, et selon les contextes suffit amplement par rapport à une application native.
 
-##Offline ?
+## Offline ?
 
 Il y a peu, j'étais dans le métro de ma ville, et j'ai eu besoin de consulter le plan du métro. Je sors donc mon téléphone, je lance l'application des transports en commun de ma ville. Et là c'est le drame : sans connexion web (ce qui est souvent le cas en sous-sol) impossible de consulter le plan du métro. Comment dire ...
 
@@ -20,7 +20,7 @@ Je me souviens, avant 2000, j'habitais Paris et j'avais un Palm Vx qui embarquai
 
 Ben mince alors, les applications mobiles sont en train de régresser. A l'heure du tout connecté on oublie que "ça capte pas partout" ;)
 
-##C'est le prétexte pour tester les Webapps sous Android
+## C'est le prétexte pour tester les Webapps sous Android
 
 Je me suis donc codé une webapp qui utilise [Leaflet](http://leafletjs.com/) et le principe de **"Image Overlay"** pour afficher une image en lieu et place d'une map (d'un point de vue SIG). J'affiche un plan stylisé du métro de ma ville. Je l'ai dessiné moi même pour ne pas avoir de problèmes:
 
@@ -29,7 +29,7 @@ Je me suis donc codé une webapp qui utilise [Leaflet](http://leafletjs.com/) et
 
 Alors pour qu'une Webapp puisse "se prendre" pour une application il y a quelques règles à respecter:
 
-###S'afficher en plein écran et avoir un comportement "mobile"
+### S'afficher en plein écran et avoir un comportement "mobile"
 
 Dans le header, vous aurez besoin de ceci:
 
@@ -40,7 +40,7 @@ Dans le header, vous aurez besoin de ceci:
 
 Ainsi votre webapp s'affichera en plein écran, sans la barre d'url de Chrome
 
-###Associer une icône à votre "application"
+### Associer une icône à votre "application"
 
 Créez une icône de taille `196x196` pixels au format `.png`, puis ajoutez le tag suivant au header de votre page:
 
@@ -48,12 +48,12 @@ Créez une icône de taille `196x196` pixels au format `.png`, puis ajoutez le t
 <link rel="icon" sizes="196x196" href="rocket.png">
 {% endhighlight %}
 
-###Et pour la partie "offline" ?
+### Et pour la partie "offline" ?
 
 Il suffit de créer un fichier avec l'extension `.appcache` au même niveau que la page html de votre webapp et de décrire dans ce fichier toutes les ressources que l'on souhaite mettre en cache. Comme cela, même sans connexion, l'application sera utilisable (toutes les ressources sont téléchargées à la 1ère connexion). Voici à quoi va ressembler mon fichier `lugdunum.appcache`:
 
     CACHE MANIFEST
-    # 537bNHNmyCLSmx5RpSB5W2gLn1g=
+    #  537bNHNmyCLSmx5RpSB5W2gLn1g=
 
     CACHE:
     js/leaflet/leaflet.js
@@ -68,7 +68,7 @@ Il suffit de créer un fichier avec l'extension `.appcache` au même niveau que 
     index.html
     rocket.png
 
-    # catch-all for anything else
+    #  catch-all for anything else
     NETWORK:
     *
     http://*
@@ -78,7 +78,7 @@ où `images/lugdunum.png` est mon plan de métro.
 
 et vous déclarez le fichier dans votre page html: `<html lang="en" manifest="lugdunum.appcache">`
 
-###Le code pour afficher la map du métro avec Leaflet
+### Le code pour afficher la map du métro avec Leaflet
 
 {% highlight javascript %}
 var mapMinZoom = 1;
