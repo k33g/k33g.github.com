@@ -6,11 +6,11 @@ info : Open IoT Challenge, last step
 teaser: I participate in the Open IOT Challenge, my project is called "Atta" (an IOT simulator), and today I I summarize my project.
 ---
 
-#AttA, last step (for the moment)
+# AttA, last step (for the moment)
 
 I participate in the Open IOT Challenge [http://iot.eclipse.org/open-iot-challenge/](http://iot.eclipse.org/open-iot-challenge/) . And my project is a simulator of things (connected devices and gateways). It names **AttA**, and it's a DSL written with **Groovy** [http://www.groovy-lang.org/](http://www.groovy-lang.org/) and **Golo** [http://golo-lang.org/](http://golo-lang.org/).
 
-##Sensors and Gateways
+## Sensors and Gateways
 
 **AttA** can work with MQTT and CoAP. You can easily simulate sensors:
 
@@ -66,7 +66,7 @@ gateway.connect(success: { token ->
 
 If you need to embed your simulator, you can use Golo too:
 
-{% highlight golo %}
+{% highlight coffeescript %}
 function PoneySensor = |id| {
 
   let x = Observable(0)
@@ -149,7 +149,7 @@ class TemperatureSensor extends TemplateSensor implements temperature, location 
 }
 {% endhighlight %}
 
-##More complicated things
+## More complicated things
 
 You can simulate more complicated things, like this:
 
@@ -157,7 +157,7 @@ You can simulate more complicated things, like this:
 src="http://www.youtube.com/embed/dqOj3wRVC4s">
 </iframe>
 
-##Atta and me?
+## Atta and me?
 
 I use Atta to create scenario for my personal projects like [BoB:next](https://github.com/ZeiraCorp/bob.next.rtc) which is a project of "remote presence robot". And I use MQTT to send message to **"BoB"** (to move it for example), or to get message from **"BoB"**.
 
