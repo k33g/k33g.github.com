@@ -1,4 +1,3 @@
 auto : true
 url: "http://k33g.github.com/"
-markdown : rdiscount
 pygments: true
