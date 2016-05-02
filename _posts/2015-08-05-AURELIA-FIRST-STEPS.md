@@ -113,7 +113,7 @@ Il est temps maintenant de faire notre 1er composant (custom component)
 
 ## 1er composant
 
-J'aimerais pouvoir faire un composant de type `<hello-world mytext="yo"></hello-world>`, que je pourrais utiliser comme un tag html de base et qui afficherait le contenu de mon attribut `myext`.
+J'aimerais pouvoir faire un composant de type `<hello-world mytext="yo"></hello-world>`, que je pourrais utiliser comme un tag html de base et qui afficherait le contenu de mon attribut `mytext`.
 
 - Créez un répertoire `public/components`
 - Créez un fichier `hello-world.html` (dans `components`)
