@@ -6,20 +6,26 @@ title: K33G_ORG
 <!-- CONTENU DE LA HOMEPAGE -->
 {% for post in site.posts limit:2 %}
 <article class="uk-article">
+  <!--
   <h1 class="uk-article-title">{{ post.title }}</h1>
   <p class="uk-article-meta">Written on {{ post.date | date_to_string }} : <a href="{{ post.url }}">Read this post &raquo;</a></p>
+  -->
   <!--
   <h3>{{ post.teaser }}<h3>
   {{ post.image }}
   -->
   <!--{{ post.content | strip_html | truncatewords:75 }}-->
+  <p class="uk-article-meta">Written on {{ post.date | date_to_string }}</p>
   {{ post.content }}
+  <!--
   <p>
     <a class="uk-button uk-button-primary" href="{{ post.url }}">Read this post ...</a>
   </p>
+  -->
 
 </article>
 {% endfor %}
+
 <article class="uk-article">
   <h4><a href="/all.html">All posts ...</a></h4>
 </article>
