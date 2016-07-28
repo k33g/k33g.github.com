@@ -34,6 +34,8 @@ Donc, c'est décidé, aujourd'hui, je stoppe ce blog (il reste consultable bien 
 - Pour des propositions de contenu, des modifs, ...: [https://github.com/k33g/files/pulls](https://github.com/k33g/files/pulls)
 - Pour des questions d'ordre plus général (quelle est ma bière préférée, l'adresse du meilleur resto alsacien à Lyon, mon Kebab de prédilection, ...) cela se passe ici [https://github.com/k33g/q](https://github.com/k33g/q)
 
+**Et voici mon 1er document** [Functor et Monad](https://github.com/k33g/files/blob/master/functional/2016-07-04-functor-monad-starter.md) avec un super dessin des [@CommitStrip](http://www.commitstrip.com/en/) <3
+
 Bon, maintenant, il faut que je traduise ça en anglais (pareil, j'accepte les remarques sur mon anglais sans me vexer)
 
 *Remarque: si vous n'avez pas de handle GitHub, vous pourrez quand même lire les contenus. En même temps, je serais curieux de savoir, dans les quelques personnes qui me lisent, combien n'ont pas de handle GitHub ;)*
