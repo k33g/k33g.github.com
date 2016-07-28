@@ -8,5 +8,5 @@ info : I don't blog anymore, I git push
 
 > WIP
 
-# :uk: I don't blog anymore, I git push
+# (uk/us) I don't blog anymore, I git push
 
