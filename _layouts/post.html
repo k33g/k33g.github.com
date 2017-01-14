@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<article class="uk-article">
+<article class="ui container segment" style="font-size:16px">
   <!-- CONTENU DU POST -->
     <div>
         <!--
@@ -41,9 +41,9 @@ layout: default
 
 </article>
 
-<div class="uk-panel">
-  <h3 class="uk-panel-title">Related posts</h3>
-  <ul class="uk-list uk-list-line">
+<div class="ui container segment" style="font-size:16px">
+  <h3>Related posts</h3>
+  <ul class="item">
     {% for post in site.related_posts limit:3 %}
     <li><small><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></small></li>
     {% endfor %}
