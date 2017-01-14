@@ -10,12 +10,15 @@ title: K33G_ORG
 
   <div class="ui ignored warning message">
     Written on {{ post.date | date_to_string }}:
-    <h3>Read all + comments: <a href="{{ post.url }}">{{ post.title }}</a></h3>
+    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
   </div>
   <!--{{ post.title }}-->
   <p>
-  {{ post.image }}
-  {{ post.teaser }}
+    {{ post.image }}
+    <p>
+      {{ post.teaser }}
+    </p>
+    <h4>Reat + Comments</h4>
   </p>
 
 </article>
