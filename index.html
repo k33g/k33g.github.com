@@ -12,9 +12,11 @@ title: K33G_ORG
     Written on {{ post.date | date_to_string }}:
     <h3>Read all + comments: <a href="{{ post.url }}">{{ post.title }}</a></h3>
   </div>
-  {{ post.title }}
+  <!--{{ post.title }}-->
+  <p>
   {{ post.image }}
   {{ post.teaser }}
+  </p>
 
 </article>
 {% endfor %}
