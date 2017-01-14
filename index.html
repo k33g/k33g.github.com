@@ -5,7 +5,7 @@ title: K33G_ORG
 
 <!-- CONTENU DE LA HOMEPAGE -->
 {% for post in site.posts limit:3 %}
-<article class="uk-article">
+<article class="ui text container segment">
   <!--
   <h1 class="uk-article-title">{{ post.title }}</h1>
   <p class="uk-article-meta">Written on {{ post.date | date_to_string }} : <a href="{{ post.url }}">Read this post &raquo;</a></p>
@@ -15,7 +15,11 @@ title: K33G_ORG
   {{ post.image }}
   -->
   <!--{{ post.content | strip_html | truncatewords:75 }}-->
-  <p class="uk-article-meta">Written on {{ post.date | date_to_string }}</p>
+
+
+  <div class="ui ignored warning message">
+    Written on {{ post.date | date_to_string }}
+  </div>
   {{ post.content }}
   <!--
   <p>
@@ -26,7 +30,6 @@ title: K33G_ORG
 </article>
 {% endfor %}
 
-<article class="uk-article">
+<article class="ui text container segment">
   <h4><a href="/all.html">All posts ...</a></h4>
 </article>
-
