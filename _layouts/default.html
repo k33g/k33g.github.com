@@ -13,15 +13,6 @@
   -->
   <link rel="stylesheet" href="/js/bower_components/semantic/dist/semantic.min.css" />
 
-
-  <style>
-    .jumbotron {
-      background-color: #444444;
-      border-radius: 0px;
-      padding: 10px 30px;
-    }
-  </style>
-
   <!-- syntax highlighting CSS -->
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="stylesheet" href="/css/default.min.css">
@@ -49,7 +40,7 @@
     <!--
     href="http://k33g.github.io/"
     -->
-    <a href="#" class="item">Home</a>
+    <a href="http://k33g.github.io/" class="item">Home</a>
     <a href="https://twitter.com/k33g_org" class="item">@k33g_org</a>
     <a href="http://feeds.feedburner.com/K33g_orgsBlog" class="item">rss</a>
     <a href="/all.html" class="item">All posts</a>
@@ -59,86 +50,35 @@
   </div>
 </div>
 
+<div class="ui main text container">
+  {{ content }}
+</div>
 
-<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
-  <h1 style="font-size:46px;font-weight:800;">K33G_ORG's Blog</h1>
 
-  <nav class="uk-navbar uk-margin-large-bottom">
-    <a class="uk-navbar-brand uk-hidden-small" href="http://k33g.github.io/">Blog Home</a>
-    <ul class="uk-navbar-nav uk-hidden-small">
-      <li>
-        <a href="https://twitter.com/k33g_org">@k33g_org</a>
-      </li>
-      <li>
-        <a href="http://feeds.feedburner.com/K33g_orgsBlog">rss</a>
-      </li>
-      <li>
-        <a href="/all.html">All posts</a>
-      </li>
-      <li>
-        <a href="http://www.k33g.org/">Me</a>
-      </li>
-      <li>
-        <a href="https://github.com/k33g">Github</a>
-      </li>
-    </ul>
-    <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas=""></a>
-    <div class="uk-navbar-brand uk-navbar-center uk-visible-small">K33G_ORG's Blog</div>
-  </nav>
+<div class="ui inverted vertical footer segment">
+  <div class="ui center aligned container">
+    <div class="ui stackable inverted divided grid">
+      <div class="six wide column">
+        <h4 class="ui inverted header">Last 10 posts</h4>
+        <div class="ui inverted link list">
 
-  <div class="uk-grid" data-uk-grid-margin="">
-    <div class="uk-width-medium-3-4">
+          {% for post in site.posts limit:10 %}
+            <a href="{{ post.url }}">{{ post.date | date_to_string }} {{ post.title }}</a>
+          {% endfor %}
 
-      {{ content }}
+        </div>
+      </div>
 
-      <!--
-      <ul class="uk-pagination">
-        <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-        <li class="uk-active"><span>1</span></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><span>...</span></li>
-        <li><a href="#">20</a></li>
-        <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-      </ul>
-      -->
-
-    </div>
-
-    <div class="uk-width-medium-1-4">
-      <div class="uk-panel uk-panel-box uk-text-center">
+      <div class="seven wide column">
         <img class="uk-border-circle" width="120" height="120" src="/images/k33g_org.jpg" alt="">
-        <h3>@k33g_org</h3>
+        <h4>@k33g_org</h4>
         <p>A difficult double life : by day, i'm SE @ GitHub, at night, some call me K33gorg</p>
       </div>
-      <div class="uk-panel">
-        <h3 class="uk-panel-title">Last 10 posts</h3>
-        <ul class="uk-list uk-list-line">
-          {% for post in site.posts limit:10 %}
-          <li><small><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></small></li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <div class="uk-panel">
-        <h3 class="uk-panel-title">Tutos</h3>
-        <ul class="uk-list uk-list-line">
-          <li><small><a href="http://e-books.github.io/je.decouvre.angular/">Je découvre Angular (FR)</a></small></li>
-          <li><small><a href="http://e-books.github.io/preparer.son.projet.js/">Préparer son projet JS (FR)</a></small></li>
-          <li><small><a href="http://e-books.github.io/backbone.en.douceur/">1 "Gros" tuto Backbone (FR)</a></small></li>
-          <li><small><a href="http://3monkeys.github.com/play.rules/livre.play.deux.web/play2.rules.return.html">
-            Play!► 2 en douceur (FR)</a></small></li>
-          <li><small><a href="http://3monkeys.github.com/play.rules/livre.play.un.web/play.rules.one.html">
-            Apprendre Play!► 1 (FR)</a></small></li>
-        </ul>
-      </div>
-
-
     </div>
-  </div>
 
+  </div>
 </div>
+
 
 <!-- Google Analytics -->
 <script type="text/javascript">
