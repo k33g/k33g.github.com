@@ -3,7 +3,7 @@
 layout: post
 title: Open IOT Challenge 3ème édition
 info : Open IOT Challenge 3ème édition
-
+teaser: L'an dernier, j'ai participé à l'Open IOT Challenge organisé par la fondation Eclipse et Benjamin Cabé.
 ---
 
 # Open IOT Challenge 3ème édition
