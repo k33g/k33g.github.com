@@ -204,6 +204,89 @@ Et maintenant on dit que vous avez un compte et que vous voulez déployer:
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-08.png" height="95%" width="95%">
 
+- Vous pouvez ensuite suivre le déploiement de votre microservice:
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-09.png" height="95%" width="95%">
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-10.png" height="95%" width="95%">
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-11.png" height="95%" width="95%">
+
+#### 8- Donnez une url humainement lisible à votre microservice
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-12.png" height="95%" width="95%">
+
+#### 9- Testez votre microservice
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-13.png" height="95%" width="95%">
+
+#### 10- Exercice
+
+Vous avez vu, c'est ultra facile, faites donc la même chose pour le 2ème microservice (pong)
+
+### Nous avons donc maintenant 2 microservices hebergés
+
+- 🏓 ping: http://mypingservice.cleverapps.io/act?role=sport&cmd=ping
+- 🏓 et pong: http://mypongservice.cleverapps.io/act?role=sport&cmd=pong
+
+Nous allons maintenant voir comment créer un client pour les utiliser.
+
+### Utilisons nos microservices
+
+Sur votre poste en local (vous pourrez l'héberger plus tard si vous le souhaitez), créez un nouveau projet Node, avec du Express:
+
+```shell
+npm init -y
+npm install express --save
+npm install body-parser --save
+npm install seneca
+```
+
+Ensuite créez un fichier `index.js`:
+
+```javascript
+const express = require("express");
+const bodyParser = require("body-parser");
+const seneca = require('seneca')
+
+const port = process.env.PORT || 8080;
+
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+let clientPong = seneca().client({host:'mypongservice.cleverapps.io', port:80})
+let clientPing = seneca().client({host:'mypingservice.cleverapps.io', port:80})
+
+app.get('/service/ping', (req, res) => {
+  clientPing.act({role: "sport", cmd: "ping"}, (err, item) => {
+    res.send(item)
+  })
+});
+
+app.get('/service/pong', (req, res) => {
+  clientPong.act({role: "sport", cmd: "pong"}, (err, item) => {
+    res.send(item)
+  })
+});
+
+app.listen(port);
+console.log(`🌍 Web Server is started - listening on ${port}`);
+
+```
+
+- Lancez `node index.js`
+- ouvrez votre navigateur
+  - essayez http://localhost:8080/service/ping
+  - essayez http://localhost:8080/service/pong
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-14.png" height="95%" width="95%">
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-15.png" height="95%" width="95%">
+
+👏 génial, on a bien nos services distants utilisables (une petite 🕺).
+
+Par contre ce qui serait bien. c'est d'avoir un système de **"service discovery"** pour éviter d'avoir à renseigner les urls des microservices.
 
 ## Service discovery
 
@@ -212,19 +295,3 @@ Et maintenant on dit que vous avez un compte et que vous voulez déployer:
 
 
 ## Dans les tuyaux
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
