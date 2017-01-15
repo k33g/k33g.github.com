@@ -192,11 +192,13 @@ Et maintenant on dit que vous avez un compte et que vous voulez déployer:
 #### 7- La création de l'application commence
 
 - Une application Node chez Clever doit posséder un fichier `package.json` indiquant comment démarrer
+
   ```json
   "scripts": {
     "start": "node index.js"
-  },
+  }
   ```
+
 - *Remarque*: `"main": "index.js"` peut suffire
 - maintenant patientez un peu...
 
