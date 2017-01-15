@@ -146,8 +146,31 @@ Et maintenant on dit que vous avez un compte et que vous voulez déployer:
 
 #### 1- Créer une application:
 
-<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-01.png" height="60%" width="60%">
+- clicker sur `+ Add an application`
+- dans la liste `Select your GitHub repository`, sélectionner votre projet sur GitHub
 
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-01.png" height="95%" width="95%">
+
+#### 2- Choisissez le type de l'application:
+
+- dans notre cas, ce sera NodeJS
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-02.png" height="95%" width="95%">
+
+#### 3- Editez le type d'instance
+
+- Clicker sur `EDIT`
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-03.png" height="95%" width="95%">
+
+- Choisir une instance de taille **pico**
+- Clicker sur `NEXT`
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-04.png" height="95%" width="95%">
+
+#### 4- Donnez un nom à votre service et créez l'application
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-05.png" height="95%" width="95%">
 
 ## Service discovery
 
