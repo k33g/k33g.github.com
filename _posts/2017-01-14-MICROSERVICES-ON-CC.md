@@ -239,7 +239,7 @@ Sur votre poste en local (vous pourrez l'héberger plus tard si vous le souhaite
 npm init -y
 npm install express --save
 npm install body-parser --save
-npm install seneca
+npm install seneca --save
 ```
 
 Ensuite créez un fichier `index.js`:
@@ -275,6 +275,8 @@ console.log(`🌍 Web Server is started - listening on ${port}`);
 
 ```
 
+*⚠️ Remarque: il existe une intégration Express-Seneca, mais là j'ai fait au plus simple.*
+
 - Lancez `node index.js`
 - ouvrez votre navigateur
   - essayez http://localhost:8080/service/ping
@@ -286,12 +288,6 @@ console.log(`🌍 Web Server is started - listening on ${port}`);
 
 👏 génial, on a bien nos services distants utilisables (une petite 🕺).
 
-Par contre ce qui serait bien. c'est d'avoir un système de **"service discovery"** pour éviter d'avoir à renseigner les urls des microservices.
+Maintenant ce qui serait bien, cs serait d'avoir un système de **"service discovery"** pour éviter d'avoir à renseigner les urls des microservices.
 
-## Service discovery
-
-
-<TODO>
-
-
-## Dans les tuyaux
+Mais ce sera pour un prochain article (j'ai encore quelques coup de tournevis à donner 😃)
