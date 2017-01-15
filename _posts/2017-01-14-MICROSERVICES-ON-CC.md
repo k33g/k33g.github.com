@@ -172,6 +172,37 @@ Et maintenant on dit que vous avez un compte et que vous voulez déployer:
 
 <img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-05.png" height="95%" width="95%">
 
+#### 5- Ne pas ajouter d'Add-On
+
+- Pour cette partie nous n'avons pas besoin d'add-on
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-06.png" height="95%" width="95%">
+
+#### 6- Les variables d'environnement
+
+- Par défaut il y a toujours une variable `PORT` égale à `8080`
+  - une application sur Clever doit **toujours** "écouter" sur le port http `8080`
+  - le port http `8080` est mappé sur le port `80`
+  - donc pour accéder à vos webapps de l'extérieur, vous utiliserez le port `80`
+  - donc ne changez rien
+- Clicker sur `NEXT`
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-07.png" height="95%" width="95%">
+
+#### 7- La création de l'application commence
+
+- Une application Node chez Clever doit posséder un fichier `package.json` indiquant comment démarrer
+  ```json
+  "scripts": {
+    "start": "node index.js"
+  },
+  ```
+- *Remarque*: `"main": "index.js"` peut suffire
+- maintenant patientez un peu...
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-08.png" height="95%" width="95%">
+
+
 ## Service discovery
 
 
