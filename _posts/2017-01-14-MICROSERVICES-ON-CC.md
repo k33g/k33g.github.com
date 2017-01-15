@@ -88,4 +88,48 @@ Et le tester dans votre navigateur en appelant `http://localhost:8082/act?role=s
 {"answer":"pong"}
 ```
 
-Ce qui vaut bien une petite 🕺 de victoire
+Ce qui vaut bien une petite 🕺 de victoire.
+
+### Préparation du 2ème microservice
+
+Là, vous êtes chaud comme la braise, on ne s'arrête pas, vous m'en faites un deuxième. Là aussi, il faudra créer un projet sur GitHub, et avec beaucoup d'imagination, appelons le `pong-service`:
+
+```javascript
+const seneca = require('seneca')()
+const os = require('os')
+
+const port = process.env.PORT || 8081
+
+function pingpong(options) {
+  this.add({role: "sport", cmd: "pong"}, (message, reply) => {
+    reply(null, {answer: "ping"})
+  })
+}
+
+seneca
+  .use(pingpong)
+  .listen({
+    host: '0.0.0.0',
+    port: port
+  })
+
+console.info(`🌍 service is listening on ${port}`)
+```
+
+Si vous prenez le temps de le tester, vous obtiendrez:
+
+```json
+{"answer":"ping"}
+```
+
+## On héberge les 2 services chez @Clever_Cloud
+
+Plutôt que de tout faire en local, nous allons héberger nos services à l'extérieur. J'ai choisi de faire ça chez [@Clever_Cloud](https://www.clever-cloud.com/) pour plusieurs raisons:
+
+- la **simplicité d'utilisation** pour le déploiement et la maintenance (je suis un dev, je n'ai pas envie de perdre mon temps avec des solutions compliquées pour héberger mes applis)
+- la possibilité d'ajouter une base de données facilement
+- la **gestion automatique des updates**, des fixes des failles de sécurité
+- l'**autoscalabilité** (je vous rappelle que je veux faire de l'IOT ... et que je suis un dev)
+- **"No-downtime deployment"**, ce qui est plutôt rare ou alors faut te le gérer toi-même
+- le support utilisateurs fait par la core team (et en :fr: dans mon cas, même si mon job actuel m'oblige à pratiquer l'anglais presque tous les jours, c'est quand même super agréable et reposant de pouvoir utiliser sa langue natale)
+- ...
