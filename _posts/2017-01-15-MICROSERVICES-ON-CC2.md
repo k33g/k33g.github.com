@@ -1,8 +1,8 @@
 ---
 
 layout: post
-title: Micro services
-info : Micro services
+title: Micro services - Part II
+info : Micro services - Part II
 teaser: Comment développer des microservices avec @SenecaJS, un service discovery avec Redis et les "hoster" facilement chez @Clever_Cloud, la partie II avec un "home made service discovery"
 ---
 
