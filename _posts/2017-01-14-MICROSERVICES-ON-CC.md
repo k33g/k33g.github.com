@@ -133,3 +133,43 @@ Plutôt que de tout faire en local, nous allons héberger nos services à l'ext�
 - **"No-downtime deployment"**, ce qui est plutôt rare ou alors faut te le gérer toi-même
 - le support utilisateurs fait par la core team (et en :fr: dans mon cas, même si mon job actuel m'oblige à pratiquer l'anglais presque tous les jours, c'est quand même super agréable et reposant de pouvoir utiliser sa langue natale)
 - ...
+
+### C'est parti
+
+- Alors, nos deux microservices sont sur GitHub
+- Pour les grosses faignasses vous pouvez les cloner par ici:
+  - https://github.com/wey-yu/ping-service
+  - https://github.com/wey-yu/pong-service
+- il vous faudra vous enregistrer chez [@Clever_Cloud](https://www.clever-cloud.com/) (il y a une offre découverte gratuite)
+
+Et maintenant on dit que vous avez un compte et que vous voulez déployer:
+
+#### 1- Créer une application:
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-01.png">
+
+
+
+## Service discovery
+
+
+<TODO>
+
+
+## Dans les tuyaux
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
