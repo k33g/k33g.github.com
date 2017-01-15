@@ -6,7 +6,7 @@ info : Micro services
 teaser: Comment développer des microservices avec @SenecaJS, un service discovery avec Redis et les "hoster" facilement chez @Clever_Cloud
 ---
 
-# Microservices avec @SenecaJS chez @Clever_Cloud
+# Microservices avec @SenecaJS chez @Clever_Cloud - PART I
 
 ## Les origines de cet articles
 
