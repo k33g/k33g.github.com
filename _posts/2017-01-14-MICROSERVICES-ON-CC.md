@@ -146,8 +146,7 @@ Et maintenant on dit que vous avez un compte et que vous voulez déployer:
 
 #### 1- Créer une application:
 
-<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-01.png">
-
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/cc-01.png" height="60%" width="60%">
 
 
 ## Service discovery
