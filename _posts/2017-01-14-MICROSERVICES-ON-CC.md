@@ -12,6 +12,9 @@ teaser: Comment développer des microservices avec @SenecaJS, un service discove
 
 Pour cette année 2017, j'ai décidé de me remettre à l'IOT et en cherchant les plateformes opensource(s?) de gestion d'objets connectés, provisionning, ... (en gros, un application web qui vous affiche la liste de vos objets connectés, les données associées, des graphiques temps réels, qui vous permet d'ajouter des objets, dans découvrir, ...) je n'ai rien trouvé qui me corresponde réellement, qui soit facile à utiliser, à "coder" et à **héberger**. Mon modèle c'est [thingworx](https://www.thingworx.com/) ... Mais ce n'est pas opensource. Donc finalement, pourquoi ne pas faire ma propre plateforme? :stuck_out_tongue_winking_eye: Ok, c'est ambitieux, mais c'est bien d'avoir un "side project" avec un "vrai sujet" et **c'est formateur**. En effet, au cours de ma quête et de mes réflexions j'ai notamment décidé d'utiliser le concept de **microservices** qui me semble bien se prêter à mes besoins de construction d'une plateforme modulaire, évolutive, ...
 
+
+👋 *Vous pouvez lire la partie II ici:* [http://k33g.github.io/2017/01/15/MICROSERVICES-ON-CC2.html](http://k33g.github.io/2017/01/15/MICROSERVICES-ON-CC2.html)
+
 ## Micro services?
 
 Alors, cet article n'est pas un dossier sur les microservices, mais plutôt le journal de mes expérimentations avec les microservices.

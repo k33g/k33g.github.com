@@ -8,7 +8,7 @@ teaser: Comment développer des microservices avec @SenecaJS, un service discove
 
 # Microservices avec @SenecaJS chez @Clever_Cloud - PART II
 
-Cet article est la suite de la partie I: [http://k33g.github.io/2017/01/14/MICROSERVICES-ON-CC.html](http://k33g.github.io/2017/01/14/MICROSERVICES-ON-CC.html)
+👋 *Cet article est la suite de la partie I:* [http://k33g.github.io/2017/01/14/MICROSERVICES-ON-CC.html](http://k33g.github.io/2017/01/14/MICROSERVICES-ON-CC.html)
 
 ## Comment découvrir les services?
 
