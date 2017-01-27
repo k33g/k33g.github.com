@@ -3,7 +3,7 @@
 layout: post
 title: MonetJS - Identity Monad
 info : MonetJS - Identity Monad
-teaser: Je trouve Scala de plus en plus intéressant, et certains concepts fonctionnels me manque en JavaScript. J'ai donc essayé divers frameworks JavaScript dits "fonctionnel" et j'en ai enfin trouvé un que je trouve simple à assimiler et à utiliser: MonetJS. Donc, aujourd'hui nous parlon de Identity Monad
+teaser: Découverte de MonetJS avec Identity Monad
 ---
 
 # MonetJS - Identity Monad
