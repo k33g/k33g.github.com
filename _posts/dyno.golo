@@ -1,6 +1,7 @@
+# dyno
 module dyno
 
-struct dyno = { 
+struct dyno = {
   fields,
   methods
 }
@@ -16,7 +17,7 @@ augment dyno {
   function run = |this, name| {
     return this: fields(): get(name)
   }
-} 
+}
 
 function Dyno = {
   let d = dyno(map[], map[])
