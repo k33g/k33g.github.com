@@ -169,7 +169,7 @@ et sans "plantage" ❗️😊
 - avec `map` je peux appliquer une transformation à la valeur **M1** (sans la modifier)
 - et obtenir une nouvelle monade Maybe **M2**
 - sur laquelle je peux faire un `orSome`
-- ✌️ donc plus de plantage idiots dans une recherche dans une base de données, collections, ...
+- ✌️ donc plus de plantage idiot dans une recherche dans une base de données, collections, ...
 
 ## Un dernier pour la route 🍷
 
