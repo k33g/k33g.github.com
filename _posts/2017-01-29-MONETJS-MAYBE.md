@@ -182,7 +182,7 @@ Dans [monet.js]() la **Maybe** a une méthode `cata` qui va vous permettre de g�
 
 ⚠️ `right` est aussi un moyen mémotechnique: right comme juste, "c'est ok, tu as tout juste 👍".
 
-Maus avec un petit bout de code ce sera plus parlant, rappelez vous de notre `getUserById` qui nous retourne une **Maybe**:
+Mais avec un petit bout de code ce sera plus parlant, rappelez vous de notre `getUserById` qui nous retourne une **Maybe**:
 
 ```javascript
 console.log(
