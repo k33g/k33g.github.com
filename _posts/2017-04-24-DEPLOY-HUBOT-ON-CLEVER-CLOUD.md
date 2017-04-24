@@ -6,7 +6,7 @@ info : Vous avez moins d'une journée pour faire un ChatBot et le déployer sur 
 teaser: Un petit mode d'emploi pour déployer Hubot sur Clever-Cloud
 ---
 
-# Vous avez moin d'une journée pour faire un ChatBot et le déployer
+# Vous avez moins d'une journée pour faire un ChatBot et le déployer
 
 Challenge accepté?
 
