@@ -24,7 +24,9 @@ Lorsque vous avez un ensemble de microservices, c'est bien d'avoir un système q
 
 ### Vert.x Service Discovery
 
-Vert.x fournit tout un ensemble d'outil pour faire ça et se connecter à un service Consul, Zookeeper, ... Mais Vert.x fournit aussi un **"Discovery Backend - Redis"** qui vous permet d'utiliser une base Redis comme annuaire de microservices (cf. [Discovery Backend with Redis](http://vertx.io/docs/vertx-service-discovery-backend-redis/groovy/))
+Vert.x fournit tout un ensemble d'outils pour faire ça et se connecter à un service Consul, Zookeeper, ... Mais Vert.x fournit aussi un **"Discovery Backend - Redis"** qui vous permet d'utiliser une base Redis comme annuaire de microservices (cf. [Discovery Backend with Redis](http://vertx.io/docs/vertx-service-discovery-backend-redis/groovy/)). C'est ce que je vais utiliser pour mon exemple.
+
+
 
 
 
