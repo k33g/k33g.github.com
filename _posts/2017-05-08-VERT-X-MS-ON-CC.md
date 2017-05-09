@@ -26,6 +26,55 @@ Lorsque vous avez un ensemble de microservices, c'est bien d'avoir un système q
 
 Vert.x fournit tout un ensemble d'outils pour faire ça et se connecter à un service Consul, Zookeeper, ... Mais Vert.x fournit aussi un **"Discovery Backend - Redis"** qui vous permet d'utiliser une base Redis comme annuaire de microservices (cf. [Discovery Backend with Redis](http://vertx.io/docs/vertx-service-discovery-backend-redis/groovy/)). C'est ce que je vais utiliser pour mon exemple.
 
+Donc pour résumer, je vais faire:
+
+- microservice qui se "déclare" au "Discovery Backend"
+- un "consumer" qui va aller interroger le "Discovery Backend" pour obtenir une référence au microservice et ensuite l'utiliser
+
+<img src="https://github.com/k33g/k33g.github.com/raw/master/images/ms01.png" height="60%" width="60%">
+
+## Création du microservice
+
+### Préparation 
+
+Tout d'abord nous allons créer un projet (que nous allons aussi publier sur GitHub)
+
+```shell
+mkdir calculator-vx-service
+cd calculator-vx-service
+mkdir -p src/{main,test}/{java,resources,scala}
+mkdir lib project target
+```
+
+Créez un fichier `build.sbt` à la racine du projet:
+
+```scala
+name := "calculator-vx-service"
+
+version := "1.0"
+
+scalaVersion := "2.12.2"
+
+libraryDependencies += "io.vertx" %% "vertx-web-scala" % "3.4.1"
+libraryDependencies += "io.vertx" %% "vertx-service-discovery-scala" % "3.4.1"
+libraryDependencies += "io.vertx" %% "vertx-service-discovery-backend-redis-scala" % "3.4.1"
+```
+
+Créez un fichier `project/build.properties`
+
+```
+sbt.version = 0.13.15
+```
+
+Ensuite créez un fichier `src/main/scala/Calculator.scala`:
+
+```scala
+
+```
+
+
+
+
 
 
 
