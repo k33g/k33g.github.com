@@ -8,7 +8,7 @@ teaser: 1ers pas dans le monde des microservices avec Vert-x et Scala
 
 # Microservices avec Vert-x en Scala
 
-Je viens de passer 2 semaineé très "microservices":
+Je viens de passer 2 semaines très "microservices":
 
 J'ai enfin eu l'occasion de voir le talk de Quentin sur les microservices [https://twitter.com/alexandrejomin/status/860443891971088384](https://twitter.com/alexandrejomin/status/860443891971088384) lors de notre passage chez [@Xee_FR](https://twitter.com/Xee_FR) à Lille (vous pouvez aussi voir aussi ceci à Devoxx France [Problèmes rencontrés en microservice (Quentin Adam)](https://www.youtube.com/watch?v=mvKeCsxGZhE) et [Comment maintenir de la cohérence dans votre architecture microservices (Clément Delafargue)](https://www.youtube.com/watch?v=Daburx0jSvw)).
 
