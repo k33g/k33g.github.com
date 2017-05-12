@@ -20,7 +20,7 @@ Du coup, je n'ai plus le choix, il faut que je m'y mette sérieusement et que je
 
 ## Architecture de mon exemple
 
-⚠️ note: cette "architecture" est pensée pour être le plus simple possible à comprendre - cela ne signifie pas que ce soit ce qu'il faut utiliser en production - l'objectif est d'apprendre simplement. (je vais faire des microservices http) - je ne traiterais pas de des "Circuit Breakers", ou des "Health Checks and Failovers".
+> ⚠️ note: cette "architecture" est pensée pour être le plus simple possible à comprendre - cela ne signifie pas que ce soit ce qu'il faut utiliser en production - l'objectif est d'apprendre simplement. (je vais faire des microservices http) - je ne traiterais pas de des "Circuit Breakers", ou des "Health Checks and Failovers".
 
 Lorsque vous avez un ensemble de microservices, c'est bien d'avoir un système qui permetten de référencer ces microservices pour facilement les "trouver". Une application qui "consomme" un microservice doit avoir moyen de le référencer et l'utiliser sans pour autant connaître à l'avance son adresse (par ex: l'url du microservice). On parle de **"location transparency"** et de pattern **"service discovery"**. C'est à dire qu'un microservice, doit être capable d'expliquer lui-même comment on peut l'appeler et l'utiliser et ces informations sont stockées dans une **"Service Discovery Infrastructure"**.
 
