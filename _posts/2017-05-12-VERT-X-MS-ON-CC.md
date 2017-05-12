@@ -255,7 +255,7 @@ mkdir lib project target
 Créez un fichier `build.sbt` à la racine du projet:
 
 ```scala
-name := "calculator-vx-service"
+name := "calculator-vx-invoke"
 
 version := "1.0"
 
