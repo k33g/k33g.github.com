@@ -947,6 +947,10 @@ public class Hello extends AbstractVerticle {
 
 ```
 
+Et voilà c'est enfin terminé. Je vous l'accorde c'était un peu long, mais cela vous donne de la matière pour jouer avec les microservices et Vert-x. 
 
+N'hésitez pas à commenter ou poser des questions (et contribuer)
+
+🐼
 
 
