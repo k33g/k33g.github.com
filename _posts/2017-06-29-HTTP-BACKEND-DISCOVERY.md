@@ -717,10 +717,235 @@ Et côté du backend **Express** vous devriez voir apparaître ceci:
   type: 'http-endpoint' }
 ```
 
+Maintenant, codons une webapp qui va utiliser le backend pour trouver le microservice et enfin l'utiliser
+
+## Mise en oeuvre d'une WebApp
+
+Une fois de plus, j'ai créé un projet **Maven**.
+Vous trouverez l'ensemble du code source ici: https://github.com/botsgarden/call-simple-microservice
+
+### Avant toute chose ⚠️
+
+comme pour le microservice, pour utiliser votre nouveau `ServiceDiscoveryBackend`, dans votre projet vous devez ajouter:
+
+- un répertoire `src/main/resources/META-INF/sevices`
+- dans ce répertoire un ficier `io.vertx.servicediscovery.spi.ServiceDiscoveryBackend`
+- avec le contenu suivant: `org.typeunsafe.HttpBackendService` (votre implémentation de `ServiceDiscoveryBackend`)
+
+### Un fichier `pom.xml`
+
+Le fichier `pom.xml` est quasi identique au précédent (à part les noms d'artifcat et de classe)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.typeunsafe</groupId>
+  <artifactId>call-simple-microservice</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <vertx.version>3.4.2</vertx.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <main.verticle>org.typeunsafe.Hello</main.verticle>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <manifestEntries>
+                    <Main-Class>io.vertx.core.Launcher</Main-Class>
+                    <Main-Verticle>${main.verticle}</Main-Verticle>
+                  </manifestEntries>
+                </transformer>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/services/io.vertx.core.spi.VerticleFactory</resource>
+                </transformer>
+              </transformers>
+              <artifactSet>
+              </artifactSet>
+              <outputFile>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar
+              </outputFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-rx-java</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-client</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-service-discovery</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.typeunsafe</groupId>
+      <artifactId>vertx-service-discovery-backend-http</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+</project>
+
+```
+
+### WebApplication `Hello.java`
+
+Et donc le code de notre webapp sera le suivant:
+
+```java
+package org.typeunsafe;
+
+import io.vertx.rxjava.core.AbstractVerticle;
+import io.vertx.rxjava.core.http.HttpServer;
+import io.vertx.core.json.JsonObject;
+
+import io.vertx.rxjava.ext.web.Router;
+import io.vertx.rxjava.ext.web.handler.BodyHandler;
+
+import io.vertx.rxjava.servicediscovery.ServiceDiscovery;
+import io.vertx.servicediscovery.ServiceDiscoveryOptions;
+import io.vertx.rxjava.servicediscovery.ServiceReference;
+import io.vertx.rxjava.ext.web.client.WebClient;
 
 
+import java.util.Optional;
 
+public class Hello extends AbstractVerticle {
+```
+> Comme pour le microservice, j'ai besoin des informations pour accéder au backend
 
+```java
+  private ServiceDiscovery discovery;
+
+  private void setDiscovery() {
+    ServiceDiscoveryOptions serviceDiscoveryOptions = new ServiceDiscoveryOptions();
+
+    // how to access to the backend
+    Integer httpBackendPort = Integer.parseInt(Optional.ofNullable(System.getenv("HTTPBACKEND_PORT")).orElse("8080"));
+    String httpBackendHost = Optional.ofNullable(System.getenv("HTTPBACKEND_HOST")).orElse("127.0.0.1");
+    
+    // Mount the service discovery backend (my http backend)
+    discovery = ServiceDiscovery.create(
+      vertx,
+      serviceDiscoveryOptions.setBackendConfiguration(
+        new JsonObject()
+          .put("host", httpBackendHost)
+          .put("port", httpBackendPort)
+          .put("registerUri", "/register")
+          .put("removeUri", "/remove")
+          .put("updateUri", "/update")
+          .put("recordsUri", "/records")
+      ));
+  }
+
+  public void start() {
+    
+    setDiscovery();
+
+    Router router = Router.router(vertx);
+
+    Integer httpPort = Integer.parseInt(Optional.ofNullable(System.getenv("PORT")).orElse("9095"));
+    HttpServer server = vertx.createHttpServer();
+    router.route().handler(BodyHandler.create());
+
+    server
+      .requestHandler(router::accept)
+      .rxListen(httpPort)
+      .subscribe(
+        successfulHttpServer -> {
+          System.out.println("🌍 Listening on " + successfulHttpServer.actualPort());
+```
+> une fois mon serveur http démarré, je recherche mon microservice (que j'ai appelé **"hey"**): avec ce filtre `r -> r.getName().equals("hey")`
+>- si je le trouve, je crée un client web qui me permet d'appeler mon microservice
+>- et je crée une route pour la webapp qui déclenchera l'appel du microservice (`client.get("/api/ping").send(...)`)
+>- vous n'avez qu'à tester dans votre navigateur en appelant http://localhost:9095/call/ping et vous obtiendrez `{"message":"🏓 pong!"}
+`
+
+```java
+          discovery
+            .rxGetRecord(r -> r.getName().equals("hey"))
+            .subscribe(
+              successfulRecord -> {
+                ServiceReference reference = discovery.getReference(successfulRecord);
+                WebClient client = reference.getAs(WebClient.class);
+                
+                router.get("/call/ping").handler(context -> {
+                  client.get("/api/ping").send(resp -> {
+
+                    context.response()
+                      .putHeader("content-type", "application/json;charset=UTF-8")
+                      .end(
+                        resp.result().body()
+                      );
+
+                  });
+                });
+
+              },
+              failure -> {
+                System.out.println("😡 Unable to discover the services: " + failure.getMessage());
+              }
+            );
+        },
+        failure -> {
+          System.out.println("😡 Houston, we have a problem: " + failure.getMessage());
+        }
+      );
+  }
+
+}
+
+```
 
 
 
