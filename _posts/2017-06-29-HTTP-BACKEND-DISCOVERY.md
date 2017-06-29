@@ -291,14 +291,109 @@ Voilà, ce n'est pas plus compliqué que cela (ok, je fais le malin maintenant �
 
 ### 1ère utilisation de `HttpBackendService`, écrivons un test
 
+Tout d'abord, il faut ajouter ceci au `pom.xml`:
+
+```xml
+<dependency>
+  <groupId>junit</groupId>
+  <artifactId>junit</artifactId>
+  <version>4.12</version>
+  <scope>test</scope>
+</dependency>
+
+<dependency>
+  <groupId>com.jayway.awaitility</groupId>
+  <artifactId>awaitility</artifactId>
+  <version>1.7.0</version>
+  <scope>test</scope>
+</dependency>
+```
+
+Puis codons une classe de test `HttpBackendServiceTest` largement inspirée de https://github.com/vert-x3/vertx-service-discovery/blob/master/vertx-service-discovery/src/test/java/io/vertx/servicediscovery/spi/ServiceDiscoveryBackendTest.java
 
 
 ```java
+package org.typeunsafe;
+
+import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
+import io.vertx.servicediscovery.types.HttpEndpoint;
+import io.vertx.servicediscovery.Record;
+import org.junit.Before;
+import org.junit.Test;
+import junit.framework.TestCase;
+import java.util.concurrent.atomic.AtomicReference;
+import static com.jayway.awaitility.Awaitility.await;
+
+public class HttpBackendServiceTest extends TestCase {
+  Vertx vertx;
+  HttpBackendService httpBackend;
+
+  @Before
+  public void setUp() {
+    vertx = Vertx.vertx();
+```
+> J'initialise mon nouveau `HttpBackendService` et lui passe les information nécessaires pour accéder au seveur Express
+
+```java
+    httpBackend = new HttpBackendService();
+    httpBackend.init(Vertx.vertx(), new JsonObject()
+      .put("host", "localhost")
+      .put("port", 8080)
+      .put("registerUri", "/register")
+      .put("removeUri", "/remove")
+      .put("updateUri", "/update")
+      .put("recordsUri", "/records"));
+  }
+```
+> Je crée un `Record` pour simuler l'enregistrement d'un microservice et enduite je m'enregistre dans le backend avec `httpBackend.store(record, handler)`. `await().until(() -> reference.get() != null);` me permet d'attendre le retour de ma requête pour enfin faire mon assertion.
+
+```java
+  @Test
+  public void testServiceInsertion() throws Exception {
+    // create the microservice record
+    Record record = HttpEndpoint.createRecord(
+      "000",
+      "127.0.0.1",
+      9090,
+      "/api"
+    );
+    AtomicReference<Record> reference = new AtomicReference<>();
+    httpBackend.store(record, res -> {
+      if(!res.succeeded()) {
+        res.cause().printStackTrace();
+      }
+      reference.set(res.result());
+    });    
+
+    await().until(() -> reference.get() != null);
+    System.out.println(reference.get().getName());
+    System.out.println(reference.get().getRegistration());
+    assertEquals("000", reference.get().getName());
+  }
+}
 
 ```
 
+⚠️ Avant de lancer un `mvn test`, n'oubliez pas de lancer le backend Express avec la commande `npm start` ou `node index.js`
+
+Donc normalement, si tout va bien vous devez avoir un backend et un ServiceDiscoveryBackend fonctionnels. Il est donc temps d'implémenter les microservices qui vont utiliser tout cela.
+
+### Publier votre nouvelle librairie
+
+Pour que votre librairie/jar soit utilisable et "reconnaissable" par **Maven**, vous avez besoin de la publier en local:
+
+```shell
+mvn install:install-file -Dfile=target/vertx-service-discovery-backend-http-1.0-SNAPSHOT.jar \
+-DgroupId=org.typeunsafe \
+-DartifactId=vertx-service-discovery-backend-http \
+-Dversion=1.0-SNAPSHOT  \
+-Dpackaging=jar
+```
+
+> je vous laisse adapter les noms au besoin
 
 
-
+## Mise en oeuvre d'un 1er microservice
 
 
