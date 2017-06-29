@@ -612,7 +612,7 @@ public class Hey extends AbstractVerticle {
   }
 
 ```
-> je définis la ou les routes de mom microservice
+> je définis la ou les routes de mon microservice
 
 ```java
   private Router defineRoutes(Router router) {
