@@ -53,7 +53,8 @@ app.put('/update/:registration', (req, res) => {
 app.delete('/remove/:registration', (req, res) => {
   let service = services.find(service => service.registration == req.params.registration)
   services.splice(services.indexOf(service), 1)
-  res.end()
+  res.status(202).end(req.params.registration)
+
 })
 
 // get all the services
@@ -230,7 +231,9 @@ public class HttpBackendService implements ServiceDiscoveryBackend {
     client.delete(this.httpBackendPort, this.httpBackendHost, this.removeUri + "/" + uuid)
       .send(ar -> {
         if (ar.succeeded()) {
-          resultHandler.handle(Future.succeededFuture());
+          resultHandler.handle(Future.succeededFuture(
+            new Record(new JsonObject().put("registration",uuid))
+          ));
         } else {
           resultHandler.handle(Future.failedFuture(ar.cause()));
         }
@@ -512,10 +515,168 @@ Nous sommes maintenant prêts à développer notre microservice
 ### Microservice `Hey.java`
 
 ```java
+package org.typeunsafe;
+
+import io.vertx.rxjava.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.rxjava.core.http.HttpServer;
+import io.vertx.core.json.JsonObject;
+
+import io.vertx.rxjava.ext.web.Router;
+import io.vertx.rxjava.ext.web.handler.StaticHandler;
+import io.vertx.rxjava.ext.web.handler.BodyHandler;
+
+import io.vertx.rxjava.servicediscovery.types.HttpEndpoint;
+import io.vertx.rxjava.servicediscovery.ServiceDiscovery;
+
+import io.vertx.servicediscovery.ServiceDiscoveryOptions;
+import io.vertx.servicediscovery.Record;
+
+import java.util.Optional;
+
+public class Hey extends AbstractVerticle {
+  
+  private ServiceDiscovery discovery;
+  private Record record;
+
+  private void setDiscovery() {
+    ServiceDiscoveryOptions serviceDiscoveryOptions = new ServiceDiscoveryOptions();
+
+    // how to access to the backend
+```
+> ici je donne les informations pour se connecter au backend **Express** et je crée une umstance de `ServiceDiscovery`
+
+```java
+    Integer httpBackendPort = Integer.parseInt(Optional.ofNullable(System.getenv("HTTPBACKEND_PORT")).orElse("8080"));
+    String httpBackendHost = Optional.ofNullable(System.getenv("HTTPBACKEND_HOST")).orElse("127.0.0.1");
+    
+    // Mount the service discovery backend (my http backend)
+    discovery = ServiceDiscovery.create(
+      vertx,
+      serviceDiscoveryOptions.setBackendConfiguration(
+        new JsonObject()
+          .put("host", httpBackendHost)
+          .put("port", httpBackendPort)
+          .put("registerUri", "/register")
+          .put("removeUri", "/remove")
+          .put("updateUri", "/update")
+          .put("recordsUri", "/records")
+      ));
+  }
+
+```
+> je définis les informations relatives à mon microservice
+
+```java
+  private void setRecord() {
+    // Settings to record the service
+    String serviceName = Optional.ofNullable(System.getenv("SERVICE_NAME")).orElse("hey");
+    String serviceHost = Optional.ofNullable(System.getenv("SERVICE_HOST")).orElse("localhost"); // domain name
+    Integer servicePort = Integer.parseInt(Optional.ofNullable(System.getenv("SERVICE_PORT")).orElse("9091")); 
+    String serviceRoot = Optional.ofNullable(System.getenv("SERVICE_ROOT")).orElse("/api");
+
+    // create the microservice record
+    record = HttpEndpoint.createRecord(
+      serviceName,
+      serviceHost,
+      servicePort,
+      serviceRoot
+    );
+    // add some meta data
+    record.setMetadata(new JsonObject()
+      .put("kind", "http")
+      .put("message", "Hello 🌍")
+      .put("uri", "/ping")
+    );
+
+  }
+```
+> la méthode `stop` du microservice permet de le désenregistrer du backend quand on arrête le microservice
+
+```java
+  public void stop(Future<Void> stopFuture) {
+    System.out.println("Unregistration process is started ("+record.getRegistration()+")...");
+
+    discovery
+      .rxUnpublish(record.getRegistration())
+      .subscribe(
+        successfulResult -> {
+          System.out.println("👋 bye bye " + record.getRegistration());
+          stopFuture.complete();
+        },
+        failure -> {
+          failure.getCause().printStackTrace();
+          System.out.println("😡 Unable to unpublish the microservice: " + failure.getMessage());
+        }
+      );
+  }
+
+```
+> je définis la ou les routes de mom microservice
+
+```java
+  private Router defineRoutes(Router router) {
+    
+    router.route().handler(BodyHandler.create());
+
+    router.get("/api/ping").handler(context -> {
+      context.response()
+        .putHeader("content-type", "application/json;charset=UTF-8")
+        .end(
+          new JsonObject().put("message", "🏓 pong!").toString()
+        );
+    });
+
+    // serve static assets, see /resources/webroot directory
+    router.route("/*").handler(StaticHandler.create());
+
+    return router;
+  }
+
+  public void start() {
+
+    setDiscovery();
+    setRecord();
+
+    /* === Define routes and start the server === */
+    Router router = Router.router(vertx);
+    defineRoutes(router);
+    Integer httpPort = record.getLocation().getInteger("port");
+    // if you use container or VM the httpPort and the servicePort could be different
+    HttpServer server = vertx.createHttpServer();
+
+    server
+      .requestHandler(router::accept)
+      .rxListen(httpPort)
+      .subscribe(
+        successfulHttpServer -> {
+          System.out.println("🌍 Listening on " + successfulHttpServer.actualPort());
+          /* === publish the microservice to the discovery backend === */
+```
+> une fois mon microservice démarré, je le publie sur le backend
+
+```java          
+          discovery
+            .rxPublish(record)
+            .subscribe(
+              succesfulRecord -> {
+                System.out.println("😃 Microservice is published! " + succesfulRecord.getRegistration());
+              },
+              failure -> {
+                System.out.println("😡 Not able to publish the microservice: " + failure.getMessage());
+              }
+            );
+        },
+        failure -> {
+          System.out.println("😡 Houston, we have a problem: " + failure.getMessage());
+        }
+      );
+  }
+}
 
 ```
 
-Maintenant vous pouvez lancer votre microservice:
+Maintenant vous pouvez builder puis lancer votre microservice:
 
 ```shell
 java  -jar target/simple-microservice-1.0-SNAPSHOT-fat.jar
