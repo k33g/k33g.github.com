@@ -79,7 +79,7 @@ console.log("🌍 Discovery Server is started - listening on ", port)
 
 Maintenant que nous avons un backend qui tourne, il faut implémenter la classe qui va nous permettre d'interagir avec ce backend.
 
-Pour cela, j'ai créer un projet Maven (dont vous trouverez le code complet ici: https://github.com/botsgarden/vertx-service-discovery-backend-http)
+Pour cela, j'ai créer un projet **Maven** (dont vous trouverez le code complet ici: https://github.com/botsgarden/vertx-service-discovery-backend-http)
 
 ### mon fichier pom.xml
 
@@ -377,7 +377,7 @@ public class HttpBackendServiceTest extends TestCase {
 
 ⚠️ Avant de lancer un `mvn test`, n'oubliez pas de lancer le backend Express avec la commande `npm start` ou `node index.js`
 
-Donc normalement, si tout va bien vous devez avoir un backend et un ServiceDiscoveryBackend fonctionnels. Il est donc temps d'implémenter les microservices qui vont utiliser tout cela.
+Donc normalement, si tout va bien vous devez avoir un backend et un `ServiceDiscoveryBackend` fonctionnels. Il est donc temps d'implémenter les microservices qui vont utiliser tout cela.
 
 ### Publier votre nouvelle librairie
 
@@ -393,7 +393,131 @@ mvn install:install-file -Dfile=target/vertx-service-discovery-backend-http-1.0-
 
 > je vous laisse adapter les noms au besoin
 
+Il est temps de développer un microservice qui va aller s'enregistrer dans notre nouveau backend
 
 ## Mise en oeuvre d'un 1er microservice
+
+Nous allons faire un microservice "réactif" car c'est plus joli 😉. Je vais à nouveau créer un projet **Maven** (vous trouverez le code complet par ici: https://github.com/botsgarden/simple-microservice)
+
+### Avant toute chose ⚠️
+
+Pour que votre microservice sache utiliser votre nouveau `ServiceDiscoveryBackend`, dans votre projet vous devez ajouter:
+
+- un répertoire `src/main/resources/META-INF/sevices`
+- dans ce répertoire un ficier `io.vertx.servicediscovery.spi.ServiceDiscoveryBackend`
+- avec le contenu suivant: `org.typeunsafe.HttpBackendService` (votre implémentation de `ServiceDiscoveryBackend`)
+
+### Un fichier `pom.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.typeunsafe</groupId>
+  <artifactId>simple-microservice</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <vertx.version>3.4.2</vertx.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <main.verticle>org.typeunsafe.Hey</main.verticle>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <manifestEntries>
+                    <Main-Class>io.vertx.core.Launcher</Main-Class>
+                    <Main-Verticle>${main.verticle}</Main-Verticle>
+                  </manifestEntries>
+                </transformer>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/services/io.vertx.core.spi.VerticleFactory</resource>
+                </transformer>
+              </transformers>
+              <artifactSet>
+              </artifactSet>
+              <outputFile>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar
+              </outputFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-client</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-service-discovery</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+```
+> ici nous avons la référence à notre nouvelle librairie de discovery
+
+```xml
+    <dependency>
+      <groupId>org.typeunsafe</groupId>
+      <artifactId>vertx-service-discovery-backend-http</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+</project>
+```
+
+```java
+
+```
+
+
+
+
+
+
+
+
+
 
 
