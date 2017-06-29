@@ -8,7 +8,7 @@ teaser: le mode d'emploi complet pour implémenter ServiceDiscoveryBackend
 
 # Développer son propre Service Discovery Backend pour Vert.x avec Node et Express
 
-Par défaut, le mode de recherche de services de Vert.x utilise une structure de données distribuée (http://vertx.io/docs/vertx-service-discovery/java/#_backend). Vert.x propose d'autres moyens de "découverte de services", et notamment un backend s'appuyant sur **Redis** (http://vertx.io/docs/vertx-service-discovery/java/#_redis_backend) que j'utilise habituellement.
+Par défaut, le mode de recherche de services de Vert.x utilise une structure de données distribuée (http://vertx.io/docs/vertx-service-discovery/java/#_backend). Vert.x propose d'autres moyens de "découverte de services", et notamment un backend s'appuyant sur **Redis** [http://vertx.io/docs/vertx-service-discovery/java/#_redis_backend](http://vertx.io/docs/vertx-service-discovery/java/#_redis_backend) que j'utilise habituellement.
 
 La documentation de Vert.x explique qu'il est possible d'implémenter son propre `ServiceDiscoveryBackend SPI` (SPI pour Service Provider Interface). J'ai donc décidé comme exercice de faire mon propre backend de discovery pour les microservices Vert-x. C'est très formateur, et je remercie au passage [Clément Escoffier](https://twitter.com/clementplop) et [Julien Viet](https://twitter.com/julienviet) qui ont eu la patience de répondre à mes questions.
 
@@ -74,13 +74,13 @@ app.listen(port)
 console.log("🌍 Discovery Server is started - listening on ", port)
 ```
 
-> vous trouverez le code complet du backend ici: https://github.com/botsgarden/ms-http-backend
+> vous trouverez le code complet du backend ici: [https://github.com/botsgarden/ms-http-backend](https://github.com/botsgarden/ms-http-backend)
 
 ## Implémenter ServiceDiscoveryBackend
 
 Maintenant que nous avons un backend qui tourne, il faut implémenter la classe qui va nous permettre d'interagir avec ce backend.
 
-Pour cela, j'ai créer un projet **Maven** (dont vous trouverez le code complet ici: https://github.com/botsgarden/vertx-service-discovery-backend-http)
+Pour cela, j'ai créer un projet **Maven** (dont vous trouverez le code complet ici: [https://github.com/botsgarden/vertx-service-discovery-backend-http](https://github.com/botsgarden/vertx-service-discovery-backend-http))
 
 ### mon fichier pom.xml
 
@@ -312,7 +312,7 @@ Tout d'abord, il faut ajouter ceci au `pom.xml`:
 </dependency>
 ```
 
-Puis codons une classe de test `HttpBackendServiceTest` largement inspirée de https://github.com/vert-x3/vertx-service-discovery/blob/master/vertx-service-discovery/src/test/java/io/vertx/servicediscovery/spi/ServiceDiscoveryBackendTest.java
+Puis codons une classe de test `HttpBackendServiceTest` largement inspirée de [https://github.com/vert-x3/vertx-service-discovery/blob/master/vertx-service-discovery/src/test/java/io/vertx/servicediscovery/spi/ServiceDiscoveryBackendTest.java](https://github.com/vert-x3/vertx-service-discovery/blob/master/vertx-service-discovery/src/test/java/io/vertx/servicediscovery/spi/ServiceDiscoveryBackendTest.java)
 
 
 ```java
@@ -400,7 +400,7 @@ Il est temps de développer un microservice qui va aller s'enregistrer dans notr
 
 ## Mise en oeuvre d'un 1er microservice
 
-Nous allons faire un microservice "réactif" car c'est plus joli 😉. Je vais à nouveau créer un projet **Maven** (vous trouverez le code complet par ici: https://github.com/botsgarden/simple-microservice)
+Nous allons faire un microservice "réactif" car c'est plus joli 😉. Je vais à nouveau créer un projet **Maven** (vous trouverez le code complet par ici: [https://github.com/botsgarden/simple-microservice](https://github.com/botsgarden/simple-microservice))
 
 ### Avant toute chose ⚠️
 
@@ -722,7 +722,7 @@ Maintenant, codons une webapp qui va utiliser le backend pour trouver le microse
 ## Mise en oeuvre d'une WebApp
 
 Une fois de plus, j'ai créé un projet **Maven**.
-Vous trouverez l'ensemble du code source ici: https://github.com/botsgarden/call-simple-microservice
+Vous trouverez l'ensemble du code source ici: [https://github.com/botsgarden/call-simple-microservice](https://github.com/botsgarden/call-simple-microservice)
 
 ### Avant toute chose ⚠️
 
@@ -908,7 +908,7 @@ public class Hello extends AbstractVerticle {
 > une fois mon serveur http démarré, je recherche mon microservice (que j'ai appelé **"hey"**): avec ce filtre `r -> r.getName().equals("hey")`
 >- si je le trouve, je crée un client web qui me permet d'appeler mon microservice
 >- et je crée une route pour la webapp qui déclenchera l'appel du microservice (`client.get("/api/ping").send(...)`)
->- vous n'avez qu'à tester dans votre navigateur en appelant http://localhost:9095/call/ping et vous obtiendrez `{"message":"🏓 pong!"}
+>- vous n'avez qu'à tester dans votre navigateur en appelant [http://localhost:9095/call/ping](http://localhost:9095/call/ping) et vous obtiendrez `{"message":"🏓 pong!"}
 `
 
 ```java
