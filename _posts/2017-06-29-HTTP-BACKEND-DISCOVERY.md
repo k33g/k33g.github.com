@@ -507,11 +507,54 @@ Pour que votre microservice sache utiliser votre nouveau `ServiceDiscoveryBacken
 </project>
 ```
 
+Nous sommes maintenant prêts à développer notre microservice
+
+### Microservice `Hey.java`
+
 ```java
 
 ```
 
+Maintenant vous pouvez lancer votre microservice:
 
+```shell
+java  -jar target/simple-microservice-1.0-SNAPSHOT-fat.jar
+```
+
+Si tout se passe bien, côté microservice, dans votre console vous devriez obtenir quelaue chose conmme ceci:
+
+```shell
+🤖 HttpBackendService initialized
+Jun 29, 2017 12:43:03 PM io.vertx.core.impl.BlockedThreadChecker
+WARNING: Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 2886 ms,
+time limit is 2000
+Jun 29, 2017 12:43:04 PM io.vertx.core.impl.BlockedThreadChecker
+WARNING: Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 3889 ms,
+time limit is 2000
+Jun 29, 2017 12:43:05 PM io.vertx.core.impl.BlockedThreadChecker
+WARNING: Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 4892 ms,
+time limit is 2000
+Jun 29, 2017 12:43:06 PM io.vertx.core.impl.launcher.commands.VertxIsolatedDeployer
+INFO: Succeeded in deploying verticle
+🌍 Listening on 9091
+😃 Microservice is published! a9165560-56f1-48be-a872-6954e244facc
+```
+
+Et côté du backend **Express** vous devriez voir apparaître ceci:
+
+```shell
+🐼 New service added { location:
+   { endpoint: 'http://localhost:9091/api',
+     host: 'localhost',
+     port: 9091,
+     root: '/api',
+     ssl: false },
+  metadata: { kind: 'http', message: 'Hello 🌍', uri: '/ping' },
+  name: 'hey',
+  registration: 'a9165560-56f1-48be-a872-6954e244facc',
+  status: 'UP',
+  type: 'http-endpoint' }
+```
 
 
 
